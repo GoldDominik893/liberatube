@@ -1,2 +1,11 @@
-# bad-youtube
-a youtube alternative built on php that uses Google's API to get videos
+<div align="center">
+  <h1>Bad YouTube</h1>
+</div>
+
+
+## Screenshots
+
+
+
+# Installation
+
