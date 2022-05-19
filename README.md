@@ -4,8 +4,8 @@
 
 
 ## Screenshots
+<img src="search_example.png" style="width:10;">
 
 
-
-# Installation
+## Installation
 
