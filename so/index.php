@@ -17,6 +17,6 @@ parse_str($url_components['query'], $params);
         </audio></center>
         <center> <h2> <?php echo $params['t']; ?> </h2> </center>
         <center> <h4> <?php echo $params['d']; ?> </h4> </center>
-        <title>Bad YouTube</title>
+        <title><?php echo $params['t']; ?> | Bad YouTube</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="/styles/player.css">
