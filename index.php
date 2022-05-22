@@ -1,4 +1,3 @@
-
 <?php
     define("MAX_RESULTS", 18);
     
