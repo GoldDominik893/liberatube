@@ -10,7 +10,7 @@ $url_components = parse_url($url);
 parse_str($url_components['query'], $params);
 ?>
 <h4><a href="..">< bad youtube</a> | <a href="../so/?w=<?php echo $params['w']; ?>&t=<?php echo $params['t']; ?>&d=<?php echo $params['d']; ?>">listen in audio only mode</a></h4><br>
-<center><video id="rr" style="max-width: 75%;" poster="https://yewtu.be/vi/<?php echo $params['w']; ?>/maxres.jpg" autoplay controls>
+<center><video style="max-width: 75%;" poster="https://yewtu.be/vi/<?php echo $params['w']; ?>/maxres.jpg" autoplay controls>
         <source src="https://yewtu.be/latest_version?id=<?php echo $params['w']; ?>&itag=22" type="video/mp4" label="hd720">
         <source src="https://invidio.xamh.de/latest_version?id=<?php echo $params['w']; ?>&itag=22" type="video/mp4" label="hd720">
         <source src="https://yewtu.be/latest_version?id=<?php echo $params['w']; ?>&itag=18" type="video/mp4" label="medium">
@@ -21,6 +21,6 @@ parse_str($url_components['query'], $params);
         </video></center>
         <center> <h2> <?php echo $params['t']; ?> </h2> </center>
         <center> <h4> <?php echo $params['d']; ?> </h4> </center>
-        <title>Bad YouTube</title>
+        <title><?php echo $params['t']; ?>Bad YouTube</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="/styles/player.css">
