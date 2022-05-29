@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="screenshots/BYT_BETA3_LOGO.png">
+  <img src="screenshots/BYT_BETA3_ICON.png">
 </div>
 A YouTube alternative like Invidious but in PHP and also uses Google's API meaning you need to provide you own API key.
 
