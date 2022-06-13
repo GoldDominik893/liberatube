@@ -1,8 +1,8 @@
 <div align="center">
   <img src="screenshots/BYT_BETA3_ICON.png">
 </div>
-A YouTube alternative like Invidious but in PHP and no JS Required and also uses Google's API meaning you need to provide you own API key.
-Relies a bit on invidious but i plan to change that in the future
+A YouTube alternative like Invidious but in PHP and no JS or MYSQL Required and also uses Google's YouTube v3 API meaning you need to provide you own API key.
+Relies a bit on Invidious but i plan to change that in the future
 
 ## Screenshots
 <img src="screenshots/search_example.png">
