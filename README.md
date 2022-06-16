@@ -10,7 +10,8 @@ Relies a bit on Invidious but i plan to change that in the future
 <img src="screenshots/audio_only_mode_example.png">
 
 ## Instances of Bad YouTube
-I myself host [two.epicfaucet.gq](https://two.epicfaucet.gq)<br>
+GoldDominik893 hosts [two.epicfaucet.gq](https://two.epicfaucet.gq)<br>
+GoldDominik893 hosts [two.epicfaucet.gq](https://two.epicfaucet.gq)<br>
 If you want to add your instance of Bad YouTube to this list please email [admin@epicsite.xyz](admin@epicsite.xyz)
 
 ## Installation
