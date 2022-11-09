@@ -1,0 +1,225 @@
+body {
+    font-family: Arial;
+    padding: 0px;
+    color: white;
+    background-color: #2a2a2a;
+}
+a {
+    color: #555;
+}
+a:hover {
+    color: ff4444;
+    text-decoration: none;
+}
+a:focus {
+    color: #f44;
+    text-decoration: none;
+}
+.awhite {
+    color: white;
+}
+.awhite:hover {
+    color: DodgerBlue;
+}
+.tenborder {
+    padding: 10px;
+}
+.sidebar {
+    background-color: #222222;
+    margin: 10px;
+    border-radius: 6px;
+}
+.sidebarbtn-selected {
+    background-color: #444444;
+}
+.sidebarbtn:hover {
+    background-color: #333333;
+}
+.awhitesidebar {
+    color: white;
+}
+.awhitesidebar:hover {
+    color: lightgray;
+}
+.sidebarbtn-selected:hover {
+    background-color: #555555;
+}
+/* Popup container - can be anything you want */
+.popup {
+position: relative;
+display: inline-block;
+cursor: pointer;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+visibility: hidden;
+background-color: #555;
+color: #fff;
+text-align: center;
+border-radius: 6px;
+padding: 8px 0;
+position: absolute;
+z-index: 1;
+bottom: 125%;
+left: 50%;
+margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+content: "";
+position: absolute;
+top: 100%;
+left: 50%;
+margin-left: -5px;
+border-width: 5px;
+border-style: solid;
+border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+visibility: visible;
+-webkit-animation: fadeIn 1s;
+animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+from {opacity: 0;} 
+to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+from {opacity: 0;}
+to {opacity:1 ;}
+}
+.awhite {
+    color: white;
+}
+.awhite:hover {
+    color: DodgerBlue;
+}
+.tenborder {
+    padding: 10px;
+}
+.sidebar {
+    background-color: #222222;
+    margin: 10px;
+    border-radius: 6px;
+}
+.sidebarbtn-selected {
+    background-color: #444444;
+}
+.sidebarbtn:hover {
+    background-color: #333333;
+}
+.awhitesidebar {
+    color: white;
+}
+.awhitesidebar:hover {
+    color: lightgray;
+}
+.sidebarbtn-selected:hover {
+    background-color: #555555;
+}
+.hr {
+margin: 3px;
+margin-right: 5px;
+margin-left: 5px;
+
+height: 1px;
+color: #888888;
+background-color: #888888;
+border: none;
+}
+::-webkit-scrollbar{width:8px; height: 8px;}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background: rgba(100,100,100,0.4); border-radius:5px;}
+::-webkit-scrollbar-thumb:hover{background: rgba(70,70,70,0.4);}
+
+
+#box {
+position: relative;
+top: 50%;
+-ms-transform: translateY(-50%);
+transform: translateY(-50%);
+text-align: center;
+margin: 0;
+justify-content: center;
+align-items: center;
+}
+#popUpBox{
+width: 100vw;
+height: 100vh;
+white-space: normal;
+overflow: auto;
+background: #999;
+box-shadow: 0 0 20px black;
+border-radius: 10px;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 9999;
+padding: 10px;
+text-align: center;
+display: none;
+backdrop-filter: blur(10px);
+background: rgba(10, 10, 10, 0.5);
+
+}
+.button {
+display: inline-block;
+padding: 10px 20px;
+text-align: center;
+text-decoration: none;
+background-color: rgba(20,20,20,0.2);
+color: white;
+border-radius: 6px;
+outline: none;
+transition: transform 0.2s;
+transition: 0.3s
+}
+.button:hover {
+cursor: pointer;
+color: #ff4444;
+background-color: rgba(30,30,30,0.2);
+text-decoration: none;
+transition: transform 0.2s;
+transition: 0.3s
+}
+
+a {
+    color: #555;
+}
+a:hover {
+    color: ff4444;
+    text-decoration: none;
+}
+a:focus {
+    color: #f44;
+    text-decoration: none;
+}
+.sidebarbtn {
+     color: white;
+     border-radius: 6px;
+     transition: transform 0.2s;
+     transition: 0.3s
+}
+.sidebarbtn:hover {
+     transition: transform 0.2s;
+     transition: 0.3s
+}
+.sidebarbtn:focus {
+     transition: transform 0.2s;
+     transition: 0.3s
+}
+video {
+    box-shadow: 0 0 40px rgb(0, 0, 0);
+}
