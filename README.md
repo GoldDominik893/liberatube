@@ -1,13 +1,19 @@
 <div align="center">
-  <img src="screenshots/BYT_BETA3_ICON.png" style="border-radius: 6px;">
+  <img src="screenshots/darkmodebytlogo.png" style="border-radius: 6px;"></img>
 </div>
-A YouTube alternative like Invidious but in PHP and no JS or MYSQL Required and also uses Google's YouTube v3 API meaning you need to provide you own API key.
-Relies a bit on Invidious but i plan to change that in the future
+A YouTube alternative like Invidious but in PHP but uses the YouTube API v3 to get search results from YouTube.
 
 ## Screenshots
-<img src="screenshots/search_example.png">
-<img src="screenshots/video_player_example.png">
-<img src="screenshots/audio_only_mode_example.png">
+#### Search page 
+<img src="screenshots/search-page.png"></img>
+#### Trending content page
+<img src="screenshots/trending-content-page.png"></img>
+#### Video player with blue theme
+<img src="screenshots/different-themes.png"></img>
+#### Ultra dark theme
+<img src="screenshots/ultra-dark-theme.png"></img>
+#### Audio player
+<img src="screenshots/audio-player.png"></img>
 
 ## Instances of Bad YouTube
 GoldDominik893 hosts [two.epicfaucet.gq](https://two.epicfaucet.gq)<br>
@@ -15,5 +21,8 @@ GoldDominik893 hosts [badyt.cf](https://badyt.cf)<br>
 If you want to add your instance of Bad YouTube to this list please email [admin@epicsite.xyz](admin@epicsite.xyz)
 
 ## Installation
-Download the zip from [here](https://github.com/GoldDominik893/bad-youtube/archive/refs/heads/main.zip) and extract. Edit index.php and put in you own API key where it says YOUR_API_KEY then you can just put it in the website docs of any hosting software or any web host that supports php.<br>
-You can get an API key from [here](https://console.cloud.google.com)
+Clone the git repository,
+```
+git clone https://github.com/GoldDominik893/bad-youtube.git
+```
+Then paste the contents into the htdocs of any website hosting software that supports PHP and MySQL then import the `database.sql` in the MySQL dashboard. After that edit config.php and put your credentials for your database and your desired admin account. You also need to have a YouTube API v3 you can get an API key from [here](https://console.cloud.google.com).
