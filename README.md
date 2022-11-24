@@ -1,6 +1,4 @@
-<div align="center">
-  <img src="screenshots/darkmodebytlogo.png" style="border-radius: 6px;"></img>
-</div>
+[bad-youtube-logo](/screenshots/)
 A YouTube alternative like Invidious but in PHP but uses the YouTube API v3 to get search results from YouTube.
 
 ## Screenshots
