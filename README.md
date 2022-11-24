@@ -1,4 +1,4 @@
-[bad-youtube-logo](/screenshots/)
+![bad-youtube-logo](/screenshots/darkmodebytlogo.png)
 A YouTube alternative like Invidious but in PHP but uses the YouTube API v3 to get search results from YouTube.
 
 ## Screenshots
