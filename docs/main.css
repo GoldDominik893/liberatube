@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@600&display=swap');
 body {
     background-color: rgba(20,20,20,1);
+    font-family: 'Signika Negative', sans-serif;
 }
 h1 {
-    font-family: 'Signika Negative', sans-serif;
+    
 }
 .grad {
     height: 30px;
