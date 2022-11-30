@@ -2,6 +2,7 @@
 body {
     background-color: rgba(20,20,20,1);
     font-family: 'Signika Negative', sans-serif;
+    color: white;
 }
 h1 {
     
@@ -10,4 +11,8 @@ h1 {
     height: 30px;
     background-color: grey;
     background-image: linear-gradient(to bottom right, red, purple);
+}
+a {
+    height: 30px;
+    border-radius: 4px;
 }
