@@ -5,7 +5,7 @@ body {
     color: white;
 }
 h1 {
-    
+    color: white;
 }
 .grad {
     height: 30px;
@@ -14,5 +14,6 @@ h1 {
 }
 a {
     height: 30px;
+    color: white;
     border-radius: 4px;
 }
