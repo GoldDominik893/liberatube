@@ -3,6 +3,9 @@ body {
     background-color: rgba(20,20,20,1);
     font-family: 'Signika Negative', sans-serif;
     color: white;
+    width: 90%;
+    max-width: 1200px;
+    text-align: center;
 }
 h1 {
     color: white;
