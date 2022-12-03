@@ -8,12 +8,12 @@ h1 {
     color: white;
 }
 .grad {
-    height: 30px;
+    height: 40px;
     background-color: grey;
     background-image: linear-gradient(to bottom right, red, purple);
 }
 a {
-    height: 30px;
+    height: 40px;
     color: white;
     border-radius: 4px;
     text-decoration: none;
@@ -26,4 +26,6 @@ b {
 }
 .title {
     font-size: 60px;
+    width: 100%;
+    max-width: 400px;
 }
