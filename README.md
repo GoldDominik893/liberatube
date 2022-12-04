@@ -19,16 +19,20 @@
 </div>
 
 ## Screenshots
-#### Search page 
-<img src="screenshots/search-page.png"></img>
-#### Trending content page
-<img src="screenshots/trending-content-page.png"></img>
-#### Video player with blue theme
-<img src="screenshots/different-themes.png"></img>
+
+
+| Search page                         | Trending content page               | Video player with blue theme                        |
+|-------------------------------------|-------------------------------------|---------------------------------------|
+| ![](screenshots/search-page.png)    | ![](screenshots/trending-content-page.png) | ![](screenshots/different-themes.png) |
+
+| Ultra dark theme                         | Audio player               | Video player with blue theme                        |
+|-------------------------------------|-------------------------------------|---------------------------------------|
+| ![](screenshots/ultra-dark-theme.png)    | ![](screenshots/audio-player.png) | ![](screenshots/different-themes.png) |
+
 #### Ultra dark theme
-<img src="screenshots/ultra-dark-theme.png"></img>
+<img src=""></img>
 #### Audio player
-<img src="screenshots/audio-player.png"></img>
+<img src=""></img>
 
 ## Instances of Bad YouTube
 GoldDominik893 hosts [two.epicfaucet.gq](https://two.epicfaucet.gq)<br>
