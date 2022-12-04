@@ -9,10 +9,10 @@
     <img alt="GitHub commits" src="https://img.shields.io/github/commit-activity/y/golddominik893/bad-youtube?color=red&label=commits">
   </a>
   <a href="https://github.com/iv-org/invidious/issues">
-    <img alt="GitHub issues" src="https://img.shields.io/github/issues/iv-org/invidious?color=important">
+    <img alt="GitHub issues" src="https://img.shields.io/github/issues/golddominik893/bad-youtube?color=important">
   </a>
   <a href="https://github.com/iv-org/invidious/pulls">
-    <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/iv-org/invidious?color=blueviolet">
+    <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/golddominik893/bad-youtube?color=blueviolet">
   </a>
 
 ## A YouTube alternative like Invidious but in PHP but uses the YouTube API v3 to get search results from YouTube.
