@@ -6,11 +6,11 @@ body {
     -webkit-text-size-adjust: 100%;
     display: grid;
     grid-template-areas:
-        " 1 1 "
-        " 2 2 "
-        " 3 3 "
-        " 4 4 "
-        " 5 5 ";
+        ". header header ."
+        ". main elements ."
+        ". alert alert ."
+        ". info sponsors ."
+        ". footer footer .";
     grid-template-columns: auto 600px 480px auto;
     grid-template-rows: 6em minmax(0, auto) minmax(0, auto) auto auto;
     min-height: 100vh;
@@ -24,12 +24,15 @@ h1 {
     height: 40px;
     background-color: grey;
     background-image: linear-gradient(to bottom right, red, purple);
+    width: fit-content;
 }
 a {
     height: 40px;
     color: white;
     border-radius: 4px;
     text-decoration: none;
+    grid-area: elements;
+    font-size: 35px;
 }
 .center {
     text-align: center;
@@ -37,8 +40,12 @@ a {
 b {
     font-weight: 1300;
 }
+.navbar {
+    grid-area: header;
+}
 .title {
     font-size: 60px;
     width: 100%;
-    max-width: 400px;
+    max-width: 520px;
+    grid-area: main;
 }
