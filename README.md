@@ -1,7 +1,6 @@
-<div style="align: center;">
+<div align="center">
 <img src="/screenshots/darkmodebytlogo.png">
-</div>
-
+<br>
 <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">
     <img alt="License: AGPLv3" src="https://shields.io/badge/License-MIT%20-blue.svg">
   </a>
@@ -14,6 +13,7 @@
   <a href="https://github.com/iv-org/invidious/pulls">
     <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/golddominik893/bad-youtube?color=blueviolet">
   </a>
+</div>
 
 ## A YouTube alternative like Invidious but in PHP but uses the YouTube API v3 to get search results from YouTube.
 
