@@ -1,6 +1,6 @@
 <div align="center">
 <img src="/screenshots/darkmodebytlogo.png">
-    <h1>Bad YouTube is a Privacy, Feature Rich alternative front end to YouTube.</h1>
+    <h1> Bad YouTube </h1>
 
 <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">
     <img alt="License: AGPLv3" src="https://shields.io/badge/License-MIT%20-blue.svg">
@@ -14,6 +14,8 @@
   <a href="https://github.com/iv-org/invidious/pulls">
     <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/golddominik893/bad-youtube?color=blueviolet">
   </a>
+  
+  <h3> A Privacy, Feature Rich alternative front end to YouTube. </h3>
 </div>
 
 ## Screenshots
