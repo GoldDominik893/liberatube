@@ -15,7 +15,7 @@
   </a>
 </div>
 
-## A YouTube alternative like Invidious but in PHP but uses the YouTube API v3 to get search results from YouTube.
+## Bad YouTube is a Privacy, Feature Rich alternative front end to YouTube.
 
 ## Screenshots
 #### Search page 
