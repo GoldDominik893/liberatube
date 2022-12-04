@@ -3,8 +3,19 @@ body {
     background-color: rgba(20,20,20,1);
     font-family: 'Signika Negative', sans-serif;
     color: white;
-    left: auto;
-    right: auto;
+    -webkit-text-size-adjust: 100%;
+    display: grid;
+    grid-template-areas:
+         ". header header ."
+        ". intro intro ."
+        ". alert alert ."
+        ". main sponsors ."
+        ". footer footer .";
+    grid-template-columns: auto 600px 480px auto;
+    grid-template-rows: 6em minmax(0, auto) minmax(0, auto) auto auto;
+    min-height: 100vh;
+    min-width: 100vw;
+    scroll-padding-top: 6em;
 }
 h1 {
     color: white;
