@@ -6,11 +6,11 @@ body {
     -webkit-text-size-adjust: 100%;
     display: grid;
     grid-template-areas:
-         ". header header ."
-        ". intro intro ."
-        ". alert alert ."
-        ". main sponsors ."
-        ". footer footer .";
+        " 1 1 "
+        " 2 2 "
+        " 3 3 "
+        " 4 4 "
+        " 5 5 ";
     grid-template-columns: auto 600px 480px auto;
     grid-template-rows: 6em minmax(0, auto) minmax(0, auto) auto auto;
     min-height: 100vh;
