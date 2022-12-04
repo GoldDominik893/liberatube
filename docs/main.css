@@ -8,7 +8,6 @@ body {
     grid-template-areas:
         ". header header ."
         ". main elements ."
-        ". alert alert ."
         ". info sponsors ."
         ". footer footer .";
     grid-template-columns: auto 600px 480px auto;
@@ -16,9 +15,17 @@ body {
     min-height: 100vh;
     min-width: 100vw;
     scroll-padding-top: 6em;
+    margin: 0px;
 }
 h1 {
     color: white;
+    margin: 8px;
+}
+.btn1 {
+    margin-top: 75px;
+}
+.btn2 {
+    margin-top: 145px;
 }
 .grad {
     height: 40px;
@@ -33,6 +40,7 @@ a {
     text-decoration: none;
     grid-area: elements;
     font-size: 35px;
+    margin-top: 75px
 }
 .center {
     text-align: center;
