@@ -19,6 +19,7 @@ body {
 }
 h1 {
     color: white;
+    margin: 8px;
 }
 .btn-1 {
     margin-top: 75px;
@@ -29,16 +30,20 @@ h1 {
 .grad {
     height: 40px;
     background-color: grey;
-    background-image: linear-gradient(to right, #fc6076, #fc6076, #ff9a44, #ef9d43, #e75516);
-    box-shadow: 0 4px 15px 0 rgba(252, 104, 110, 0.75);
+    background-image: linear-gradient(to right, #fd4a53, #fd596f, #ff9a44, #ef9d43, #e75516);
     width: fit-content;
 }
 .grad-2 {
     height: 40px;
     background-color: grey;
     background-image: linear-gradient(to right, #25aae1, #25aae1, #40e495, #30dd8a, #2bb673);
-    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
     width: fit-content;
+}
+.grad:hover {
+    box-shadow: 0 4px 15px 0 rgba(252, 104, 110, 0.75);
+}
+.grad-2 {
+    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
 }
 a {
     height: 40px;
