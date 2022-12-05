@@ -30,6 +30,7 @@ h1 {
     height: 40px;
     background-color: grey;
     background-image: linear-gradient(to bottom right, red, purple);
+    box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
     width: fit-content;
 }
 .grad-2 {
