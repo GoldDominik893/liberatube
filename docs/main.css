@@ -19,12 +19,11 @@ body {
 }
 h1 {
     color: white;
-    margin: 8px;
 }
-.btn1 {
+.btn-1 {
     margin-top: 75px;
 }
-.btn2 {
+.btn-2 {
     margin-top: 145px;
 }
 .grad {
@@ -40,7 +39,6 @@ a {
     text-decoration: none;
     grid-area: elements;
     font-size: 35px;
-    margin-top: 75px
 }
 .center {
     text-align: center;
