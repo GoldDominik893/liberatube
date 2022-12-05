@@ -28,6 +28,8 @@
 |-------------------------------------|-------------------------------------|---------------------------------------|
 | ![](screenshots/audio-player.png)    | ![](screenshots/trending-content-page.png) | ![](screenshots/different-themes.png) |
 
+## Features
+
 
 ## Instances of Bad YouTube
 GoldDominik893 hosts [two.epicfaucet.gq](https://two.epicfaucet.gq)<br>
