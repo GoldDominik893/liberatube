@@ -30,7 +30,14 @@
 
 ## Features
 
-- 
+- Lightweight
+- No ads
+- No tracking
+- Light/Dark/Blue/Ultra-dark themes
+- Audio-only mode (with background play on mobile)
+- Does not use official YouTube API's *(soon)*
+
+
 
 ## Instances of Bad YouTube
 GoldDominik893 hosts [two.epicfaucet.gq](https://two.epicfaucet.gq)<br>
