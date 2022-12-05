@@ -32,6 +32,12 @@ h1 {
     background-image: linear-gradient(to bottom right, red, purple);
     width: fit-content;
 }
+.grad-2 {
+    height: 40px;
+    background-color: grey;
+    background-image: linear-gradient(to right, lime, cyan);
+    width: fit-content;
+}
 a {
     height: 40px;
     color: white;
