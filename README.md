@@ -42,7 +42,7 @@
 ## Instances of Bad YouTube
 GoldDominik893 hosts [two.epicfaucet.gq](https://two.epicfaucet.gq)<br>
 GoldDominik893 hosts [badyt.cf](https://badyt.cf)<br>
-If you want to add your instance of Bad YouTube to this list please create an [issue]()
+If you want to add your instance of Bad YouTube to this list please create an [issue](https://github.com/GoldDominik893/bad-youtube/issues)
 
 ## Installation
 Clone the git repository,
