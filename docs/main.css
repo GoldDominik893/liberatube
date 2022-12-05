@@ -8,7 +8,7 @@ body {
     grid-template-areas:
         ". header header ."
         ". main elements ."
-        ". info sponsors ."
+        ". video video ."
         ". footer footer .";
     grid-template-columns: auto 600px 480px auto;
     grid-template-rows: 6em minmax(0, auto) minmax(0, auto) auto auto;
@@ -20,6 +20,9 @@ body {
 h1 {
     color: white;
     margin: 8px;
+}
+video {
+    grid-area: video;
 }
 .header-title {
     grid-area: header;
