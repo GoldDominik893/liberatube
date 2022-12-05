@@ -21,6 +21,9 @@ h1 {
     color: white;
     margin: 8px;
 }
+.header-title {
+    grid-area: header;
+}
 .btn-1 {
     margin-top: 75px;
 }
