@@ -23,6 +23,7 @@ h1 {
 }
 video {
     grid-area: video;
+    align-content: center;
 }
 .header-title {
     grid-area: header;
