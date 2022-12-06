@@ -35,32 +35,12 @@ video {
 }
 .grad {
     height: 40px;
-    background-color: grey;
-    background-image: linear-gradient(to right, #fd4a53, #fd596f, #ff9a44, #ef9d43, #e75516);
-    box-shadow: 0 4px 8px 0 rgba(252, 104, 110, 0.2);
     width: fit-content;
-    transition: box-shadow 0.3s;
 }
-.grad-2 {
-    height: 40px;
-    background-color: grey;
-    background-image: linear-gradient(to right, #25aae1, #25aae1, #40e495, #30dd8a, #2bb673);
-    box-shadow: 0 4px 8px 0 rgba(49, 196, 190, 0.2);
-    width: fit-content;
-    transition: box-shadow 0.3s;
-}
-.grad:hover {
-    box-shadow: 0 4px 15px 0 rgba(252, 104, 110, 0.75);
-    transition: box-shadow 0.3s;
-}
-.grad-2:hover {
-    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
-    transition: box-shadow 0.3s;
-}
+
 a {
     height: 40px;
     color: white;
-    border-radius: 4px;
     text-decoration: none;
     grid-area: elements;
     font-size: 35px;
