@@ -21,7 +21,7 @@ h1 {
     color: white;
     margin: 8px;
 }
-video {
+.video {
     grid-area: video;
     align-content: center;
 	max-width: -webkit-fill-available;
