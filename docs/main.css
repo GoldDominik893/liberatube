@@ -24,6 +24,7 @@ h1 {
 video {
     grid-area: video;
     align-content: center;
+	max-width: -webkit-fill-available;
 }
 .header-title {
     grid-area: header;
