@@ -82,7 +82,6 @@ b {
 }
 
 .underline {
-    transform: translate(-50%, -50%);
     transition: all .3s;
 }
 .underline:after {
