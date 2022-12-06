@@ -49,11 +49,6 @@ video {
     width: fit-content;
     transition: box-shadow 0.3s;
 }
-<<<<<<< HEAD
-
-
-
-=======
 .grad:hover {
     box-shadow: 0 4px 15px 0 rgba(252, 104, 110, 0.75);
     transition: box-shadow 0.3s;
@@ -62,7 +57,6 @@ video {
     box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
     transition: box-shadow 0.3s;
 }
->>>>>>> 76844fa151a54ba39e3e54a5e8b9f6668dd562c2
 a {
     height: 40px;
     color: white;
