@@ -81,10 +81,14 @@ b {
     grid-area: main;
 }
 
-.underline {
-    transition: all .3s;
-} 
 
+.underline {
+	font-size: 500%;
+	text-decoration: none;
+	background: linear-gradient(currentColor, currentColor) bottom / 0 .1em no-repeat;
+	transition: 1s background-size;
+    background-position: left bottom;
+}
 .underline:hover {
-    transition: all .3s;
+	background-size: 100% .1em;
 }
