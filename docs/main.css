@@ -18,12 +18,14 @@ body {
 }
 h1 {
     color: white;
-    margin: 8px;
 }
 .video {
     grid-area: video;
     align-content: center;
 	max-width: -webkit-fill-available;
+}
+video {
+    max-width: -webkit-fill-available;
 }
 .header-title {
     grid-area: header;
