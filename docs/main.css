@@ -83,3 +83,7 @@ b {
   'GRAD' 200,
   'opsz' 48
 }
+.video-js {
+    height: 610px;
+	width: 1280px;
+}
