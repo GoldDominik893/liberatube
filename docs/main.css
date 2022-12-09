@@ -66,7 +66,7 @@ b {
 
 .underline {
 	text-decoration: none;
-	background: linear-gradient(currentColor, currentColor) bottom / 0 .1em no-repeat;
+	background: linear-gradient(blue, currentColor) bottom / 0 .1em no-repeat;
 	transition: 1s background-size;
     background-position: left bottom;
 	transition: 1s all;
