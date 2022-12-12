@@ -1,6 +1,6 @@
-name: New instance
-description: New public instance proposal form
-title: "[New instance] <instance name>"
+name: Bug report
+description: Found a bug? Share it here.
+title: "[Bug] <>"
 assignees: 
   - GoldDominik893
 
