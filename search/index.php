@@ -1,32 +1,14 @@
 <?php
 session_start();
-    // Program to display URL of current page.
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
         $link = "https";
     else $link = "http";
-      
-    // Here append the common URL characters.
     $link .= "://";
-      
-    // Append the host(domain name, ip) to the URL.
     $link .= $_SERVER['HTTP_HOST'];
-      
-    // Append the requested resource location to the URL
     $link .= $_SERVER['REQUEST_URI'];
-// Initialize URL to the variable
 $url = $link;
-      
-// Use parse_url() function to parse the URL 
-// and return an associative array which
-// contains its various components
 $url_components = parse_url($url);
-  
-// Use parse_str() function to parse the
-// string passed via URL
 parse_str($url_components['query'], $params);
-      
-// Display result
-// echo $params['w'];
 include('../config.php');
 
 $keyword = $params['q'];
@@ -297,15 +279,15 @@ gtag("config", "ID");
     $loggedinuser = $_SESSION['logged_in_user'] ?? "";?> 
     <?php if($loggedinuser != "")
     {
-        echo '<a class="button awhite login-item" href="logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+        echo '<a class="button awhite login-item" href="../logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
     }
     else
     {
-        echo '<a class="button awhite login-item" href="login.php"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="../login.php"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
     }
     if($loggedinuser == 'GoldDominik893')
             {
-                echo '<a style="margin-left: 5px;" class="button awhite login-item" href="/admin"><span class="material-symbols-outlined login-item-icon">monitor_heart</span><h5 class="login-item-text">Admin Panel</h5></a>';
+                echo '<a style="margin-left: 5px;" class="button awhite login-item" href="../admin"><span class="material-symbols-outlined login-item-icon">monitor_heart</span><h5 class="login-item-text">Admin Panel</h5></a>';
             }
     ?>
     </div>
