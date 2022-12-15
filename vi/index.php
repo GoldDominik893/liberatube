@@ -75,7 +75,7 @@ $numrows = mysqli_num_rows($query);
   </div>
 </div>
  <?php
-                $InvApiUrl = 'https://invidious.dhusch.de/api/v1/videos/' . $params['w'] . '?fields=title,description,viewCount,subCountText,likeCount,author,authorId&pretty=1';
+                $InvApiUrl = $InvVIServer.'/api/v1/videos/' . $params['w'] . '?fields=title,description,viewCount,subCountText,likeCount,author,authorId&pretty=1';
 
                 $ch = curl_init();
 
@@ -195,7 +195,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/vi/?w=',$c
         <?php                        
               if (1 == 1)
               {
-                $InvApiUrl = 'https://invidious.dhusch.de/api/v1/comments/'.$params['w'].'?region=GB&hl=en';
+                $InvApiUrl = $InvCServer.'/api/v1/comments/'.$params['w'].'?region=GB&hl=en';
 
                 $ch = curl_init();
 
