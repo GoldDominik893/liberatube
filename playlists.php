@@ -143,8 +143,6 @@ session_start();
             }
             .sidebar {
                 background-color: #222222;
-                margin: 10px;
-                border-radius: 6px;
             }
             .sidebarbtn-selected {
                 background-color: #444444;
@@ -183,13 +181,6 @@ session_start();
         border-radius: 6px;
         outline: none;
       }
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
-}
             .login-item {
                 display: inline-block;
             }
@@ -217,16 +208,16 @@ gtag("js", new Date());
 gtag("config", "ID");
 </script>
 
-<div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left sidebar" style="width:190px;" id="mySidebar">
-  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">Close &times;</button>
-  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar">Home</a>
-  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar">Watch History</a>
-  <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected">Playlists</a>
-  <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar">Subscriptions</a>
-  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar">Settings</a>
+<div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
+  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span></a>
+  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span></a>
+  <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">list_alt</span></a>
+  <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span></a>
+  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span></a>
 </div>
 
-<div class="w3-main" style="margin-left:200px">
+<div class="w3-main" style="margin-left:55px">
 <div class="w3-tssseal">
   <button class="w3-button w3-darkgrey w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</button>
   <div class="w3-container">

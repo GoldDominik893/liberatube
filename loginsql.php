@@ -4,10 +4,7 @@ session_start();
 $usr = $_POST['name'];
 $pw = $_POST['pass'];
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "users";
+include('config.php');
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection

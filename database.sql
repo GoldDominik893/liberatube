@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2022 at 09:59 PM
+-- Generation Time: Nov 04, 2022 at 05:11 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.5
 
@@ -29,9 +29,4 @@ CREATE TABLE `login` (
   `theme` varchar(30) NOT NULL,
   `lang` varchar(30) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `login`
---
-
 COMMIT;

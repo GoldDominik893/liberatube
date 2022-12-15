@@ -219,7 +219,7 @@ function w3_close() {
        </div>
 
  
-<br><video src="https://files.epicsite.xyz/videos/iphoneringtonenew.mp4" controls style="width: 100%; max-width: 400px;"></video>
+<br><video src="https://files.epicsite.xyz/videos/wmpwinxp.mp4" autoplay controls style="width: 100%; max-width: 400px;"></video>
 
 <h3 style="width: 100%; max-width: 400px;"> Why is this video here? In developing it makes it easier to find this tab as i usually have loads of tabs open and on the tab there is a little sound icon so it makes it easier. </h3>
 

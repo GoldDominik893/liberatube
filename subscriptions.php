@@ -1,9 +1,14 @@
-<?php 
+<?php
 session_start();
 ?>
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Bad YouTube | Subscriptions</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
         <style>
 
@@ -100,13 +105,18 @@ session_start();
                 width: 270px;
             }
             a {
-                color: green;
+                color: #777;
+                transition: transform 0.2s;
             }
-            a:hover {
-                color: lime;
+            a:hover{
+    color:#ff4444;
+    text-decoration: none;
+    transition: transform 0.2s;
             }
             a:focus {
-                color: lime;
+               color:#ff4444;
+    text-decoration: none;
+    transition: transform 0.2s;
             }
             details {
               padding: 10px 20px;
@@ -114,7 +124,8 @@ session_start();
                 border: #333 1px solid;
                 color: #f0f0f0;
                 font-size: 0.9em;
-                width: 300px;
+                width: 100%;
+                max-width: 415px;
                 border-radius: 6px;
                 cursor:pointer;  
             }
@@ -132,8 +143,6 @@ session_start();
             }
             .sidebar {
                 background-color: #222222;
-                margin: 10px;
-                border-radius: 6px;
             }
             .sidebarbtn-selected {
                 background-color: #444444;
@@ -150,24 +159,85 @@ session_start();
             .sidebarbtn-selected:hover {
                 background-color: #555555;
             }
+            .topbar {
+                  width: 100%;
+            }
+            .topbarelements {
+                display: inline-block;
+            }
+            .topbarelements-right {
+                float: right;
+                margin-top: 15px;
+            }
+            .topbarelements-center {
+                float: left;
+            }
+            .button {
+        display: inline-block;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        background-color: rgba(20,20,20,0.2);
+        border-radius: 6px;
+        outline: none;
+      }
+            .login-item {
+                display: inline-block;
+            }
+            .login-item-icon {
+                float: left;
+                margin-right: 5px;
+                margin-top: 5px;
+            }
+            .login-item-icon, .login-item-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  list-style-type: none;
+}
         </style>
 
-<div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left sidebar" style="width:190px;" id="mySidebar">
-  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">Close &times;</button>
-  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar">Home</a>
-  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar">Watch History</a>
-  <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar">Playlists</a>
-  <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected">Subscriptions</a>
-  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar">Settings</a>
+    <body>
+
+    
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "ID");
+</script>
+
+<div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
+  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span></a>
+  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span></a>
+  <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span></a>
+  <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">subscriptions</span></a>
+  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span></a>
 </div>
 
-<div class="w3-main" style="margin-left:200px">
+<div class="w3-main" style="margin-left:55px">
 <div class="w3-tssseal">
   <button class="w3-button w3-darkgrey w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</button>
   <div class="w3-container">
-    <center><h1>Subscriptions</h1></center>
+    <div class="topbar">
+    <div class="topbarelements topbarelements-center">
+    <h1>Subscriptions</h1>
+    </div>
+    <div class="topbarelements topbarelements-right">
+    <h4> <?php echo $_SESSION['logged_in_user']; ?>
+    <?php if(isset($_SESSION['logged_in_user']))
+    {
+        echo '<a class="button awhite login-item" href="logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+    }
+    else
+    {
+        echo '<a class="button awhite login-item" href="login.php"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+    }
+    ?>
+    </div>
+    </div>
   </div>
-</div>
 <script>
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
@@ -178,12 +248,19 @@ function w3_close() {
 }
 </script>
 
+
 <?php
 
 if(isset($_SESSION['logged_in_user'])) {
-echo '<h4 style="text-align: center;">This is still in development.</h4>';
+echo '<center><h4>This is still in development.</h4></center>';
 } else {
-echo '<h4 style="text-align: center;">You are not logged in.</h4>';
+echo '<center><h4>You are not logged in.</h4></center>';
 }
 
 ?>
+    </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>

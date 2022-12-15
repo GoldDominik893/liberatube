@@ -19,10 +19,7 @@ $salt1 = getName($n);
 $salt2 = getName($n);
 $pw = hash('sha512', $salt1.$_POST['pass'].$salt2);
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "users";
+include('config.php');
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

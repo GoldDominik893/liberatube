@@ -5,19 +5,43 @@ include('config.php');
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-        
+<?php
+include('../config.php');
+$dbsenduser = $_SESSION['logged_in_user'];
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+if (isset($_SESSION['logged_in_user']))
+{
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
+$numrows = mysqli_num_rows($query);
+while ($row = mysqli_fetch_assoc($query))
+{
+    $themerow = $row['theme'];
+    $langrow = $row['lang'];
+}
+$row = mysqli_fetch_assoc($query);
+$numrows = mysqli_num_rows($query);
+}
+?>
 
-<div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left sidebar" style="width:190px;" id="mySidebar">
-  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">Close &times;</button>
-  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar">Home</a>
-  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar">Watch History</a>
-  <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar">Playlists</a>
-  <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar">Subscriptions</a>
-  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected">Settings</a>
+<div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
+  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span></a>
+  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span></a>
+  <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span></a>
+  <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span></a>
+  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">settings</span></a>
 </div>
 
-<div class="w3-main" style="margin-left:200px">
+<div class="w3-main" style="margin-left:55px">
 <div class="w3-tssseal">
   <button class="w3-button w3-darkgrey w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</button>
   <div class="w3-container">
@@ -41,6 +65,8 @@ echo '<div class="tenborder">
 <form action="" method="post">
   <label for="theme">Theme:</label>
   <select class="formsel" style="background-color: rgba(50,50,50,0.8); border-radius: 6px;" id="theme" name="theme" value="--Please Select--">
+  <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="'.$themerow.'">Selected: '.$themerow.'</option>
+  <option class="formsel" style="background-color: rgba(20,20,20,0.8);" disabled value="">----------</option>
     <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="dark">Dark</option>
     <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="blue">Blue</option>
     <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="ultra-dark">Ultra-Dark</option>
@@ -49,6 +75,8 @@ echo '<div class="tenborder">
   <br>
   <label for="lang">Language:</label>
   <select class="formsel" style="background-color: rgba(50,50,50,0.8); border-radius: 6px;" id="lang" name="lang" value="--Please Select--">
+  <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="'.$langrow.'">Selected: '.$langrow.'</option>
+  <option class="formsel" style="background-color: rgba(20,20,20,0.8);" disabled value="">----------</option>
     <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="en">English</option>
     <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="fr">Français</option>
     <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="es">Español</option>
@@ -251,8 +279,6 @@ echo '<style>';
             }
             .sidebar {
                 background-color: #222222;
-                margin: 10px;
-                border-radius: 6px;
             }
             .sidebarbtn-selected {
                 background-color: #444444;
@@ -396,8 +422,6 @@ echo '<style>';
             }
             .sidebar {
                 background-color: #212836;
-                margin: 10px;
-                border-radius: 6px;
             }
             .sidebarbtn-selected {
                 background-color: #323947;
@@ -541,8 +565,6 @@ echo '<style>';
             }
             .sidebar {
                 background-color: #020202;
-                margin: 10px;
-                border-radius: 6px;
             }
             .sidebarbtn-selected {
                 background-color: #050505;
@@ -686,8 +708,6 @@ echo '<style>';
             }
             .sidebar {
                 background-color: #ffffff;
-                margin: 10px;
-                border-radius: 6px;
             }
             .sidebarbtn-selected {
                 background-color: #eeeeee;
@@ -833,8 +853,6 @@ echo '<style>';
             }
             .sidebar {
                 background-color: #222222;
-                margin: 10px;
-                border-radius: 6px;
             }
             .sidebarbtn-selected {
                 background-color: #444444;
