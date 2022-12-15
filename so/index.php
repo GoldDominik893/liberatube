@@ -36,7 +36,7 @@ parse_str($url_components['query'], $params);
   </div>
 </div>
  <?php
-                $InvApiUrl = 'https://invidious.nerdvpn.de/api/v1/videos/' . $params['w'] . '?fields=title,description,viewCount,likeCount,author,authorId&pretty=1';
+                $InvApiUrl = 'https://invidious.dhusch.de/api/v1/videos/' . $params['w'] . '?fields=title,description,viewCount,likeCount,author,authorId&pretty=1';
 
                 $ch = curl_init();
 
