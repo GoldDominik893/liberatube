@@ -1,4 +1,6 @@
 <?php
+    include('../config.php');
+    header('Content-Type: video/mp4');
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
         $link = "https";
     else $link = "http";
@@ -8,6 +10,13 @@
 $url = $link;
 $url_components = parse_url($url);
 parse_str($url_components['query'], $params);
-header('Location: https://invidio.xamh.de/latest_version?id=' . $params['id'] . '&itag=22');
+if ($params['dl'] == "true") {
+    $url = $InvVDServer2."/latest_version?id=" . $params['id'] . "&itag=22";
+    readfile($url);
+    exit();
+}
+else {
+    header('Location: '.$InvVDServer2.'/latest_version?id=' . $params['id'] . '&itag=22');
+}
 exit;
 ?>
