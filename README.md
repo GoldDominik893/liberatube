@@ -50,3 +50,6 @@ Clone the git repository,
 git clone https://github.com/GoldDominik893/bad-youtube.git
 ```
 Then paste the contents into the htdocs of any website hosting software that supports PHP and MySQL then import the `database.sql` in the MySQL dashboard. After that edit config.php and put your credentials for your database and your desired admin account. You also need to have a YouTube API v3 you can get an API key from [here](https://console.cloud.google.com).
+
+### Updating Bad YouTube
+Replace the contents of your htdocs folder with the new one and just keep the `config.php` file.
