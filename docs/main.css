@@ -36,11 +36,13 @@ video {
 .btn-2 {
     margin-top: 145px;
 }
+.btn-3 {
+    margin-top: 215px;
+}
 .grad {
     height: 40px;
     width: fit-content;
 }
-
 a {
     height: 40px;
     color: white;
