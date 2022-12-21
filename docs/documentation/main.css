@@ -27,6 +27,21 @@ body {
 .article {
     grid-area: article;
 }
+.article2 {
+    grid-area: article2;
+}
+.article3 {
+    grid-area: article3;
+}
+.article4 {
+    grid-area: article4;
+}
+.article5 {
+    grid-area: article5;
+}
+.article6 {
+    grid-area: article6;
+}
 .button-top {
     color: white;
 }
