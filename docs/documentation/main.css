@@ -16,6 +16,15 @@ body {
     scroll-padding-top: 6em;
     margin: 0px;
 }
+.button-top {
+    text-align: right;
+}
+a:hover {
+    color: #ff4444;
+}
+a:focus {
+    color: #ff4444;
+}
 h1 {
     color: white;
 }
@@ -42,13 +51,6 @@ video {
 .grad {
     height: 40px;
     width: fit-content;
-}
-a {
-    height: 40px;
-    color: white;
-    text-decoration: none;
-    grid-area: elements;
-    font-size: 35px;
 }
 .center {
     text-align: center;
