@@ -9,6 +9,11 @@ body {
         ". header return ."
         ". main contents ."
         ". article article ."
+        ". article2 article2 ."
+        ". article3 article3 ."
+        ". article4 article4 ."
+        ". article5 article5 ."
+        ". article6 article6 ."
         ". footer footer .";
     grid-template-columns: auto 600px 480px auto;
     grid-template-rows: 6em minmax(0, auto) minmax(0, auto) auto auto;
