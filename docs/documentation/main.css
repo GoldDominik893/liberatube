@@ -62,7 +62,7 @@ b {
     grid-area: header;
 }
 .title {
-    font-size: 60px;
+    font-size: 40px;
     width: 100%;
     max-width: 520px;
     grid-area: main;
