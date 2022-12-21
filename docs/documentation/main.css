@@ -6,7 +6,7 @@ body {
     -webkit-text-size-adjust: 100%;
     display: grid;
     grid-template-areas:
-        ". header header ."
+        ". header return ."
         ". main contents ."
         ". article article ."
         ". footer footer .";
@@ -15,6 +15,12 @@ body {
     min-height: 100vh;
     scroll-padding-top: 6em;
     margin: 0px;
+}
+.return {
+    grid-area: return;
+}
+.article {
+    grid-area: article;
 }
 .button-top {
     color: white;
