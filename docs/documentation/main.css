@@ -7,7 +7,7 @@ body {
     display: grid;
     grid-template-areas:
         ". header header ."
-        ". main context ."
+        ". main contents ."
         ". article article ."
         ". footer footer .";
     grid-template-columns: auto 600px 480px auto;
@@ -88,4 +88,7 @@ b {
 .video-js {
     height: 610px;
 	width: 1280px;
+}
+.contents {
+    grid-area: contents;
 }
