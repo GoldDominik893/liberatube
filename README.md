@@ -41,7 +41,7 @@
 
 
 ## Instances of Bad YouTube
-GoldDominik893 hosts:
+GoldDominik893 hosts:<br>
 [two.epicfaucet.gq](https://two.epicfaucet.gq) (old ver, gonna expire, official)<br>
 [badyt.cf](https://badyt.cf) (old ver, gonna expire, official)<br>
 [badyt.lol](https://badyt.lol) (new ver, official)<br>
