@@ -35,6 +35,7 @@
 - No tracking
 - Light/Dark/Blue/Ultra-dark themes
 - Audio-only mode 
+- Uses the Return YouTube Dislike API to get an estimate of the number of dislikes
 - Does not use official YouTube API's *(soon)*
 - API *(soon)*
 
