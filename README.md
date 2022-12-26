@@ -41,8 +41,13 @@
 
 
 ## Instances of Bad YouTube
-GoldDominik893 hosts [two.epicfaucet.gq](https://two.epicfaucet.gq)<br>
-GoldDominik893 hosts [badyt.cf](https://badyt.cf)<br>
+GoldDominik893 hosts:
+[two.epicfaucet.gq](https://two.epicfaucet.gq) (old ver, gonna expire, official)<br>
+[badyt.cf](https://badyt.cf) (old ver, gonna expire, official)<br>
+[badyt.lol](https://badyt.lol) (new ver, official)<br>
+[badyt.epicsite.xyz](https://badyt.epicsite.xyz) (will use in the future, official)<br>
+[badytbeta.epicsite.xyz](https://badytbeta.epicsite.xyz) (beta, official)<br>
+
 If you want to add your instance of Bad YouTube to this list please create an [issue](https://github.com/GoldDominik893/bad-youtube/issues)
 
 ## Installation
