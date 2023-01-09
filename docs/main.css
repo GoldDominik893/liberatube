@@ -14,7 +14,8 @@ body {
     grid-template-rows: 6em minmax(0, auto) minmax(0, auto) auto auto;
     min-height: 100vh;
     scroll-padding-top: 6em;
-    margin: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 h1 {
     color: white;
