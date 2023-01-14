@@ -11,5 +11,8 @@ $url = $link;
 $url_components = parse_url($url);
 parse_str($url_components['query'], $params);
 $filename = $InvVDCAServer2.'/api/v1/captions/' . $params['id'] . '?label=English%20(auto-generated)';
-echo file_get_contents($filename);
+$content = file_get_contents($filename); 
+if (str_contains($content, 'captions')) { 
+    echo $content;
+}
 ?>
