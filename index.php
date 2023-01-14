@@ -59,22 +59,22 @@ while ($row = mysqli_fetch_assoc($query))
 $row = mysqli_fetch_assoc($query);
 $numrows = mysqli_num_rows($query);
 }
-              if(strcmp($themerow, 'dark') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/homedark.css">';
-            } elseif(strcmp($themerow, 'blue') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/homeblue.css">';
-            } elseif(strcmp($themerow, 'ultra-dark') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/.css">';
-            } elseif(strcmp($themerow, 'light') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerlight.css">';
-            } else 
-            {
-                echo '<link rel="stylesheet" href="../styles/playerdark.css">';
-            } 
+if(strcmp($themerow, 'dark') == 0)
+{
+    echo '<link rel="stylesheet" href="../styles/homedark.css">';
+} elseif(strcmp($themerow, 'blue') == 0)
+{
+    echo '<link rel="stylesheet" href="../styles/homeblue.css">';
+} elseif(strcmp($themerow, 'ultra-dark') == 0)
+{
+    echo '<link rel="stylesheet" href="../styles/homeultra-dark.css">';
+} elseif(strcmp($themerow, 'light') == 0)
+{
+    echo '<link rel="stylesheet" href="../styles/homelight.css">';
+} else 
+{
+    echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
+} 
                 ?>
     <body>
 
@@ -143,7 +143,6 @@ function w3_close() {
 <h4>Credits go to me, Dominic Wajda, and to GitHub<br>
 This website was optimised for mobile users and does not collect any user data apart from watch history when logged in.<br>
 [<a href="https://invidious.epicsite.xyz">Good YouTube</a>]<br>
-[<a href="https://invidious.lunar.icu">Good YouTube Backup</a>]<br>
 [<a href="https://github.com/GoldDominik893/bad-youtube/">Fork this site</a>]<br>
 [<a href="/todo.txt">todo list</a>]<br>
 [<a href="/privacy.html">Privacy Policy</a>]<br>
@@ -184,7 +183,7 @@ Want to suggest something? Send suggestions to <a href="mailto:suggestions@epics
               if (1 == 1)
               {
                 if (($params['region'] ?? "") == "") {
-                    $params['region'] = "GB";
+                    $params['region'] = $defaultRegion;
                 }
                 if ($params['region'] == "GB") {
                     $responsetren = "Trending Content For Great Britain";
@@ -195,7 +194,7 @@ Want to suggest something? Send suggestions to <a href="mailto:suggestions@epics
                 else {
                     $responsetren = "Trending Content For Country With Country Code '".$params['region']."'";
                 }
-                $InvApiUrl = $InvTServer.'/api/v1/trending?pretty=1&region='.$params['region'].'&hl=en';
+                $InvApiUrl = $InvTServer.'/api/v1/trending?pretty=1&region='.$params['region'].'&hl=en&type='.$params['type'];
 
                 $ch = curl_init();
 
@@ -212,6 +211,8 @@ Want to suggest something? Send suggestions to <a href="mailto:suggestions@epics
                 $value = json_decode(json_encode($data), true);
 
                 $rsults = substr_count($response,"descriptionHtml");
+
+                
             ?>
 
             <br>
@@ -220,6 +221,54 @@ Want to suggest something? Send suggestions to <a href="mailto:suggestions@epics
 <div style="text-align: center;">
 <h2><?php echo $responsetren; ?></h2>
             <?php
+            
+            if ($params['type'] == "General" or $params['type'] == "") 
+                {
+                echo '<div align="left" style="margin-top:-50px">
+                      > <a href="#">General</a><br>
+                      <a href="/?type=Music">Music</a><br>
+                      <a href="/?type=Gaming">Gaming</a><br>
+                      <a href="/?type=News">News</a><br>
+                      <a href="/?type=Movies">Movies</a><br>
+                      </div>'; }
+            elseif ($params['type'] == "Music") 
+                {
+                echo '<div align="left" style="margin-top:-50px">
+                      <a href="/?type=">General</a><br>
+                      > <a href="#">Music</a><br>
+                      <a href="/?type=Gaming">Gaming</a><br>
+                      <a href="/?type=News">News</a><br>
+                      <a href="/?type=Movies">Movies</a><br>
+                      </div>'; }
+            elseif ($params['type'] == "Gaming") 
+                {
+                echo '<div align="left" style="margin-top:-50px">
+                      <a href="/?type=">General</a><br>
+                      <a href="/?type=Music">Music</a><br>
+                      > <a href="#">Gaming</a><br>
+                      <a href="/?type=News">News</a><br>
+                      <a href="/?type=Movies">Movies</a><br>
+                      </div>'; }
+            
+            elseif ($params['type'] == "News") 
+                {
+                echo '<div align="left" style="margin-top:-50px">
+                      <a href="/?type=">General</a><br>
+                      <a href="/?type=Music">Music</a><br>
+                      <a href="/?type=Gaming">Gaming</a><br>
+                      > <a href="#">News</a><br>
+                      <a href="/?type=Movies">Movies</a><br>
+                      </div>'; }
+            elseif ($params['type'] == "Movies") 
+                {
+                echo '<div align="left" style="margin-top:-50px">
+                      <a href="/?type=">General</a><br>
+                      <a href="/?type=Music">Music</a><br>
+                      <a href="/?type=Gaming">Gaming</a><br>
+                      <a href="/?type=News">News</a><br>
+                      > <a href="#">Movies</a><br>
+                      </div>'; }
+
                 for ($i = 0; $i < $rsults; $i++) {
                     $videoId = $value[$i]['videoId'] ?? "";
                     $title = $value[$i]['title'] ?? "";
@@ -229,7 +278,7 @@ Want to suggest something? Send suggestions to <a href="mailto:suggestions@epics
                     ?>
 
 
-                    <a class="awhite" href="/vi/?w=<?php echo $videoId; ?>">
+                    <a class="awhite" href="/watch/?v=<?php echo $videoId; ?>">
                        <div class="video-tile w3-animate-left">
                         <div class="videoDiv">
                         <center>
@@ -237,8 +286,8 @@ Want to suggest something? Send suggestions to <a href="mailto:suggestions@epics
        </center>
                         </div>
                         <div class="videoInfo">
-                        <div class="videoTitle"><u>Channel: <?php echo $channel; ?><br>Shared: <?php echo $sharedat; ?></u><br><b><center><?php echo $title; ?></center></b></div>
-                        <div class="videoDesc"><center><?php echo $description; ?></center></div>
+                        <div class="videoTitle"><?php echo $channel; ?> | Shared <?php echo $sharedat; ?><br><b><center><?php echo $title; ?></center></b></div>
+                        
                         </div>
                         </div>
                         </a>
