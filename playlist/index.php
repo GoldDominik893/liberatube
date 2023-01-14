@@ -44,22 +44,22 @@ while ($row = mysqli_fetch_assoc($query))
 $row = mysqli_fetch_assoc($query);
 $numrows = mysqli_num_rows($query);
 }
-              if(strcmp($themerow, 'dark') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/homedark.css">';
-            } elseif(strcmp($themerow, 'blue') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/homeblue.css">';
-            } elseif(strcmp($themerow, 'ultra-dark') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/.css">';
-            } elseif(strcmp($themerow, 'light') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerlight.css">';
-            } else 
-            {
-                echo '<link rel="stylesheet" href="../styles/playerdark.css">';
-            } 
+if(strcmp($themerow, 'dark') == 0)
+{
+    echo '<link rel="stylesheet" href="../styles/homedark.css">';
+} elseif(strcmp($themerow, 'blue') == 0)
+{
+    echo '<link rel="stylesheet" href="../styles/homeblue.css">';
+} elseif(strcmp($themerow, 'ultra-dark') == 0)
+{
+    echo '<link rel="stylesheet" href="../styles/homeultra-dark.css">';
+} elseif(strcmp($themerow, 'light') == 0)
+{
+    echo '<link rel="stylesheet" href="../styles/homelight.css">';
+} else 
+{
+    echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
+} 
                 ?>
     <body>
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
@@ -109,28 +109,6 @@ function w3_close() {
 }
 </script>
 <div class="tenborder">
-
-<button style="text-align: left;" class="detailgreen w3-animate-left" onclick="location.href='https://discord.gg/z4cCk5c5Zj'">
-   Join the Discord server!
-</button><br><br>
-
-<details class="detailred w3-animate-left">
-<summary>Important News</summary>
-<h4>This website will be transferring to another domain <a href="//badyt.epicsite.xyz/">(subdomain of epicsite.xyz)</a>. This will happen within the the next 6 months when badyt.cf will expire.<br>
-</h4>
-</details><br>
-<details class="w3-animate-left">
-<summary>Links</summary>
-<h4>Credits go to me, Dominic Wajda, and to GitHub<br>
-This website was optimised for mobile users and does not collect any user data apart from watch history when logged in.<br>
-[<a href="https://invidious.epicsite.xyz">Good YouTube</a>]<br>
-[<a href="https://invidious.lunar.icu">Good YouTube Backup</a>]<br>
-[<a href="https://github.com/GoldDominik893/bad-youtube/">Fork this site</a>]<br>
-[<a href="/todo.txt">todo list</a>]<br>
-[<a href="/privacy.html">Privacy Policy</a>]<br>
-Want to suggest something? Send suggestions to <a href="mailto:suggestions@epicsite.xyz">suggestions@epicsite.xyz</a>!
-</h4>
-</details><br>
         
         <?php if(!empty($response)) { ?>
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
@@ -193,7 +171,7 @@ Want to suggest something? Send suggestions to <a href="mailto:suggestions@epics
                     ?>
 
 
-                    <a class="awhite" href="/vi/?w=<?php echo $videoId; ?>">
+                    <a class="awhite" href="/watch/?v=<?php echo $videoId; ?>">
                        <div class="video-tile w3-animate-left">
                         <div class="videoDiv">
                         <center>
@@ -217,7 +195,7 @@ Want to suggest something? Send suggestions to <a href="mailto:suggestions@epics
                         ?>
     
     
-                        <a class="awhite" href="/vi/?w=<?php echo $videoId; ?>">
+                        <a class="awhite" href="/watch/?v=<?php echo $videoId; ?>">
                            <div class="video-tile w3-animate-left">
                             <div class="videoDiv">
                             <center>
