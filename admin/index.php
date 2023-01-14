@@ -12,7 +12,6 @@ include('../config.php');
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
         <style>
-
             body {
                 font-family: Arial;
                 padding: 0px;
@@ -295,11 +294,39 @@ function getName($n) {
         $index = rand(0, strlen($characters) - 1);
         $randomString .= $characters[$index];
     }
- 
+    echo "randomstring: ";
     return $randomString;
+    echo "br";
 }
  
 echo getName($n);
+
+
+echo '<br><br>PHP_SELF: '.$_SERVER['PHP_SELF'].'<br>GATEWAY_INTERFACE: '.
+$_SERVER['GATEWAY_INTERFACE'].'<br>SERVER_ADDR: '.
+$_SERVER['SERVER_ADDR']	.'<br>SERVER_NAME: '.
+$_SERVER['SERVER_NAME'].'<br>SERVER_SOFTWARE: '.
+$_SERVER['SERVER_SOFTWARE']	.'<brSERVER_PROTOCOL: >'.
+$_SERVER['SERVER_PROTOCOL']	.'<brREQUEST_MOTHOD: >'.
+$_SERVER['REQUEST_METHOD'].'<brREQUEST_TIME: >'.
+$_SERVER['REQUEST_TIME'].'<brQUERY_STRING: >'.
+$_SERVER['QUERY_STRING'].'<brHTTP_ACCEPT: >'.
+$_SERVER['HTTP_ACCEPT']	.'<brHTTP_ACCEPT_CHARSET: >'.
+$_SERVER['HTTP_ACCEPT_CHARSET'].'<br>HTTP_HOST: '.
+$_SERVER['HTTP_HOST'].'<br>HTTP_REFERRER: '.
+$_SERVER['HTTP_REFERER'].'<br>HTTPS: '.
+$_SERVER['HTTPS'].'<br>REMOTE_ADDR: '.
+$_SERVER['REMOTE_ADDR']	.'<br>REMOTE_HOST: '.
+$_SERVER['REMOTE_HOST'].'<br>REMOTE_PORT: '.
+$_SERVER['REMOTE_PORT']	.'<br>SCRIPT_FILENAME: '.
+$_SERVER['SCRIPT_FILENAME']	.'<br>SERVER_ADMIN: '.
+$_SERVER['SERVER_ADMIN'].'<br>SERVER_PORT: '.
+$_SERVER['SERVER_PORT']	.'<br>SERVER_SIGNATURE: '.
+$_SERVER['SERVER_SIGNATURE'].'<br>PATH_TRANSLATED: '.
+$_SERVER['PATH_TRANSLATED']	.'<br>SCRIPT_NAME: '.
+$_SERVER['SCRIPT_NAME']	.'<br>SCRIPT_URI: '.
+$_SERVER['SCRIPT_URI'];
+
 
             }
             else 
