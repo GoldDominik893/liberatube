@@ -1,7 +1,0 @@
-3. Make it so it can open channel pages.
-4. Make it so it can open playlists from id's.
-6. In the video page have video suggestions.
-7. In the video page have youtube comments.
-9. Make a login page so that you have a watch history and can subscribe to channels.
-10. Make a query string to have the video start in specific spot using javascript.
-11. On the start page have video suggestions.
