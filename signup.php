@@ -214,7 +214,7 @@ function w3_close() {
 ?>
 
 <div class="search-form-container">
-            <form id="keywordForm" method="post" action="signupsql.php">
+            <form id="keywordForm" method="post" action="signupsql.php" formtarget="_blank">
                     <label for="name">Username</label>
                     <input required class="input-field" type="text" id="name" name="name"  placeholder="Username" value=""><br>
                     <label for="pass">Password</label>
