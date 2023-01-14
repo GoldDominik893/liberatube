@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('config.php');
+$nothing = ""
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -62,27 +63,74 @@ function w3_close() {
 if(isset($_SESSION['logged_in_user'])) {
 echo '<h4 style="text-align: center;">This is still in development.<br></h4>';
 echo '<div class="tenborder">
-<form action="" method="post">
+<form action="" method="post" formtarget="_blank">
   <label for="theme">Theme:</label>
-  <select class="formsel" style="background-color: rgba(50,50,50,0.8); border-radius: 6px;" id="theme" name="theme" value="--Please Select--">
-  <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="'.$themerow.'">Selected: '.$themerow.'</option>
-  <option class="formsel" style="background-color: rgba(20,20,20,0.8);" disabled value="">----------</option>
-    <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="dark">Dark</option>
-    <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="blue">Blue</option>
-    <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="ultra-dark">Ultra-Dark</option>
-    <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="light">Light</option>
+  <select class="formsel" style="border-radius: 6px;" id="theme" name="theme" value="--Please Select--">
+  <option class="formsel" value="'.$themerow.'">Selected: '.$themerow.'</option>
+  <option class="formsel" disabled value="">----------</option>
+    <option class="formsel" value="dark">Dark</option>
+    <option class="formsel" value="blue">Blue</option>
+    <option class="formsel" value="ultra-dark">Ultra-Dark</option>
+    <option class="formsel" value="light">Light</option>
   </select>
   <br>
-  <label for="lang">Language:</label>
-  <select class="formsel" style="background-color: rgba(50,50,50,0.8); border-radius: 6px;" id="lang" name="lang" value="--Please Select--">
-  <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="'.$langrow.'">Selected: '.$langrow.'</option>
-  <option class="formsel" style="background-color: rgba(20,20,20,0.8);" disabled value="">----------</option>
-    <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="en">English</option>
-    <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="fr">Français</option>
-    <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="es">Español</option>
-    <option class="formsel" style="background-color: rgba(20,20,20,0.8);" value="pl">Polski</option>
+  <label for="lang">Language: <i>(soon)</i></label>
+  <select class="formsel" style="border-radius: 6px;" id="lang" name="lang" value="--Please Select--">
+  <option class="formsel" value="'.$langrow.'">Selected: '.$langrow.'</option>
+  <option class="formsel" disabled value="">----------</option>
+    <option class="formsel" value="en">English</option>
+    <option class="formsel" value="fr">Français</option>
+    <option class="formsel" value="es">Español</option>
+    <option class="formsel" value="pl">Polski</option>
   </select>
-  <br><input class="formsel" style="background-color: rgba(50,50,50,0.8); border-radius: 6px;" value="Save" type="submit">
+  <br>
+  <label for="region">Region: <i>(soon)</i></label>
+  <select class="formsel" style="border-radius: 6px;" id="region" name="region" value="--Please Select--">
+  <option class="formsel" value="'.$nothing.'">Selected: '.$nothing.'</option>
+  <option class="formsel" disabled value="">----------</option>
+    <option class="formsel" value="GB">GB</option>
+    <option class="formsel" value="FR">FR</option>
+    <option class="formsel" value="US">US</option>
+    <option class="formsel" value="ES">ES</option>
+    <option class="formsel" value="PL">PL</option>
+    <option class="formsel" value="DE">DE</option>
+    <option class="formsel" value="KR">KR</option>
+    <option class="formsel" value="NO">NO</option>    
+    <option class="formsel" value="CA">CA</option>
+    <option class="formsel" value="UA">UA</option>
+    <option class="formsel" value="RU">RU</option>
+    <option class="formsel" value="SA">SA</option>
+    <option class="formsel" value="MT">MT</option>
+    <option class="formsel" value="JP">JP</option>
+    <option class="formsel" value="AD">AD</option>
+    <option class="formsel" value="DZ">DZ</option>
+    <option class="formsel" value="MX">MX</option>
+    <option class="formsel" value="MA">MA</option>
+    <option class="formsel" value="MC">MC</option>
+    <option class="formsel" value="NL">NL</option>
+    <option class="formsel" value="NZ">NZ</option>
+    <option class="formsel" value="AU">AU</option>
+    <option class="formsel" value="PT">PT</option>
+    <option class="formsel" value="QA">QA</option>
+    <option class="formsel" value="SG">SG</option>
+    <option class="formsel" value="TR">TR</option>
+    <option class="formsel" value="IN">IN</option>
+    <option class="formsel" value="ZA">ZA</option>
+    <option class="formsel" value="TN">TN</option>
+    <option class="formsel" value="DK">DK</option>
+    <option class="formsel" value="BR">BR</option>
+    <option class="formsel" value="CZ">CZ</option>
+    <option class="formsel" value="IE">IE</option>
+    <option class="formsel" value="IT">IT</option>
+    <option class="formsel" value="LV">LV</option>
+    <option class="formsel" value="RO">RO</option>
+    <option class="formsel" value="SK">SK</option>
+    <option class="formsel" value="SI">SI</option>
+  </select>
+  <br>
+  <label for="vidshadow">Video Shadow: <i>(Soon)</i></label>
+  <input type="checkbox" id="vidshadow" name="vidshadow" checked>
+  <br><input class="formsel" style="border-radius: 6px;" value="Save" type="submit">
 </form>
 </div>';
 } else {
@@ -119,758 +167,41 @@ $conn->close();
 ?>
 
 <?php
+include('../config.php');
 $dbsenduser = $_SESSION['logged_in_user'];
-
-
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-
 if (isset($_SESSION['logged_in_user']))
-
 {
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-
 $query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-
 $numrows = mysqli_num_rows($query);
 while ($row = mysqli_fetch_assoc($query))
 {
     $themerow = $row['theme'];
 }
-
 $row = mysqli_fetch_assoc($query);
 $numrows = mysqli_num_rows($query);
 }
-echo '<style>';
-
                 if(strcmp($themerow, 'dark') == 0)
             {
-                echo 'body {
-                font-family: Arial;
-                padding: 0px;
-                color: white;
-                background-color: #2a2a2a;
-            }
-            .search-form-container {
-                background: #3B3B3B;
-                border: #3B3B3B 1px solid;
-                padding: 20px;
-                border-radius: 6px;
-            }
-            .input-row {
-                margin-bottom: 20px;
-            }
-            .input-field {
-                width: 100%;
-                border-radius: 2px;
-                padding: 10px;
-                border: #515151 1px solid;
-                background: #515151;
-            }
-            .input-field:focus {
-                color: white;
-            }
-            .btn-submit {
-                padding: 10px 20px;
-                background: #333;
-                border: #333 1px solid;
-                color: #f0f0f0;
-                font-size: 0.9em;
-                width: 100px;
-                border-radius: 6px;
-                cursor:pointer;
-            }
-            .videos-data-container {
-                background: #3B3B3B;
-                border: #3B3B3B 1px solid;
-                padding: 10px;
-                border-radius: 6px;
-            }
-            .response {
-                padding: 10px;
-                margin-top: 10px;
-                border-radius: 2px;
-            }
-            .error {
-                 background: #331111;
-            }
-           .success {
-                background: #c5f3c3;
-                border: #bbe6ba 1px solid;
-            }
-            .result-heading {
-                margin: 30px 0px;
-                padding: 20px 10px 5px 0px;
-                border-bottom: #e0dfdf 1px solid;
-            }
-            iframe {
-                border: 0px;
-            }
-            .video-tile {
-                display: inline-block;
-                margin: 10px 10px 20px 10px;
-                border: #222222 2px solid;
-                border-radius: 8px;
-                background-color: #222222;
-                transition: transform 0.2s;
-            }
-            .video-tile:hover {
-                transform: scale(1.01);
-                transition: transform 0.2s;
-            }
-            .videoDiv {
-                width: 270px;
-                height: 160px;
-                display: inline-block;
-                padding-top: 6px;
-            }
-            .videoTitle {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: initial;
-            }
-            .videoDesc {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: initial;
-            }
-            .videoInfo {
-                width: 270px;
-            }
-            a {
-                color: green;
-            }
-            a:hover {
-                color: lime;
-            }
-            a:focus {
-                color: lime;
-            }
-            details {
-              padding: 10px 20px;
-                background: #335;
-                border: #333 1px solid;
-                color: #f0f0f0;
-                font-size: 0.9em;
-                width: 300px;
-                border-radius: 6px;
-                cursor:pointer;  
-            }
-            .search-inline {
-                display: inline-block;
-            }
-            .awhite {
-                color: white;
-            }
-            .awhite:hover {
-                color: DodgerBlue;
-            }
-            .tenborder {
-                padding: 10px;
-            }
-            .sidebar {
-                background-color: #222222;
-            }
-            .sidebarbtn-selected {
-                background-color: #444444;
-            }
-            .sidebarbtn:hover {
-                background-color: #333333;
-            }
-            .awhitesidebar {
-                color: white;
-            }
-            .awhitesidebar:hover {
-                color: lightgray;
-            }
-            .sidebarbtn-selected:hover {
-                background-color: #555555;
-            }';
+                echo '<link rel="stylesheet" href="../styles/playerdark.css">';
             } elseif(strcmp($themerow, 'blue') == 0)
             {
-                echo 'body {
-                font-family: Arial;
-                padding: 0px;
-                color: white;
-                background-color: #131b27;
-            }
-            .search-form-container {
-                background: #212836;
-                border: #212836 1px solid;
-                padding: 20px;
-                border-radius: 6px;
-            }
-            .input-row {
-                margin-bottom: 20px;
-            }
-            .input-field {
-                width: 100%;
-                border-radius: 2px;
-                padding: 10px;
-                border: #515151 1px solid;
-                background: #515151;
-            }
-            .input-field:focus {
-                color: white;
-            }
-            .btn-submit {
-                padding: 10px 20px;
-                background: #333;
-                border: #333 1px solid;
-                color: #f0f0f0;
-                font-size: 0.9em;
-                width: 100px;
-                border-radius: 6px;
-                cursor:pointer;
-            }
-            .videos-data-container {
-                background: #3B3B3B;
-                border: #3B3B3B 1px solid;
-                padding: 10px;
-                border-radius: 6px;
-            }
-            .response {
-                padding: 10px;
-                margin-top: 10px;
-                border-radius: 2px;
-            }
-            .error {
-                 background: #331111;
-            }
-           .success {
-                background: #c5f3c3;
-                border: #bbe6ba 1px solid;
-            }
-            .result-heading {
-                margin: 30px 0px;
-                padding: 20px 10px 5px 0px;
-                border-bottom: #e0dfdf 1px solid;
-            }
-            iframe {
-                border: 0px;
-            }
-            .video-tile {
-                display: inline-block;
-                margin: 10px 10px 20px 10px;
-                border: #222222 2px solid;
-                border-radius: 8px;
-                background-color: #222222;
-                transition: transform 0.2s;
-            }
-            .video-tile:hover {
-                transform: scale(1.01);
-                transition: transform 0.2s;
-            }
-            .videoDiv {
-                width: 270px;
-                height: 160px;
-                display: inline-block;
-                padding-top: 6px;
-            }
-            .videoTitle {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: initial;
-            }
-            .videoDesc {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: initial;
-            }
-            .videoInfo {
-                width: 270px;
-            }
-            a {
-                color: green;
-            }
-            a:hover {
-                color: lime;
-            }
-            a:focus {
-                color: lime;
-            }
-            details {
-              padding: 10px 20px;
-                background: #335;
-                border: #333 1px solid;
-                color: #f0f0f0;
-                font-size: 0.9em;
-                width: 300px;
-                border-radius: 6px;
-                cursor:pointer;  
-            }
-            .search-inline {
-                display: inline-block;
-            }
-            .awhite {
-                color: white;
-            }
-            .awhite:hover {
-                color: DodgerBlue;
-            }
-            .tenborder {
-                padding: 10px;
-            }
-            .sidebar {
-                background-color: #212836;
-            }
-            .sidebarbtn-selected {
-                background-color: #323947;
-            }
-            .sidebarbtn:hover {
-                background-color: #344052;
-            }
-            .awhitesidebar {
-                color: white;
-            }
-            .awhitesidebar:hover {
-                color: lightgray;
-            }
-            .sidebarbtn-selected:hover {
-                background-color: #334158;
-            }';
+                echo '<link rel="stylesheet" href="../styles/playerblue.css">';
             } elseif(strcmp($themerow, 'ultra-dark') == 0)
             {
-                echo 'body {
-                font-family: Arial;
-                padding: 0px;
-                color: white;
-                background-color: #000000;
-            }
-            .search-form-container {
-                background: #3B3B3B;
-                border: #3B3B3B 1px solid;
-                padding: 20px;
-                border-radius: 6px;
-            }
-            .input-row {
-                margin-bottom: 20px;
-            }
-            .input-field {
-                width: 100%;
-                border-radius: 2px;
-                padding: 10px;
-                border: #515151 1px solid;
-                background: #515151;
-            }
-            .input-field:focus {
-                color: white;
-            }
-            .btn-submit {
-                padding: 10px 20px;
-                background: #333;
-                border: #333 1px solid;
-                color: #f0f0f0;
-                font-size: 0.9em;
-                width: 100px;
-                border-radius: 6px;
-                cursor:pointer;
-            }
-            .videos-data-container {
-                background: #3B3B3B;
-                border: #3B3B3B 1px solid;
-                padding: 10px;
-                border-radius: 6px;
-            }
-            .response {
-                padding: 10px;
-                margin-top: 10px;
-                border-radius: 2px;
-            }
-            .error {
-                 background: #331111;
-            }
-           .success {
-                background: #c5f3c3;
-                border: #bbe6ba 1px solid;
-            }
-            .result-heading {
-                margin: 30px 0px;
-                padding: 20px 10px 5px 0px;
-                border-bottom: #e0dfdf 1px solid;
-            }
-            iframe {
-                border: 0px;
-            }
-            .video-tile {
-                display: inline-block;
-                margin: 10px 10px 20px 10px;
-                border: #222222 2px solid;
-                border-radius: 8px;
-                background-color: #222222;
-                transition: transform 0.2s;
-            }
-            .video-tile:hover {
-                transform: scale(1.01);
-                transition: transform 0.2s;
-            }
-            .videoDiv {
-                width: 270px;
-                height: 160px;
-                display: inline-block;
-                padding-top: 6px;
-            }
-            .videoTitle {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: initial;
-            }
-            .videoDesc {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: initial;
-            }
-            .videoInfo {
-                width: 270px;
-            }
-            a {
-                color: green;
-            }
-            a:hover {
-                color: lime;
-            }
-            a:focus {
-                color: lime;
-            }
-            details {
-              padding: 10px 20px;
-                background: #335;
-                border: #333 1px solid;
-                color: #f0f0f0;
-                font-size: 0.9em;
-                width: 300px;
-                border-radius: 6px;
-                cursor:pointer;  
-            }
-            .search-inline {
-                display: inline-block;
-            }
-            .awhite {
-                color: white;
-            }
-            .awhite:hover {
-                color: DodgerBlue;
-            }
-            .tenborder {
-                padding: 10px;
-            }
-            .sidebar {
-                background-color: #020202;
-            }
-            .sidebarbtn-selected {
-                background-color: #050505;
-            }
-            .sidebarbtn:hover {
-                background-color: #030303;
-            }
-            .awhitesidebar {
-                color: white;
-            }
-            .awhitesidebar:hover {
-                color: lightgray;
-            }
-            .sidebarbtn-selected:hover {
-                background-color: #070707;
-            }';
+                echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
             } elseif(strcmp($themerow, 'light') == 0)
             {
-                echo 'body {
-                font-family: Arial;
-                padding: 0px;
-                color: black;
-                background-color: #ffffff;
-            }
-            .search-form-container {
-                background: #3B3B3B;
-                border: #3B3B3B 1px solid;
-                padding: 20px;
-                border-radius: 6px;
-            }
-            .input-row {
-                margin-bottom: 20px;
-            }
-            .input-field {
-                width: 100%;
-                border-radius: 2px;
-                padding: 10px;
-                border: #515151 1px solid;
-                background: #515151;
-            }
-            .input-field:focus {
-                color: white;
-            }
-            .btn-submit {
-                padding: 10px 20px;
-                background: #333;
-                border: #333 1px solid;
-                color: #f0f0f0;
-                font-size: 0.9em;
-                width: 100px;
-                border-radius: 6px;
-                cursor:pointer;
-            }
-            .videos-data-container {
-                background: #3B3B3B;
-                border: #3B3B3B 1px solid;
-                padding: 10px;
-                border-radius: 6px;
-            }
-            .response {
-                padding: 10px;
-                margin-top: 10px;
-                border-radius: 2px;
-            }
-            .error {
-                 background: #331111;
-            }
-           .success {
-                background: #c5f3c3;
-                border: #bbe6ba 1px solid;
-            }
-            .result-heading {
-                margin: 30px 0px;
-                padding: 20px 10px 5px 0px;
-                border-bottom: #e0dfdf 1px solid;
-            }
-            iframe {
-                border: 0px;
-            }
-            .video-tile {
-                display: inline-block;
-                margin: 10px 10px 20px 10px;
-                border: #222222 2px solid;
-                border-radius: 8px;
-                background-color: #222222;
-                transition: transform 0.2s;
-            }
-            .video-tile:hover {
-                transform: scale(1.01);
-                transition: transform 0.2s;
-            }
-            .videoDiv {
-                width: 270px;
-                height: 160px;
-                display: inline-block;
-                padding-top: 6px;
-            }
-            .videoTitle {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: initial;
-            }
-            .videoDesc {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: initial;
-            }
-            .videoInfo {
-                width: 270px;
-            }
-            a {
-                color: green;
-            }
-            a:hover {
-                color: lime;
-            }
-            a:focus {
-                color: lime;
-            }
-            details {
-              padding: 10px 20px;
-                background: #335;
-                border: #333 1px solid;
-                color: #f0f0f0;
-                font-size: 0.9em;
-                width: 300px;
-                border-radius: 6px;
-                cursor:pointer;  
-            }
-            .search-inline {
-                display: inline-block;
-            }
-            .awhite {
-                color: white;
-            }
-            .awhite:hover {
-                color: DodgerBlue;
-            }
-            .tenborder {
-                padding: 10px;
-            }
-            .sidebar {
-                background-color: #ffffff;
-            }
-            .sidebarbtn-selected {
-                background-color: #eeeeee;
-            }
-            .sidebarbtn:hover {
-                background-color: #dedede;
-            }
-            .awhitesidebar {
-                color: black;
-            }
-            .awhitesidebar:hover {
-                color: black;
-            }
-            .sidebarbtn-selected:hover {
-                background-color: #dddddd;
-            }
-            .formsel {
-                color: #fff;
-            }';
-            } else {
-                echo 'body {
-                font-family: Arial;
-                padding: 0px;
-                color: white;
-                background-color: #2a2a2a;
-            }
-            .search-form-container {
-                background: #3B3B3B;
-                border: #3B3B3B 1px solid;
-                padding: 20px;
-                border-radius: 6px;
-            }
-            .input-row {
-                margin-bottom: 20px;
-            }
-            .input-field {
-                width: 100%;
-                border-radius: 2px;
-                padding: 10px;
-                border: #515151 1px solid;
-                background: #515151;
-            }
-            .input-field:focus {
-                color: white;
-            }
-            .btn-submit {
-                padding: 10px 20px;
-                background: #333;
-                border: #333 1px solid;
-                color: #f0f0f0;
-                font-size: 0.9em;
-                width: 100px;
-                border-radius: 6px;
-                cursor:pointer;
-            }
-            .videos-data-container {
-                background: #3B3B3B;
-                border: #3B3B3B 1px solid;
-                padding: 10px;
-                border-radius: 6px;
-            }
-            .response {
-                padding: 10px;
-                margin-top: 10px;
-                border-radius: 2px;
-            }
-            .error {
-                 background: #331111;
-            }
-           .success {
-                background: #c5f3c3;
-                border: #bbe6ba 1px solid;
-            }
-            .result-heading {
-                margin: 30px 0px;
-                padding: 20px 10px 5px 0px;
-                border-bottom: #e0dfdf 1px solid;
-            }
-            iframe {
-                border: 0px;
-            }
-            .video-tile {
-                display: inline-block;
-                margin: 10px 10px 20px 10px;
-                border: #222222 2px solid;
-                border-radius: 8px;
-                background-color: #222222;
-                transition: transform 0.2s;
-            }
-            .video-tile:hover {
-                transform: scale(1.01);
-                transition: transform 0.2s;
-            }
-            .videoDiv {
-                width: 270px;
-                height: 160px;
-                display: inline-block;
-                padding-top: 6px;
-            }
-            .videoTitle {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: initial;
-            }
-            .videoDesc {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: initial;
-            }
-            .videoInfo {
-                width: 270px;
-            }
-            a {
-                color: green;
-            }
-            a:hover {
-                color: lime;
-            }
-            a:focus {
-                color: lime;
-            }
-            details {
-              padding: 10px 20px;
-                background: #335;
-                border: #333 1px solid;
-                color: #f0f0f0;
-                font-size: 0.9em;
-                width: 300px;
-                border-radius: 6px;
-                cursor:pointer;  
-            }
-            .search-inline {
-                display: inline-block;
-            }
-            .awhite {
-                color: white;
-            }
-            .awhite:hover {
-                color: DodgerBlue;
-            }
-            .tenborder {
-                padding: 10px;
-            }
-            .sidebar {
-                background-color: #222222;
-            }
-            .sidebarbtn-selected {
-                background-color: #444444;
-            }
-            .sidebarbtn:hover {
-                background-color: #333333;
-            }
-            .awhitesidebar {
-                color: white;
-            }
-            .awhitesidebar:hover {
-                color: lightgray;
-            }
-            .sidebarbtn-selected:hover {
-                background-color: #555555;
-            }';
+                echo '<link rel="stylesheet" href="../styles/playerlight.css">';
+            } else 
+            {
+                echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
             } 
-                
                 ?>
-           
-        </style>
