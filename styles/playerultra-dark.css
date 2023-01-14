@@ -8,7 +8,7 @@ a {
     color: #555;
 }
 a:hover {
-    color: ff4444;
+    color: #ff4444;
     text-decoration: none;
 }
 a:focus {
@@ -26,8 +26,6 @@ a:focus {
 }
 .sidebar {
     background-color: #020202;
-    margin: 10px;
-    border-radius: 6px;
 }
 .sidebarbtn-selected {
     background-color: #050505;
@@ -177,3 +175,6 @@ transition: 0.3s
 video {
     box-shadow: 0 0 40px rgb(0, 0, 0);
 }
+.formsel {
+    background-color: rgba(20,20,20,0.8);
+ }

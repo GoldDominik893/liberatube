@@ -29,8 +29,6 @@ transition: transform 0.2s;
 }
 .sidebar {
     background-color: #222222;
-    margin: 10px;
-    border-radius: 6px;
 }
 .sidebarbtn-selected {
     background-color: #444444;
@@ -51,7 +49,6 @@ hr {
 margin: 3px;
 margin-right: 5px;
 margin-left: 5px;
-
 height: 1px;
 color: #888888;
 background-color: #888888;

@@ -26,8 +26,6 @@ a:focus {
 }
 .sidebar {
     background-color: #212836;
-    margin: 10px;
-    border-radius: 6px;
 }
 .sidebarbtn-selected {
     background-color: #323947;
@@ -205,3 +203,6 @@ a:focus {
 video {
     box-shadow: 0 0 40px rgb(0, 0, 0);
 }
+.formsel {
+    background-color: rgba(20,20,20,0.8);
+ }

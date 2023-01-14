@@ -8,7 +8,7 @@ a {
     color: #555;
 }
 a:hover {
-    color: ff4444;
+    color: #ff4444;
     text-decoration: none;
 }
 a:focus {
@@ -23,8 +23,6 @@ a:focus {
 }
 .sidebar {
     background-color: #ffffff;
-    margin: 10px;
-    border-radius: 6px;
 }
 .sidebarbtn-selected {
     background-color: #eeeeee;
@@ -145,7 +143,7 @@ padding: 10px;
 text-align: center;
 display: none;
 backdrop-filter: blur(10px);
-background: rgba(10, 10, 10, 0.5);
+background: rgba(248, 248, 248, 0.5);
 
 }
 .button {
@@ -169,7 +167,7 @@ transition: transform 0.2s;
 transition: 0.3s
 }
 a:hover {
-    color: ff4444;
+    color: #ff4444;
     text-decoration: none;
 }
 a:focus {
@@ -192,4 +190,7 @@ a:focus {
 }
 video {
     box-shadow: 0 0 40px rgb(0, 0, 0);
+}
+.formsel {
+    background-color: white;
 }
