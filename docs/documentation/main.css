@@ -45,6 +45,9 @@ body {
 .button-top {
     color: white;
 }
+a {
+color: white;
+}
 a:hover {
     color: #ff4444;
 }
