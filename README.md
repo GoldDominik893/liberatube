@@ -6,13 +6,13 @@
     <img alt="License: AGPLv3" src="https://shields.io/badge/License-MIT%20-blue.svg">
   </a>
   <a href="https://github.com/iv-org/invidious/commits/master">
-    <img alt="GitHub commits" src="https://img.shields.io/github/commit-activity/y/golddominik893/bad-youtube?color=red&label=commits">
+    <img alt="GitHub commits" src="https://img.shields.io/github/commit-activity/y/golddominik893/liberatube?color=red&label=commits">
   </a>
   <a href="https://github.com/iv-org/invidious/issues">
-    <img alt="GitHub issues" src="https://img.shields.io/github/issues/golddominik893/bad-youtube?color=important">
+    <img alt="GitHub issues" src="https://img.shields.io/github/issues/golddominik893/liberatube?color=important">
   </a>
   <a href="https://github.com/iv-org/invidious/pulls">
-    <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/golddominik893/bad-youtube?color=blueviolet">
+    <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/golddominik893/liberatube?color=blueviolet">
   </a>
   
   <h3> A Privacy, Feature Rich alternative front end to YouTube. </h3>
@@ -41,7 +41,7 @@
 - API *(soon)*
 
 
-## Instances of Bad YouTube
+## Instances of Liberatube
 [two.epicfaucet.gq](https://two.epicfaucet.gq) (old ver, gonna expire, official)<br>
 [badyt.cf](https://badyt.cf) (old ver, gonna expire, official)<br>
 [badyt.lol](https://badyt.lol) (new ver, official)<br>
@@ -53,7 +53,7 @@ If you want to add your instance of Bad YouTube to this list please create an [i
 ## Installation
 Clone the git repository,
 ```bash
-git clone https://github.com/GoldDominik893/bad-youtube.git
+git clone https://github.com/GoldDominik893/liberatube.git
 ```
 Then paste the contents into the htdocs of any website hosting software that supports PHP and MySQL then import the `database.sql` in the MySQL dashboard. After that edit config.php and put your credentials for your database and your desired admin account. You also need to have a YouTube API v3 you can get an API key from [here](https://console.cloud.google.com).
 
