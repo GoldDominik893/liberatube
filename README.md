@@ -1,5 +1,5 @@
 <div align="center">
-<img src="/screenshots/lt.png">
+<img src="/screenshots/lt.png" width="300px">
     <h1> Liberatube </h1>
 
 <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">
