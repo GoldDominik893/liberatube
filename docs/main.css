@@ -54,9 +54,7 @@ a {
 .center {
     text-align: center;
 }
-b {
-    font-weight: 1300;
-}
+
 .navbar {
     grid-area: header;
 }
@@ -89,4 +87,7 @@ b {
 .video-js {
     height: 610px;
 	width: 1280px;
+}
+.b {
+	color: linear-gradient(45deg, blue, red);
 }
