@@ -48,7 +48,7 @@
 [liberatube.epicsite.xyz](https://liberatube.epicsite.xyz) (will use in the future, official)<br>
 [ltbeta.epicsite.xyz](https://ltbeta.epicsite.xyz) (beta, official)<br>
 
-If you want to add your instance of Bad YouTube to this list please create an [issue](https://github.com/GoldDominik893/bad-youtube/issues)
+If you want to add your instance of Liberatube to this list please create an [issue](https://github.com/GoldDominik893/bad-youtube/issues)
 
 ## Installation
 Clone the git repository,
