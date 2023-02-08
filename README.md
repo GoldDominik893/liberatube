@@ -47,6 +47,7 @@
 [badyt.lol](https://badyt.lol) (new ver, official)<br>
 [liberatube.epicsite.xyz](https://liberatube.epicsite.xyz) (will use in the future, official)<br>
 [ltbeta.epicsite.xyz](https://ltbeta.epicsite.xyz) (beta, official)<br>
+[liberatube.store](https://liberatube.store) (alias of badyt.lol)
 
 If you want to add your instance of Liberatube to this list please create an [issue](https://github.com/GoldDominik893/bad-youtube/issues)
 
