@@ -24,7 +24,7 @@
 |-------------------------------------|-------------------------------------|
 | ![](screenshots/search-page.png)    | ![](screenshots/ultra-dark-theme.png) |
 
-| Audio player                         | Trending content page               | Video player with blue theme      |
+| Audio player                         | Trending content page               | Blue theme      |
 |-------------------------------------|-------------------------------------|---------------------------------------|
 | ![](screenshots/audio-player.png)    | ![](screenshots/trending-content-page.png) | ![](screenshots/different-themes.png) |
 
