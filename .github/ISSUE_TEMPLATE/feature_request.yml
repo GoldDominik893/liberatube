@@ -1,5 +1,5 @@
 name: Feature Request
-description: Found a bug? Share it here.
+description: Have a feature request? Share it here.
 title: "[Feature] <>"
 assignees: 
   - GoldDominik893
@@ -9,25 +9,16 @@ body:
     id: url
     attributes:
       label: URL
-      description: "the URL of your instance"
-      placeholder: "Example: https://badyt.example.com"
+      description: "What feature do you want to see on liberatube?"
+      placeholder: "Example: add a custom video player"
     validations:
       required: true
-
-  - type: input
-    id: country
-    attributes:
-      label: Host country
-      description: What country is the instance hosted in?
-      placeholder: "Example: North Korea"
-    validations:
-      required: true
-
+      
   - type: textarea
     id: more-infos
     attributes:
       label: Additional information
-      description: "If you want to add other information on your instance, do so here:"
-      placeholder: "Example: Our instance also has an .i2p URL, The source code changes are ..., etc."
+      description: "If you want to add other information, like how to do it."
+      placeholder: "Example: you can find the player at www.example.com."
     validations:
       required: false
