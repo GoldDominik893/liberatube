@@ -6,9 +6,9 @@ assignees:
 
 body:
   - type: input
-    id: url
+    id: feature
     attributes:
-      label: URL
+      label: Feature
       description: "What feature do you want to see on liberatube?"
       placeholder: "Example: add a custom video player"
     validations:
