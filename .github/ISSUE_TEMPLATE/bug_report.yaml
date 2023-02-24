@@ -4,7 +4,7 @@ title: "[Bug] <>"
 assignees: 
   - GoldDominik893
   
-  body:
+body:
   - type: dropdown
     id: where
     attributes:
