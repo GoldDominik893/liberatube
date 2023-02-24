@@ -5,7 +5,7 @@ assignees:
   - GoldDominik893
   
 body:
-  - type: dropdown
+   - type: dropdown
     id: where
     attributes:
       label: Where?
