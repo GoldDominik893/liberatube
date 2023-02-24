@@ -3,6 +3,8 @@ description: Found a bug? Share it here.
 title: "[Bug] <>"
 assignees: 
   - GoldDominik893
+  
+  body: 
 
   - type: input
     id: country
