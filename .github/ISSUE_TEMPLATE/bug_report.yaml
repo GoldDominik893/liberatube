@@ -20,7 +20,7 @@ body:
     id: more-infos
     attributes:
       label: List the steps needed to reproduce this bug.
-      description: ""
+      description: "test"
       placeholder: "Example: Go to settings, Set theme to light mode."
     validations:
       required: false
