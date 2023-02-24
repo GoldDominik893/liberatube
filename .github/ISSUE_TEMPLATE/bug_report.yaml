@@ -5,7 +5,6 @@ assignees:
   - GoldDominik893
   
   body: 
-
   - type: input
     id: country
     attributes:
