@@ -9,7 +9,6 @@ body:
     id: where
     attributes:
       label: Where?
-      description: "What channel is this bug found on?"
       options:
       - Stable
       - Beta
@@ -20,7 +19,6 @@ body:
     id: more-infos
     attributes:
       label: List the steps needed to reproduce this bug.
-      description: "test"
       placeholder: "Example: Go to settings, Set theme to light mode."
     validations:
       required: false
