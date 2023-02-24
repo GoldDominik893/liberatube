@@ -4,34 +4,7 @@ title: "[Bug] <>"
 assignees: 
   - GoldDominik893
   
-  body: 
-  - type: input
-    id: country
-    attributes:
-      label: Host country
-      description: What country is the instance hosted in?
-      placeholder: "Example: North Korea"
-    validations:
-      required: true
-
-  - type: input
-    id: mitm-name
-    attributes:
-      label: Man in the Middle
-      description: "If your instance is behind a DDoS protection or MitM system, please specify that here"
-      placeholder: "Example: Cloudflare"
-    validations:
-      required: false
-
-  - type: input
-    id: source-code-url
-    attributes:
-      label: Source code URL
-      description: "If your instance is running a modified source code, please provide the URL below"
-      placeholder: "Example: https://git.example.com/you/bad-youtube"
-    validations:
-      required: false
-
+  body:
   - type: dropdown
     id: where
     attributes:
