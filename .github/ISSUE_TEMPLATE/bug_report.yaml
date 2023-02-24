@@ -1,8 +1,7 @@
 name: Bug report
 description: Found a bug? Share it here.
 title: "[Bug] <>"
-assignees: 
-  - GoldDominik893
+
   
   body:
   - type: dropdown
