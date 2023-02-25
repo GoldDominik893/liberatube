@@ -30,4 +30,4 @@ body:
       label: List the steps needed to reproduce this bug.
       placeholder: "Example: Go to settings, Set theme to light mode."
     validations:
-      required: false
+      required: true
