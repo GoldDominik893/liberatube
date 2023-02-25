@@ -12,8 +12,6 @@ body:
       options:
       - Stable
       - Beta
-    validations: 
-      required: true
   
   - type: input
     id: version
