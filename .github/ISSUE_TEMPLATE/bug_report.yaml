@@ -12,12 +12,16 @@ body:
       options:
       - Stable
       - Beta
+    validations:
+      required: true
   
   - type: input
     id: version
     attributes:
       label: What version did you encounter this bug on?
       placeholder: "Example: v1.6"
+    validations:
+      required: true
 
   - type: textarea
     id: more-infos
