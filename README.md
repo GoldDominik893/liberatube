@@ -24,9 +24,9 @@
 |-------------------------------------|-------------------------------------|
 | ![](screenshots/home.png)    | ![](screenshots/video.png) |
 
-| Channel                        | Search             | Settings      |
+| Channel                        | Comments             | Settings      |
 |-------------------------------------|-------------------------------------|---------------------------------------|
-| ![](screenshots/channel.png)   | ![](screenshots/search.png) | ![](screenshots/settings.png) |
+| ![](screenshots/channel.png)   | ![](screenshots/comments.png) | ![](screenshots/settings.png) |
 
 ## Features
 
