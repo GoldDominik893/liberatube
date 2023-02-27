@@ -20,13 +20,13 @@
 
 ## Screenshots
 
-| Search page                         | Ultra dark theme               |
+| Home                      | Video              |
 |-------------------------------------|-------------------------------------|
-| ![](screenshots/search-page.png)    | ![](screenshots/ultra-dark-theme.png) |
+| ![](screenshots/home.png)    | ![](screenshots/video.png) |
 
-| Audio player                         | Trending content page               | Blue theme      |
+| Channel                        | Search             | Settings      |
 |-------------------------------------|-------------------------------------|---------------------------------------|
-| ![](screenshots/audio-player.png)    | ![](screenshots/trending-content-page.png) | ![](screenshots/different-themes.png) |
+| ![](screenshots/channel.png)   | ![](screenshots/search.png) | ![](screenshots/settings.png) |
 
 ## Features
 
