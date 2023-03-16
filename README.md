@@ -37,7 +37,7 @@
 - Audio-only mode 
 - Uses the Return YouTube Dislike API to get an estimate of the number of dislikes
 - Download videos
-- Does not use official YouTube API's *(soon)*
+- Does not use official YouTube API's
 - API *(soon)*
 
 
