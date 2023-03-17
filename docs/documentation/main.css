@@ -115,7 +115,7 @@ b {
     grid-area: contents;
 }
 code {
-    background-color: black;
+    background-color: gray;
     border-radius: 5px;
 }
 hr {
