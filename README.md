@@ -2,8 +2,8 @@
 <img src="/screenshots/lt.png" width="300px">
     <h1> Liberatube </h1>
 
-<a href="https://www.gnu.org/licenses/agpl-3.0.en.html">
-    <img alt="License: AGPLv3" src="https://shields.io/badge/License-MIT%20-blue.svg">
+<a href="https://www.gnu.org/licenses/mit.en.html">
+    <img alt="License: MIT" src="https://shields.io/badge/License-MIT%20-blue.svg">
   </a>
   <a href="https://github.com/iv-org/invidious/commits/master">
     <img alt="GitHub commits" src="https://img.shields.io/github/commit-activity/y/golddominik893/liberatube?color=red&label=commits">
@@ -56,7 +56,7 @@ Clone the git repository,
 ```bash
 git clone https://github.com/GoldDominik893/liberatube.git
 ```
-Then paste the contents into the htdocs of any website hosting software that supports PHP and MySQL then import the `database.sql` in the MySQL dashboard. After that edit config.php and put your credentials for your database and your desired admin account. You also need to have a YouTube API v3 you can get an API key from [here](https://console.cloud.google.com).
+Then paste the contents into the htdocs of any website hosting software that supports PHP and MySQL then import the `database.sql` in the MySQL dashboard. After that edit config.php and put your credentials for your database and your desired admin account.
 
 ### Updating Liberatube
 Replace the contents of your htdocs folder with the new one and just keep the `config.php` file.
