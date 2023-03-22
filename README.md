@@ -66,7 +66,7 @@ Replace the contents of your htdocs folder with the new one and just keep the `c
 We take no responsibility for the use of our tool, or external instances
 provided by third parties. We strongly recommend you abide by the valid
 official regulations in your country. Furthermore, we refuse liability
-for any inappropriate use of Invidious, such as illegal downloading.
+for any inappropriate use of Liberatube, such as illegal downloading.
 This tool is provided to you in the spirit of free, open software.
 
 You may view the LICENSE in which this software is provided to you [here](./LICENSE).
