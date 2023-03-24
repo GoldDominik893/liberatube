@@ -14,6 +14,7 @@ body {
         ". article4 article4 ."
         ". article5 article5 ."
         ". article6 article6 ."
+        ". article7 article7 ."
         ". footer footer .";
     grid-template-columns: auto 600px 480px auto;
     grid-template-rows: 6em minmax(0, auto) minmax(0, auto) auto auto;
@@ -41,6 +42,9 @@ body {
 }
 .article6 {
     grid-area: article6;
+}
+.article7 {
+    grid-area: article7;
 }
 .button-top {
     color: white;
