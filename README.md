@@ -5,13 +5,13 @@
 <a href="https://www.gnu.org/licenses/mit.en.html">
     <img alt="License: MIT" src="https://shields.io/badge/License-MIT%20-blue.svg">
   </a>
-  <a href="https://github.com/iv-org/invidious/commits/master">
+  <a href="https://github.com/golddominik893/liberatube/commits/master">
     <img alt="GitHub commits" src="https://img.shields.io/github/commit-activity/y/golddominik893/liberatube?color=red&label=commits">
   </a>
-  <a href="https://github.com/iv-org/invidious/issues">
+  <a href="https://github.com/golddominik893/liberatube/issues">
     <img alt="GitHub issues" src="https://img.shields.io/github/issues/golddominik893/liberatube?color=important">
   </a>
-  <a href="https://github.com/iv-org/invidious/pulls">
+  <a href="https://github.com/golddominik893/liberatube/pulls">
     <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/golddominik893/liberatube?color=blueviolet">
   </a>
   
