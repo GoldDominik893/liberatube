@@ -26,6 +26,7 @@ a:focus {
 }
 .sidebar {
     background-color: #020202;
+    line-height: 0.5;
 }
 .sidebarbtn-selected {
     background-color: #050505;
@@ -116,11 +117,9 @@ a:focus {
      transition: transform 0.2s;
      transition: 0.3s
 }
-.input-row {
-    margin-bottom: 20px;
-}
 .input-field {
-    width: 100%;
+    width: 300px;
+    max-width: 1000px;
     border-radius: 2px;
     padding: 10px;
     border: #202020 2px solid;
@@ -129,25 +128,14 @@ a:focus {
 .input-field:focus {
     color: white;
 }
-.input-field2 {
-    width: 100%;
-    max-width: 100px;
-    border-radius: 2px;
-    padding: 10px;
-    border: #202020 2px solid;
-    background: #080808;
-}
-.input-field2:focus {
-    color: white;
-}
 .btn-submit {
-    padding: 10px 20px;
+    padding: 10px 10px;
     border: #202020 2px solid;
     background: #080808;
     color: #ffffff;
     font-size: 0.9em;
     width: 100px;
-    border-radius: 6px;
+    border-radius: 2px;
     cursor:pointer;
 }
 .videos-data-container {
@@ -172,9 +160,6 @@ a:focus {
     margin: 30px 0px;
     padding: 20px 10px 5px 0px;
     border-bottom: #e0dfdf 1px solid;
-}
-iframe {
-    border: 0px;
 }
 .video-tile {
     display: inline-block;
@@ -221,39 +206,6 @@ a:focus {
 text-decoration: none;
 transition: transform 0.2s;
 }
-details {
-  padding: 10px 20px;
-    background: #335;
-    border: #333 1px solid;
-    color: #ffffff;
-    font-size: 0.9em;
-    width: 100%;
-    max-width: 415px;
-    border-radius: 6px;
-    cursor:pointer;  
-}
-.detailred {
-    padding: 10px 20px;
-    background: #533;
-    border: #333 1px solid;
-    color: #ffffff;
-    font-size: 0.9em;
-    width: 100%;
-    max-width: 415px;
-    border-radius: 6px;
-    cursor:pointer;  
-}
-.detailgreen {
-    padding: 10px 20px;
-    background: #353;
-    border: #333 1px solid;
-    color: #ffffff;
-    font-size: 0.9em;
-    width: 100%;
-    max-width: 415px;
-    border-radius: 6px;
-    cursor:pointer;  
-}
 .search-inline {
     display: inline-block;
 }
@@ -273,17 +225,17 @@ details {
     padding: 10px;
 }
 .topbar {
-      width: 100%;
+    width: 100%;
 }
 .topbarelements {
-    display: inline-block;
+  display: inline-block;
 }
 .topbarelements-right {
-    float: right;
-    margin-top: 15px;
+  float: right;
+  margin-top: 5px;
 }
 .topbarelements-center {
-    float: left;
+  float: center;
 }
 .button {
 display: inline-block;
@@ -349,4 +301,18 @@ a:focus {
 }
 .awhitesidebar:hover {
     color: white;
+}
+.footer {
+    border-image: linear-gradient(45deg, #d64400, #6c0ceb) 3;
+    border-width: 2px;
+    border-style: solid;
+}
+.timestamp {
+    position: absolute; 
+    margin-top: -23px; 
+    right: 10px; 
+    background: rgba(0,0,0,0.7); 
+    padding-left: 4px; 
+    padding-right: 4px; 
+    border-radius: 3px;
 }

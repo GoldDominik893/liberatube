@@ -1,11 +1,3 @@
-function w3_open() {
-    document.getElementById("mySidebar").style.display = "block";
-    }
-  
-function w3_close() {
-    document.getElementById("mySidebar").style.display = "none";
-    }
-
 function copyText() {
     var Text = document.getElementById("textbox");
     Text.select();
@@ -32,3 +24,10 @@ function CustomAlert(){
     }
     
 }	
+
+const urlParams = new URLSearchParams(window.location.search);
+const t = urlParams.get('t');
+if (t !== null && !isNaN(t)) {
+  const videoVideo = document.getElementById('video');
+  videoVideo.currentTime = parseInt(t);
+}

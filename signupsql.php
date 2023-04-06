@@ -23,12 +23,8 @@ $usr = $_POST['name'];
 $salt1 = getName($n);
 $salt2 = getName($n);
 $pw = hash('sha512', $salt1.$_POST['pass'].$salt2);
-
 include('config.php');
-
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
@@ -39,12 +35,13 @@ if(mysqli_num_rows($select)) {
     exit('<h2>This username already exists</h2>');
 }
 
-$sql = "INSERT INTO login (username, password, salt1, salt2)
-VALUES ('$usr', '$pw', '$salt1', '$salt2')";
+$sql = "INSERT INTO login (username, password, salt1, salt2, videoshadow)
+VALUES ('$usr', '$pw', '$salt1', '$salt2', 'on')";
 
 if ($conn->query($sql) === TRUE) {
       echo "<h2>Welcome $usr. Redirecting Soon...</h2>";
     $_SESSION['logged_in_user'] = $usr;
+    $_SESSION['hashed_pass'] = $pw;
 } else {
   echo "Error: <br>" . $conn->error;
 }

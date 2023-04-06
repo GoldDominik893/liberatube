@@ -27,6 +27,10 @@ CREATE TABLE `login` (
   `salt1` varchar(12) NOT NULL,
   `salt2` varchar(12) NOT NULL,
   `theme` varchar(30) NOT NULL,
-  `lang` varchar(30) NOT NULL
+  `lang` varchar(30) NOT NULL,
+  `region` varchar(4) NOT NULL,
+  `proxy` varchar(8) NOT NULL,
+  `player` varchar(15) NOT NULL,
+  `videoshadow` varchar(8) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 COMMIT;

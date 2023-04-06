@@ -26,6 +26,7 @@ a:focus {
 }
 .sidebar {
     background-color: #212836;
+    line-height: 0.5;
 }
 .sidebarbtn-selected {
     background-color: #323947;
@@ -206,3 +207,57 @@ video {
 .formsel {
     background-color: rgba(20,20,20,0.8);
  }
+
+ .topbar {
+    width: 100%;
+}
+.topbarelements {
+  display: inline-block;
+}
+.topbarelements-right {
+float: right;
+margin-top: 5px;
+}
+.topbarelements-center {
+  float: left;
+}
+
+.login-item {
+  display: inline-block;
+}
+.login-item-icon {
+  float: left;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+.login-item-icon, .login-item-text {
+display: flex;
+flex-direction: row;
+align-items: center;
+list-style-type: none;
+}
+
+details {
+    padding: 10px;
+  }
+  
+  details summary {
+    cursor: pointer;
+    transition: margin 150ms ease-out;
+  }
+  
+  details[open] summary {
+    margin-bottom: 10px;
+    background: #212836;
+  }
+  details[open] {
+    background: #212836;
+  }
+
+.settingsdiv {
+    background: #212836;
+    width: 100%;
+    max-width: 416px;
+    border-radius: 4px;
+    padding: 10px;
+}

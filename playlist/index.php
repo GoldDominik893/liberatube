@@ -1,6 +1,20 @@
 <?php
-session_start();
+session_start();  
 include('../config.php');
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
+$numrows = mysqli_num_rows($query);
+while ($row = mysqli_fetch_assoc($query))
+{   
+    $pwrow = $row['password'];
+}
+if ($_SESSION['hashed_pass'] == $pwrow) {
+    } else {
+        session_destroy();
+    }
 
 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
 $link = "https";
@@ -15,7 +29,7 @@ parse_str($url_components['query'], $params);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Bad YouTube | Home</title>
+        <title>Liberatube · Playlist</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -23,7 +37,6 @@ parse_str($url_components['query'], $params);
 
 
 <?php
-include('../config.php');
 $dbsenduser = $_SESSION['logged_in_user'];
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -77,7 +90,7 @@ if(strcmp($themerow, 'dark') == 0)
   <div class="w3-container">
   <div class="topbar">
     <div class="topbarelements topbarelements-center">
-    <h1>Bad YouTube</h1>
+    <h1>Liberatube · Playlist</h1>
     </div>
     <div class="topbarelements topbarelements-right">
     <h4> <?php echo $_SESSION['logged_in_user'] ?? ""; 
@@ -99,22 +112,14 @@ if(strcmp($themerow, 'dark') == 0)
     </div>
   </div>
 </div>
-<script>
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-}
-
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-}
-</script>
+<script src="/scripts/sidebar.js"></script>
 <div class="tenborder">
         
         <?php if(!empty($response)) { ?>
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
         <?php }?>
         <?php                        
-                $InvApiUrl = 'https://invidious.dhusch.de/api/v1/playlists/'.$params['id'];
+                $InvApiUrl = $InvVIServer.'/api/v1/playlists/'.$params['id'];
 
                 $ch = curl_init();
 
@@ -139,7 +144,7 @@ function w3_close() {
                     '.$videoCount.' Videos</h4>
                 </div>';
             if ($videoCount > 200) {
-                $InvApiUrl = 'https://invidious.dhusch.de/api/v1/playlists/'.$params['id'].'?page=2';
+                $InvApiUrl = $InvVIServer.'/api/v1/playlists/'.$params['id'].'?page=2';
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_HEADER, 0);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -154,6 +159,7 @@ function w3_close() {
 
                 $videoCountPage1 = "200";
                 $videoCountPage2 = ($videoCount - $videoCountPage1);
+                $t200 = 200;
         }
             ?>
 
@@ -168,6 +174,18 @@ function w3_close() {
                     $videoId = $value['videos'][$i]['videoId'] ?? "";
                     $channel = $value['videos'][$i]['author'] ?? "";
                     $indexr = $value['videos'][$i]['index']+1 ?? "";
+                    $publishedtext = $value['videos'][$i]['publishedText'] ?? "";
+
+                    
+                    $lengthseconds = $value['videos'][$i]['lengthSeconds'] ?? "";
+                    $vidhours = floor($lengthseconds / 3600) ?? "";
+                    $vidmins = floor($lengthseconds / 60 % 60) ?? "";
+                    $vidsecs = floor($lengthseconds % 60) ?? "";
+                    if ($vidhours == "0") {
+                        $timestamp = $vidmins.':'.$vidsecs ?? "";
+                    } else {
+                        $timestamp = $vidhours.':'.$vidmins.':'.$vidsecs ?? "";
+                    }
                     ?>
 
 
@@ -176,10 +194,11 @@ function w3_close() {
                         <div class="videoDiv">
                         <center>
                         <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" height="144px">
-       </center>
+                        </center>
+                        <div class="timestamp"><?php echo $timestamp; ?></div>
                         </div>
                         <div class="videoInfo">
-                        <div class="videoTitle"><u>Channel: <?php echo $channel; ?><br>Index: <?php echo $indexr; ?></u><br><b><center><?php echo $title; ?></center></b></div>
+                        <div class="videoTitle"><?php echo $channel; ?><br><b><center><?php echo $title; ?></center></b></div>
 
                         </div>
                         </div>
@@ -187,11 +206,12 @@ function w3_close() {
            <?php 
                     }
 
-                    for ($i = 0; $i < 200; $i++) {
+                    for ($i = 0; $i < $t200; $i++) {
                         $title = $value2['videos'][$i]['title'] ?? "";
                         $videoId = $value2['videos'][$i]['videoId'] ?? "";
                         $channel = $value2['videos'][$i]['author'] ?? "";
                         $indexr = $value2['videos'][$i]['index']+1 ?? "";
+                        $publishedtext = $value2['videos'][$i]['publishedText'] ?? "";
                         ?>
     
     
@@ -200,10 +220,11 @@ function w3_close() {
                             <div class="videoDiv">
                             <center>
                             <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" height="144px">
-           </center>
+                            </center>
+                            <div style="position: absolute; margin-top: -23px; right: 10px; background: rgba(0,0,0,0.7); padding-left: 4px; padding-right: 4px; border-radius: 3px;"><?php echo $timestamp; ?></div>
                             </div>
                             <div class="videoInfo">
-                            <div class="videoTitle"><u>Channel: <?php echo $channel; ?><br>Index: <?php echo $indexr; ?></u><br><b><center><?php echo $title; ?></center></b></div>
+                            <div class="videoTitle"><?php echo $channel; ?><br><b><center><?php echo $title; ?></center></b></div>
     
                             </div>
                             </div>

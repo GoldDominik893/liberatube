@@ -10,38 +10,25 @@ body {
     padding: 20px;
     border-radius: 6px;
 }
-.input-row {
-    margin-bottom: 20px;
-}
 .input-field {
-    width: 100%;
+    width: 300px;
+    max-width: 1000px;
     border-radius: 2px;
     padding: 10px;
-    border: #515151 1px solid;
-    background: #515151;
+    border: #333 1px solid;
+    background: #333;
 }
 .input-field:focus {
-    color: white;
-}
-.input-field2 {
-    width: 100%;
-    max-width: 100px;
-    border-radius: 2px;
-    padding: 10px;
-    border: #515151 1px solid;
-    background: #515151;
-}
-.input-field2:focus {
-    color: white;
+     color: white;
 }
 .btn-submit {
-    padding: 10px 20px;
+    padding: 10px 10px;
     background: #333;
     border: #333 1px solid;
-    color: #f0f0f0;
+    color: #ffffff;
     font-size: 0.9em;
     width: 100px;
-    border-radius: 6px;
+    border-radius: 2px;
     cursor:pointer;
 }
 .videos-data-container {
@@ -162,6 +149,7 @@ details {
 }
 .sidebar {
     background-color: #222222;
+    line-height: 0.5;
 }
 .sidebarbtn-selected {
     background-color: #444444;
@@ -186,7 +174,7 @@ details {
 }
 .topbarelements-right {
     float: right;
-    margin-top: 15px;
+    margin-top: 5px;
 }
 .topbarelements-center {
     float: left;
@@ -235,3 +223,12 @@ list-style-type: none;
     ::-webkit-scrollbar-thumb{background: rgba(100,100,100,0.4); border-radius:5px;}
     ::-webkit-scrollbar-thumb:hover{background: rgba(70,70,70,0.4);}
     
+    .timestamp {
+        position: absolute; 
+        margin-top: -23px; 
+        right: 10px; 
+        background: rgba(0,0,0,0.7); 
+        padding-left: 4px; 
+        padding-right: 4px; 
+        border-radius: 3px;
+    }

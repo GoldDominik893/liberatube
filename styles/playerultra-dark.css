@@ -26,6 +26,7 @@ a:focus {
 }
 .sidebar {
     background-color: #020202;
+    line-height: 0.5;
 }
 .sidebarbtn-selected {
     background-color: #050505;
@@ -153,17 +154,17 @@ background: rgba(10, 10, 10, 0.5);
 
 }
 .button {
-display: inline-block;
-padding: 10px 20px;
-text-align: center;
-text-decoration: none;
-background-color: rgba(20,20,20,0.2);
-color: white;
-border-radius: 6px;
-outline: none;
-transition: transform 0.2s;
-transition: 0.3s
-}
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    background-color: rgba(20,20,20,0.2);
+    color: white;
+    border-radius: 6px;
+    outline: none;
+    transition: transform 0.2s;
+    transition: 0.3s
+    }
 .button:hover {
 cursor: pointer;
 color: #ff4444;
@@ -178,3 +179,58 @@ video {
 .formsel {
     background-color: rgba(20,20,20,0.8);
  }
+
+ .topbar {
+    width: 100%;
+}
+.topbarelements {
+  display: inline-block;
+}
+.topbarelements-right {
+float: right;
+margin-top: 5px;
+}
+.topbarelements-center {
+  float: left;
+}
+
+.login-item {
+  display: inline-block;
+}
+.login-item-icon {
+  float: left;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+.login-item-icon, .login-item-text {
+display: flex;
+flex-direction: row;
+align-items: center;
+list-style-type: none;
+}
+
+details {
+    padding: 10px;
+    padding-top: 10px;
+  }
+  
+  details summary {
+    cursor: pointer;
+    transition: margin 150ms ease-out;
+  }
+  
+  details[open] summary {
+    margin-bottom: 10px;
+    background: #070707;
+  }
+  details[open] {
+    background: #070707;
+  }
+
+  .settingsdiv {
+    background: #070707;
+    width: 100%;
+    max-width: 416px;
+    border-radius: 4px;
+    padding: 10px;
+  }

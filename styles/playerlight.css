@@ -151,8 +151,8 @@ display: inline-block;
 padding: 10px 20px;
 text-align: center;
 text-decoration: none;
-background-color: rgb(97 97 97);
-color: white;
+background-color: rgb(236, 236, 236);
+color: black;
 border-radius: 6px;
 outline: none;
 transition: transform 0.2s;
@@ -174,6 +174,9 @@ a:focus {
     color: #f44;
     text-decoration: none;
 }
+.sidebar {
+    line-height: 0.5;
+}
 .sidebarbtn {
      color: black;
      border-radius: 6px;
@@ -194,3 +197,57 @@ video {
 .formsel {
     background-color: white;
 }
+
+.topbar {
+    width: 100%;
+}
+.topbarelements {
+  display: inline-block;
+}
+.topbarelements-right {
+float: right;
+margin-top: 5px;
+}
+.topbarelements-center {
+  float: left;
+}
+
+.login-item {
+  display: inline-block;
+}
+.login-item-icon {
+  float: left;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+.login-item-icon, .login-item-text {
+display: flex;
+flex-direction: row;
+align-items: center;
+list-style-type: none;
+}
+
+
+details {
+    padding: 10px;
+  }
+  
+  details summary {
+    cursor: pointer;
+    transition: margin 150ms ease-out;
+  }
+  
+  details[open] summary {
+    margin-bottom: 10px;
+    background: gainsboro;
+  }
+  details[open] {
+    background: gainsboro;
+  }
+  .settingsdiv {
+    background: gainsboro;
+    width: 100%;
+    max-width: 416px;
+    border-radius: 4px;
+    padding: 10px;
+  }

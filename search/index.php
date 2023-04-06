@@ -1,5 +1,20 @@
 <?php
-session_start();
+session_start();  
+include('../config.php');
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
+$numrows = mysqli_num_rows($query);
+while ($row = mysqli_fetch_assoc($query))
+{   
+    $pwrow = $row['password'];
+}
+if ($_SESSION['hashed_pass'] == $pwrow) {
+    } else {
+        session_destroy();
+    }
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
         $link = "https";
     else $link = "http";
@@ -9,14 +24,13 @@ session_start();
 $url = $link;
 $url_components = parse_url($url);
 parse_str($url_components['query'], $params);
-include('../config.php');
 
 $keyword = $params['q'];
 $resultsmaximum = $params['maxresults'];
 
-if ($resultsmaximum > 20) {
+
     $resultsmaximum = 20;
-}
+
     define("MAX_RESULTS", $resultsmaximum);
 
     
@@ -35,12 +49,12 @@ if ($resultsmaximum > 20) {
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Bad YouTube | Home</title>
+        <title>Liberatube · Search Results</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
+        <script src="/scripts/sidebar.js"></script>
         <?php
 include('config.php');
 $dbsenduser = $_SESSION['logged_in_user'];
@@ -98,59 +112,37 @@ $numrows = mysqli_num_rows($query);
   <div class="w3-container">
   <div class="topbar">
     <div class="topbarelements topbarelements-center">
-    <h1>Bad YouTube</h1>
+    <h1 class="title-top topbarelements">Liberatube · Search Results</h1>
+    <form class="input-row topbarelements" id="keywordForm" method="get" action="/search/">
+                <div class="input-row topbarelements topbarelements-right">
+                    <input class="input-field" type="search" id="keyword" name="q" placeholder="Type the search query here" value="<?php echo $keyword; ?>">
+                    <input class="btn-submit" type="submit" value="Search">
+            </div>
+            </form>
     </div>
     <div class="topbarelements topbarelements-right">
     <h4> <?php echo $_SESSION['logged_in_user'] ?? ""; 
     $loggedinuser = $_SESSION['logged_in_user'] ?? "";?> 
     <?php if($loggedinuser != "")
     {
-        echo '<a class="button awhite login-item" href="../logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+        echo '<a class="button awhite login-item" href="/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
     }
     else
     {
-        echo '<a class="button awhite login-item" href="../login.php"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="/login.php"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
     }
-    if($loggedinuser == 'GoldDominik893')
+    if($loggedinuser == $adminuser)
             {
-                echo '<a style="margin-left: 5px;" class="button awhite login-item" href="../admin"><span class="material-symbols-outlined login-item-icon">monitor_heart</span><h5 class="login-item-text">Admin Panel</h5></a>';
+                echo '<a style="margin-left: 5px;" class="button awhite login-item" href="/admin/"><span class="material-symbols-outlined login-item-icon">monitor_heart</span><h5 class="login-item-text">Admin Panel</h5></a>';
             }
     ?>
     </div>
     </div>
   </div>
 </div>
-<script>
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-}
 
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-}
-</script>
 <div class="tenborder">
-        <div class="search-form-container w3-animate-left">
-            <form id="keywordForm" method="get" action="">
-                <div class="input-row">
-                    <label for="keyword">Search:</label>
-                    <input class="input-field" type="search" id="q" name="q"  placeholder="Type the search query here" value="<?php echo $keyword; ?>">
-                    <br><br>
-                    <label for="maxresults">Results:</label><br>
-                    <input class="input-field2" type="number" id="maxresults" name="maxresults" min="1" max="20" value="<?php if(isset($params['maxresults']))
-    {
-        echo $resultsmaximum;
-    }
-    else
-    {
-        echo '12';
-    }
-    ?>"> 
-                </div>
-
-                <input class="btn-submit" type="submit" name="submit" value="Search">
-            </form>
-        </div>
+        
         <?php 
     $searchqk = $params['q'];
     $params['q'] = str_replace(' ','+',$params['q']);
@@ -163,8 +155,7 @@ function w3_close() {
         <?php                        
               if (!empty($params['q']))
               {
-                $apikey = $ytapikey; 
-                $googleApiUrl = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' . $params['q'] . '&maxResults=' . MAX_RESULTS . '&key=' . $apikey;
+                $googleApiUrl = $InvSServer.'/api/v1/search?q=' . $params['q'] . '&hl=en';
 
                 $ch = curl_init();
 
@@ -183,29 +174,35 @@ function w3_close() {
 
             <br>
             <div class="videos-data-container w3-animate-left" id="SearchResultsDiv">
-            
-<h4> You have searched for: <font color="red"><?php echo $searchqk; ?></font><br>
-What was sent to Google's API: <font color="red"><?php echo $params['q']; ?></font> </h4>
 <div style="text-align: center;">
             <?php
                 for ($i = 0; $i < MAX_RESULTS; $i++) {
-                    $channel = $value['items'][$i]['snippet']['channelTitle'] ?? "";
-                    $channelId = $value['items'][$i]['snippet']['channelId'] ?? "";
+                    $channel = $value[$i]['author'] ?? "";
+                    $channelId = $value[$i]['authorId'] ?? "";
                     $type = "video";
-                    $videoId = $value['items'][$i]['id']['videoId'] ?? "";
-                    if ($videoId == "") {
+                    $videoId = $value[$i]['videoId'] ?? "";
+                    if ($value[$i]['type'] == 'channel') {
                     $type = "channel";
-                    $profpic = $value['items'][$i]['snippet']['thumbnails']['default']['url'];}
+                    $profpic = $value[$i]['authorThumbnails'][0]['url']; }
                     if ($type == "channel") {
                         $burl = "/channel/?id=";
                         $videoId = $channelId;
                     }
                     elseif ($type == "video") {
-                        $burl = "/watch?v=";
+                        $burl = "/watch/?v=";
                     }
-                    $title = $value['items'][$i]['snippet']['title'] ?? "";
-                    $description = $value['items'][$i]['snippet']['description'] ?? "";
-                    $sharedat = $value['items'][$i]['snippet']['publishedAt'] ?? "";
+                    $title = $value[$i]['title'] ?? "";
+                    $sharedat = $value[$i]['publishedText'] ?? "";
+
+                    $lengthseconds = $value[$i]['lengthSeconds'] ?? "0";
+                    $vidhours = floor($lengthseconds / 3600) ?? "";
+                    $vidmins = floor($lengthseconds / 60 % 60) ?? "";
+                    $vidsecs = floor($lengthseconds % 60) ?? "";
+                    if ($vidhours == "0") {
+                        $timestamp = $vidmins.':'.$vidsecs ?? "";
+                    } else {
+                        $timestamp = $vidhours.':'.$vidmins.':'.$vidsecs ?? "";
+                    }
                     ?> <a class="awhite" href="<?php echo $burl.$videoId; ?>">
                        <div class="video-tile w3-animate-left">
                         <div class="videoDiv">
@@ -219,11 +216,11 @@ What was sent to Google's API: <font color="red"><?php echo $params['q']; ?></fo
                             echo '<img src="' . $profpic . '" height="144px">';
                         }
                             ?>
-       </center>
+                        </center>
+                        <div class="timestamp"><?php echo $timestamp; ?></div>
                         </div>
                         <div class="videoInfo">
-                        <div class="videoTitle"><u>Channel: <?php echo $channel; ?><br>Shared: <?php echo $sharedat; ?></u><br><b><center><?php echo $title; ?></center></b></div>
-                        <div class="videoDesc"><center><?php echo $description; ?></center></div>
+                        <div class="videoTitle"><?php echo $channel; ?> · <?php echo $sharedat; ?><center><?php echo $title; ?></center></div>
                         </div>
                         </div>
                         </a>
@@ -236,6 +233,7 @@ What was sent to Google's API: <font color="red"><?php echo $params['q']; ?></fo
 
             ?>
             </div>
+            
         </div>
         </div>
     </body>

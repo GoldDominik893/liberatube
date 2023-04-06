@@ -1,4 +1,4 @@
-var myInput = document.getElementById("pass");
+var myInput = document.getElementById("pass") || document.getElementById("newpass");
 var letter = document.getElementById("letter");
 var capital = document.getElementById("capital");
 var number = document.getElementById("number");

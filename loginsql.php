@@ -11,18 +11,9 @@ $pw = $_POST['pass'];
 
 include('config.php');
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
 if ($usr&&$pw)
-
 {
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
@@ -41,6 +32,7 @@ while ($row = mysqli_fetch_assoc($query))
 if ($usr==$dbusername&&$hashsaltusergivenpassword==$dbpassword)
 {
     $_SESSION['logged_in_user'] = $usr;
+    $_SESSION['hashed_pass'] = $dbpassword;
     header("refresh:0;url=/");
 }
 else {

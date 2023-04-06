@@ -1,0 +1,100 @@
+body {
+    font-family: 'Lato', sans-serif;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    color: white;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .login-form {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    padding-top: 0px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: inline-block;
+    text-align: left;
+  }
+  
+  label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  input[type="text"], input[type="password"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 20px;
+    background-color: rgba(68, 68, 68, 0.5);
+  }
+  
+  input[type="submit"] {
+    background-color: rgba(76, 175, 80, 0.5);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  input[type="submit"].danger {
+    background-color: rgba(175, 76, 76, 0.5);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  a {
+    color: white;
+    text-decoration: none;
+    font-size: 12px
+  }
+/* The message box is shown when the user clicks on the password field */
+#message {
+    display:none;
+    position: relative;
+    text-align: left;
+  }
+  
+  #message p {
+    padding-left: 40px;
+  }
+  
+  /* Add a green text color and a checkmark when the requirements are right */
+  .valid {
+    color: green;
+  }
+  
+  .valid:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+  }
+  
+  /* Add a red text color and an "x" when the requirements are wrong */
+  .invalid {
+    color: red;
+  }
+  
+  .invalid:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
+  }

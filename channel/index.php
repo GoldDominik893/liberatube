@@ -1,6 +1,20 @@
 <?php
-session_start();
+session_start();  
 include('../config.php');
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
+$numrows = mysqli_num_rows($query);
+while ($row = mysqli_fetch_assoc($query))
+{   
+    $pwrow = $row['password'];
+}
+if ($_SESSION['hashed_pass'] == $pwrow) {
+    } else {
+        session_destroy();
+    }
 
 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
 $link = "https";
@@ -15,7 +29,7 @@ parse_str($url_components['query'], $params);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Bad YouTube | Home</title>
+        <title>Liberatube · Channel</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -23,7 +37,6 @@ parse_str($url_components['query'], $params);
 
 
 <?php
-include('../config.php');
 $dbsenduser = $_SESSION['logged_in_user'];
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -77,7 +90,7 @@ if(strcmp($themerow, 'dark') == 0)
   <div class="w3-container">
   <div class="topbar">
     <div class="topbarelements topbarelements-center">
-    <h1>Bad YouTube</h1>
+    <h1>Liberatube · Channel</h1>
     </div>
     <div class="topbarelements topbarelements-right">
     <h4> <?php echo $_SESSION['logged_in_user'] ?? ""; 
@@ -99,23 +112,15 @@ if(strcmp($themerow, 'dark') == 0)
     </div>
   </div>
 </div>
-<script>
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-}
-
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-}
-</script>
+<script src="/scripts/sidebar.js"></script>
 <div class="tenborder">
         
         <?php if(!empty($response)) { ?>
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
         <?php }?>
-        <?php                        
-                $InvApiUrl = $InvVIServer.'/api/v1/channels/'.$params['id'].'?hl=en';
-
+        <?php    
+                $InvApiUrl = $InvVIServer.'/api/v1/channels/'.$params['id'].'?hl=en';    
+                
                 $ch = curl_init();
 
                 curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -135,6 +140,29 @@ function w3_close() {
                 $subcount = number_format($value['subCount']) ?? "";
                 $joined = $value['joined'] ?? "";
 
+                if($params['q']){
+                $InvApiUrl = $InvVIServer.'/api/v1/channels/search/'.$params['id'].'?hl=en&q='.$params['q'];
+                $ch = curl_init();
+
+                curl_setopt($ch, CURLOPT_HEADER, 0);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_URL, $InvApiUrl);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+                curl_setopt($ch, CURLOPT_VERBOSE, 0);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                $response = curl_exec($ch);
+
+                curl_close($ch);
+                $data = json_decode($response);
+                $value_search = json_decode(json_encode($data), true);
+                }   
+                
+
+                
+
+                $pl = file_get_contents($InvVIServer.'/api/v1/channels/'.$params['id'].'/playlists/?hl=en');
+                $plitemsint = substr_count($pl,"playlistThumbnail");
+
                 if ($params['type'] == "videos" or $params['type'] == "") 
                 {
                 echo '<div class="search-form-container"><h4>
@@ -142,7 +170,15 @@ function w3_close() {
                     '.$authorc.': '.$subcount.' Subscribers</h4>
                     > <a href="#">Latest Videos</a><br>
                     <a href="/channel/?id='.$params['id'].'&type=playlists">Playlists</a><br>
-                    <a href="/channel/?id='.$params['id'].'&type=channels">Related Channels</a>
+                    <a href="/channel/?id='.$params['id'].'&type=channels">Related Channels</a><br>
+
+                        <form class="input-row topbarelements" id="keywordForm" method="get" action="/channel/">
+                        <div class="input-row topbarelements topbarelements-right">
+                            <input class="input-field" type="search" id="keyword" name="q" placeholder="Type the search query here" value="'.$params['q'].'">
+                            <input type="hidden" id="id" name="id" placeholder="Type the search query here" value="'.$params['id'].'">
+                            <input class="btn-submit" type="submit" name="submit" value="Search">
+                        </div>
+                        </form>
                 </div>'; }
                 elseif ($params['type'] == "playlists") 
                 {
@@ -174,21 +210,48 @@ function w3_close() {
             if ($params['type'] == "videos" or $params['type'] == "") 
             {
                 for ($i = 0; $i < $vidcount; $i++) {
-                    $title = $value['latestVideos'][$i]['title'] ?? "";
-                    $videoId = $value['latestVideos'][$i]['videoId'] ?? "";
-                    $publishedText = $value['latestVideos'][$i]['publishedText'] ?? "";
+                    if ($_GET['q'] == False) {
+                        $title = $value['latestVideos'][$i]['title'] ?? "";
+                        $videoId = $value['latestVideos'][$i]['videoId'] ?? "";
+                        $publishedText = $value['latestVideos'][$i]['publishedText'] ?? "";
+
+                        $lengthseconds = $value['latestVideos'][$i]['lengthSeconds'] ?? "";
+                        $vidhours = floor($lengthseconds / 3600) ?? "";
+                        $vidmins = floor($lengthseconds / 60 % 60) ?? "";
+                        $vidsecs = floor($lengthseconds % 60) ?? "";
+                        if ($vidhours == "0") {
+                            $timestamp = $vidmins.':'.$vidsecs ?? "";
+                        } else {
+                            $timestamp = $vidhours.':'.$vidmins.':'.$vidsecs ?? "";
+                        }
+                    } elseif ($_GET['q']) {
+                        $title = $value_search[$i]['title'] ?? "";
+                        $videoId = $value_search[$i]['videoId'] ?? "";
+                        $publishedText = $value_search[$i]['publishedText'] ?? "";
+
+                        $lengthseconds = $value_search[$i]['lengthSeconds'] ?? "";
+                        $vidhours = floor($lengthseconds / 3600) ?? "";
+                        $vidmins = floor($lengthseconds / 60 % 60) ?? "";
+                        $vidsecs = floor($lengthseconds % 60) ?? "";
+                        if ($vidhours == "0") {
+                            $timestamp = $vidmins.':'.$vidsecs ?? "";
+                        } else {
+                            $timestamp = $vidhours.':'.$vidmins.':'.$vidsecs ?? "";
+                        }
+                    }
+                    
                     ?>
 
 
                     <a class="awhite" href="/watch/?v=<?php echo $videoId; ?>">
-                       <div class="video-tile">
+                       <div class="video-tile w3-animate-left">
                         <div class="videoDiv">
                         <center>
                         <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" height="144px">
-       </center>
+                        </center>
+                        <div class="timestamp"><?php echo $timestamp; ?></div>
                         </div>
                         <div class="videoInfo">
-
                         <div class="videoTitle"><center>Shared <?php echo $publishedText; ?><br><b><?php echo $title; ?></center></b></div>
 
                         </div>
@@ -196,7 +259,70 @@ function w3_close() {
                         </a>
            <?php 
                     }
-                }
+                } elseif ($params['type'] == "playlists") {
+                    $InvApiUrl = $InvVIServer.'/api/v1/channels/'.$params['id'].'/playlists?hl=en';
+
+                    $ch = curl_init();
+    
+                    curl_setopt($ch, CURLOPT_HEADER, 0);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_URL, $InvApiUrl);
+                    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+                    curl_setopt($ch, CURLOPT_VERBOSE, 0);
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    $response = curl_exec($ch);
+    
+                    curl_close($ch);
+                    $data = json_decode($response);
+                    $value = json_decode(json_encode($data), true);
+                    for ($i = 0; $i < $plitemsint; $i++) {
+                        $title = $value['playlists'][$i]['title'] ?? "";
+                        $videoId = $value['playlists'][$i]['playlistId'] ?? "";
+                        $plThumb = $value['playlists'][$i]['playlistThumbnail'] ?? "";
+                        ?>
+    
+    
+                        <a class="awhite" href="/playlist/?id=<?php echo $videoId; ?>">
+                           <div class="video-tile w3-animate-left">
+                            <div class="videoDiv">
+                            <center>
+                            <img src="<?php echo $plThumb; ?>" height="144px">
+                            </center>
+                            <div style="position: absolute; margin-top: -23px; right: 10px; background: rgba(0,0,0,0.7); padding-left: 4px; padding-right: 4px; border-radius: 3px;"><?php echo $timestamp; ?></div>
+                            </div>
+                            <div class="videoInfo">
+                            <div class="videoTitle"><center><b><?php echo $title; ?></center></b></div>
+    
+                            </div>
+                            </div>
+                            </a>
+               <?php }
+                        } elseif ($params['type'] == "channels") {
+                            $chitemsint = substr_count($response,"authorThumbnails")-1;
+
+                            for ($i = 0; $i < $chitemsint; $i++) {
+                                $title = $value['relatedChannels'][$i]['author'] ?? "";
+                                $videoId = $value['relatedChannels'][$i]['authorId'] ?? "";
+                                $plThumb = $value['relatedChannels'][$i]['authorThumbnails'][3]['url'] ?? "";
+                                ?>
+            
+            
+                                <a class="awhite" href="/channel/?id=<?php echo $videoId; ?>">
+                                   <div class="video-tile w3-animate-left">
+                                    <div class="videoDiv">
+                                    <center>
+                                    <img src="<?php echo $plThumb; ?>" height="144px">
+                                    </center>
+                                    <div style="position: absolute; margin-top: -23px; right: 10px; background: rgba(0,0,0,0.7); padding-left: 4px; padding-right: 4px; border-radius: 3px;"><?php echo $timestamp; ?></div>
+                                    </div>
+                                    <div class="videoInfo">
+                                    <div class="videoTitle"><center><b><?php echo $title; ?></center></b></div>
+            
+                                    </div>
+                                    </div>
+                                    </a>
+                       <?php }
+                                }
                     ?>
 
             </div>
