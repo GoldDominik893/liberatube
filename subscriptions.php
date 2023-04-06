@@ -93,21 +93,13 @@ $numrows = mysqli_num_rows($query);
     }
     else
     {
-        echo '<a class="button awhite login-item" href="login.php"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
     }
     ?>
     </div>
     </div>
   </div>
-<script>
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-}
-
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-}
-</script>
+<script src="/scripts/sidebar.js"></script>
 
 
 <?php

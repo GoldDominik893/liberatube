@@ -31,7 +31,7 @@ if ($conn->connect_error) {
 
 $select = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_POST['name']."'");
 if(mysqli_num_rows($select)) {
-    header( "refresh:2;url=signup.php" );
+    header( "refresh:2;url=signup.html" );
     exit('<h2>This username already exists</h2>');
 }
 

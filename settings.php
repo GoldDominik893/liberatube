@@ -78,7 +78,7 @@ $numrows = mysqli_num_rows($query);
     }
     else
     {
-        echo '<a class="button awhite login-item" href="login.php"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
     }
     ?>
     </div>
