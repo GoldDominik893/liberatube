@@ -62,7 +62,7 @@ Then paste the contents into the htdocs of any website hosting software that sup
 Replace the contents of your htdocs folder with the new one and just keep the `config.php` file.
 
 ## Documentation
-If you need help regarding this software please check the [Documentation](https://golddominik893.github.io/liberatube/docs/) first before opening an issue or a discussion.
+If you need help regarding this software please check the [Documentation](https://golddominik893.github.io/liberatube/documentation/) first before opening an issue or a discussion.
 
 ## Liability
 
