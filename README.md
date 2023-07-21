@@ -2,8 +2,9 @@
 <img src="/screenshots/lt.png" width="300px">
     <h1> Liberatube </h1>
 
-<a href="https://www.gnu.org/licenses/mit.en.html">
-    <img alt="License: MIT" src="https://shields.io/badge/License-MIT%20-blue.svg">
+
+  <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">
+    <img alt="License: AGPLv3" src="https://shields.io/badge/License-AGPL%20v3-blue.svg">
   </a>
   <a href="https://github.com/golddominik893/liberatube/commits/master">
     <img alt="GitHub commits" src="https://img.shields.io/github/commit-activity/y/golddominik893/liberatube?color=red&label=commits">
