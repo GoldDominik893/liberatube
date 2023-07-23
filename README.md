@@ -43,7 +43,7 @@
 
 
 ## Instances of Liberatube
-[badyt.lol](https://badyt.lol) [liberatube.store](https://liberatube.store) - Stable, Hosted by GoldDominik893
+[badyt.lol](https://badyt.lol), [liberatube.store](https://liberatube.store) - Stable, Hosted by GoldDominik893<br>
 [ltbeta.epicsite.xyz](https://ltbeta.epicsite.xyz)<br> - Beta, Hosted by GoldDominik893
 
 
