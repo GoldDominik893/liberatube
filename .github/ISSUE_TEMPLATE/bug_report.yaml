@@ -5,28 +5,18 @@ assignees:
   - GoldDominik893
   
 body:
-  - type: dropdown
-    id: where
-    attributes:
-      label: Where?
-      options:
-      - Stable
-      - Beta
-    validations:
-      required: true
-  
   - type: input
     id: version
     attributes:
-      label: What version did you encounter this bug on?
-      placeholder: "Example: v1.6"
+      label: Version
+      placeholder: "Example: v1.6, please also include whether it is the dev channel or stable"
     validations:
       required: true
 
   - type: textarea
     id: more-infos
     attributes:
-      label: List the steps needed to reproduce this bug.
+      label: Steps needed to reproduce this bug.
       placeholder: "Example: Go to settings, Set theme to light mode."
     validations:
       required: true
