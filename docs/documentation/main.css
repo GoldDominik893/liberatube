@@ -60,6 +60,7 @@ a:focus {
 }
 h1 {
     color: white;
+	margin-bottom: -15px
 }
 .video {
     grid-area: video;
@@ -126,4 +127,11 @@ hr {
     margin-top: 0px;
     margin-left: 5px;
     margin-right: 5px;
+	
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 2px solid #2f2f2f;
+  margin: 1em 0;
+  padding: 0;
 }
