@@ -43,12 +43,9 @@
 
 
 ## Instances of Liberatube
-[two.epicfaucet.gq](https://two.epicfaucet.gq) (old ver, gonna expire, official)<br>
-[badyt.cf](https://badyt.cf) (old ver, gonna expire, official)<br>
-[badyt.lol](https://badyt.lol) (new ver, official)<br>
-[liberatube.epicsite.xyz](https://liberatube.epicsite.xyz) (will use in the future, official)<br>
-[ltbeta.epicsite.xyz](https://ltbeta.epicsite.xyz) (beta, official)<br>
-[liberatube.store](https://liberatube.store) (alias of badyt.lol)
+[badyt.lol](https://badyt.lol) [liberatube.store](https://liberatube.store) - Stable, Hosted by GoldDominik893
+[ltbeta.epicsite.xyz](https://ltbeta.epicsite.xyz)<br> - Beta, Hosted by GoldDominik893
+
 
 If you want to add your instance of Liberatube to this list please create an [issue](https://github.com/GoldDominik893/bad-youtube/issues)
 
