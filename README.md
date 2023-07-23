@@ -44,7 +44,7 @@
 
 ## Instances of Liberatube
 [badyt.lol](https://badyt.lol), [liberatube.store](https://liberatube.store) - Stable, Hosted by GoldDominik893<br>
-[ltbeta.epicsite.xyz](https://ltbeta.epicsite.xyz)<br> - Beta, Hosted by GoldDominik893
+[ltbeta.epicsite.xyz](https://ltbeta.epicsite.xyz) - Beta, Hosted by GoldDominik893<br>
 
 
 If you want to add your instance of Liberatube to this list please create an [issue](https://github.com/GoldDominik893/bad-youtube/issues)
