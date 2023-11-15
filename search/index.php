@@ -51,9 +51,9 @@ $resultsmaximum = $params['maxresults'];
     <head>
         <title>Liberatube · Search Results</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="/styles/-w3.css">
+<link rel="stylesheet" href="/styles/-bootstrap.min.css">
+<link rel="stylesheet" href="/styles/-googlesymbols.css">
         <script src="/scripts/sidebar.js"></script>
         <?php
 include('config.php');

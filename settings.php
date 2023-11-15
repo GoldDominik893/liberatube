@@ -20,10 +20,9 @@ $nothing = ""
 ?>
 <title>Liberatube · Settings</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="/styles/-w3.css">
+<link rel="stylesheet" href="/styles/-bootstrap.min.css">
+<link rel="stylesheet" href="/styles/-googlesymbols.css">
 
 <?php
 $dbsenduser = $_SESSION['logged_in_user'];
@@ -47,6 +46,7 @@ while ($row = mysqli_fetch_assoc($query))
     $proxyrow = $row['proxy'];
     $playertyperow = $row['player'];
     $regionrow = $row['region'];
+    $loadcommentsrow = $row['loadcomments'];
 }
 $row = mysqli_fetch_assoc($query);
 $numrows = mysqli_num_rows($query);
@@ -107,6 +107,21 @@ if(isset($_SESSION['logged_in_user'])) {
     $checked3a = "checked";
     $checked3b = "";
   }
+
+  if ($loadcommentsrow == "showall") {
+    $checked4a = "checked";
+    $checked4b = "";
+    $checked4c = "";
+  } elseif ($loadcommentsrow == "noreplies") {
+    $checked4a = "";
+    $checked4b = "checked";
+    $checked4c = "";
+  } elseif ($loadcommentsrow == "nothing") {
+    $checked4a = "";
+    $checked4b = "";
+    $checked4c = "checked";
+  }
+
   if ($allowProxy == "true") {
 
   } elseif ($allowProxy == "false" or $allowProxy == "downloads"){
@@ -117,7 +132,7 @@ if(isset($_SESSION['logged_in_user'])) {
   }
 echo '<h4 style="text-align: center;">This is still in development.<br></h4>';
 echo '<div class="tenborder">
-<form action="" method="post" formtarget="_blank">
+<form action="" method="post" id="form" formtarget="_blank">
   <div class="settingsdiv"><h4>Visual Preferences</h4>
   <label for="theme">Theme:</label>
   <select class="formsel" style="border-radius: 6px;" id="theme" name="theme" value="--Please Select--">
@@ -127,7 +142,7 @@ echo '<div class="tenborder">
     <option class="formsel" value="blue">Blue</option>
     <option class="formsel" value="ultra-dark">Ultra-Dark</option>
     <option class="formsel" value="light">Light</option>
-  </select><br>
+  </select><a class="label" href="/liberatube-pluginstore/" for="theme">Custom</a><br>
   <label for="vidshadow">Video Shadow: <i>(Soon)</i></label>
   <input type="checkbox" id="vidshadow" name="vidshadow" '.$checked1.'>
   </div>
@@ -259,13 +274,20 @@ echo '<div class="tenborder">
   </div>
   <br>
   <div class="settingsdiv"><h4>Player Preferences</h4>
-<label for="player">Player Type: <i>(Soon)</i></label>
+<label for="player">Player Type:</label>
 
-      <input type="radio" id="vjs" name="player" value="vjs" '.$checked3a.'>VideoJS</input>
-      <input type="radio" id="html" name="player" value="html" '.$checked3b.'>HTML</input><br>
+      <input type="radio" id="vjs" name="player" value="vjs" '.$checked3a.'></input><label class="label" for="vjs">VideoJS</label>
+      <input type="radio" id="html" name="player" value="html" '.$checked3b.'></input><label class="label" for="html">HTML</label><br>
 
-  <label for="proxy">Proxy Video:</label>
-  <input type="checkbox" id="proxy" name="proxy" '.$checked2.'>'.$instanceProxyText.'
+    <label for="proxy">Proxy Video:</label>
+    <input name="proxy" type="checkbox" id="proxy"'.$checked2.'>'.$instanceProxyText.'</input><br>
+
+
+    <label for="loadcomments">Comments:</label><br>
+    <input type="radio" id="showall" name="loadcomments" value="showall" '.$checked4a.'></input><label class="label" for="showall">Load comments and replies (Slowest)</label><br>
+    <input type="radio" id="noreplies" name="loadcomments" value="noreplies" '.$checked4b.'></input><label class="label" for="noreplies">Do not load replies (Fast)</label><br>
+    <input type="radio" id="nothing" name="loadcomments" value="nothing" '.$checked4c.'></input><label class="label" for="nothing">Do not load anything (Fastest)</label>
+
   </div>
   <br>
   <div class="settingsdiv"><h4>Account Preferences</h4>
@@ -275,10 +297,10 @@ echo '<div class="tenborder">
   </div>
   <br>
   <div class="settingsdiv" style="background-color: transparent; text-align: right; padding-top: 0px; padding-right: 0px;">
-  <button type="" class="btn btn-success">Save</button>
+  <button type="" class="btn btn-success" id="submitButton">Save</button>
   </div>
-  
 </form>
+<script src="/scripts/formxhr.js"></script>
 </div>';
 } else {
 echo '<h4 style="text-align: center;">You are not logged in.</h4>';
@@ -289,32 +311,27 @@ $uregion = $_POST['region'] ?? "";
 $torfproxy = $_POST['proxy'] ?? "";
 $uplayertype = $_POST['player'] ?? "";
 $uvideoshadow = $_POST['vidshadow'] ?? "";
+$uloadcomments = $_POST['loadcomments'];
+
 $dbsenduser = $_SESSION['logged_in_user'];
 if($theme != "")
 {
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-
 $select = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_POST['name']."'");
 if(mysqli_num_rows($select)) {
 }
-
 $sql = "UPDATE login
-SET theme = '$theme', lang = '$lang', region = '$uregion', proxy = '$torfproxy', player = '$uplayertype', videoshadow = '$uvideoshadow'
+SET theme = '$theme', lang = '$lang', region = '$uregion', proxy = '$torfproxy', player = '$uplayertype', videoshadow = '$uvideoshadow', loadcomments = '$uloadcomments'
 WHERE username = '$dbsenduser';";
-
-if ($conn->query($sql) === TRUE) {
-      
+if ($conn->query($sql) === TRUE) {   
 } else {
   echo "Error: <br>" . $conn->error;
 }
 $conn->close();
 }
-
 include('../config.php');
 $dbsenduser = $_SESSION['logged_in_user'];
 $conn = new mysqli($servername, $username, $password, $dbname);

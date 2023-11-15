@@ -1,8 +1,4 @@
-<style>
-  body {
-    background-color: #2a2a2a;
-  }
-</style>
+<link rel="stylesheet" href="/styles/general.css">
 <?php
 session_start();
 

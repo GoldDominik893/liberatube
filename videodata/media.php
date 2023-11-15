@@ -1,5 +1,6 @@
 <?php
     include('../config.php');
+    header('Content-type: video/mp4');
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
         $link = "https";
     else $link = "http";

@@ -33,9 +33,9 @@ parse_str($url_components['query'], $params);
     <head>
         <title>Liberatube · Home</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="stylesheet" href="/styles/-w3.css">
+<link rel="stylesheet" href="/styles/-bootstrap.min.css">
+<link rel="stylesheet" href="/styles/-googlesymbols.css">
 
 <?php
 $dbsenduser = $_SESSION['logged_in_user'];
@@ -171,7 +171,6 @@ else {
                 }
                 }
                 
-                
                 if ($params['region'] == "GB") {
                     $responsetren = "Trending Content For Great Britain";
                 }
@@ -282,13 +281,10 @@ else {
             ?> 
             </div>
         </div>
-        <br><div class="videos-data-container footer w3-animate-left">Credits: Dominic Wajda (GoldDominik893).<br>
+        <br><div class="videos-data-container footer w3-animate-left">
+            Liberatube Version 1.8 beta · Credits: Dominic Wajda (GoldDominik893).<br>
             This website was optimised for mobile users and does not collect any user data apart from<br> watch history which doesn't exist yet and you will be able to turn it off when logged in.
-            <br><a href="https://discord.gg/z4cCk5c5Zj">Join the Discord</a><br>
-            <a href="https://invidious.epicsite.xyz">Invidious</a><br>
-            <a href="https://github.com/GoldDominik893/liberatube">GitHub</a><br>
-            <a href="/privacy.html">Privacy Policy</a><br>
-            <a href="/donate.html">Donate to the Liberatube project</a><br>
+            <br><a href="https://discord.gg/z4cCk5c5Zj">Join the Discord</a> · <a href="https://invidious.io">Invidious</a> · <a href="https://github.com/GoldDominik893/liberatube">GitHub</a> · <a href="/privacy.html">Privacy Policy</a> · <a href="/donate.html">Donate to the Liberatube project</a><br>
             Send suggestions to <a href="mailto:suggestions@epicsite.xyz">suggestions@epicsite.xyz</a>
             </div>
         </div>

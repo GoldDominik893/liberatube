@@ -1,9 +1,15 @@
+@font-face {
+    font-family: 'Signika Negative';
+    src: url('/styles/-signikanegative400.ttf') format('truetype');
+}
+
 body {
-    font-family: Arial;
+    font-family: 'Signika Negative', sans-serif;
     padding: 0px;
     color: white;
     background-color: #000000;
 }
+
 a {
     color: #555;
 }
@@ -234,3 +240,14 @@ details {
     border-radius: 4px;
     padding: 10px;
   }
+  .label  {
+    background-color: #101011;
+    padding: 4px 6px 4px 6px;
+    margin: 1px;
+}
+.label:hover {
+    background-color: #3b1414;
+}
+img {
+    border-radius: 6px
+}

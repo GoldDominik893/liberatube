@@ -28,78 +28,9 @@ parse_str($url_components['query'], $params);
 ?>
 <html>
 <head>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 
 <?php
-$dbsenduser = $_SESSION['logged_in_user'];
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-if (isset($_SESSION['logged_in_user']))
-{
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-$numrows = mysqli_num_rows($query);
-while ($row = mysqli_fetch_assoc($query))
-{
-    $themerow = $row['theme'];
-    $userproxysetting = $row['proxy'];
-}
-$row = mysqli_fetch_assoc($query);
-$numrows = mysqli_num_rows($query);
-}
-                if(strcmp($themerow, 'dark') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerdark.css">';
-            } elseif(strcmp($themerow, 'blue') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerblue.css">';
-            } elseif(strcmp($themerow, 'ultra-dark') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
-            } elseif(strcmp($themerow, 'light') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerlight.css">';
-            } else 
-            {
-                echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
-            } 
-                ?>
-
-<div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
-  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
-  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span></a>
-  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span></a>
-  <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span></a>
-  <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span></a>
-  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span></a>
-  <hr class="hr">
-  <?php
-            if ($params['listen'] == "true") {
-                echo '<a href="?v='.$params['v'].'&listen=false" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">live_tv</span></a>
-                      <a href="#" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">headphones</span></a>';
-            }
-            else {
-                echo '<a href="#" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">live_tv</span></a>
-                      <a href="?v='.$params['v'].'&listen=true" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">headphones</span></a>';
-            }
-        ?>
-  
-</div>
-
-<div class="w3-main" style="margin-left:55px">
-<div class="w3-tssseal">
-  <button class="w3-button w3-darkgrey w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</button>
-  <div class="w3-container">
-  </div>
-</div>
- <?php
                 $InvApiUrl = $InvVIServer.'/api/v1/videos/' . $params['v'] . '?fields=title,description,viewCount,subCountText,likeCount,author,authorId,publishedText&hl=en';
 
                 $ch = curl_init();
@@ -165,6 +96,82 @@ $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId='.$params['v
 <span><meta property="og:site_name" content="Liberatube">
 <link itemprop="name" content="Liberatube"></span></head>
 
+
+<link rel="stylesheet" href="/styles/-w3.css">
+<link rel="stylesheet" href="/styles/-bootstrap.min.css">
+<link rel="stylesheet" href="/styles/-googlesymbols.css">
+
+<?php
+$dbsenduser = $_SESSION['logged_in_user'];
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+if (isset($_SESSION['logged_in_user']))
+{
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
+$numrows = mysqli_num_rows($query);
+while ($row = mysqli_fetch_assoc($query))
+{
+    $themerow = $row['theme'];
+    $userproxysetting = $row['proxy'];
+    $loadcomments = $row['loadcomments'];
+    $playerrow = $row['player'];
+}
+$row = mysqli_fetch_assoc($query);
+$numrows = mysqli_num_rows($query);
+}
+                if(strcmp($themerow, 'dark') == 0)
+            {
+                echo '<link rel="stylesheet" href="../styles/playerdark.css">';
+            } elseif(strcmp($themerow, 'blue') == 0)
+            {
+                echo '<link rel="stylesheet" href="../styles/playerblue.css">';
+            } elseif(strcmp($themerow, 'ultra-dark') == 0)
+            {
+                echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
+            } elseif(strcmp($themerow, 'light') == 0)
+            {
+                echo '<link rel="stylesheet" href="../styles/playerlight.css">';
+            } else 
+            {
+                echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
+            }
+                ?>
+
+<div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
+  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span></a>
+  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span></a>
+  <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span></a>
+  <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span></a>
+  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span></a>
+  <hr class="hr">
+  <?php
+            if ($params['listen'] == "true") {
+                echo '<a href="?v='.$params['v'].'&listen=false" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">live_tv</span></a>
+                      <a href="#" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">headphones</span></a>';
+            }
+            else {
+                echo '<a href="#" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">live_tv</span></a>
+                      <a href="?v='.$params['v'].'&listen=true" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">headphones</span></a>';
+            }
+        ?>
+  
+</div>
+
+<div class="w3-main" style="margin-left:55px">
+<div class="w3-tssseal">
+  <button class="w3-button w3-darkgrey w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</button>
+  <div class="w3-container">
+  </div>
+</div>
+ 
+
 <div class="tenborder">
 <br>
 <center>
@@ -174,10 +181,16 @@ $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId='.$params['v
             } else {
                 $dlsetting = "&dl=false";
             }
+            if(strcmp($playerrow, 'vjs') == 0) {
+                echo '<link rel="stylesheet" href="../styles/-video-js.css"> <script src="../scripts/-video.min.js"></script>';
+                $videosizingcss = 'style="max-width: 90vw"';
+            } else {
+                $videosizingcss = 'style="max-width: 90%; max-height: 90vh;"';
+            }
             if ($params['listen'] == "true") {
                 
                 echo '<link rel="stylesheet" href="../styles/audioplayer.css">
-                    <video id="video" style="max-width: 75%; max-height: 90vh;" poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
+                    <video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
                     <source src="/videodata/media.php?type=audiouhqserver1'.$dlsetting.'&id='.$params['v'].'" type="audio/webm" label="Lossless Quality 1">
                     <source src="/videodata/media.php?type=audiouhqserver2'.$dlsetting.'&id='.$params['v'].'" type="audio/webm" label="Lossless Quality 2">
                     <source src="/videodata/media.php?type=audiohqserver1'.$dlsetting.'&id='.$params['v'].'" type="audio/webm" label="High Quality 1">
@@ -190,7 +203,7 @@ $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId='.$params['v
                     </video>';
             }
             else {
-                echo '<video id="video" class="video-js" style="max-width: 75%; max-height: 90vh;" poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
+                echo '<video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
                     <source src="/videodata/media.php?type=hd720server1'.$dlsetting.'&id='.$params['v'].'" type="video/mp4" label="hd720">
                     <source src="/videodata/media.php?type=hd720server2'.$dlsetting.'&id='.$params['v'].'" type="video/mp4" label="hd720">
                     <source src="/videodata/media.php?type=mediumserver1'.$dlsetting.'&id='.$params['v'].'" type="video/mp4" label="medium">
@@ -250,7 +263,13 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',
 
 
 
- <?php if(!empty($response)) { ?>
+ <?php
+    if ($loadcomments) {} else {
+        $loadcomments = $defaultLoadCommentsSetting;
+    }
+    if ($loadcomments != "nothing") {
+ 
+    if(!empty($response)) { ?>
         <?php }?>
         <?php                        
                 $InvApiUrl = $InvCServer.'/api/v1/comments/'.$params['v'].'?region=GB&hl=en';
@@ -286,6 +305,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',
                     $alik = $value['comments'][$i]['likeCount'] ?? "";
                     $auid = $value['comments'][$i]['authorId'] ?? "";
 
+                    if ($loadcomments != "noreplies") {
                     $commentreplycontinuation = $value['comments'][$i]['replies']['continuation'] ?? "";
                     $commentreplyamount = $value['comments'][$i]['replies']['replyCount'] ?? "";
 
@@ -312,9 +332,9 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',
                             }
                             else {
                                 $ccountl_reply = $ccount_reply - "1";
-                            }
+                            } }
                     ?>
-<div style="width: 100%; max-width: 775px;">
+                    <div style="width: 100%; max-width: 775px;">
                     <h4><img style="margin-bottom: -25px;" src=<?php echo $aturl; ?>> <a href="/channel/?id=<?php echo $auid.'">'.$aname."</a>"; ?> · <?php echo $ptex; ?> · <?php echo number_format($alik)." likes"; ?>
                     </h4>
                     <br><h5 style="margin-left: 53px; margin-top: -25px;"><?php echo $acon; 
@@ -342,11 +362,12 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',
                 </div>  
            <?php 
                     }
+                }
             ?> 
             </div>
             </div>
         <title><?php echo $title; ?> · Liberatube</title>
 </div> 
 </div>
-         </body>
-         </html>
+</body>
+</html>

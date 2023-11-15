@@ -1,5 +1,10 @@
+@font-face {
+    font-family: 'Signika Negative';
+    src: url('/styles/-signikanegative400.ttf') format('truetype');
+}
+
 body {
-    font-family: Arial;
+    font-family: 'Signika Negative', sans-serif;
     padding: 0px;
     color: white;
     background-color: #131b27;
@@ -59,8 +64,7 @@ iframe {
 }
 .video-tile {
     display: inline-block;
-    margin: 10px 10px 20px 10px;
-    border: #192331 2px solid;
+    border: #192331 1px solid;
     border-radius: 8px;
     background-color: #192331;
     transition: transform 0.2s;
@@ -307,4 +311,7 @@ a:focus {
     padding-left: 4px; 
     padding-right: 4px; 
     border-radius: 3px;
+}
+img {
+    border-radius: 4px
 }

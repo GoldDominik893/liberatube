@@ -1,9 +1,15 @@
+@font-face {
+    font-family: 'Signika Negative';
+    src: url('/styles/-signikanegative400.ttf') format('truetype');
+}
+
 body {
-    font-family: Arial;
+    font-family: 'Signika Negative', sans-serif;
     padding: 0px;
     color: white;
     background-color: #000000;
 }
+
 a {
     color: #555;
 }
@@ -163,7 +169,6 @@ a:focus {
 }
 .video-tile {
     display: inline-block;
-    margin: 10px 10px 20px 10px;
     border-radius: 8px;
     border: #000000 1px solid;
     background: #020202;
@@ -303,9 +308,10 @@ a:focus {
     color: white;
 }
 .footer {
-    border-image: linear-gradient(45deg, #d64400, #6c0ceb) 3;
-    border-width: 2px;
-    border-style: solid;
+    width: 100%;
+
+            background: linear-gradient(135deg, #FFA50033, #80008033);
+            border-radius: 8px;
 }
 .timestamp {
     position: absolute; 
@@ -315,4 +321,7 @@ a:focus {
     padding-left: 4px; 
     padding-right: 4px; 
     border-radius: 3px;
+}
+img {
+    border-radius: 5px
 }

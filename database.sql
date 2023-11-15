@@ -22,8 +22,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `login` (
-  `username` varchar(256) NOT NULL,
-  `password` varchar(256) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `salt1` varchar(12) NOT NULL,
   `salt2` varchar(12) NOT NULL,
   `theme` varchar(30) NOT NULL,
@@ -31,6 +31,7 @@ CREATE TABLE `login` (
   `region` varchar(4) NOT NULL,
   `proxy` varchar(8) NOT NULL,
   `player` varchar(15) NOT NULL,
-  `videoshadow` varchar(8) NOT NULL
+  `videoshadow` varchar(8) NOT NULL,
+  `loadcomments` varchar(12) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 COMMIT;

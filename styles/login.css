@@ -1,10 +1,19 @@
+@font-face {
+    font-family: 'Signika Negative';
+    src: url('/styles/-signikanegative400.ttf') format('truetype');
+}
+
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Signika Negative', sans-serif;
+    padding: 0px;
+    color: white;
+    background-color: #000000;
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
     color: white;
   }
+
   
   .container {
     display: flex;
@@ -43,6 +52,7 @@ body {
     border: none;
     margin-bottom: 20px;
     background-color: rgba(68, 68, 68, 0.5);
+    color: white;
   }
   
   input[type="submit"] {

@@ -1,9 +1,15 @@
+@font-face {
+    font-family: 'Signika Negative';
+    src: url('/styles/-signikanegative400.ttf') format('truetype');
+}
+
 body {
-    font-family: Arial;
+    font-family: 'Signika Negative', sans-serif;
     padding: 0px;
     color: white;
-    background-color: #2a2a2a;
-    }
+    background-color: #000000;
+}
+
 a {
     color: #777;
     transition: transform 0.2s;

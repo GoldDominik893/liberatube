@@ -21,9 +21,9 @@ if ($_SESSION['hashed_pass'] == $pwrow) {
     <head>
         <title>Liberatube · Playlists</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="/styles/-w3.css">
+<link rel="stylesheet" href="/styles/-bootstrap.min.css">
+<link rel="stylesheet" href="/styles/-googlesymbols.css">
 
         <?php
 $dbsenduser = $_SESSION['logged_in_user'];
@@ -92,6 +92,8 @@ $numrows = mysqli_num_rows($query);
         echo '<a class="button awhite login-item" href="login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
     }
     ?>
+
+    
     </div>
     </div>
   </div>
@@ -99,14 +101,51 @@ $numrows = mysqli_num_rows($query);
 
 
 <?php
-
 if(isset($_SESSION['logged_in_user'])) {
-echo '<center><h4>This is still in development.</h4></center>';
+echo '<center><h4>This is still in development.</h4></center>
+
+
+
+
+
+
+
+
+
+<div class="videos-data-container w3-animate-left" id="SearchResultsDiv">
+<div style="text-align: center;">
+                    
+    
+    
+                        <a class="awhite" href="/watch/?v=<?php echo $videoId; ?>">
+                           <div class="video-tile w3-animate-left">
+                            <div class="videoDiv">
+                            <center>
+                            <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" height="144px">
+                            </center>
+                            <div style="position: absolute; margin-top: -23px; right: 10px; background: rgba(0,0,0,0.7); padding-left: 4px; padding-right: 4px; border-radius: 3px;"><?php echo $timestamp; ?></div>
+                            </div>
+                            <div class="videoInfo">
+                            <div class="videoTitle"><br><b><center><?php echo $title; ?></center></b></div>
+    
+                            </div>
+                            </div>
+                            </a>
+
+
+
+
+
+</div></div>
+
+';
 } else {
 echo '<center><h4>You are not logged in.</h4></center>';
 }
-
 ?>
+
+
+
     </div>
     </div>
   </div>
