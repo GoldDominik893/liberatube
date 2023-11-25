@@ -40,7 +40,20 @@
 - Download videos
 - Does not use official YouTube API's
 - API *(soon)*
+  
+## To-do List
 
+- Performance improvements
+- DASH video through VideoJS.
+- Autoplay for playlists.
+- Sort videos on a users channel by date and popularity.
+- Clickable timestamps from description or comments.
+- Native language support.
+- Playlist creation.
+- Subscribing to channels.
+- Caching the trending page to reduce loading times significantly.
+- Annotations (clickable links on the video basically).
+- Docker compose
 
 ## Instances of Liberatube
 [badyt.lol](https://badyt.lol) - Stable, Hosted by GoldDominik893<br>
