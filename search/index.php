@@ -1,20 +1,26 @@
 <?php
 session_start();  
 include('../config.php');
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-$numrows = mysqli_num_rows($query);
-while ($row = mysqli_fetch_assoc($query))
-{   
-    $pwrow = $row['password'];
-}
-if ($_SESSION['hashed_pass'] == $pwrow) {
+
+if ($useSQL == true) {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    $query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
+    $numrows = mysqli_num_rows($query);
+    while ($row = mysqli_fetch_assoc($query))
+    {   
+        $pwrow = $row['password'];
+    }
+    if ($_SESSION['hashed_pass'] == $pwrow) {
+        } else {
+            session_destroy();
+        }
     } else {
         session_destroy();
     }
+
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
         $link = "https";
     else $link = "http";
@@ -56,52 +62,59 @@ $resultsmaximum = $params['maxresults'];
 <link rel="stylesheet" href="/styles/-googlesymbols.css">
         <script src="/scripts/sidebar.js"></script>
         <?php
-include('config.php');
-$dbsenduser = $_SESSION['logged_in_user'];
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-if (isset($_SESSION['logged_in_user']))
-{
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-$numrows = mysqli_num_rows($query);
-while ($row = mysqli_fetch_assoc($query))
-{
-    $themerow = $row['theme'];
-}
-$row = mysqli_fetch_assoc($query);
-$numrows = mysqli_num_rows($query);
-}
-              if(strcmp($themerow, 'dark') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/homedark.css">';
-            } elseif(strcmp($themerow, 'blue') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/homeblue.css">';
-            } elseif(strcmp($themerow, 'ultra-dark') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/homeultra-dark.css">';
-            } elseif(strcmp($themerow, 'light') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/homelight.css">';
-            } else 
-            {
-                echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
-            } 
+if ($useSQL == true) {
+    $dbsenduser = $_SESSION['logged_in_user'];
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    if (isset($_SESSION['logged_in_user']))
+    {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    $query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
+    $numrows = mysqli_num_rows($query);
+    while ($row = mysqli_fetch_assoc($query))
+    {
+        $themerow = $row['theme'];
+        $regionrow = $row['region'];
+    }
+    $row = mysqli_fetch_assoc($query);
+    $numrows = mysqli_num_rows($query);
+    }
+    if(strcmp($themerow, 'dark') == 0)
+    {
+        echo '<link rel="stylesheet" href="../styles/homedark.css">';
+    } elseif(strcmp($themerow, 'blue') == 0)
+    {
+        echo '<link rel="stylesheet" href="../styles/homeblue.css">';
+    } elseif(strcmp($themerow, 'ultra-dark') == 0)
+    {
+        echo '<link rel="stylesheet" href="../styles/homeultra-dark.css">';
+    } elseif(strcmp($themerow, 'light') == 0)
+    {
+        echo '<link rel="stylesheet" href="../styles/homelight.css">';
+    } else 
+    {
+        echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
+    } 
+    } else {
+        echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
+    }
                 ?>
 
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
   <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span></a>
+  <?php
+  if ($useSQL == true) { ?>
   <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span></a>
   <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span></a>
   <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span></a>
   <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span></a>
+  <?php } ?>
   <hr class="hr">
   <a href="#" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">search</span></a>
 </div>
@@ -120,16 +133,17 @@ $numrows = mysqli_num_rows($query);
             </div>
             </form>
     </div>
+    <?php if ($useSQL == true) { ?>
     <div class="topbarelements topbarelements-right">
     <h4> <?php echo $_SESSION['logged_in_user'] ?? ""; 
     $loggedinuser = $_SESSION['logged_in_user'] ?? "";?> 
     <?php if($loggedinuser != "")
     {
-        echo '<a class="button awhite login-item" href="/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+        echo '<a class="button awhite login-item" href="logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
     }
     else
     {
-        echo '<a class="button awhite login-item" href="/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
     }
     if($loggedinuser == $adminuser)
             {
@@ -137,6 +151,7 @@ $numrows = mysqli_num_rows($query);
             }
     ?>
     </div>
+    <?php } ?>
     </div>
   </div>
 </div>

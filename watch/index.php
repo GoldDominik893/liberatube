@@ -1,17 +1,22 @@
 <?php
 session_start();  
 include('../config.php');
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-$numrows = mysqli_num_rows($query);
-while ($row = mysqli_fetch_assoc($query))
-{   
-    $pwrow = $row['password'];
-}
-if ($_SESSION['hashed_pass'] == $pwrow) {
+
+if ($useSQL == true) {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    $query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
+    $numrows = mysqli_num_rows($query);
+    while ($row = mysqli_fetch_assoc($query))
+    {   
+        $pwrow = $row['password'];
+    }
+    if ($_SESSION['hashed_pass'] == $pwrow) {
+        } else {
+            session_destroy();
+        }
     } else {
         session_destroy();
     }
@@ -55,7 +60,7 @@ parse_str($url_components['query'], $params);
                     $authorId = $value['authorId'];
                     $autsubs = $value['subCountText'];
                     $shared = $value['publishedText'];
-if ($useReturnYTDislike == "true") {
+if ($useReturnYTDislike == true) {
 $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId='.$params['v'];
 
                 $ch = curl_init();
@@ -102,54 +107,59 @@ $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId='.$params['v
 <link rel="stylesheet" href="/styles/-googlesymbols.css">
 
 <?php
-$dbsenduser = $_SESSION['logged_in_user'];
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-if (isset($_SESSION['logged_in_user']))
-{
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-$numrows = mysqli_num_rows($query);
-while ($row = mysqli_fetch_assoc($query))
-{
-    $themerow = $row['theme'];
-    $userproxysetting = $row['proxy'];
-    $loadcomments = $row['loadcomments'];
-    $playerrow = $row['player'];
-}
-$row = mysqli_fetch_assoc($query);
-$numrows = mysqli_num_rows($query);
-}
-                if(strcmp($themerow, 'dark') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerdark.css">';
-            } elseif(strcmp($themerow, 'blue') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerblue.css">';
-            } elseif(strcmp($themerow, 'ultra-dark') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
-            } elseif(strcmp($themerow, 'light') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerlight.css">';
-            } else 
-            {
-                echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
-            }
+if ($useSQL == true) {
+    $dbsenduser = $_SESSION['logged_in_user'];
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    if (isset($_SESSION['logged_in_user']))
+    {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    $query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
+    $numrows = mysqli_num_rows($query);
+    while ($row = mysqli_fetch_assoc($query))
+    {
+        $themerow = $row['theme'];
+        $regionrow = $row['region'];
+    }
+    $row = mysqli_fetch_assoc($query);
+    $numrows = mysqli_num_rows($query);
+    }
+    if(strcmp($themerow, 'dark') == 0)
+    {
+        echo '<link rel="stylesheet" href="../styles/playerdark.css">';
+    } elseif(strcmp($themerow, 'blue') == 0)
+    {
+        echo '<link rel="stylesheet" href="../styles/playerblue.css">';
+    } elseif(strcmp($themerow, 'ultra-dark') == 0)
+    {
+        echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
+    } elseif(strcmp($themerow, 'light') == 0)
+    {
+        echo '<link rel="stylesheet" href="../styles/playerlight.css">';
+    } else 
+    {
+        echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
+    } 
+    } else {
+        echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
+    }
                 ?>
 
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
   <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span></a>
+  <?php
+  if ($useSQL == true) { ?>
   <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span></a>
   <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span></a>
   <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span></a>
   <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span></a>
+  <?php } ?>
   <hr class="hr">
   <?php
             if ($params['listen'] == "true") {

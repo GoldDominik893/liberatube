@@ -1,6 +1,11 @@
 <?php
 session_start();  
 include('../config.php');
+if ($useSQL == false) {
+    echo "the sql-less feature is on so this won't work. redirecting back to home in 2 seconds";
+    header( "refresh:2;url=/" );
+    exit();
+}
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);

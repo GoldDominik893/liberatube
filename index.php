@@ -1,23 +1,27 @@
 <?php
 include('config.php');
 session_start();
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-$numrows = mysqli_num_rows($query);
-while ($row = mysqli_fetch_assoc($query))
-{   
-    $pwrow = $row['password'];
-}
-if ($_SESSION['hashed_pass'] == $pwrow) {
+
+if ($useSQL == true) {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    $query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
+    $numrows = mysqli_num_rows($query);
+    while ($row = mysqli_fetch_assoc($query))
+    {   
+        $pwrow = $row['password'];
+    }
+    if ($_SESSION['hashed_pass'] == $pwrow) {
+        } else {
+            session_destroy();
+        }
     } else {
         session_destroy();
     }
 
-    $keyword = $_POST['keyword'] ?? "";
-
+$keyword = $_POST['keyword'] ?? "";
 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
 $link = "https";
 else $link = "http";
@@ -38,6 +42,7 @@ parse_str($url_components['query'], $params);
 <link rel="stylesheet" href="/styles/-googlesymbols.css">
 
 <?php
+if ($useSQL == true) {
 $dbsenduser = $_SESSION['logged_in_user'];
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -75,7 +80,9 @@ if(strcmp($themerow, 'dark') == 0)
 {
     echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
 } 
-                ?>
+} else {
+    echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
+}?>
     <body>
 
 
@@ -84,10 +91,13 @@ if(strcmp($themerow, 'dark') == 0)
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
   <a href="/" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">home</span></a>
+  <?php
+  if ($useSQL == true) { ?>
   <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span></a>
   <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span></a>
   <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span></a>
   <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span></a>
+  <?php } ?>
 </div>
 
 <div class="w3-main" style="margin-left:55px">
@@ -104,6 +114,8 @@ if(strcmp($themerow, 'dark') == 0)
             </div>
             </form>
     </div>
+
+    <?php if ($useSQL == true) { ?>
     <div class="topbarelements topbarelements-right">
     <h4> <?php echo $_SESSION['logged_in_user'] ?? ""; 
     $loggedinuser = $_SESSION['logged_in_user'] ?? "";?> 
@@ -121,6 +133,8 @@ if(strcmp($themerow, 'dark') == 0)
             }
     ?>
     </div>
+    <?php } ?>
+
     </div>
         </div>
 </div>
