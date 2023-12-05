@@ -55,6 +55,14 @@
 - Annotations (clickable links on the video basically).
 - Docker compose
 
+## Related Repositories
+
+- [Liberatube](//github.com/golddominik893/liberatube)
+- [Liberatube Redirector](//github.com/golddominik893/liberatube-redirector)
+- [Liberatube Documentation](//github.com/golddominik893/liberatube-docs)
+- [Liberatube Instances](//github.com/golddominik893/liberatube-instances)
+- [Liberatube Plugin Store](//github.com/golddominik893/liberatube-pluginstore)
+  
 ## Instances of Liberatube
 [badyt.lol](https://badyt.lol) - Stable, Hosted by GoldDominik893<br>
 [ltbeta.epicsite.xyz](https://ltbeta.epicsite.xyz) - Beta, Hosted by GoldDominik893<br>
