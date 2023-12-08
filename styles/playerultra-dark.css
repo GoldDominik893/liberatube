@@ -2,22 +2,16 @@
     font-family: 'Signika Negative';
     src: url('/styles/-signikanegative400.ttf') format('truetype');
 }
-
 body {
     font-family: 'Signika Negative', sans-serif;
     padding: 0px;
     color: white;
     background-color: #000000;
 }
-
 a {
     color: #555;
 }
-a:hover {
-    color: #ff4444;
-    text-decoration: none;
-}
-a:focus {
+a:hover, a:focus {
     color: #f44;
     text-decoration: none;
 }
@@ -49,7 +43,6 @@ a:focus {
 .sidebarbtn-selected:hover {
     background-color: #070707;
 }
-/* Popup container - can be anything you want */
 .popup {
 position: relative;
 display: inline-block;
@@ -59,8 +52,6 @@ cursor: pointer;
 -ms-user-select: none;
 user-select: none;
 }
-
-/* The actual popup */
 .popup .popuptext {
 visibility: hidden;
 background-color: #555;
@@ -102,7 +93,7 @@ to {opacity: 1;}
 
 @keyframes fadeIn {
 from {opacity: 0;}
-to {opacity:1 ;}
+to {opacity: 1;}
 }
 .awhite {
     color: white;
@@ -117,17 +108,16 @@ to {opacity:1 ;}
 margin: 3px;
 margin-right: 5px;
 margin-left: 5px;
-
 height: 1px;
 color: #242424;
 background-color: #242424;
 border: none;
 }
+
 ::-webkit-scrollbar{width:8px; height: 8px;}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background: rgba(100,100,100,0.4); border-radius:5px;}
 ::-webkit-scrollbar-thumb:hover{background: rgba(70,70,70,0.4);}
-
 
 #box {
 position: relative;
@@ -167,7 +157,7 @@ background: rgba(10, 10, 10, 0.5);
     background-color: rgba(20,20,20,0.2);
     color: white;
     border-radius: 6px;
-    outline: none;
+    border: 2px solid rgb(27, 27, 27);
     transition: transform 0.2s;
     transition: 0.3s
     }
@@ -178,9 +168,6 @@ background-color: rgba(30,30,30,0.2);
 text-decoration: none;
 transition: transform 0.2s;
 transition: 0.3s
-}
-video {
-    box-shadow: 0 0 40px rgb(0, 0, 0);
 }
 .formsel {
     background-color: rgba(20,20,20,0.8);

@@ -82,17 +82,17 @@ border: none;
     padding: 10px;
 }
 .button {
-display: inline-block;
-padding: 10px 20px;
-text-align: center;
-text-decoration: none;
-background-color: rgb(14, 14, 14);
-color: rgb(255, 255, 255);
-border-radius: 6px;
-outline: none;
-transition: transform 0.2s;
-transition: 0.3s
-}
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    background-color: rgba(20,20,20,0.2);
+    color: white;
+    border-radius: 6px;
+    border: 2px solid rgb(27, 27, 27);
+    transition: transform 0.2s;
+    transition: 0.3s
+    }
 .button:hover {
 cursor: pointer;
 color: #ff4444;

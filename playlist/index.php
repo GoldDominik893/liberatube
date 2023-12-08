@@ -134,7 +134,7 @@ if ($useSQL == true) {
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
         <?php }?>
         <?php                        
-                $InvApiUrl = $InvVIServer.'/api/v1/playlists/'.$params['id'];
+                $InvApiUrl = $InvVIServer.'/api/v1/playlists/'.$params['id'].'?page=1';
 
                 $ch = curl_init();
 
@@ -152,30 +152,16 @@ if ($useSQL == true) {
 
                 $videoCount = $value['videoCount'] ?? "";
                 $pltitle = $value['title'] ?? "";
-                $videoCountPage1 = $videoCount;
+                $plauthor = $value['author'] ?? "";
+                $plviews = $value['viewCount'] ?? "";
+
+
 
                 echo '<div class="search-form-container w3-animate-left"><h4>
-                    '.$pltitle.'<br>               
-                    '.$videoCount.' Videos</h4>
+                    '.$pltitle.'<br>          
+                    '.$videoCount.' Videos · Created by '.$plauthor.' · '.$plviews.' Views</h4>
                 </div>';
-            if ($videoCount > 200) {
-                $InvApiUrl = $InvVIServer.'/api/v1/playlists/'.$params['id'].'?page=2';
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_HEADER, 0);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_URL, $InvApiUrl);
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-                curl_setopt($ch, CURLOPT_VERBOSE, 0);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                $response = curl_exec($ch);
-                curl_close($ch);
-                $data = json_decode($response);
-                $value2 = json_decode(json_encode($data), true);
-
-                $videoCountPage1 = "200";
-                $videoCountPage2 = ($videoCount - $videoCountPage1);
-                $t200 = 200;
-        }
+            
             ?>
 
             <br>
@@ -184,7 +170,7 @@ if ($useSQL == true) {
 <div style="text-align: center;">
             <?php
             
-                for ($i = 0; $i < $videoCountPage1; $i++) {
+                for ($i = 0; $i < $videoCount; $i++) {
                     $title = $value['videos'][$i]['title'] ?? "";
                     $videoId = $value['videos'][$i]['videoId'] ?? "";
                     $channel = $value['videos'][$i]['author'] ?? "";
@@ -220,34 +206,7 @@ if ($useSQL == true) {
                         </a>
            <?php 
                     }
-
-                    for ($i = 0; $i < $t200; $i++) {
-                        $title = $value2['videos'][$i]['title'] ?? "";
-                        $videoId = $value2['videos'][$i]['videoId'] ?? "";
-                        $channel = $value2['videos'][$i]['author'] ?? "";
-                        $indexr = $value2['videos'][$i]['index']+1 ?? "";
-                        $publishedtext = $value2['videos'][$i]['publishedText'] ?? "";
-                        ?>
-    
-    
-                        <a class="awhite" href="/watch/?v=<?php echo $videoId; ?>">
-                           <div class="video-tile w3-animate-left">
-                            <div class="videoDiv">
-                            <center>
-                            <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" height="144px">
-                            </center>
-                            <div style="position: absolute; margin-top: -23px; right: 10px; background: rgba(0,0,0,0.7); padding-left: 4px; padding-right: 4px; border-radius: 3px;"><?php echo $timestamp; ?></div>
-                            </div>
-                            <div class="videoInfo">
-                            <div class="videoTitle"><?php echo $channel; ?><br><b><center><?php echo $title; ?></center></b></div>
-    
-                            </div>
-                            </div>
-                            </a>
-               <?php 
-                        }
                 ?> 
-
             </div>
         </div>
         </div>

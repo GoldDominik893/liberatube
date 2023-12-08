@@ -108,10 +108,7 @@ if(strcmp($themerow, 'dark') == 0)
     <div class="topbarelements topbarelements-center">
     <h1 class="title-top topbarelements">Liberatube</h1>
     <form class="input-row topbarelements" id="keywordForm" method="get" action="/search/">
-                <div class="input-row topbarelements topbarelements-right">
                     <input class="input-field" type="search" id="keyword" name="q" placeholder="Type the search query here" value="<?php echo $keyword; ?>">
-                    <input class="btn-submit" type="submit" value="Search">
-            </div>
             </form>
     </div>
 

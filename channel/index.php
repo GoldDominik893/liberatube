@@ -185,7 +185,6 @@ if(strcmp($themerow, 'dark') == 0)
                     '.$authorc.': '.$subcount.' Subscribers</h4>
                     > <a href="#">Latest Videos</a><br>
                     <a href="/channel/?id='.$params['id'].'&type=playlists">Playlists</a><br>
-                    <a href="/channel/?id='.$params['id'].'&type=channels">Related Channels</a><br>
 
                         <form class="input-row topbarelements" id="keywordForm" method="get" action="/channel/">
                         <div class="input-row topbarelements topbarelements-right">
@@ -202,16 +201,6 @@ if(strcmp($themerow, 'dark') == 0)
                     '.$authorc.': '.$subcount.' Subscribers</h4>
                     <a href="/channel/?id='.$params['id'].'&type=videos">Latest Videos</a><br>
                     > <a href="#">Playlists</a><br>
-                    <a href="/channel/?id='.$params['id'].'&type=channels">Related Channels</a>
-                </div>'; }
-                elseif ($params['type'] == "channels") 
-                {
-                echo '<div class="search-form-container"><h4>
-                <img src="'.$bannerUrl.'" style="max-width: 100%"><br><br>
-                    '.$authorc.': '.$subcount.' Subscribers</h4>
-                    <a href="/channel/?id='.$params['id'].'&type=videos">Latest Videos</a><br>
-                    <a href="/channel/?id='.$params['id'].'&type=playlists">Playlists</a><br>
-                    > <a href="#">Related Channels</a>
                 </div>'; }
                 ?>
 
@@ -312,33 +301,7 @@ if(strcmp($themerow, 'dark') == 0)
                             </div>
                             </a>
                <?php }
-                        } elseif ($params['type'] == "channels") {
-                            $chitemsint = substr_count($response,"authorThumbnails")-1;
-
-                            for ($i = 0; $i < $chitemsint; $i++) {
-                                $title = $value['relatedChannels'][$i]['author'] ?? "";
-                                $videoId = $value['relatedChannels'][$i]['authorId'] ?? "";
-                                $plThumb = $value['relatedChannels'][$i]['authorThumbnails'][3]['url'] ?? "";
-                                ?>
-            
-            
-                                <a class="awhite" href="/channel/?id=<?php echo $videoId; ?>">
-                                   <div class="video-tile w3-animate-left">
-                                    <div class="videoDiv">
-                                    <center>
-                                    <img src="<?php echo $plThumb; ?>" height="144px">
-                                    </center>
-                                    <div style="position: absolute; margin-top: -23px; right: 10px; background: rgba(0,0,0,0.7); padding-left: 4px; padding-right: 4px; border-radius: 3px;"><?php echo $timestamp; ?></div>
-                                    </div>
-                                    <div class="videoInfo">
-                                    <div class="videoTitle"><center><b><?php echo $title; ?></center></b></div>
-            
-                                    </div>
-                                    </div>
-                                    </a>
-                       <?php }
-                                }
-                    ?>
+                        } ?>
 
             </div>
         </div>

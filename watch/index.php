@@ -36,7 +36,7 @@ parse_str($url_components['query'], $params);
 
 
 <?php
-                $InvApiUrl = $InvVIServer.'/api/v1/videos/' . $params['v'] . '?fields=title,description,viewCount,subCountText,likeCount,author,authorId,publishedText&hl=en';
+                $InvApiUrl = $InvVIServer.'/api/v1/videos/' . $params['v'] . '?hl=en';
 
                 $ch = curl_init();
 
@@ -60,6 +60,42 @@ parse_str($url_components['query'], $params);
                     $authorId = $value['authorId'];
                     $autsubs = $value['subCountText'];
                     $shared = $value['publishedText'];
+
+                    $nonHlsUrls = [];
+                    $nonHlsItag = [];
+                    $nonHlsQuality = [];
+                    $nonHlsType = [];
+                    $nonHlsSize = [];
+
+                    $HlsUrls = [];
+                    $HlsItag = [];
+                    $HlsQuality = [];
+                    $HlsType = [];
+                    $HlsSize = [];
+
+                    if (isset($value['formatStreams']) && is_array($value['formatStreams'])) {
+                        foreach ($value['formatStreams'] as $formatStream) {
+                            if (isset($formatStream['url'])) {
+                                $nonHlsUrls[] = $formatStream['url'];
+                                $nonHlsItag[] = $formatStream['itag'];
+                                $nonHlsQuality[] = $formatStream['qualityLabel'];
+                                $nonHlsType[] = $formatStream['type'];
+                                $nonHlsSize[] = $formatStream['size'];
+                            }
+                        }
+                    }
+                    if (isset($value['adaptiveFormats']) && is_array($value['adaptiveFormats'])) {
+                        foreach ($value['adaptiveFormats'] as $formatStream) {
+                            if (isset($formatStream['url'])) {
+                                $HlsUrls[] = $formatStream['url'];
+                                $HlsItag[] = $formatStream['itag'];
+                                $HlsQuality[] = $formatStream['qualityLabel'];
+                                $HlsType[] = $formatStream['type'];
+                                $HlsSize[] = $formatStream['size'];
+                            }
+                        }
+                    }
+
 if ($useReturnYTDislike == true) {
 $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId='.$params['v'];
 
@@ -125,6 +161,9 @@ if ($useSQL == true) {
     {
         $themerow = $row['theme'];
         $regionrow = $row['region'];
+        $loadcomments = $row['loadcomments'];
+        $userproxysetting = $row['proxy'];
+
     }
     $row = mysqli_fetch_assoc($query);
     $numrows = mysqli_num_rows($query);
@@ -201,12 +240,7 @@ if ($useSQL == true) {
                 
                 echo '<link rel="stylesheet" href="../styles/audioplayer.css">
                     <video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
-                    <source src="/videodata/media.php?type=audiouhqserver1'.$dlsetting.'&id='.$params['v'].'" type="audio/webm" label="Lossless Quality 1">
-                    <source src="/videodata/media.php?type=audiouhqserver2'.$dlsetting.'&id='.$params['v'].'" type="audio/webm" label="Lossless Quality 2">
-                    <source src="/videodata/media.php?type=audiohqserver1'.$dlsetting.'&id='.$params['v'].'" type="audio/webm" label="High Quality 1">
-                    <source src="/videodata/media.php?type=audiohqserver2'.$dlsetting.'&id='.$params['v'].'" type="audio/webm" label="High Quality 2">
-                    <source src="/videodata/media.php?type=audiolqserver1'.$dlsetting.'&id='.$params['v'].'" type="audio/webm" label="Low Quality 1">
-                    <source src="/videodata/media.php?type=audiolqserver2'.$dlsetting.'&id='.$params['v'].'" type="audio/webm" label="Low Quality 2">
+                    <source src="/videodata/audio.php?id='.$params['v'].$dlsetting.'" type="audio/webm">
                     <track kind="captions" src="/videodata/captions.php?server=1&id='.$params['v'].'" label="English 1">
                     <track kind="captions" src="/videodata/captions.php?server=2&id='.$params['v'].'" label="English 2">
                     Your Browser Sucks! Can not play the audio.
@@ -214,10 +248,7 @@ if ($useSQL == true) {
             }
             else {
                 echo '<video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
-                    <source src="/videodata/media.php?type=hd720server1'.$dlsetting.'&id='.$params['v'].'" type="video/mp4" label="hd720">
-                    <source src="/videodata/media.php?type=hd720server2'.$dlsetting.'&id='.$params['v'].'" type="video/mp4" label="hd720">
-                    <source src="/videodata/media.php?type=mediumserver1'.$dlsetting.'&id='.$params['v'].'" type="video/mp4" label="medium">
-                    <source src="/videodata/media.php?type=mediumserver2'.$dlsetting.'&id='.$params['v'].'" type="video/mp4" label="medium">
+                    <source src="/videodata/video.php?id='.$params['v'].$dlsetting.'" type="video/mp4">
                     <track kind="captions" src="/videodata/captions.php?server=1&id='.$params['v'].'" label="English 1">
                     <track kind="captions" src="/videodata/captions.php?server=2&id='.$params['v'].'" label="English 2">
                     Your Browser Sucks! Can not play the video.
@@ -243,14 +274,39 @@ if ($useSQL == true) {
 <div id="boxerlay"></div>
 <div id="popUpBox">
 <div id="box">
-<h3> Right click > Save video as / Save audio as </h3><br>
-<h4>Video</h4>
-<a class="button" href="/videodata/media.php/?type=hd720server1&id=<?php echo $params['v']; ?>&dl=dl" download="<?php echo $params['v']?>.mp4"> 720p MP4 (Server 1)</a><a class="button" href="/videodata/media.php/?type=hd720server2&id=<?php echo $params['v']; ?>&dl=dl" download="<?php echo $params['v']?>.mp4"> 720p MP4 (Server 2)</a><br>
-<a class="button" href="/videodata/media.php/?type=mediumserver1&id=<?php echo $params['v']; ?>&dl=dl" download="<?php echo $params['v']?>.mp4"> 360p MP4 (Server 1)</a><a class="button" href="/videodata/media.php/?type=mediumserver2&id=<?php echo $params['v']; ?>&dl=dl" download="<?php echo $params['v']?>.mp4"> 360p MP4 (Server 2)</a><br><br>
-<h4>Audio</h4>
-<a class="button" href="/videodata/media.php/?type=audiolqserver1&id=<?php echo $params['v']; ?>&dl=dl" download="<?php echo $params['v']?>.webm"> Low Quality WebM (Server 1)</a><a class="button" href="/videodata/media.php/?type=audiolqserver2&id=<?php echo $params['v']; ?>&dl=dl" download="<?php echo $params['v']?>.webm"> Low Quality WebM (Server 2)</a><br>
-<a class="button" href="/videodata/media.php/?type=audiohqserver1&id=<?php echo $params['v']; ?>&dl=dl" download="<?php echo $params['v']?>.webm"> High Quality WebM (Server 1)</a><a class="button" href="/videodata/media.php/?type=audiohqserver2&id=<?php echo $params['v']; ?>&dl=dl" download="<?php echo $params['v']?>.webm"> High Quality WebM (Server 2)</a><br>
-<a class="button" href="/videodata/media.php/?type=audiouhqserver1&id=<?php echo $params['v']; ?>&dl=dl" download="<?php echo $params['v']?>.webm"> Lossless Quality WebM (Server 1)</a><a class="button" href="/videodata/media.php/?type=audiouhqserver2&id=<?php echo $params['v']; ?>&dl=dl" download="<?php echo $params['v']?>.webm"> Lossless Quality WebM (Server 2)</a><br><br>
+<h3>Download this video</h3>
+<h4>Non HLS options:</h4>
+<?php
+if (isset($nonHlsItag) && is_array($nonHlsItag) && !empty($nonHlsItag)) {
+    // Loop through the $nonHlsItag array
+    for ($i = 0; $i < count($nonHlsItag); $i++) {
+        $itag = $nonHlsItag[$i];
+        $url = $nonHlsUrls[$i];
+        $quality = $nonHlsQuality[$i];
+        $type = $nonHlsType[$i];
+        $size = $nonHlsSize[$i];
+
+        // Output HTML buttons for each itag value along with other corresponding values
+        echo '<a class="button" href="'.$url.'">'.$quality.'('.$itag.')</a>';
+    }
+}
+?>
+<h4>HLS options:</h4>
+<?php
+if (isset($HlsItag) && is_array($HlsItag) && !empty($HlsItag)) {
+    // Loop through the $HlsItag array
+    for ($i = 0; $i < count($HlsItag); $i++) {
+        $itag = $HlsItag[$i];
+        $url = $HlsUrls[$i];
+        $quality = $HlsQuality[$i];
+        $type = $HlsType[$i];
+        $size = $HlsSize[$i];
+
+        // Output HTML buttons for each itag value along with other corresponding values
+        echo '<a class="button" href="'.$url.'">'.$quality.'('.$itag.')</a>';
+    }
+}
+?>
 <div id="closeModal"></div>
 </div>
 </div>
@@ -372,6 +428,8 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',
                 </div>  
            <?php 
                     }
+                } else {
+                    echo '<a class="button" onclick="">Load Comments</a>';
                 }
             ?> 
             </div>
