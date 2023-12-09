@@ -269,3 +269,29 @@ details {
 img {
     border-radius: 6px
 }
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button-in-table {
+display: inline-block;
+    padding: 2px 10px;
+    text-align: center;
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    border-radius: 6px;
+    transition: transform 0.2s;
+    transition: 0.3s
+}
+
+.button-in-table:hover {
+cursor: pointer;
+color: #ff4444;
+background-color: rgba(30,30,30,0.2);
+text-decoration: none;
+transition: transform 0.2s;
+transition: 0.3s
+}

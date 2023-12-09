@@ -79,7 +79,7 @@ parse_str($url_components['query'], $params);
                                 $nonHlsUrls[] = $formatStream['url'];
                                 $nonHlsItag[] = $formatStream['itag'];
                                 $nonHlsQuality[] = $formatStream['qualityLabel'];
-                                $nonHlsType[] = $formatStream['type'];
+                                $nonHlsType[] = $formatStream['container'];
                                 $nonHlsSize[] = $formatStream['size'];
                             }
                         }
@@ -90,7 +90,7 @@ parse_str($url_components['query'], $params);
                                 $HlsUrls[] = $formatStream['url'];
                                 $HlsItag[] = $formatStream['itag'];
                                 $HlsQuality[] = $formatStream['qualityLabel'];
-                                $HlsType[] = $formatStream['type'];
+                                $HlsType[] = $formatStream['container'];
                                 $HlsSize[] = $formatStream['size'];
                             }
                         }
@@ -240,7 +240,7 @@ if ($useSQL == true) {
                 
                 echo '<link rel="stylesheet" href="../styles/audioplayer.css">
                     <video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
-                    <source src="/videodata/audio.php?id='.$params['v'].$dlsetting.'" type="audio/webm">
+                    <source src="/videodata/hls.php?id='.$params['v'].$dlsetting.'" type="audio/webm">
                     <track kind="captions" src="/videodata/captions.php?server=1&id='.$params['v'].'" label="English 1">
                     <track kind="captions" src="/videodata/captions.php?server=2&id='.$params['v'].'" label="English 2">
                     Your Browser Sucks! Can not play the audio.
@@ -248,7 +248,7 @@ if ($useSQL == true) {
             }
             else {
                 echo '<video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
-                    <source src="/videodata/video.php?id='.$params['v'].$dlsetting.'" type="video/mp4">
+                    <source src="/videodata/non-hls.php?id='.$params['v'].$dlsetting.'" type="video/mp4">
                     <track kind="captions" src="/videodata/captions.php?server=1&id='.$params['v'].'" label="English 1">
                     <track kind="captions" src="/videodata/captions.php?server=2&id='.$params['v'].'" label="English 2">
                     Your Browser Sucks! Can not play the video.
@@ -274,8 +274,20 @@ if ($useSQL == true) {
 <div id="boxerlay"></div>
 <div id="popUpBox">
 <div id="box">
+<?php
+if ($allowProxy == "true" or $allowProxy == "downloads") {
+    $isProxyDisabled = "";
+} else {
+    $isProxyDisabled = "disabled";
+    $isProxyDisabledMessage = "Proxying is disabled by this instance.";
+}
+?>
 <h3>Download this video</h3>
-<h4>Non HLS options:</h4>
+<table>
+<?php
+echo $isProxyDisabledMessage;
+?>
+<tr><td><h4>Non HLS options:</h4></td></tr>
 <?php
 if (isset($nonHlsItag) && is_array($nonHlsItag) && !empty($nonHlsItag)) {
     // Loop through the $nonHlsItag array
@@ -287,11 +299,11 @@ if (isset($nonHlsItag) && is_array($nonHlsItag) && !empty($nonHlsItag)) {
         $size = $nonHlsSize[$i];
 
         // Output HTML buttons for each itag value along with other corresponding values
-        echo '<a class="button" href="'.$url.'">'.$quality.'('.$itag.')</a>';
+        echo '<tr><td>'.$quality.'('.$itag.') - '.$type.'</td><td><a class="button-in-table" href="'.$url.'">Direct</a><a download="'.$params['v'].'.'.$type.'" class="button-in-table" href="/videodata/non-hls.php?id='.$params['v'].'&dl=dl&itag='.$itag.'">Proxy</a></td></tr>';
     }
 }
 ?>
-<h4>HLS options:</h4>
+<tr><td><h4>HLS options:</h4></td></tr>
 <?php
 if (isset($HlsItag) && is_array($HlsItag) && !empty($HlsItag)) {
     // Loop through the $HlsItag array
@@ -303,10 +315,11 @@ if (isset($HlsItag) && is_array($HlsItag) && !empty($HlsItag)) {
         $size = $HlsSize[$i];
 
         // Output HTML buttons for each itag value along with other corresponding values
-        echo '<a class="button" href="'.$url.'">'.$quality.'('.$itag.')</a>';
+        echo '<tr><td>'.$quality.'('.$itag.') - '.$type.'</td><td><a class="button-in-table" href="'.$url.'">Direct</a><a download="'.$params['v'].'.'.$type.'" class="button-in-table" href="/videodata/hls.php?id='.$params['v'].'&dl=dl&itag='.$itag.'">Proxy</a></td></tr>';
     }
 }
 ?>
+</table>
 <div id="closeModal"></div>
 </div>
 </div>
