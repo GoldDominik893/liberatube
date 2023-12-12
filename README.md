@@ -1,7 +1,4 @@
-<div align="center">
-<img src="/screenshots/lt.png" width="300px">
-    <h1> Liberatube </h1>
-
+# Liberatube
 
   <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">
     <img alt="License: AGPLv3" src="https://shields.io/badge/License-AGPL%20v3-blue.svg">
@@ -16,8 +13,20 @@
     <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/golddominik893/liberatube?color=blueviolet">
   </a>
   
-  <h3> A Privacy, Feature Rich alternative front end to YouTube. </h3>
-</div>
+<h3> A Privacy, Feature Rich alternative front end to YouTube. </h3>
+
+
+## Table of Contents
+
+* [Screenshots](#screenshots)
+* [Features](#features)
+* [To do](#to-do)
+* [Related Repositories](#related-repositories)
+* [Instances](#instances)
+* [Installation](#installation)
+* [Documentation](#documentation)
+* [License](#license)
+  - [Liability](#liability)
 
 ## Screenshots
 
@@ -39,12 +48,11 @@
 - Return YouTube Dislike
 - Download videos
 - Does not use official YouTube API's
-- API *(soon)*
   
-## To-do List
+## To-do
 
 - Performance improvements
-- DASH video through VideoJS.
+- DASH/HLS video through VideoJS.
 - Autoplay for playlists.
 - Sort videos on a users channel by date and popularity.
 - Clickable timestamps from description or comments.
@@ -55,35 +63,32 @@
 - Annotations (clickable links on the video basically).
 - Docker compose
 
-## Related Repositories
+## Related-Repositories
 
-- [Liberatube](//github.com/golddominik893/liberatube)
-- [Liberatube Redirector](//github.com/golddominik893/liberatube-redirector)
-- [Liberatube Documentation](//github.com/golddominik893/liberatube-docs)
-- [Liberatube Instances](//github.com/golddominik893/liberatube-instances)
-- [Liberatube Plugin Store](//github.com/golddominik893/liberatube-pluginstore)
+- [Liberatube](//github.com/golddominik893/liberatube) - This Repository.
+- [Liberatube Redirector](//github.com/golddominik893/liberatube-redirector) - A Chrome extension that automatically redirects YouTube links to Liberatube.
+- [Liberatube Documentation](//github.com/golddominik893/liberatube-docs) - Documentation 
+- [Liberatube Instances](//github.com/golddominik893/liberatube-instances) - 
+- [Liberatube Plugin Store](//github.com/golddominik893/liberatube-pluginstore) - The community driven plugin store for Liberatube.
   
-## Instances of Liberatube
+## Instances
+
 [badyt.lol](https://badyt.lol) - Stable, Hosted by GoldDominik893<br>
 [ltbeta.epicsite.xyz](https://ltbeta.epicsite.xyz) - Beta, Hosted by GoldDominik893<br>
-
 
 If you want to add your instance of Liberatube to this list please create an [issue](https://github.com/GoldDominik893/bad-youtube/issues)
 
 ## Installation
-Clone the git repository,
-```bash
-git clone https://github.com/GoldDominik893/liberatube.git
-```
-Then paste the contents into the htdocs of any website hosting software that supports PHP and MySQL then import the `database.sql` in the MySQL dashboard. After that edit config.php and put your credentials for your database and your desired admin account.
 
-### Updating Liberatube
-Replace the contents of your htdocs folder with the new one and just keep the `config.php` file.
+Check the [Documentation](https://liberatube-docs.epicsite.xyz/installation/1.prerequisites/).
 
 ## Documentation
+
 If you need help regarding this software please check the [Documentation](http://liberatube-docs.epicsite.xyz/) first before opening an issue or a discussion.
 
-## Liability
+## License
+
+### Liability
 
 We take no responsibility for the use of our tool, or external instances
 provided by third parties. We strongly recommend you abide by the valid
