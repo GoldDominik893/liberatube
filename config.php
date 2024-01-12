@@ -1,11 +1,11 @@
-<?php 
+<?php
     // ALL FIELDS ARE REQUIRED (except SQL, only if $useSQL is false)
 
     // SQL
     $useSQL = true;                                  // If you want to use a SQL database to store user data (true / false)
-    $servername = "localhost";                       // The IP / domain used to connect to your database
+    $servername = "db";                              // The IP / domain used to connect to your database
     $username = "root";                              // The database username
-    $password = "";                                  // The database password
+    $password = "password";                          // The database password
     $dbname = "users";                               // The database name, by default, if you imported database.sql it is "users"
 
     // Invidious
