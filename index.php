@@ -64,25 +64,19 @@ while ($row = mysqli_fetch_assoc($query))
 $row = mysqli_fetch_assoc($query);
 $numrows = mysqli_num_rows($query);
 }
-if(strcmp($themerow, 'dark') == 0)
-{
-    echo '<link rel="stylesheet" href="../styles/homedark.css">';
-} elseif(strcmp($themerow, 'blue') == 0)
-{
-    echo '<link rel="stylesheet" href="../styles/homeblue.css">';
-} elseif(strcmp($themerow, 'ultra-dark') == 0)
-{
-    echo '<link rel="stylesheet" href="../styles/homeultra-dark.css">';
-} elseif(strcmp($themerow, 'light') == 0)
-{
-    echo '<link rel="stylesheet" href="../styles/homelight.css">';
-} else 
-{
-    echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
-} 
-} else {
-    echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
-}?>
+if(strcmp($themerow, 'blue') == 0)
+    {
+        echo '<link rel="stylesheet" href="../styles/homeblue.css">';
+    } elseif(strcmp($themerow, 'ultra-dark') == 0)
+    {
+        echo '<link rel="stylesheet" href="../styles/homeultra-dark.css">';
+    } else 
+    {
+        echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
+    } 
+    } else {
+        echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
+    }?>
     <body>
 
 

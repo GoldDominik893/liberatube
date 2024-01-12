@@ -145,7 +145,8 @@ z-index: 9999;
 padding: 10px;
 text-align: center;
 display: none;
-backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+backdrop-filter: blur(10px); 
 background: rgba(10, 10, 10, 0.5);
 
 }

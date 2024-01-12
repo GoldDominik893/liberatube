@@ -138,10 +138,8 @@ echo '<div class="tenborder">
   <select class="formsel" style="border-radius: 6px;" id="theme" name="theme" value="--Please Select--">
   <option class="formsel" value="'.$themerow.'">Selected: '.$themerow.'</option>
   <option class="formsel" disabled value="">----------</option>
-    <option class="formsel" value="dark">Dark</option>
     <option class="formsel" value="blue">Blue</option>
     <option class="formsel" value="ultra-dark">Ultra-Dark</option>
-    <option class="formsel" value="light">Light</option>
   </select><a class="label" href="/liberatube-pluginstore/" for="theme">Custom</a><br>
   <label for="vidshadow">Video Shadow: <i>(Soon)</i></label>
   <input type="checkbox" id="vidshadow" name="vidshadow" '.$checked1.'>
@@ -353,20 +351,14 @@ while ($row = mysqli_fetch_assoc($query))
 $row = mysqli_fetch_assoc($query);
 $numrows = mysqli_num_rows($query);
 }
-                if(strcmp($themerow, 'dark') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerdark.css">';
-            } elseif(strcmp($themerow, 'blue') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerblue.css">';
-            } elseif(strcmp($themerow, 'ultra-dark') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
-            } elseif(strcmp($themerow, 'light') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerlight.css">';
-            } else 
-            {
-                echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
-            } 
+if(strcmp($themerow, 'blue') == 0)
+{
+    echo '<link rel="stylesheet" href="../styles/playerblue.css">';
+} elseif(strcmp($themerow, 'ultra-dark') == 0)
+{
+    echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
+} else 
+{
+    echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
+} 
                 ?>
