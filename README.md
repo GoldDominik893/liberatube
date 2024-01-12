@@ -73,7 +73,7 @@
   
 ## Instances
 
-[lt.epicsite.xyz](https://lt.epicsite.xyz), [liberatube.store](https://liberatube.store) - 1.8 Beta, Hosted by GoldDominik893<br>
+[lt.epicsite.xyz](https://lt.epicsite.xyz) - 1.8 Beta, Hosted by GoldDominik893<br>
 [ltbeta.epicsite.xyz](https://ltbeta.epicsite.xyz) - Development Beta, Hosted by GoldDominik893<br>
 
 If you want to add your instance of Liberatube to this list please create an [issue](https://github.com/GoldDominik893/bad-youtube/issues)
