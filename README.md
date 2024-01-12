@@ -43,11 +43,13 @@
 - Lightweight
 - No ads
 - No tracking
-- Light/Dark/Blue/Ultra-dark themes
-- Audio-only mode 
+- Blue/Ultra dark themes
+- Audio-only mode
 - Return YouTube Dislike
 - Download videos
 - Does not use official YouTube API's
+- Docker compose file
+
   
 ## To-do
 
@@ -61,7 +63,6 @@
 - Subscribing to channels.
 - Caching the trending page to reduce loading times significantly.
 - Annotations (clickable links on the video basically).
-- Docker compose
 
 ## Related-Repositories
 
