@@ -3,16 +3,12 @@
 
     // SQL
     $useSQL = true;                                  // If you want to use a SQL database to store user data (true / false)
-    $servername = "db";                              // The IP / domain used to connect to your database
+    $servername = "localhost";                       // The IP / domain used to connect to your database
     $username = "root";                              // The database username
-    $password = "password";                          // The database password
+    $password = "";                                  // The database password
     $dbname = "users";                               // The database name, by default, if you imported database.sql it is "users"
 
     // Invidious
-    $InvVDServer1 = "https://invidious.fdn.fr";      // The Invidious instance that will be set as first priority to fetch video data
-    $InvVDServer2 = "https://invidious.nerdvpn.de";  // The Invidious instance that will be set as second priority to fetch video data
-    $InvVDCAServer1 = "https://invidious.fdn.fr";    // The Invidious instance that will be set as first priority to fetch video captions
-    $InvVDCAServer2 = "https://invidious.fdn.fr";    // The Invidious instance that will be set as second priority to fetch video captions
     $InvCServer = "https://invidious.fdn.fr";        // The Invidious instance that will be used to fetch comments
     $InvVIServer = "https://onion.tube";             // The Invidious instance that will be used to fetch video information
     $InvTServer = "https://onion.tube";              // The Invidious instance that will be used to fetch trending videos for the home page
