@@ -14,6 +14,8 @@
 * [Related Repositories](#related-repositories)
 * [Instances](#instances)
 * [Installation](#installation)
+  * [Docker](#docker)
+  * [Native](#native)
 * [Documentation](#documentation)
 * [License](#license)
   * [Liability](#liability)
