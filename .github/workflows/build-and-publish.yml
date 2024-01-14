@@ -1,0 +1,32 @@
+name: Build and Publish Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin ghcr.io
+
+      - name: Build and push Docker image for GitHub Container Registry
+        run: |
+          docker-compose build
+          docker tag liberatube:latest ghcr.io/golddominik893/liberatube:latest
+          docker push ghcr.io/golddominik893/liberatube:latest
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build and push Docker image for Docker Hub
+        run: |
+          docker-compose build
+          docker tag liberatube:latest docker.io/golddominik893/liberatube:latest
+          docker push docker.io/golddominik893/liberatube:latest
