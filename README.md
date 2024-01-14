@@ -5,6 +5,7 @@
 [![Commits](https://img.shields.io/github/commit-activity/y/golddominik893/liberatube?color=red&label=commits)](https://github.com/golddominik893/liberatube/commits)
 [![Issues](https://img.shields.io/github/issues/golddominik893/liberatube?color=important)](https://github.com/golddominik893/liberatube/issues)
 [![Pull Requests](https://img.shields.io/github/issues-pr/golddominik893/liberatube?color=blueviolet)](https://github.com/golddominik893/liberatube/pulls)
+[![Build and Publish Docker Image](https://github.com/GoldDominik893/liberatube/actions/workflows/build-and-publish.yml/badge.svg)](https://github.com/GoldDominik893/liberatube/actions/workflows/build-and-publish.yml)
 
 ## Table of Contents
 
