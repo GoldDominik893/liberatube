@@ -5,7 +5,7 @@ session_start();
 $usr = $_POST['name'];
 $pw = $_POST['pass'];
 
-include('config.php');
+include('../config.php');
 
 if ($usr&&$pw)
 {

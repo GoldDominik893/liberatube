@@ -19,7 +19,7 @@ $usr = $_POST['name'];
 $salt1 = getName($n);
 $salt2 = getName($n);
 $pw = hash('sha512', $salt1.$_POST['pass'].$salt2);
-include('config.php');
+include('../config.php');
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
