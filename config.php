@@ -10,7 +10,7 @@
 
     // Invidious
     $InvCServer = "https://invidious.fdn.fr";        // The Invidious instance that will be used to fetch comments
-    $InvVIServer = "https://onion.tube";             // The Invidious instance that will be used to fetch video information
+    $InvVIServer = "https://invidious.lunar.icu";    // The Invidious instance that will be used to fetch video information
     $InvTServer = "https://onion.tube";              // The Invidious instance that will be used to fetch trending videos for the home page
     $InvSServer = "https://onion.tube";              // The Invidious instance that will be used to search for content
 

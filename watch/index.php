@@ -127,13 +127,19 @@ $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId='.$params['v
         <meta name="author" content="<?php echo $title; ?>">
          <meta name="keywords" content="badyt.cf, liberatube, EpicFaucet, two.epicfaucet.gq, yewtu.be, online videos, alternative youtube frontend, Liberatube">
          <meta property="og:locale" content="en_US">
-         <meta property="og:description" content="<?php echo $value['description']; ?>">
-            <meta property="description" content="<?php echo $value['description']; ?>">
-<meta name="og:image" content="https://yewtu.be/vi/<?php echo $params['v']; ?>/maxres.jpg"/>
+         <meta property="og:description" content="<?php echo $description; ?>">
+            <meta property="description" content="<?php echo $description; ?>">
 
-<meta property="og:video:type" content="text/html">
-<meta property="og:video:width" content="640">
-<meta property="og:video:height" content="480">
+            <meta name="og:image" content="https://yewtu.be/vi/<?php echo $params['v']; ?>/maxres.jpg"/>
+<meta name="twitter:card" content="summary_large_image">
+
+<meta property="og:video" content="/videodata/non-hls.php?id=<?php echo $params['v']; ?>&dl=false&itag=18"/>
+<meta property="og:video:height" content="640"/>
+<meta property="og:video:width" content="360"/>
+<meta property="og:video:type" content="video/mp4"/>
+
+
+
 <span><meta property="og:site_name" content="Liberatube">
 <link itemprop="name" content="Liberatube"></span></head>
 
