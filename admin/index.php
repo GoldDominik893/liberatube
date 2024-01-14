@@ -57,11 +57,11 @@ if ($_SESSION['hashed_pass'] == $pwrow) {
     <h4> <?php echo $_SESSION['logged_in_user']; ?>
     <?php if(isset($_SESSION['logged_in_user']))
     {
-        echo '<a class="button awhite login-item" href="/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
     }
     else
     {
-        echo '<a class="button awhite login-item" href="/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
     }
     ?>
     </h4>

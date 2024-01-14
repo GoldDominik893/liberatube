@@ -112,11 +112,11 @@ if(strcmp($themerow, 'blue') == 0)
     $loggedinuser = $_SESSION['logged_in_user'] ?? "";?> 
     <?php if($loggedinuser != "")
     {
-        echo '<a class="button awhite login-item" href="logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
     }
     else
     {
-        echo '<a class="button awhite login-item" href="login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
     }
     if($loggedinuser == $adminuser)
             {
