@@ -1,4 +1,4 @@
-name: Build and Publish Docker Image for ARM64
+name: Build arm64 image
 
 on:
   push:
