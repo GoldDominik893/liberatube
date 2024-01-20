@@ -16,12 +16,11 @@ body {
     border-radius: 6px;
 }
 .input-field {
-    width: 300px;
-    max-width: 1000px;
-    border-radius: 2px;
-    padding: 10px;
-    border: #323947 1px solid;
-    background: #323947;
+    width: 200px;
+    border-radius: 3px;
+    padding: 5px;
+    border: #202020 2px solid;
+    background: #080808;
 }
 .input-field:focus {
      color: white;

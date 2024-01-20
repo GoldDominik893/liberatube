@@ -124,10 +124,9 @@ a:focus {
      transition: 0.3s
 }
 .input-field {
-    width: 300px;
-    max-width: 1000px;
-    border-radius: 2px;
-    padding: 10px;
+    width: 200px;
+    border-radius: 3px;
+    padding: 5px;
     border: #202020 2px solid;
     background: #080808;
 }
