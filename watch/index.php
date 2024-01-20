@@ -161,6 +161,7 @@ if ($useSQL == true) {
         $regionrow = $row['region'];
         $loadcomments = $row['loadcomments'];
         $userproxysetting = $row['proxy'];
+        $playerrow = $row['player'];
 
     }
     $row = mysqli_fetch_assoc($query);
@@ -223,7 +224,8 @@ if ($useSQL == true) {
                 $dlsetting = "&dl=false";
             }
             if(strcmp($playerrow, 'vjs') == 0) {
-                echo '<link rel="stylesheet" href="../styles/-video-js.css"> <script src="../scripts/-video.min.js"></script>';
+                echo '<link rel="stylesheet" href="../styles/-video-js.css">
+                      <script src="../scripts/-video.min.js"></script>';
                 $videosizingcss = 'style="max-width: 90vw"';
             } else {
                 $videosizingcss = 'style="max-width: 90%; max-height: 90vh;"';
@@ -233,22 +235,20 @@ if ($useSQL == true) {
                 echo '<link rel="stylesheet" href="../styles/audioplayer.css">
                     <video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
                     <source src="/videodata/hls.php?id='.$params['v'].$dlsetting.'" type="audio/webm">
-                    <track kind="captions" src="/videodata/captions.php?server=1&id='.$params['v'].'" label="English 1">
-                    <track kind="captions" src="/videodata/captions.php?server=2&id='.$params['v'].'" label="English 2">
                     Your Browser Sucks! Can not play the audio.
                     </video>';
             }
             else {
-                echo '<video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
+
+                    echo '<video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
                     <source src="/videodata/non-hls.php?id='.$params['v'].$dlsetting.'" type="video/mp4">
-                    <track kind="captions" src="/videodata/captions.php?server=1&id='.$params['v'].'" label="English 1">
-                    <track kind="captions" src="/videodata/captions.php?server=2&id='.$params['v'].'" label="English 2">
                     Your Browser Sucks! Can not play the video.
                     </video>';
+
             }
         ?>
         <script src="/scripts/playermain.js"></script>
-<script src="/scripts/sidebar.js"></script>
+        <script src="/scripts/sidebar.js"></script>
     </center>
         <br>
         <center>
