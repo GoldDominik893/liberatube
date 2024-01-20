@@ -62,7 +62,7 @@ body:
     attributes:
       label: Source code URL
       description: "If your instance is running a modified source code, please provide the URL below"
-      placeholder: "Example: https://git.example.com/you/bad-youtube"
+      placeholder: "Example: https://git.example.com/you/liberatube"
     validations:
       required: false
 

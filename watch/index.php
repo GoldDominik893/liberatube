@@ -125,24 +125,16 @@ $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId='.$params['v
         <meta property="og:url" content="/?v=<?php echo $params['v']; ?>">
         <meta name="theme-color" content="#303EE1">
         <meta name="author" content="<?php echo $title; ?>">
-         <meta name="keywords" content="badyt.cf, liberatube, EpicFaucet, two.epicfaucet.gq, yewtu.be, online videos, alternative youtube frontend, Liberatube">
-         <meta property="og:locale" content="en_US">
-         <meta property="og:description" content="<?php echo $description; ?>">
-            <meta property="description" content="<?php echo $description; ?>">
+        <meta name="keywords" content="badyt.cf, liberatube, EpicFaucet, two.epicfaucet.gq, yewtu.be, online videos, alternative youtube frontend, Liberatube">
+        <meta property="og:locale" content="en_US">
+        <meta property="og:description" content="<?php echo $description; ?>">
+        <meta property="description" content="<?php echo $description; ?>">
 
-            <meta name="og:image" content="https://yewtu.be/vi/<?php echo $params['v']; ?>/maxres.jpg"/>
+<meta name="og:image" content="<?php echo $InvVIServer ?>/vi/<?php echo $params['v']; ?>/maxres.jpg"/>
 <meta name="twitter:card" content="summary_large_image">
-
-<meta property="og:video" content="/videodata/non-hls.php?id=<?php echo $params['v']; ?>&dl=false&itag=18"/>
-<meta property="og:video:height" content="640"/>
-<meta property="og:video:width" content="360"/>
-<meta property="og:video:type" content="video/mp4"/>
-
-
 
 <span><meta property="og:site_name" content="Liberatube">
 <link itemprop="name" content="Liberatube"></span></head>
-
 
 <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
@@ -343,6 +335,10 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',
 
 
  <?php
+
+    if ($_GET['comments']) {
+        $loadcomments = $_GET['comments'];
+    }
     if ($loadcomments) {} else {
         $loadcomments = $defaultLoadCommentsSetting;
     }
@@ -424,11 +420,11 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',
 
                             for ($ii = 0; $ii < $ccountl_reply; $ii++) {
                                 $aname_reply = $value_reply['comments'][$ii]['author'] ?? "";
-                        $aturl_reply = $value_reply['comments'][$ii]['authorThumbnails']['0']['url'] ?? "";
-                        $acon_reply = $value_reply['comments'][$ii]['content'] ?? "";
-                        $ptex_reply = $value_reply['comments'][$ii]['publishedText'] ?? "";
-                        $alik_reply = $value_reply['comments'][$ii]['likeCount'] ?? "";
-                        $auid_reply = $value_reply['comments'][$ii]['authorId'] ?? "";
+                                $aturl_reply = $value_reply['comments'][$ii]['authorThumbnails']['0']['url'] ?? "";
+                                $acon_reply = $value_reply['comments'][$ii]['content'] ?? "";
+                                $ptex_reply = $value_reply['comments'][$ii]['publishedText'] ?? "";
+                                $alik_reply = $value_reply['comments'][$ii]['likeCount'] ?? "";
+                                $auid_reply = $value_reply['comments'][$ii]['authorId'] ?? "";
                              ?>
 
                             <div style="width: 100%; max-width: 775px;">
@@ -442,7 +438,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',
            <?php 
                     }
                 } else {
-                    echo '<a class="button" onclick="">Load Comments</a>';
+                    echo '<a class="button" href="?v='.$params['v'].'&comments=noreplies">Load Comments</a>';
                 }
             ?> 
             </div>

@@ -148,6 +148,7 @@ $numrows = mysqli_num_rows($query);
                 $bannerUrl = $value['authorBanners'][1]['url'] ?? "";
                 $subcount = number_format($value['subCount']) ?? "";
                 $joined = $value['joined'] ?? "";
+                $channelPfpUrl = $value['authorThumbnails'][1]['url'] ?? "";
 
                 if($params['q']){
                 $InvApiUrl = $InvVIServer.'/api/v1/channels/search/'.$params['id'].'?hl=en&q='.$params['q'];
@@ -172,30 +173,40 @@ $numrows = mysqli_num_rows($query);
                 $pl = file_get_contents($InvVIServer.'/api/v1/channels/'.$params['id'].'/playlists/?hl=en');
                 $plitemsint = substr_count($pl,"playlistThumbnail");
 
-                if ($params['type'] == "videos" or $params['type'] == "") 
+
+                if ($params['type'] == "videos" or $params['type'] == "")
                 {
-                echo '<div class="search-form-container"><h4>
+                echo '<div class="search-form-container">
                 <img src="'.$bannerUrl.'" style="max-width: 100%"><br><br>
-                    '.$authorc.': '.$subcount.' Subscribers</h4>
+                <img style="margin-bottom: -25px; width: 100px;" src="'.$channelPfpUrl.'"><br><br>
+                    
+                <div style="margin-left: 105px; margin-top: -105px;">
+                    <h4>'.$authorc.': '.$subcount.' Subscribers</h4>
+                </div>
+                <div style="margin-left: 105px; margin-top: -7px;">
                     > <a href="#">Latest Videos</a><br>
                     <a href="/channel/?id='.$params['id'].'&type=playlists">Playlists</a><br>
-
+                </div>
                         <form class="input-row topbarelements" id="keywordForm" method="get" action="/channel/">
-                        <div class="input-row topbarelements topbarelements-right">
-                            <input class="input-field" type="search" id="keyword" name="q" placeholder="Type the search query here" value="'.$params['q'].'">
-                            <input type="hidden" id="id" name="id" placeholder="Type the search query here" value="'.$params['id'].'">
-                            <input class="btn-submit" type="submit" name="submit" value="Search">
-                        </div>
+                            <div class="input-row topbarelements topbarelements-right">
+                                <input style="margin-left: 105px; margin-top: -2px;" class="input-field" type="search" id="keyword" name="q" placeholder="Search this channel..." value="'.$params['q'].'">
+                                <input type="hidden" id="id" name="id" value="'.$params['id'].'">
+                            </div>
                         </form>
                 </div>'; }
                 elseif ($params['type'] == "playlists") 
                 {
-                echo '<div class="search-form-container"><h4>
+                echo '<div class="search-form-container">
                 <img src="'.$bannerUrl.'" style="max-width: 100%"><br><br>
-                    '.$authorc.': '.$subcount.' Subscribers</h4>
+                <img style="margin-bottom: -25px; width: 100px;" src="'.$channelPfpUrl.'"><br><br>
+                    
+                <div style="margin-left: 105px; margin-top: -105px;">
+                    <h4>'.$authorc.': '.$subcount.' Subscribers</h4>
+                </div>
+                <div style="margin-left: 105px; margin-top: -7px;">
                     <a href="/channel/?id='.$params['id'].'&type=videos">Latest Videos</a><br>
                     > <a href="#">Playlists</a><br>
-                </div>'; }
+                </div><br><br>'; }
                 ?>
 
             <br>
