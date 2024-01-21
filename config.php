@@ -8,6 +8,12 @@
     $password = "";                                  // The database password
     $dbname = "users";                               // The database name, by default, if you imported database.sql it is "users"
 
+    // COMMENT OUT THE PREVIOUS LINES AND UNCOMMENT THESE IF USING DOCKER
+    // $servername = "db";
+    // $username = "root";
+    // $password = "password";
+    // $dbname = "users";
+
     // Invidious
     $InvCServer = "https://invidious.fdn.fr";        // The Invidious instance that will be used to fetch comments
     $InvVIServer = "https://invidious.lunar.icu";    // The Invidious instance that will be used to fetch video information
@@ -23,4 +29,4 @@
     $testinstance = true;                            // Whether this is a test instance. A disclaimer will be shown, (true / false)
     $allowProxy = "false";                           // Choose if the users can proxy video data through the server, (true / false / downloads)
     $useReturnYTDislike = true;                      // Choose whether the server contacts the return youtube dislike api for an estimate of the dislikes, (true / false)
-?>
+    
