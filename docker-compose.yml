@@ -1,22 +1,21 @@
 version: '3'
+
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: liberatube
     ports:
-      - "7893:7893"
-    volumes:
-      - .:/var/www/html/
-    depends_on:
-      - db
+      - "7893:80"
+
   db:
-    image: mysql:5.7
-    volumes:
-      - db_data:/var/lib/mysql
+    image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: your_database
-      MYSQL_USER: your_user
-      MYSQL_PASSWORD: your_password
-    command: --init-file /data/application/init.sql
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+
 volumes:
-  db_data:
+  db-data:

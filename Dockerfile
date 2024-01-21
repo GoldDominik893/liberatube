@@ -1,14 +1,14 @@
-# Use PHP 7.4 FPM
-FROM php:8.0-fpm
+FROM php:8.0-apache
 
-# Install MySQL extension
-RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
+RUN apt-get update && \
+    apt-get install -y default-mysql-client && \
+    docker-php-ext-install mysqli && \
+    docker-php-ext-enable mysqli
 
-# Copy your project files
-COPY . /var/www/html/
+WORKDIR /var/www/html
 
-# Expose port 7893
+COPY ./ /var/www/html/
+
+COPY ./database.sql /docker-entrypoint-initdb.d/
+
 EXPOSE 7893
-
-# Start PHP-FPM server
-CMD ["php-fpm"]
