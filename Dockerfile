@@ -1,10 +1,14 @@
-FROM php:8.0-apache
+# Use PHP 7.4 FPM
+FROM php:8.0-fpm
 
-RUN apt-get update && apt-get install -y git
-RUN docker-php-ext-install pdo pdo_mysql mysqli
-RUN a2enmod rewrite
+# Install MySQL extension
+RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
 
-COPY ./ /var/www/html/
+# Copy your project files
+COPY . /var/www/html/
 
-EXPOSE 80/tcp
-EXPOSE 443/tcp
+# Expose port 7893
+EXPOSE 7893
+
+# Start PHP-FPM server
+CMD ["php-fpm"]

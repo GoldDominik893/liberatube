@@ -1,32 +1,22 @@
-version: '3.8'
-
-volumes:
-  datafiles:
-
+version: '3'
 services:
-  mysql:
-    image: mysql:8.0.0
-    container_name: liberatube_mysql8
-    environment:
-      - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_TCP_PORT=3306
-    volumes:
-      - datafiles:/var/lib/mysql
-    restart: always
-
-  website:
-    container_name: liberatube_php73
-    build:
-      context: .
-      dockerfile: Dockerfile
-    environment:
-      - MYSQL_DBHOST=mysql
-      - MYSQL_DBPORT=3306
-      - MYSQL_DBUSER=root
-      - MYSQL_DBPASS=secret
-      #- MYSQL_DBNAME=
+  web:
+    build: .
     ports:
-      - 7893:80
-      - 4893:443
+      - "7893:7893"
+    volumes:
+      - .:/var/www/html/
     depends_on:
-      - mysql
+      - db
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: your_database
+      MYSQL_USER: your_user
+      MYSQL_PASSWORD: your_password
+    command: --init-file /data/application/init.sql
+volumes:
+  db_data:
