@@ -5,9 +5,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: liberatube
     ports:
       - "7893:80"
+    depends_on:
+      - db
+    networks:
+      - mynetwork
 
   db:
     image: mysql:latest
@@ -15,7 +18,12 @@ services:
       MYSQL_ROOT_PASSWORD: password
     volumes:
       - db-data:/var/lib/mysql
-      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
 
 volumes:
   db-data:
