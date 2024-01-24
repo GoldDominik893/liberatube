@@ -27,3 +27,16 @@ if (t !== null && !isNaN(t)) {
   const videoVideo = document.getElementById('video');
   videoVideo.currentTime = parseInt(t);
 }
+
+function seekToTime(timestamp) {
+    var video = document.getElementById("video");
+
+    var timeComponents = timestamp.split(":").map(component => parseInt(component, 10));
+
+    var totalSeconds = 0;
+    for (var i = 0; i < timeComponents.length; i++) {
+      totalSeconds = totalSeconds * 60 + timeComponents[i];
+    }
+
+    video.currentTime = totalSeconds;
+  }

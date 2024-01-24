@@ -61,12 +61,17 @@ parse_str($url_components['query'], $params);
                     $autsubs = $value['subCountText'];
                     $shared = $value['publishedText'];
 
+                    
+
+                    foreach ($value['captions'] as $caption) {
+                        $captionshtml .= '<track kind="captions" label="' . htmlspecialchars($caption['label']) . '" srclang="' . htmlspecialchars($caption['languageCode']) . '" src="/videodata/captions.php/?c_ext=' . htmlspecialchars($caption['url']) . '" default>';
+                    }
+
                     $nonHlsUrls = [];
                     $nonHlsItag = [];
                     $nonHlsQuality = [];
                     $nonHlsType = [];
                     $nonHlsSize = [];
-
                     $HlsUrls = [];
                     $HlsItag = [];
                     $HlsQuality = [];
@@ -212,7 +217,7 @@ if ($useSQL == true) {
   <div class="w3-container">
   </div>
 </div>
- 
+
 
 <div class="tenborder">
 <br>
@@ -235,20 +240,19 @@ if ($useSQL == true) {
                 echo '<link rel="stylesheet" href="../styles/audioplayer.css">
                     <video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
                     <source src="/videodata/hls.php?id='.$params['v'].$dlsetting.'" type="audio/webm">
-                    Your Browser Sucks! Can not play the audio.
+                    '.$captionshtml.'Your Browser Sucks! Can not play the audio.
                     </video>';
             }
             else {
 
                     echo '<video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
                     <source src="/videodata/non-hls.php?id='.$params['v'].$dlsetting.'" type="video/mp4">
-                    Your Browser Sucks! Can not play the video.
+                    '.$captionshtml.'Your Browser Sucks! Can not play the video.
                     </video>';
 
             }
         ?>
-        <script src="/scripts/playermain.js"></script>
-        <script src="/scripts/sidebar.js"></script>
+
     </center>
         <br>
         <center>
@@ -282,7 +286,6 @@ echo $isProxyDisabledMessage;
 <tr><td><h4>Non HLS options:</h4></td></tr>
 <?php
 if (isset($nonHlsItag) && is_array($nonHlsItag) && !empty($nonHlsItag)) {
-    // Loop through the $nonHlsItag array
     for ($i = 0; $i < count($nonHlsItag); $i++) {
         $itag = $nonHlsItag[$i];
         $url = $nonHlsUrls[$i];
@@ -290,7 +293,6 @@ if (isset($nonHlsItag) && is_array($nonHlsItag) && !empty($nonHlsItag)) {
         $type = $nonHlsType[$i];
         $size = $nonHlsSize[$i];
 
-        // Output HTML buttons for each itag value along with other corresponding values
         echo '<tr><td>'.$quality.'('.$itag.') - '.$type.'</td><td><a class="button-in-table" href="'.$url.'">Direct</a><a download="'.$params['v'].'.'.$type.'" class="button-in-table" href="/videodata/non-hls.php?id='.$params['v'].'&dl=dl&itag='.$itag.'">Proxy</a></td></tr>';
     }
 }
@@ -298,7 +300,6 @@ if (isset($nonHlsItag) && is_array($nonHlsItag) && !empty($nonHlsItag)) {
 <tr><td><h4>HLS options:</h4></td></tr>
 <?php
 if (isset($HlsItag) && is_array($HlsItag) && !empty($HlsItag)) {
-    // Loop through the $HlsItag array
     for ($i = 0; $i < count($HlsItag); $i++) {
         $itag = $HlsItag[$i];
         $url = $HlsUrls[$i];
@@ -306,7 +307,6 @@ if (isset($HlsItag) && is_array($HlsItag) && !empty($HlsItag)) {
         $type = $HlsType[$i];
         $size = $HlsSize[$i];
 
-        // Output HTML buttons for each itag value along with other corresponding values
         echo '<tr><td>'.$quality.'('.$itag.') - '.$type.'</td><td><a class="button-in-table" href="'.$url.'">Direct</a><a download="'.$params['v'].'.'.$type.'" class="button-in-table" href="/videodata/hls.php?id='.$params['v'].'&dl=dl&itag='.$itag.'">Proxy</a></td></tr>';
     }
 }
@@ -318,19 +318,32 @@ if (isset($HlsItag) && is_array($HlsItag) && !empty($HlsItag)) {
 <h6></h6>
      <?php
 function makeUrltoLink($string) {
- $reg_pattern = "/(((http|https|ftp|ftps)\:\/\/)|(www\.))[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,12}(\:[0-9]+)?(\/\S*)?/";
- return preg_replace($reg_pattern, '<a href="$0" target="_blank" rel="noopener noreferrer">$0</a>', $string);
+    $reg_pattern = "/(((http|https|ftp|ftps)\:\/\/)|(www\.))[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,12}(\:[0-9]+)?(\/\S*)?/";
+    return preg_replace($reg_pattern, '<a href="$0" target="_blank" rel="noopener noreferrer">$0</a>', $string);
+}
+
+function makeTimestamptoLink($string) {
+    $reg_pattern = "/(?<!<\/a>)\b\d{1,2}:\d{1,2}:\d{1,2}\b/";
+    return preg_replace($reg_pattern, '<a onclick="seekToTime(\'$0\')">$0</a>', $string);
+}
+
+function makeTimestamptoLinkSmaller($string) {
+    $reg_pattern = "/<a [^>]*>.*?<\/a>(*SKIP)(*F)|\b\d{1,2}:\d{1,2}\b/";
+    return preg_replace($reg_pattern, '<a onclick="seekToTime(\'$0\')">$0</a>', $string);
 }
 
 $str = ($description);
 $cdesc = nl2br($convertedStr = makeUrltoLink($str));
+$cdesc = makeTimestamptoLink($cdesc);
+$cdesc = makeTimestamptoLinkSmaller($cdesc);
 
 $cdesc = str_replace('href="https://youtu.be/','href="/watch?v=',$cdesc);
 $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',$cdesc);
+
 ?>
 <small>
  <h2 style="text-align: center;"> <?php echo $title; ?> <br></h2></small>
- <b><h4 style="text-align: center;"><?php echo $shared; ?> · <?php echo $views; ?> views · <?php echo $likes; ?> likes<?php echo $dislikes; ?></h4></b> <br> <details><summary><a class="button">Show/Hide Description</a><br><br></summary> <a class="button" href="//youtu.be/<?php echo $params['v']?>">Watch on YouTube</a><a class="button" href="//redirect.invidious.io/<?php echo $params['v']?>">Watch on Invidious</a><a class="button">Switch Instance</a><hr class="hr"><?php echo $cdesc; ?> </details>
+ <b><h4 style="text-align: center;"><?php echo $shared; ?> · <?php echo $views; ?> views · <?php echo $likes; ?> likes<?php echo $dislikes; ?></h4></b> <br> <details><summary><a class="button">Show/Hide Description</a></summary> <a style="margin-right: 3px;" class="button" href="//youtu.be/<?php echo $params['v']?>">Watch on YouTube</a><a style="margin-right: 3px;" class="button" href="//redirect.invidious.io/<?php echo $params['v']?>">Watch on Invidious</a><a class="button">Switch Instance</a><hr style="margin-top: 8px; margin-bottom: 5px;" class="hr"><?php echo $cdesc; ?> </details><br>
 
 
 
@@ -412,7 +425,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',
                     <div style="width: 100%; max-width: 775px;">
                     <h4><img style="margin-bottom: -25px;" src=<?php echo $aturl; ?>> <a href="/channel/?id=<?php echo $auid.'">'.$aname."</a>"; ?> · <?php echo $ptex; ?> · <?php echo number_format($alik)." likes"; ?>
                     </h4>
-                    <br><h5 style="margin-left: 53px; margin-top: -25px;"><?php echo $acon; 
+                    <br><h5 style="margin-left: 53px; margin-top: -25px;"><?php echo makeTimestamptoLinkSmaller(makeTimestamptoLink(makeUrltoLink($acon)));
                     
                         if ($commentreplyamount != "") {?>
 
@@ -430,7 +443,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',
                             <div style="width: 100%; max-width: 775px;">
                             <h4><img style="margin-bottom: -25px;" src=<?php echo $aturl_reply; ?>> <a href="/channel/?id=<?php echo $auid.'">'.$aname_reply."</a>"; ?> · <?php echo $ptex_reply; ?> · <?php if($alik_reply > -1){echo number_format($alik_reply)." likes";} ?>
                             </h4>
-                            <br><h5 style="margin-left: 53px; margin-top: -25px;"><?php echo $acon_reply; ?></h5><br>
+                            <br><h5 style="margin-left: 53px; margin-top: -25px;"><?php echo makeTimestamptoLinkSmaller(makeTimestamptoLink(makeUrltoLink($acon_reply))); ?></h5><br>
 
                        <?php } }?></details></h5>
                     <br><br>
@@ -444,6 +457,9 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',
             </div>
             </div>
         <title><?php echo $title; ?> · Liberatube</title>
+
+        <script src="/scripts/playermain.js"></script>
+        <script src="/scripts/sidebar.js"></script>
 </div> 
 </div>
 </body>
