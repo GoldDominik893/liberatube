@@ -229,14 +229,16 @@ transition: transform 0.2s;
     padding: 10px;
 }
 .topbar {
-    width: 100%;
-}
+        width: 100%;
+        font-size: 20px;
+    }
 .topbarelements {
   display: inline-block;
 }
 .topbarelements-right {
   float: right;
   margin-top: 5px;
+  margin-right: 10px;
 }
 .topbarelements-center {
   float: center;
@@ -260,6 +262,7 @@ font-variation-settings:
 }
 .login-item {
     display: inline-block;
+    padding: 1px 6px 1px 6px;
 }
 .login-item-icon {
     float: left;
