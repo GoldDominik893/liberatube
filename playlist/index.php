@@ -94,11 +94,15 @@ if ($useSQL == true) {
 <div class="w3-main" style="margin-left:55px">
 <div class="w3-tssseal">
   <button class="w3-button w3-darkgrey w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</button>
-  <div class="w3-container">
+  <div class="w3-container" style="padding: 0">
   <div class="topbar">
     <div class="topbarelements topbarelements-center">
-    <h1>Liberatube · Playlist</h1>
+    <h3 class="title-top topbarelements">Liberatube</h3>
+    <form class="input-row topbarelements" id="keywordForm" method="get" action="/search/">
+                    <input class="input-field" type="search" id="keyword" name="q" placeholder="Search YouTube..." value="<?php echo $keyword; ?>">
+            </form>
     </div>
+
     <?php if ($useSQL == true) { ?>
     <div class="topbarelements topbarelements-right">
     <h4> <?php echo $_SESSION['logged_in_user'] ?? ""; 
@@ -118,8 +122,9 @@ if ($useSQL == true) {
     ?>
     </div>
     <?php } ?>
+
     </div>
-  </div>
+        </div>
 </div>
 <script src="/scripts/sidebar.js"></script>
 <div class="tenborder">

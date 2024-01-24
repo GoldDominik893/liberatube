@@ -31,26 +31,7 @@ $url = $link;
 $url_components = parse_url($url);
 parse_str($url_components['query'], $params);
 
-$keyword = $params['q'];
-$resultsmaximum = $params['maxresults'];
-
-
-    $resultsmaximum = 20;
-
-    define("MAX_RESULTS", $resultsmaximum);
-
-    
-     if (isset($_POST['submit']) )
-     {   
-        if (empty($keyword))
-        {
-            $response = array(
-                  "type" => "error",
-                  "message" => "Please enter the keyword."
-                );
-        } 
-    }
-         
+$keyword = $params['q']; 
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -116,17 +97,15 @@ if ($useSQL == true) {
 <div class="w3-main" style="margin-left:55px">
 <div class="w3-tssseal">
   <button class="w3-button w3-darkgrey w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</button>
-  <div class="w3-container">
+  <div class="w3-container" style="padding: 0">
   <div class="topbar">
     <div class="topbarelements topbarelements-center">
-    <h1 class="title-top topbarelements">Liberatube · Search Results</h1>
+    <h3 class="title-top topbarelements">Liberatube</h3>
     <form class="input-row topbarelements" id="keywordForm" method="get" action="/search/">
-                <div class="input-row topbarelements topbarelements-right">
-                    <input class="input-field" type="search" id="keyword" name="q" placeholder="Type the search query here" value="<?php echo $keyword; ?>">
-                    <input class="btn-submit" type="submit" value="Search">
-            </div>
+                    <input class="input-field" type="search" id="keyword" name="q" placeholder="Search YouTube..." value="<?php echo $keyword; ?>">
             </form>
     </div>
+
     <?php if ($useSQL == true) { ?>
     <div class="topbarelements topbarelements-right">
     <h4> <?php echo $_SESSION['logged_in_user'] ?? ""; 
@@ -146,8 +125,9 @@ if ($useSQL == true) {
     ?>
     </div>
     <?php } ?>
+
     </div>
-  </div>
+        </div>
 </div>
 
 <div class="tenborder">
@@ -164,7 +144,8 @@ if ($useSQL == true) {
         <?php                        
               if (!empty($params['q']))
               {
-                $googleApiUrl = $InvSServer.'/api/v1/search?q=' . $params['q'] . '&hl=en';
+                $pagenumber = $_GET['page'] ?? 1;
+                $googleApiUrl = $InvSServer.'/api/v1/search?q=' . $params['q'] . '&hl=en&page='.$pagenumber;
 
                 $ch = curl_init();
 
@@ -183,9 +164,18 @@ if ($useSQL == true) {
 
             <br>
             <div class="videos-data-container w3-animate-left" id="SearchResultsDiv">
+                <?php
+                if ($pagenumber == 1) {
+                    echo '<a href="?q='.$_GET['q'].'&page='.($pagenumber + 1).'">Next Page</a>';
+                } else {
+                    echo '<a href="?q='.$_GET['q'].'&page='.($pagenumber - 1).'">Previous Page</a> · ';
+                    echo '<a href="?q='.$_GET['q'].'&page='.($pagenumber + 1).'">Next Page</a>';
+                }
+                ?>
+                
 <div style="text-align: center;">
             <?php
-                for ($i = 0; $i < MAX_RESULTS; $i++) {
+                for ($i = 0; $i < 20; $i++) {
                     $channel = $value[$i]['author'] ?? "";
                     $channelId = $value[$i]['authorId'] ?? "";
                     $type = "video";
@@ -235,14 +225,9 @@ if ($useSQL == true) {
                         </a>
            <?php 
                     }
-           
             }
             ?> 
-            <?php
-
-            ?>
             </div>
-            
         </div>
         </div>
     </body>

@@ -64,7 +64,7 @@ while ($row = mysqli_fetch_assoc($query))
 $row = mysqli_fetch_assoc($query);
 $numrows = mysqli_num_rows($query);
 }
-if(strcmp($themerow, 'blue') == 0)
+    if(strcmp($themerow, 'blue') == 0)
     {
         echo '<link rel="stylesheet" href="../styles/homeblue.css">';
     } elseif(strcmp($themerow, 'ultra-dark') == 0)
@@ -97,12 +97,12 @@ if(strcmp($themerow, 'blue') == 0)
 <div class="w3-main" style="margin-left:55px">
 <div class="w3-tssseal">
   <button class="w3-button w3-darkgrey w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</button>
-  <div class="w3-container">
+  <div class="w3-container" style="padding: 0">
   <div class="topbar">
     <div class="topbarelements topbarelements-center">
-    <h1 class="title-top topbarelements">Liberatube</h1>
+    <h3 class="title-top topbarelements">Liberatube</h3>
     <form class="input-row topbarelements" id="keywordForm" method="get" action="/search/">
-                    <input class="input-field" type="search" id="keyword" name="q" placeholder="Type the search query here" value="<?php echo $keyword; ?>">
+                    <input class="input-field" type="search" id="keyword" name="q" placeholder="Search YouTube..." value="<?php echo $keyword; ?>">
             </form>
     </div>
 
@@ -289,7 +289,7 @@ else {
         <br><div class="videos-data-container footer w3-animate-left">
             Liberatube Version 1.8 beta · Credits: Dominic Wajda (GoldDominik893).<br>
             This website was optimised for mobile users and does not collect any user data apart from<br> watch history which doesn't exist yet and you will be able to turn it off when logged in.
-            <br><a href="https://discord.gg/z4cCk5c5Zj">Join the Discord</a> · <a href="https://invidious.io">Invidious</a> · <a href="https://github.com/GoldDominik893/liberatube">GitHub</a> · <a href="/privacy.html">Privacy Policy</a> · <a href="/donate.html">Donate to the Liberatube project</a><br>
+            <br><a href="https://discord.gg/z4cCk5c5Zj">Join the Discord</a> · <a href="https://invidious.io">Invidious</a> · <a href="https://github.com/GoldDominik893/liberatube">GitHub</a> · <a href="/donate.html">Donate to the Liberatube project</a><br>
             Send suggestions to <a href="mailto:suggestions@epicsite.xyz">suggestions@epicsite.xyz</a>
             </div>
         </div>
