@@ -77,7 +77,7 @@ if(strcmp($themerow, 'blue') == 0)
   <div class="w3-container">
     <div class="topbar">
     <div class="topbarelements topbarelements-center">
-    <h1>Subscriptions</h1>
+    <h3 class="title-top topbarelements">Subscriptions</h3>
     </div>
     <div class="topbarelements topbarelements-right">
     <h4> <?php echo $_SESSION['logged_in_user']; ?>

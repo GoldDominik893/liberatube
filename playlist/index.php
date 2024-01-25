@@ -94,7 +94,7 @@ if ($useSQL == true) {
 <div class="w3-main" style="margin-left:55px">
 <div class="w3-tssseal">
   <button class="w3-button w3-darkgrey w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</button>
-  <div class="w3-container" style="padding: 0">
+  <div class="w3-container">
   <div class="topbar">
     <div class="topbarelements topbarelements-center">
     <h3 class="title-top topbarelements">Liberatube</h3>

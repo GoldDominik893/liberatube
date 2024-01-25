@@ -216,25 +216,27 @@ video {
 }
 .topbar {
     width: 100%;
+    font-size: 20px;
 }
 .topbarelements {
-  display: inline-block;
+display: inline-block;
 }
 .topbarelements-right {
 float: right;
 margin-top: 5px;
 }
 .topbarelements-center {
-  float: left;
+float: center;
 }
 
 .login-item {
-  display: inline-block;
+    display: inline-block;
+    padding: 1px 6px 1px 6px;
 }
 .login-item-icon {
-  float: left;
-  margin-right: 5px;
-  margin-top: 5px;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
 }
 .login-item-icon, .login-item-text {
 display: flex;

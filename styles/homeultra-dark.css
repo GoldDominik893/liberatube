@@ -238,7 +238,6 @@ transition: transform 0.2s;
 .topbarelements-right {
   float: right;
   margin-top: 5px;
-  margin-right: 10px;
 }
 .topbarelements-center {
   float: center;

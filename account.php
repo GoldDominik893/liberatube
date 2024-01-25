@@ -75,7 +75,7 @@ $numrows = mysqli_num_rows($query);
   <div class="w3-container">
     <div class="topbar">
     <div class="topbarelements topbarelements-center">
-    <h1>Manage your account</h1>
+    <h3 class="title-top topbarelements">Manage your account</h3>
     </div>
     <div class="topbarelements topbarelements-right">
     <h4> <?php echo $_SESSION['logged_in_user']; ?>
