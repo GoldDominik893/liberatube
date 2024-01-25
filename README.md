@@ -1,4 +1,4 @@
-![Liberatube banner](./screenshots/liberatube_banner.png)
+![Liberatube banner](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/liberatube_banner.png?raw=true)
 
 [![License](https://img.shields.io/github/license/golddominik893/liberatube?label=License&color=brightgreen&cacheSeconds=3600)](./LICENSE)
 [![Release](https://img.shields.io/github/v/release/golddominik893/liberatube?label=Release&color=brightgreen&cacheSeconds=3600)](https://github.com/golddominik893/liberatube/releases/latest)
@@ -24,13 +24,13 @@
 
 ## Screenshots
 
-| Home                      | Video              |
-|-------------------------------------|-------------------------------------|
-| ![home page](screenshots/home.png)    | ![video page](screenshots/video.png) |
+| Home | Video |
+|---|---|
+| ![home page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.8screenshots/home.png?raw=true) | ![video page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.8screenshots/video.png?raw=true) |
 
-| Channel                        | Comments             | Settings      |
-|-------------------------------------|-------------------------------------|---------------------------------------|
-| ![channel page](screenshots/channel.png)   | ![comments page](screenshots/comments.png) | ![settings page](screenshots/settings.png) |
+| Channel | Comments | Settings |
+|---|---|---|
+| ![channel page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.8screenshots/channel.png?raw=true) | ![comments page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.8screenshots/comments.png?raw=true) | ![settings page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.8screenshots/settings.png?raw=true) |
 
 ## Features
 
