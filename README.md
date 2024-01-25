@@ -74,9 +74,12 @@ Check the [Documentation](https://liberatube-docs.epicsite.xyz/general/2.instanc
 
 You can build an image yourself using the compose file provided, ensure that you have docker and docker compose installed.
 
+You also need to edit the `config.php` file to uncomment and recomment some lines for the sql credentials.
+
 ```bash
 git clone https://github.com/GoldDominik893/liberatube.git
 cd liberatube/
+nano config.php
 sudo docker-compose up -d --build
 ```
 
