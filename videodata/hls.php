@@ -71,4 +71,3 @@ else {
     header('Location: '.$selectedNonHlsUrl);
 }
 exit;
-?>

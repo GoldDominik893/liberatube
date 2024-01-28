@@ -12,4 +12,3 @@ $url_components = parse_url($url);
 parse_str($url_components['query'], $params);
 header('Location: '.$InvVIServer.'/vi/' . $params['id'] . '/maxres.jpg');
 exit;
-?>

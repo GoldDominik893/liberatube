@@ -6,20 +6,27 @@ if ($useSQL == false) {
     header( "refresh:2;url=/" );
     exit();
 }
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-$numrows = mysqli_num_rows($query);
-while ($row = mysqli_fetch_assoc($query))
-{   
-    $pwrow = $row['password'];
-}
-if ($_SESSION['hashed_pass'] == $pwrow) {
+
+if ($useSQL == true) {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+    $stmt->bind_param("s", $_SESSION['logged_in_user']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc())
+    {   
+        $pwrow = $row['password'];
+    }
+    if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {
         session_destroy();
     }
+} else {
+    session_destroy();
+}
 ?>
 <!DOCTYPE HTML>
 <html>
