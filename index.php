@@ -1,25 +1,27 @@
 <?php
+session_start();  
 include('config.php');
-session_start();
 
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
     }
-    $query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-    $numrows = mysqli_num_rows($query);
-    while ($row = mysqli_fetch_assoc($query))
+    $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+    $stmt->bind_param("s", $_SESSION['logged_in_user']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc())
     {   
         $pwrow = $row['password'];
     }
     if ($_SESSION['hashed_pass'] == $pwrow) {
-        } else {
-            session_destroy();
-        }
     } else {
         session_destroy();
     }
+} else {
+    session_destroy();
+}
 
 $keyword = $_POST['keyword'] ?? "";
 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
@@ -43,27 +45,29 @@ parse_str($url_components['query'], $params);
 
 <?php
 if ($useSQL == true) {
-$dbsenduser = $_SESSION['logged_in_user'];
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-if (isset($_SESSION['logged_in_user']))
-{
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-$numrows = mysqli_num_rows($query);
-while ($row = mysqli_fetch_assoc($query))
-{
-    $themerow = $row['theme'];
-    $regionrow = $row['region'];
-}
-$row = mysqli_fetch_assoc($query);
-$numrows = mysqli_num_rows($query);
-}
+    $dbsenduser = $_SESSION['logged_in_user'];
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    if (isset($_SESSION['logged_in_user']))
+    {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+    $stmt->bind_param("s", $_SESSION['logged_in_user']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc())
+    {
+        $themerow = $row['theme'];
+        $regionrow = $row['region'];
+        $loadcomments = $row['loadcomments'];
+        $userproxysetting = $row['proxy'];
+        $playerrow = $row['player'];
+    }
     if(strcmp($themerow, 'blue') == 0)
     {
         echo '<link rel="stylesheet" href="../styles/homeblue.css">';
@@ -76,7 +80,9 @@ $numrows = mysqli_num_rows($query);
     } 
     } else {
         echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
-    }?>
+    }
+}
+?>
     <body>
 
 
@@ -287,7 +293,7 @@ else {
             </div>
         </div>
         <br><div class="videos-data-container footer w3-animate-left">
-            Liberatube Version 1.8 beta · Licensed under AGPLv3 on GitHub · Credits: Dominic Wajda (GoldDominik893).<br>
+            Liberatube Version 1.8 · Licensed under AGPLv3 on GitHub · Credits: Dominic Wajda (GoldDominik893).<br>
             This website is optimised for mobile users and does not collect any user data apart from<br> watch history which doesn't exist yet and you will be able to turn it off when logged in.
             <br><a href="https://matrix.to/#/#libreratube:matrix.org">Join the Matrix</a> <a href="https://discord.gg/z4cCk5c5Zj">or discord</a> · <a href="https://invidious.io">Invidious</a> · <a href="https://github.com/GoldDominik893/liberatube">GitHub</a> · <a href="/donate.html">Donate to the Liberatube project</a><br>
             Have you noticed a bug or want to see a new feature? <a href="https://github.com/GoldDominik893/liberatube/issues">Open and issue on GitHub</a>

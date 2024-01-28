@@ -7,19 +7,21 @@ if ($useSQL == true) {
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
     }
-    $query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-    $numrows = mysqli_num_rows($query);
-    while ($row = mysqli_fetch_assoc($query))
+    $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+    $stmt->bind_param("s", $_SESSION['logged_in_user']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc())
     {   
         $pwrow = $row['password'];
     }
     if ($_SESSION['hashed_pass'] == $pwrow) {
-        } else {
-            session_destroy();
-        }
     } else {
         session_destroy();
     }
+} else {
+    session_destroy();
+}
 
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
         $link = "https";
@@ -42,7 +44,8 @@ $keyword = $params['q'];
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
 <link rel="stylesheet" href="/styles/-googlesymbols.css">
         <script src="/scripts/sidebar.js"></script>
-        <?php
+
+<?php
 if ($useSQL == true) {
     $dbsenduser = $_SESSION['logged_in_user'];
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -55,15 +58,17 @@ if ($useSQL == true) {
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
     }
-    $query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-    $numrows = mysqli_num_rows($query);
-    while ($row = mysqli_fetch_assoc($query))
+    $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+    $stmt->bind_param("s", $_SESSION['logged_in_user']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc())
     {
         $themerow = $row['theme'];
         $regionrow = $row['region'];
-    }
-    $row = mysqli_fetch_assoc($query);
-    $numrows = mysqli_num_rows($query);
+        $loadcomments = $row['loadcomments'];
+        $userproxysetting = $row['proxy'];
+        $playerrow = $row['player'];
     }
     if(strcmp($themerow, 'blue') == 0)
     {
@@ -78,7 +83,8 @@ if ($useSQL == true) {
     } else {
         echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
     }
-                ?>
+}
+?>
 
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>

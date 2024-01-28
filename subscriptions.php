@@ -1,20 +1,28 @@
 <?php
 session_start();  
 include('config.php');
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-$numrows = mysqli_num_rows($query);
-while ($row = mysqli_fetch_assoc($query))
-{   
-    $pwrow = $row['password'];
-}
-if ($_SESSION['hashed_pass'] == $pwrow) {
+
+if ($useSQL == true) {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+    $stmt->bind_param("s", $_SESSION['logged_in_user']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc())
+    {   
+        $pwrow = $row['password'];
+    }
+    if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {
         session_destroy();
     }
+} else {
+    session_destroy();
+}
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -24,7 +32,7 @@ if ($_SESSION['hashed_pass'] == $pwrow) {
 <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
 <link rel="stylesheet" href="/styles/-googlesymbols.css">
-        <?php
+<?php
 $dbsenduser = $_SESSION['logged_in_user'];
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -36,14 +44,16 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-$numrows = mysqli_num_rows($query);
-while ($row = mysqli_fetch_assoc($query))
+$stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+$stmt->bind_param("s", $_SESSION['logged_in_user']);
+$stmt->execute();
+$result = $stmt->get_result();
+$numrows = $result->num_rows;
+while ($row = $result->fetch_assoc())
 {
     $themerow = $row['theme'];
 }
-$row = mysqli_fetch_assoc($query);
-$numrows = mysqli_num_rows($query);
+$numrows = $result->num_rows;
 }
 if(strcmp($themerow, 'blue') == 0)
 {
@@ -55,7 +65,7 @@ if(strcmp($themerow, 'blue') == 0)
 {
     echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
 } 
-                ?>
+?>
 
     <body>
 

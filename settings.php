@@ -1,20 +1,27 @@
 <?php
 session_start();  
 include('config.php');
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-$numrows = mysqli_num_rows($query);
-while ($row = mysqli_fetch_assoc($query))
-{   
-    $pwrow = $row['password'];
-}
-if ($_SESSION['hashed_pass'] == $pwrow) {
+
+if ($useSQL == true) {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+    $stmt->bind_param("s", $_SESSION['logged_in_user']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc())
+    {   
+        $pwrow = $row['password'];
+    }
+    if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {
         session_destroy();
     }
+} else {
+    session_destroy();
+}
 
 $nothing = ""
 ?>
@@ -36,9 +43,12 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-$numrows = mysqli_num_rows($query);
-while ($row = mysqli_fetch_assoc($query))
+$stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+$stmt->bind_param("s", $_SESSION['logged_in_user']);
+$stmt->execute();
+$result = $stmt->get_result();
+$numrows = $result->num_rows;
+while ($row = $result->fetch_assoc())
 {
     $themerow = $row['theme'];
     $langrow = $row['lang'];
@@ -48,8 +58,7 @@ while ($row = mysqli_fetch_assoc($query))
     $regionrow = $row['region'];
     $loadcommentsrow = $row['loadcomments'];
 }
-$row = mysqli_fetch_assoc($query);
-$numrows = mysqli_num_rows($query);
+$numrows = $result->num_rows;
 }
 ?>
 
@@ -318,19 +327,22 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-$select = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_POST['name']."'");
-if(mysqli_num_rows($select)) {
+$stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+$stmt->bind_param("s", $_POST['name']);
+$stmt->execute();
+$result = $stmt->get_result();
+if($result->num_rows) {
 }
-$sql = "UPDATE login
-SET theme = '$theme', lang = '$lang', region = '$uregion', proxy = '$torfproxy', player = '$uplayertype', videoshadow = '$uvideoshadow', loadcomments = '$uloadcomments'
-WHERE username = '$dbsenduser';";
-if ($conn->query($sql) === TRUE) {   
+$stmt = $conn->prepare("UPDATE login SET theme = ?, lang = ?, region = ?, proxy = ?, player = ?, videoshadow = ?, loadcomments = ? WHERE username = ?");
+$stmt->bind_param("ssssssss", $theme, $lang, $uregion, $torfproxy, $uplayertype, $uvideoshadow, $uloadcomments, $dbsenduser);
+if ($stmt->execute() === TRUE) {   
 } else {
   echo "Error: <br>" . $conn->error;
 }
 $conn->close();
 }
-include('../config.php');
+?>
+<?php
 $dbsenduser = $_SESSION['logged_in_user'];
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -342,14 +354,16 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-$query = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_SESSION['logged_in_user']."'");
-$numrows = mysqli_num_rows($query);
-while ($row = mysqli_fetch_assoc($query))
+$stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+$stmt->bind_param("s", $_SESSION['logged_in_user']);
+$stmt->execute();
+$result = $stmt->get_result();
+$numrows = $result->num_rows;
+while ($row = $result->fetch_assoc())
 {
     $themerow = $row['theme'];
 }
-$row = mysqli_fetch_assoc($query);
-$numrows = mysqli_num_rows($query);
+$numrows = $result->num_rows;
 }
 if(strcmp($themerow, 'blue') == 0)
 {
@@ -361,4 +375,4 @@ if(strcmp($themerow, 'blue') == 0)
 {
     echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
 } 
-                ?>
+?>

@@ -25,16 +25,18 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$select = mysqli_query($conn, "SELECT * FROM login WHERE username = '".$_POST['name']."'");
-if(mysqli_num_rows($select)) {
+$stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+$stmt->bind_param("s", $_POST['name']);
+$stmt->execute();
+$result = $stmt->get_result();
+if($result->num_rows) {
     header( "refresh:2;url=signup.html" );
     exit('<h2>This username already exists</h2>');
 }
 
-$sql = "INSERT INTO login (username, password, salt1, salt2, videoshadow)
-VALUES ('$usr', '$pw', '$salt1', '$salt2', 'on')";
-
-if ($conn->query($sql) === TRUE) {
+$stmt = $conn->prepare("INSERT INTO login (username, password, salt1, salt2, videoshadow) VALUES (?, ?, ?, ?, 'on')");
+$stmt->bind_param("ssss", $usr, $pw, $salt1, $salt2);
+if ($stmt->execute() === TRUE) {
       echo "<h2>Welcome $usr. Redirecting Soon...</h2>";
     $_SESSION['logged_in_user'] = $usr;
     $_SESSION['hashed_pass'] = $pw;
