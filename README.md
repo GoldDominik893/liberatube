@@ -49,7 +49,6 @@
 * DASH/HLS video through VideoJS.
 * Autoplay for playlists.
 * Sort videos on a users channel by date and popularity.
-* Clickable timestamps from description or comments.
 * Native language support.
 * Playlist creation.
 * Subscribing to channels.
