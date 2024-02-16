@@ -293,7 +293,7 @@ else {
             </div>
         </div>
         <br><div class="videos-data-container footer w3-animate-left">
-            Liberatube Version 1.8 · Licensed under AGPLv3 on GitHub · Credits: Dominic Wajda (GoldDominik893).<br>
+            Liberatube Version 1.8 beta · Licensed under AGPLv3 on GitHub · Credits: Dominic Wajda (GoldDominik893).<br>
             This website is optimised for mobile users and does not collect any user data apart from<br> watch history which doesn't exist yet and you will be able to turn it off when logged in.
             <br><a href="https://matrix.to/#/#libreratube:matrix.org">Join the Matrix</a> <a href="https://discord.gg/z4cCk5c5Zj">or discord</a> · <a href="https://invidious.io">Invidious</a> · <a href="https://github.com/GoldDominik893/liberatube">GitHub</a> · <a href="/donate.html">Donate to the Liberatube project</a><br>
             Have you noticed a bug or want to see a new feature? <a href="https://github.com/GoldDominik893/liberatube/issues">Open and issue on GitHub</a>
