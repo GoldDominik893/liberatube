@@ -269,10 +269,10 @@ font-variation-settings:
     margin-top: 5px;
 }
 .login-item-icon, .login-item-text {
-display: flex;
-flex-direction: row;
-align-items: center;
-list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style-type: none;
 }
 
 a:hover {
@@ -310,9 +310,8 @@ a:focus {
 }
 .footer {
     width: 100%;
-
-            background: linear-gradient(135deg, #FFA50033, #80008033);
-            border-radius: 8px;
+    background: linear-gradient(135deg, #FFA50033, #80008033);
+    border-radius: 8px;
 }
 .timestamp {
     position: absolute; 

@@ -105,39 +105,7 @@ a:focus {
 text-decoration: none;
 transition: transform 0.2s;
 }
-details {
-  padding: 10px 20px;
-    background: #335;
-    border: #333 1px solid;
-    color: #f0f0f0;
-    font-size: 0.9em;
-    width: 100%;
-    max-width: 415px;
-    border-radius: 6px;
-    cursor:pointer;  
-}
-.detailred {
-    padding: 10px 20px;
-    background: #533;
-    border: #333 1px solid;
-    color: #f0f0f0;
-    font-size: 0.9em;
-    width: 100%;
-    max-width: 415px;
-    border-radius: 6px;
-    cursor:pointer;  
-}
-.detailgreen {
-    padding: 10px 20px;
-    background: #353;
-    border: #333 1px solid;
-    color: #f0f0f0;
-    font-size: 0.9em;
-    width: 100%;
-    max-width: 415px;
-    border-radius: 6px;
-    cursor:pointer;  
-}
+
 .search-inline {
     display: inline-block;
 }
