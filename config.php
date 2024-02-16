@@ -26,7 +26,7 @@
     $defaultLang = "en";                             // If the user is logged out or doesn't have a language set this will be the default
     $defaultLoadCommentsSetting = "nothing";         // If the user is logged out or doesn't have a comments loading preference set this will be the default (nothing / noreplies / showall)
     $adminuser = "GoldDominik893";                   // The user on liberatube you want to have access to the admin dashboard
-    $testinstance = false;                            // Whether this is a test instance. A disclaimer will be shown, (true / false)
+    $testinstance = true;                            // Whether this is a test instance. A disclaimer will be shown, (true / false)
     $allowProxy = "false";                           // Choose if the users can proxy video data through the server, (true / false / downloads)
     $useReturnYTDislike = true;                      // Choose whether the server contacts the return youtube dislike api for an estimate of the dislikes, (true / false)
     
