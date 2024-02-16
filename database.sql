@@ -11,6 +11,8 @@ CREATE TABLE `login` (
   `salt1` varchar(12) NOT NULL,
   `salt2` varchar(12) NOT NULL,
   `theme` varchar(30) NOT NULL,
+  `customtheme_player_url` varchar(125) NOT NULL,
+  `customtheme_home_url` varchar(125) NOT NULL,
   `lang` varchar(30) NOT NULL,
   `region` varchar(4) NOT NULL,
   `proxy` varchar(8) NOT NULL,
