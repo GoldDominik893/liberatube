@@ -138,7 +138,7 @@ if ($useSQL == true) {
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
         <?php }?>
         <?php    
-                $InvApiUrl = $InvVIServer.'/api/v1/channels/'.$params['id'].'?hl=en';    
+                $InvApiUrl = $InvVIServer.'/api/v1/channels/'.$params['id'].'?hl=en&sort_by='.$_GET['sort_by'];    
                 
                 $ch = curl_init();
 
@@ -194,8 +194,25 @@ if ($useSQL == true) {
                     <h4>'.$authorc.': '.$subcount.' Subscribers</h4>
                 </div>
                 <div style="margin-left: 105px; margin-top: -7px;">
-                    > <a href="#">Latest Videos</a><br>
-                    <a href="/channel/?id='.$params['id'].'&type=playlists">Playlists</a><br>
+                    > <a href="#">Videos</a>';
+                    if ($params['sort_by'] == "latest" or $params['sort_by'] == "") {
+                        echo '
+                            > <a href="#">Latest</a> <
+                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=popular">Popular</a>
+                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=oldest">Oldest</a>';
+                    } elseif ($params['sort_by'] == "popular") {
+                        echo '
+                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=latest">Latest</a>
+                            > <a href="#">Popular</a> <
+                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=oldest">Oldest</a>';
+                    } elseif ($params['sort_by'] == "oldest") {
+                        echo '
+                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=latest">Latest</a>
+                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=popular">Popular</a>
+                            > <a href="#">Oldest</a> <';
+                    }
+                echo '    
+                    <br><a href="/channel/?id='.$params['id'].'&type=playlists">Playlists</a><br>
                 </div>
                         <form class="input-row topbarelements" id="keywordForm" method="get" action="/channel/">
                             <div class="input-row topbarelements topbarelements-right">
@@ -203,7 +220,8 @@ if ($useSQL == true) {
                                 <input type="hidden" id="id" name="id" value="'.$params['id'].'">
                             </div>
                         </form>
-                </div>'; }
+                </div>';
+            }
                 elseif ($params['type'] == "playlists") 
                 {
                 echo '<div class="search-form-container">
@@ -214,7 +232,7 @@ if ($useSQL == true) {
                     <h4>'.$authorc.': '.$subcount.' Subscribers</h4>
                 </div>
                 <div style="margin-left: 105px; margin-top: -7px;">
-                    <a href="/channel/?id='.$params['id'].'&type=videos">Latest Videos</a><br>
+                    <a href="/channel/?id='.$params['id'].'&type=videos">Videos</a><br>
                     > <a href="#">Playlists</a><br>
                 </div><br><br>'; }
                 ?>
