@@ -266,6 +266,12 @@ if ($useSQL == true) {
           <span class="popuptext" id="myPopup">URL Copied.</span>Share</a>
 
 <a class="button" onclick="Alert.render('ok')">Download</a>
+<a class="button" onclick="Alert_pl.render('ok')">Add to playlist</a>
+
+
+<div id="popUpBox_pl">
+<div id="box_pl">
+<h3>Add this video to a Playlist</h3>
 <form id="addToPlaylistForm">
     <input type="hidden" id="videoId" name="videoId" value="<?php echo $_GET['v']; ?>">
     <input type="hidden" id="videoTitle" name="videoTitle" value="<?php echo $title; ?>">
@@ -275,9 +281,13 @@ if ($useSQL == true) {
     <input type="button" value="Add to Playlist" onclick="addToPlaylist()">
 </form>
 <div id="result"></div>
+<div id="closeModal_pl"></div>
+</div>
+</div>
+
 <a class="button" href="/channel/?id=<?php echo $authorId; ?>"><?php echo $author; ?> · <?php echo $autsubs; ?></a>
 </center>
-<div id="boxerlay"></div>
+
 <div id="popUpBox">
 <div id="box">
 <?php

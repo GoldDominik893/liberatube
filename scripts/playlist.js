@@ -15,11 +15,7 @@ function fetchPlaylists() {
 function populatePlaylistDropdown(playlists) {
     var select = $("#playlistSelect");
     select.empty();
-
-    // Add default option
     select.append($("<option>").val("").text("Select a Playlist"));
-
-    // Add each playlist to the dropdown
     playlists.forEach(function(playlist) {
         select.append($("<option>").val(playlist.id).text(playlist.name));
     });
@@ -35,8 +31,6 @@ function addToPlaylist() {
         alert("Please select a playlist.");
         return;
     }
-
-    // Validate and sanitize user inputs as needed
 
     $.ajax({
         type: "POST",
@@ -58,7 +52,6 @@ function addToPlaylist() {
     });
 }
 
-// Fetch and populate the dropdown when the page loads
 $(document).ready(function() {
     fetchPlaylists();
 });

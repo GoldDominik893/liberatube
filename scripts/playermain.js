@@ -10,6 +10,8 @@ function myFunction() {
     popup.classList.toggle("show");
     }
 var Alert = new CustomAlert();
+var Alert_pl = new CustomAlert_pl();
+
 function CustomAlert(){
     this.render = function(){
         let popUpBox = document.getElementById('popUpBox');
@@ -21,6 +23,19 @@ function CustomAlert(){
     document.getElementById('popUpOverlay').style.display = "none";
     }
 }	
+
+function CustomAlert_pl(){
+    this.render = function(){
+        let popUpBox = document.getElementById('popUpBox_pl');
+        popUpBox.style.display = "block";
+        document.getElementById('closeModal_pl').innerHTML = '<a class="button" onclick="Alert_pl.ok()">Close</a>';
+    }
+    this.ok = function(){
+    document.getElementById('popUpBox_pl').style.display = "none";
+    document.getElementById('popUpOverlay').style.display = "none";
+    }
+}	
+
 const urlParams = new URLSearchParams(window.location.search);
 const t = urlParams.get('t');
 if (t !== null && !isNaN(t)) {

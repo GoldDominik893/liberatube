@@ -126,7 +126,7 @@ border: none;
 ::-webkit-scrollbar-thumb{background: rgba(100,100,100,0.4); border-radius:5px;}
 ::-webkit-scrollbar-thumb:hover{background: rgba(70,70,70,0.4);}
 
-#box {
+#box, #box_pl {
     position: relative;
     top: 50%;
     -ms-transform: translateY(-50%);
@@ -137,7 +137,7 @@ border: none;
     align-items: center;
 }
 
-#popUpBox{
+#popUpBox, #popUpBox_pl {
 width: 100vw;
 height: 100vh;
 white-space: normal;
