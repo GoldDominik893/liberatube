@@ -45,7 +45,7 @@ if ($useSQL == true) {
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">Close &times;</button>
   <a href="/" class="w3-bar-item sidebarbtn awhitesidebar">Home</a>
   <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar">Watch History</a>
-  <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar">Playlists</a>
+  <a href="/playlist/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar">Playlists</a>
   <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar">Subscriptions</a>
   <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar">Settings</a>
   <hr class="hr">

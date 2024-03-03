@@ -1,6 +1,6 @@
 <?php
 session_start();  
-include('config.php');
+include('../config.php');
 
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -71,7 +71,7 @@ if(strcmp($themerow, 'blue') == 0)
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
   <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span></a>
   <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span></a>
-  <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">list_alt</span></a>
+  <a href="/playlist/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">list_alt</span></a>
   <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span></a>
   <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span></a>
 </div>
@@ -105,42 +105,62 @@ if(strcmp($themerow, 'blue') == 0)
 
 <?php
 if(isset($_SESSION['logged_in_user'])) {
-echo '<center><h4>This is still in development.</h4></center>
+
+  // Create a database connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  
+  // Check the connection
+  if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+  }
+  
+  // Retrieve playlists for the logged-in user
+  $query = "SELECT playlist_id, playlist_name FROM playlist WHERE username = ?";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param("s", $_SESSION['logged_in_user']);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  
+  // Display the playlists with links
+  if ($result->num_rows > 0) {
+    echo "<h2>Your Playlists:</h2>";
+    echo "<ul>";
+
+    while ($row = $result->fetch_assoc()) {
+        $playlistId = $row['playlist_id'];
+        $playlistName = $row['playlist_name'];
+
+        // Display each playlist with a link to view its contents
+        echo "<li><a href='view_playlist.php?playlist_id={$playlistId}'>{$playlistName}</a></li>";
+    }
+
+    echo "</ul>";
+  } else {
+    echo "<p>No playlists found for the logged-in user.</p>";
+  }
+  
+  // Close the statement
+  $stmt->close();
+  
+  // Close the database connection
+  $conn->close();
 
 
 
+echo '
+
+<script src="/scripts/-jquery-3.6.4.min.js"></script>
+<script src="/scripts/playlist.js"></script>
+<br>
+<form method="POST" action="create_playlist.php">
+    <label for="new_playlist_name">New Playlist Name:</label>
+    <input type="text" id="new_playlist_name" name="new_playlist_name" required>
+    <br>
+    <input type="submit" value="Create Playlist">
+</form>
 
 
-
-
-
-
-<div class="videos-data-container w3-animate-left" id="SearchResultsDiv">
-<div style="text-align: center;">
-                    
-    
-    
-                        <a class="awhite" href="/watch/?v=<?php echo $videoId; ?>">
-                           <div class="video-tile w3-animate-left">
-                            <div class="videoDiv">
-                            <center>
-                            <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" height="144px">
-                            </center>
-                            <div style="position: absolute; margin-top: -23px; right: 10px; background: rgba(0,0,0,0.7); padding-left: 4px; padding-right: 4px; border-radius: 3px;"><?php echo $timestamp; ?></div>
-                            </div>
-                            <div class="videoInfo">
-                            <div class="videoTitle"><br><b><center><?php echo $title; ?></center></b></div>
-    
-                            </div>
-                            </div>
-                            </a>
-
-
-
-
-
-</div></div>
-
+<div id="result"></div>
 ';
 } else {
 echo '<center><h4>You are not logged in.</h4></center>';

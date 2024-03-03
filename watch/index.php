@@ -194,7 +194,7 @@ if ($useSQL == true) {
   <?php
   if ($useSQL == true) { ?>
   <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span></a>
-  <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span></a>
+  <a href="/playlist/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span></a>
   <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span></a>
   <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span></a>
   <?php } ?>
@@ -266,6 +266,15 @@ if ($useSQL == true) {
           <span class="popuptext" id="myPopup">URL Copied.</span>Share</a>
 
 <a class="button" onclick="Alert.render('ok')">Download</a>
+<form id="addToPlaylistForm">
+    <input type="hidden" id="videoId" name="videoId" value="<?php echo $_GET['v']; ?>">
+    <input type="hidden" id="videoTitle" name="videoTitle" value="<?php echo $title; ?>">
+    <input type="hidden" id="videoAuthor" name="videoAuthor" value="<?php echo $author; ?>">
+    <select id="playlistSelect" name="playlistSelect" required>
+    </select>
+    <input type="button" value="Add to Playlist" onclick="addToPlaylist()">
+</form>
+<div id="result"></div>
 <a class="button" href="/channel/?id=<?php echo $authorId; ?>"><?php echo $author; ?> · <?php echo $autsubs; ?></a>
 </center>
 <div id="boxerlay"></div>
@@ -459,8 +468,11 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',
             </div>
         <title><?php echo $title; ?> · Liberatube</title>
 
+        <script src="/scripts/-jquery-3.6.4.min.js"></script>
         <script src="/scripts/playermain.js"></script>
+        <script src="/scripts/playlist.js"></script>
         <script src="/scripts/sidebar.js"></script>
+        
 </div> 
 </div>
 </body>

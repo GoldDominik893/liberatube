@@ -66,7 +66,7 @@ $numrows = $result->num_rows;
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
   <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span></a>
   <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span></a>
-  <a href="/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span></a>
+  <a href="/playlist/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span></a>
   <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span></a>
   <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">settings</span></a>
 </div>
@@ -139,7 +139,6 @@ if(isset($_SESSION['logged_in_user'])) {
       $instanceProxyText .= ' <label style="color: orange;">Downloads allowed</label>';
     }
   }
-echo '<h4 style="text-align: center;">This is still in development.<br></h4>';
 echo '<div class="tenborder">
 <form action="" method="post" id="form" formtarget="_blank">
   <div class="settingsdiv"><h4>Visual Preferences</h4>
