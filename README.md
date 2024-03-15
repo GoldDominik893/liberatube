@@ -34,25 +34,25 @@
 
 ## Features
 
-* Lightweight
-* No ads
-* No tracking
-* Blue/Ultra dark themes
-* Audio-only mode
-* Return YouTube Dislike
-* Download videos
-* Does not use official YouTube API's
-* Docker compose file
+* [x] Lightweight
+* [x] No ads
+* [x] No tracking
+* [x] Blue/Ultra dark themes
+* [x] Audio-only mode
+* [x] Return YouTube Dislike
+* [x] Download videos
+* [x] Does not use official YouTube API's
+* [x] Docker compose file
 
 ## To do
 
-* DASH/HLS video through VideoJS.
-* Autoplay for playlists.
-* Native language support.
-* Playlist creation.
-* Subscribing to channels.
-* Caching the trending page to reduce loading times significantly.
-* Annotations (clickable links on the video basically).
+* [ ] DASH/HLS video through VideoJS.
+* [ ] Autoplay for playlists.
+* [ ] Native language support.
+* [ ] Playlist creation.
+* [ ] Subscribing to channels.
+* [ ] Caching the trending page to reduce loading times significantly.
+* [ ] Annotations (clickable links on the video basically).
 
 ## Related Repositories
 
@@ -101,7 +101,7 @@ We take no responsibility for the use of our tool, or external instances
 provided by third parties. We strongly recommend you abide by the valid
 official regulations in your country. Furthermore, we refuse liability
 for any inappropriate use of Liberatube, such as illegal downloading.
-This tool is provided to you in the spirit of free, open software.
+This tool is provided to you in the spirit of free, open source software.
 
 You may view the LICENSE in which this software is provided to you [here](./LICENSE).
 
