@@ -1,12 +1,5 @@
 <?php
-// Enable error reporting for debugging (you may remove this in a production environment)
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
-// Include the configuration file
 include('../config.php');
-
-// Start the session
 session_start();
 
 // Create a database connection

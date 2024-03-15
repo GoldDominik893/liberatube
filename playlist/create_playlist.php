@@ -1,19 +1,12 @@
 <?php
-// Include the configuration file
 include('../config.php');
-
-// Start the session
 session_start();
 
-// Create a database connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check the connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if the form to create a new playlist is submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["new_playlist_name"])) {
     $newPlaylistName = $_POST["new_playlist_name"];
 

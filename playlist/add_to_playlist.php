@@ -1,12 +1,6 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
 include('../config.php');
 session_start();
-
-// Assuming you have a 'playlists' table with 'video_ids' column
-// Adjust the table name and column names based on your actual database structure
 
 // Create a database connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -23,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate and sanitize user inputs as needed
 
     // Check if the video ID and playlist ID exist
-    $query = "SELECT video_ids FROM playlist WHERE playlist_id = ? AND username = ?";
+    $query = "SELECT video_ids, playlist_name FROM playlist WHERE playlist_id = ? AND username = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ss", $playlistId, $_SESSION['logged_in_user']);
     $stmt->execute();
@@ -32,12 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $videoInfoArray = json_decode($row['video_ids'], true);
+        $playlistName = $row['playlist_name'];
 
         // Add new video information to the array
         $newVideoInfo = array(
             "id" => $videoId,
-            "title" => $_POST["videoTitle"], // Adjust based on your actual form input name
-            "author" => $_POST["videoAuthor"] // Adjust based on your actual form input name
+            "title" => $_POST["videoTitle"],
+            "author" => $_POST["videoAuthor"]
         );
 
         $videoInfoArray[] = $newVideoInfo;
@@ -48,20 +43,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $updateStmt->bind_param("sss", json_encode($videoInfoArray), $playlistId, $_SESSION['logged_in_user']);
 
         if ($updateStmt->execute()) {
-            echo "Video added to playlist successfully!";
+            echo 'Video added to the "'.$playlistName.'" playlist.';
         } else {
             echo "Error adding video to playlist.";
         }
-
-        // Close the update statement
         $updateStmt->close();
     } else {
         echo "Playlist not found.";
     }
-
-    // Close the statement
     $stmt->close();
 }
-
-// Close the database connection
 $conn->close();

@@ -39,6 +39,13 @@ parse_str($url_components['query'], $params);
     <head>
         <title>Liberatube · Home</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="apple-mobile-web-app-title" content="Liberatube">
+        <link rel="apple-touch-icon" href="favicon.ico">
+
+
+
         <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
 <link rel="stylesheet" href="/styles/-googlesymbols.css">
@@ -296,7 +303,7 @@ else {
             Liberatube Version 1.9 beta · Licensed under AGPLv3 on GitHub · Credits: Dominic Wajda (GoldDominik893).<br>
             This website is optimised for mobile users and does not collect any user data apart from<br> watch history which doesn't exist yet and you will be able to turn it off when logged in.
             <br><a href="https://matrix.to/#/#libreratube:matrix.org">Join the Matrix</a> <a href="https://discord.gg/z4cCk5c5Zj">or discord</a> · <a href="https://invidious.io">Invidious</a> · <a href="https://github.com/GoldDominik893/liberatube">GitHub</a> · <a href="/donate.html">Donate to the Liberatube project</a><br>
-            Have you noticed a bug or want to see a new feature? <a href="https://github.com/GoldDominik893/liberatube/issues">Open and issue on GitHub</a>
+            Have you noticed a bug or want to see a new feature? <a href="https://github.com/GoldDominik893/liberatube/issues">Open an issue on GitHub</a>
             </div>
         </div>
     </body>
