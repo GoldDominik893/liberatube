@@ -271,6 +271,8 @@ if ($useSQL == true) {
 
 <div id="popUpBox_pl">
 <div id="box_pl">
+
+<?php if ($_SESSION['logged_in_user']) { ?>
 <h3>Add this video to a Playlist</h3>
 <form id="addToPlaylistForm">
     <input type="hidden" id="videoId" name="videoId" value="<?php echo $_GET['v']; ?>">
@@ -281,6 +283,9 @@ if ($useSQL == true) {
     <input type="button" value="Add to Playlist" onclick="addToPlaylist()">
 </form>
 <div id="result"></div>
+<?php } else { ?>
+<h3>You are not logged in. <a href="/auth/login.html">Login</a></h3>
+<?php } ?>
 <div id="closeModal_pl"></div>
 </div>
 </div>

@@ -2,6 +2,29 @@
 session_start();  
 include('config.php');
 
+if ($useSQL) {
+
+$sqlFilePath = "database.sql";
+$flagFilePath = "database.sql.executed";
+
+    if (!file_exists($flagFilePath)) {
+        $sqlCommands = file_get_contents($sqlFilePath);
+        $conn = new mysqli($servername, $username, $password);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        if ($conn->multi_query($sqlCommands)) {
+            file_put_contents($flagFilePath, "");
+            echo "<h1>To Admin: Database and tables created successfully.</h1>";
+        } else {
+            echo "<h1>To Admin: Error executing SQL file: " . $conn->error . "<br>Are you using a online hosting provider? Check the documentation for installation on a hosting provider.</h1>";
+        }
+
+        $conn->close();
+    }
+}
+
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
@@ -152,7 +175,7 @@ if ($params['disclaimer'] == "accept") {
 } 
 elseif ($params['disclaimer'] == "show") {
     $_SESSION['disclaimer'] = "";
-    echo '<div class="w3-panel w3-blue" style="max-width: 800px; border-radius: 8px;">
+    echo '<div class="w3-panel" style="max-width: 800px; border-radius: 8px; background-color: #1e81b066">
         <h3 style="text-decoration: underline;">Disclaimer!</h3>
         <p>Using this Liberatube instance is not recommended for average users as there are some new and untested features and the database which stores user data is sometimes reset.</p>
         <a class="button" href="/?disclaimer=accept">I understand</a><br><br>
@@ -162,7 +185,7 @@ else {
     if ($_SESSION['disclaimer'] == "accept") {
         echo '<a href="/?disclaimer=show">Disclaimer</a>';
     } else {
-        echo '<div class="w3-panel w3-blue" style="max-width: 800px; border-radius: 8px;">
+        echo '<div class="w3-panel" style="max-width: 800px; border-radius: 8px; background-color: #1e81b066;">
         <h3 style="text-decoration: underline;">Disclaimer!</h3>
         <p>Using this Liberatube instance is not recommended for average users as there are some new and untested features and the database which stores user data is sometimes reset.</p>
         <a class="button" href="/?disclaimer=accept">I understand</a><br><br>
