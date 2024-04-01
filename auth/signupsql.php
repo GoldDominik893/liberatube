@@ -34,8 +34,8 @@ if($result->num_rows) {
     exit('<h2>This username already exists</h2>');
 }
 
-$stmt = $conn->prepare("INSERT INTO login (username, password, salt1, salt2) VALUES (?, ?, ?, ?)");
-$stmt->bind_param("ssss", $usr, $pw, $salt1, $salt2);
+$stmt = $conn->prepare("INSERT INTO login (username, password, salt1, salt2, theme, customtheme_player_url, customtheme_home_url, lang, region, proxy, player, videoshadow, loadcomments) VALUES (?, ?, ?, ?, ?, '', '', ?, ?, '', 'html', 'on', ?)");
+$stmt->bind_param("ssss", $usr, $pw, $salt1, $salt2, $defaultTheme, $defaultLang, $defaultRegion, $defaultLoadCommentsSetting);
 if ($stmt->execute() === TRUE) {
       echo "<h2>Welcome $usr. Redirecting Soon...</h2>";
     $_SESSION['logged_in_user'] = $usr;

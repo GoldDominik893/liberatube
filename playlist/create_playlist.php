@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["new_playlist_name"]))
     $videoIds = json_encode($videoIdsArray);
 
     // Prepare and execute the SQL query to create a new playlist with the array
-    $query = "INSERT INTO playlist (username, playlist_name, video_ids) VALUES (?, ?, ?)";
+    $query = "INSERT INTO playlist (username, playlist_name, video_ids, public) VALUES (?, ?, ?, 'true')";
     $stmt = $conn->prepare($query);
 
     // Use "s" for a string
