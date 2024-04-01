@@ -34,7 +34,7 @@ if($result->num_rows) {
     exit('<h2>This username already exists</h2>');
 }
 
-$stmt = $conn->prepare("INSERT INTO login (username, password, salt1, salt2, videoshadow) VALUES (?, ?, ?, ?, 'on')");
+$stmt = $conn->prepare("INSERT INTO login (username, password, salt1, salt2) VALUES (?, ?, ?, ?)");
 $stmt->bind_param("ssss", $usr, $pw, $salt1, $salt2);
 if ($stmt->execute() === TRUE) {
       echo "<h2>Welcome $usr. Redirecting Soon...</h2>";
