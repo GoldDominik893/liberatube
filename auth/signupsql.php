@@ -35,7 +35,7 @@ if($result->num_rows) {
 }
 
 $stmt = $conn->prepare("INSERT INTO login (username, password, salt1, salt2, theme, customtheme_player_url, customtheme_home_url, lang, region, proxy, player, videoshadow, loadcomments) VALUES (?, ?, ?, ?, ?, '', '', ?, ?, '', 'html', 'on', ?)");
-$stmt->bind_param("ssss", $usr, $pw, $salt1, $salt2, $defaultTheme, $defaultLang, $defaultRegion, $defaultLoadCommentsSetting);
+$stmt->bind_param("ssssssss", $usr, $pw, $salt1, $salt2, $defaultTheme, $defaultLang, $defaultRegion, $defaultLoadCommentsSetting);
 if ($stmt->execute() === TRUE) {
       echo "<h2>Welcome $usr. Redirecting Soon...</h2>";
     $_SESSION['logged_in_user'] = $usr;
