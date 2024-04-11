@@ -8,28 +8,29 @@
   <body style="background-image: url(/images.php);">
     <div class="container">
       <div class="login-form">
-        <h2>Sign up</h2>
+        <h2>Create an account</h2>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <div class="search-form-container">
             <form id="keywordForm" method="post" action="signupsql.php" formtarget="_blank">
-                    <label for="name">Username</label>
                     <input autocomplete="off" required class="input-field" type="text" id="name" name="name"  placeholder="Username" value=""><br>
-                    <label for="pass">Password</label>
                     <input autocomplete="off" required class="input-field" type="password" id="pass" name="pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 16 or more characters" placeholder="Password" value=""><br>
-                <input class="btn-submit" type="submit" name="submit" value="Login">    
+                    
+                    <input class="btn-submit" type="submit" name="submit" value="Login">    
+                    <div id="message">
+                      <h4>Password must contain the following:</h4>
+                      <p id="letter" class="invalid conditionp">A <b>lowercase</b> letter</p>
+                      <p id="capital" class="invalid conditionp">An <b>uppercase</b> letter</p>
+                      <p id="number" class="invalid conditionp">A <b>number</b></p>
+                      <p id="length" class="invalid conditionp">At least <b>16 characters</b></p>
+                    </div>
+                    </div>	
+                    <script src="/scripts/password_validator.js"></script>
+                    <p>By creating an account you are agreeing to be bound by the <a href="https://liberatube-docs.epicsite.xyz/general/4.privacy/">Privacy Policy</a></p>
             </form>
-            <div id="message">
-  <h3>Password must contain the following:</h3>
-  <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-  <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-  <p id="number" class="invalid">A <b>number</b></p>
-  <p id="length" class="invalid">Minimum <b>16 characters</b></p>
-</div>
-</div>	
-<script src="/scripts/password_validator.js"></script>
+            
             <hr>
-            <a href="/">Go Back</a> · <a href="login.html">Login instead</a>
+            <a href="/">Go Back</a> - <a href="login.html">Login instead</a>
       </div>
     </div>
   </body>
