@@ -138,13 +138,11 @@ if ($result->num_rows > 0) {
                 <a class="awhite" href="/watch/?v={$videoId}">
                     <div class="video-tile w3-animate-left">
                         <div class="videoDiv">
-                            <center>
                                 <img src="http://i.ytimg.com/vi/{$videoId}/mqdefault.jpg" height="144px">
-                            </center>
                             <div style="position: absolute; margin-top: -23px; right: 10px; background: rgba(0,0,0,0.7); padding-left: 4px; padding-right: 4px; border-radius: 3px;">{$timestamp}</div>
                         </div>
                         <div class="videoInfo">
-                            <div class="videoTitle"><b>{$author}</b><br><center>{$title}</center></div>
+                            <div class="videoTitle"><b>{$title}</b><br>{$author}</div>
                         </div>
                     </div>
                 </a>

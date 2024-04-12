@@ -251,6 +251,7 @@ if ($useSQL == true) {
                         $title = $value['latestVideos'][$i]['title'] ?? "";
                         $videoId = $value['latestVideos'][$i]['videoId'] ?? "";
                         $publishedText = $value['latestVideos'][$i]['publishedText'] ?? "";
+                        $viewCountText = $value['latestVideos'][$i]['viewCountText'] ?? "";
 
                         $lengthseconds = $value['latestVideos'][$i]['lengthSeconds'] ?? "";
                         $vidhours = floor($lengthseconds / 3600) ?? "";
@@ -265,6 +266,7 @@ if ($useSQL == true) {
                         $title = $value_search[$i]['title'] ?? "";
                         $videoId = $value_search[$i]['videoId'] ?? "";
                         $publishedText = $value_search[$i]['publishedText'] ?? "";
+                        $viewCountText = $value['latestVideos'][$i]['viewCountText'] ?? "";
 
                         $lengthseconds = $value_search[$i]['lengthSeconds'] ?? "";
                         $vidhours = floor($lengthseconds / 3600) ?? "";
@@ -283,14 +285,11 @@ if ($useSQL == true) {
                     <a class="awhite" href="/watch/?v=<?php echo $videoId; ?>">
                        <div class="video-tile w3-animate-left">
                         <div class="videoDiv">
-                        <center>
                         <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" height="144px">
-                        </center>
                         <div class="timestamp"><?php echo $timestamp; ?></div>
                         </div>
                         <div class="videoInfo">
-                        <div class="videoTitle"><center>Shared <?php echo $publishedText; ?><br><b><?php echo $title; ?></center></b></div>
-
+                        <div class="videoTitle"><b><?php echo $title; ?></b><br><?php echo $publishedText; ?>  <div style="float: right;"><?php echo $viewCountText; ?></div>  </div>
                         </div>
                         </div>
                         </a>
@@ -322,13 +321,13 @@ if ($useSQL == true) {
                         <a class="awhite" href="/playlist/?id=<?php echo $videoId; ?>">
                            <div class="video-tile w3-animate-left">
                             <div class="videoDiv">
-                            <center>
+                            
                             <img src="<?php echo $plThumb; ?>" height="144px">
-                            </center>
-                            <div style="position: absolute; margin-top: -23px; right: 10px; background: rgba(0,0,0,0.7); padding-left: 4px; padding-right: 4px; border-radius: 3px;"><?php echo $timestamp; ?></div>
+                            
+                            <div><?php echo $timestamp; ?></div>
                             </div>
                             <div class="videoInfo">
-                            <div class="videoTitle"><center><b><?php echo $title; ?></center></b></div>
+                            <div class="videoTitle"><b><?php echo $title; ?></b></div>
     
                             </div>
                             </div>

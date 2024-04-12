@@ -186,15 +186,26 @@ if ($useSQL == true) {
                     $channelId = $value[$i]['authorId'] ?? "";
                     $type = "video";
                     $videoId = $value[$i]['videoId'] ?? "";
+
                     if ($value[$i]['type'] == 'channel') {
-                    $type = "channel";
-                    $profpic = $value[$i]['authorThumbnails'][0]['url']; }
+                        $type = "channel";
+                        $profpic = $value[$i]['authorThumbnails'][0]['url']; 
+                    } elseif ($value[$i]['type'] == 'playlist'){
+                        $type = "playlist";
+                        $plImage = $value[$i]['playlistThumbnail']; 
+                        $videoId = $value[$i]['playlistId'];
+                        $plVideoCount = $value[$i]['videoCount'];
+                    }
+
                     if ($type == "channel") {
                         $burl = "/channel/?id=";
                         $videoId = $channelId;
                     }
                     elseif ($type == "video") {
                         $burl = "/watch/?v=";
+                    }
+                    elseif ($type == "playlist") {
+                        $burl = "/playlist/?id=";
                     }
                     $title = $value[$i]['title'] ?? "";
                     $sharedat = $value[$i]['publishedText'] ?? "";
@@ -211,24 +222,45 @@ if ($useSQL == true) {
                     ?> <a class="awhite" href="<?php echo $burl.$videoId; ?>">
                        <div class="video-tile w3-animate-left">
                         <div class="videoDiv">
-                        <center>
+
                             
                         <?php 
-                        if ($type == "video") {
-                            echo '<img src="http://i.ytimg.com/vi/' . $videoId . '/mqdefault.jpg" height="144px">';
-                        }
-                        elseif ($type == "channel") {
-                            echo '<img src="' . $profpic . '" height="144px">';
-                        }
+                        if ($type == "video") { ?>
+                            <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" height="144px">
+
+                            <div class="timestamp"><?php echo $timestamp; ?></div>
+                            </div>
+                            <div class="videoInfo">
+                            <div class="videoTitle"><b><?php echo $title; ?></b><br><?php echo $channel; ?> <div style="float: right;"><?php echo $sharedat; ?></div></div>
+                            </div>
+                            </div>
+                            </a>
+
+
+                        <?php }
+                        elseif ($type == "channel") { ?>
+                            <img style="margin-left: 56px; margin-right: 56px;" src="<?php echo $profpic ?>" height="144px">
+
+                            </div>
+                            <div class="videoInfo">
+                            <div class="videoTitle"><b><?php echo $channel; ?></b><br><br></div>
+                            </div>
+                            </div>
+                            </a>
+
+
+                        <?php } elseif ($type == "playlist") { ?>
+                            <img src="<?php echo $plImage ?>" height="144px">
+
+                            </div>
+                            <div class="videoInfo">
+                            <div class="videoTitle"><b><?php echo $title; ?></b><br><?php echo $channel; ?> <div style="float: right;"><?php echo $plVideoCount; ?> videos</div></div>
+                            </div>
+                            </div>
+                            </a>
+                        <?php }
                             ?>
-                        </center>
-                        <div class="timestamp"><?php echo $timestamp; ?></div>
-                        </div>
-                        <div class="videoInfo">
-                        <div class="videoTitle"><?php echo $channel; ?> · <?php echo $sharedat; ?><center><?php echo $title; ?></center></div>
-                        </div>
-                        </div>
-                        </a>
+
            <?php 
                     }
             }

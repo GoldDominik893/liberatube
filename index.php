@@ -213,13 +213,13 @@ else {
                 }
                 
                 if ($params['region'] == "GB") {
-                    $responsetren = "Trending Content For Great Britain";
+                    $responsetren = "<h3>Trending Content For Great Britain</h3>";
                 }
                 elseif ($params['region'] == "US") {
-                    $responsetren = "Trending Content For The United States of America";
+                    $responsetren = "<h3>Trending Content For The United States of America</h3>";
                 }
                 else {
-                    $responsetren = "Trending Content For Country With Country Code '".$params['region']."'";
+                    $responsetren = "<h3>Trending Content For Country With Country Code '".$params['region']."'</h3>";
                 }
                 $InvApiUrl = $InvTServer.'/api/v1/trending?pretty=1&region='.$params['region'].'&hl=en&type='.$params['type'];
 
@@ -288,6 +288,7 @@ else {
                     $description = $value[$i]['descriptionHtml'] ?? "";
                     $channel = $value[$i]['author'] ?? "";
                     $sharedat = $value[$i]['publishedText'] ?? "";
+                    $authorId = $value[$i]['authorId'] ?? "";
 
                     $lengthseconds = $value[$i]['lengthSeconds'] ?? "";
                     $vidhours = floor($lengthseconds / 3600) ?? "";
@@ -304,17 +305,16 @@ else {
                     <a class="awhite" href="/watch/?v=<?php echo $videoId; ?>">
                        <div class="video-tile w3-animate-left">
                         <div class="videoDiv">
-                        <center>
                         <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" height="144px">
-                        </center>
                         <div class="timestamp"><?php echo $timestamp; ?></div>
                         </div>
                         <div class="videoInfo">
-                        <div class="videoTitle"><?php echo $channel; ?> · Shared <?php echo $sharedat; ?><br><b><center><?php echo $title; ?></center></b></div>
-                        
+                        <div class="videoTitle"><b><?php echo $title; ?></b><br><?php echo $channel; ?> <div style="float: right;"><?php echo $sharedat; ?></div></div>
                         </div>
                         </div>
                         </a>
+
+                        
            <?php 
                     }
            

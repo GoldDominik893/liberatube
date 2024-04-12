@@ -197,13 +197,11 @@ if ($useSQL == true) {
                     <a class="awhite" href="/watch/?v=<?php echo $videoId; ?>">
                        <div class="video-tile w3-animate-left">
                         <div class="videoDiv">
-                        <center>
                         <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" height="144px">
-                        </center>
                         <div class="timestamp"><?php echo $timestamp; ?></div>
                         </div>
                         <div class="videoInfo">
-                        <div class="videoTitle"><?php echo $channel; ?><br><b><center><?php echo $title; ?></center></b></div>
+                        <div class="videoTitle"><?php echo $title; ?><br><b><?php echo $channel; ?></b></div>
 
                         </div>
                         </div>

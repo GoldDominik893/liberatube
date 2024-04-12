@@ -269,7 +269,7 @@ if ($useSQL == true) {
 <a class="button" onclick="Alert_pl.render('ok')">Add to playlist</a>
 
 
-<div id="popUpBox_pl">
+<div id="popUpBox_pl" style="display: none;">
 <div id="box_pl">
 
 <?php if ($_SESSION['logged_in_user']) { ?>
