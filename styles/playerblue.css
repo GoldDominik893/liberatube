@@ -19,37 +19,27 @@ a:hover, a:focus {
     text-decoration: none;
 }
 
-.awhite {
-    color: white;
+.sidebar {
+    background-color: #1b202c;
+    line-height: 0.5;
+}
+.sidebarbtn-selected, .sidebarbtn:hover, .sidebarbtn-selected:hover {
+    background-color: #323947;
 }
 
-.awhite:hover {
-    color: DodgerBlue;
+.sidebarbtn, .sidebarbtn:hover, .sidebarbtn:focus {
+    color: white;
+    border-radius: 6px;
+    transition: transform 0.2s;
+    transition: 0.3s
+}
+
+.awhitesidebar, .awhite {
+    color: white;
 }
 
 .tenborder {
     padding: 10px;
-}
-
-.sidebar {
-    background-color: #212836;
-    line-height: 0.5;
-}
-
-.sidebarbtn-selected {
-    background-color: #323947;
-}
-.sidebarbtn:hover {
-    background-color: #344052;
-}
-.awhitesidebar {
-    color: white;
-}
-.awhitesidebar:hover {
-    color: lightgray;
-}
-.sidebarbtn-selected:hover {
-    background-color: #334158;
 }
 
 .popup {
@@ -103,21 +93,7 @@ from {opacity: 0;}
 to {opacity:1 ;}
 }
 
-.awhite:hover {
-    color: DodgerBlue;
-}
 
-.tenborder {
-    padding: 10px;
-}
-
-.awhitesidebar {
-    color: white;
-}
-
-.awhitesidebar:hover {
-    color: lightgray;
-}
 
 .hr {
 margin: 3px;
@@ -186,28 +162,7 @@ text-decoration: none;
 transition: transform 0.2s;
 transition: 0.3s
 }
-a:hover {
-    color: ff4444;
-    text-decoration: none;
-}
-a:focus {
-    color: #f44;
-    text-decoration: none;
-}
-.sidebarbtn {
-     color: white;
-     border-radius: 6px;
-     transition: transform 0.2s;
-     transition: 0.3s
-}
-.sidebarbtn:hover {
-     transition: transform 0.2s;
-     transition: 0.3s
-}
-.sidebarbtn:focus {
-     transition: transform 0.2s;
-     transition: 0.3s
-}
+
 video {
     box-shadow: 0 0 40px rgb(0, 0, 0);
 }

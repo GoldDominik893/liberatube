@@ -11,16 +11,13 @@ body {
 }
 
 a {
-    color: #555;
+    color: #777;
 }
-a:hover {
+a:hover, a:focus {
     color: #ff4444;
     text-decoration: none;
 }
-a:focus {
-    color: #f44;
-    text-decoration: none;
-}
+
 .awhite {
     color: white;
 }
@@ -101,14 +98,7 @@ text-decoration: none;
 transition: transform 0.2s;
 transition: 0.3s
 }
-a:hover {
-    color: #ff4444;
-    text-decoration: none;
-}
-a:focus {
-    color: #f44;
-    text-decoration: none;
-}
+
 .sidebarbtn {
      color: white;
      border-radius: 6px;
@@ -143,17 +133,16 @@ a:focus {
     border-radius: 2px;
     cursor:pointer;
 }
-.videos-data-container {
-   
-}
 
 .video-tile {
     display: inline-block;
     border-radius: 8px;
     margin-top: 6px;
-    margin-right: 6px;
+    margin-right: 7px;
+    margin-right: 7px;
     text-align: left;
 }
+
 .videoDiv {
     width: 256px;
     height: 148px;
@@ -172,42 +161,20 @@ a:focus {
 .videoInfo {
     width: 256px;
 }
-a {
-    color: #777;
-    transition: transform 0.2s;
-}
-a:hover{
-color:#ff4444;
-text-decoration: none;
-transition: transform 0.2s;
-}
-a:focus {
-   color:#ff4444;
-text-decoration: none;
-transition: transform 0.2s;
-}
+
 .search-inline {
     display: inline-block;
 }
-.search-form-container {
-    border: #000000 1px solid;
-    background: #020202;
-    padding: 20px;
-    border-radius: 6px;
-}
-.awhite {
-    color: white;
-}
-.awhite:hover {
-    color: DodgerBlue;
-}
+
+
 .tenborder {
     padding: 10px;
 }
+
 .topbar {
-        width: 100%;
-        font-size: 20px;
-    }
+    width: 100%;
+    font-size: 20px;
+}
 .topbarelements {
   display: inline-block;
 }
@@ -251,39 +218,11 @@ font-variation-settings:
     list-style-type: none;
 }
 
-a:hover {
-    color: #ff4444;
-    text-decoration: none;
-}
-a:focus {
-    color: #f44;
-    text-decoration: none;
-}
-.awhite {
-    color: white;
-}
-.awhite:hover {
-    color: DodgerBlue;
-}
-.tenborder {
-    padding: 10px;
-}
-.awhitesidebar {
-    color: white;
-}
-.awhitesidebar:hover {
+.awhitesidebar, .awhite {
     color: white;
 }
 
-.awhite:hover {
-    color: DodgerBlue;
-}
-.awhitesidebar {
-    color: white;
-}
-.awhitesidebar:hover {
-    color: white;
-}
+
 .footer {
     width: 100%;
     padding: 10px;

@@ -103,3 +103,26 @@ transition: transform 0.2s;
   align-items: center;
   list-style-type: none;
   }
+
+
+
+
+  input[type="text"]{
+    padding: 6px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 5px;
+    background-color: rgba(19, 18, 18, 0.233);
+    color: white;
+    border: solid rgb(31, 30, 30) 1px;
+    outline: none;
+  }
+  
+  input[type="submit"] {
+    background-color: rgba(92, 92, 92, 0.5);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

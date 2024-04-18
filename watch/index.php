@@ -362,15 +362,19 @@ $cdesc = nl2br($convertedStr = makeUrltoLink($str));
 $cdesc = makeTimestamptoLink($cdesc);
 $cdesc = makeTimestamptoLinkSmaller($cdesc);
 
-$cdesc = str_replace('href="https://youtu.be/','href="/watch?v=',$cdesc);
-$cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',$cdesc);
+$cdesc = str_replace('href="https://youtu.be/','href="/watch/?v=',$cdesc);
+$cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v=',$cdesc);
 
 ?>
 <small>
  <h2 style="text-align: center;"> <?php echo $title; ?> <br></h2></small>
  <b><h4 style="text-align: center;"><?php echo $shared; ?> · <?php echo $views; ?> views · <?php echo $likes; ?> likes<?php echo $dislikes; ?></h4></b> <br> <details><summary><a class="button">Show/Hide Description</a></summary> <a style="margin-right: 3px;" class="button" href="//youtu.be/<?php echo $params['v']?>">Watch on YouTube</a><a style="margin-right: 3px;" class="button" href="//redirect.invidious.io/<?php echo $params['v']?>">Watch on Invidious</a><a href="https://liberatube-instances.epicsite.xyz/?v=<?php echo $params['v']?>" class="button">Switch Instance</a><hr style="margin-top: 8px; margin-bottom: 5px;" class="hr"><?php echo $cdesc; ?> </details><br>
 
-
+        <title><?php echo $title; ?> · Liberatube</title>
+        <script src="/scripts/-jquery-3.6.4.min.js"></script>
+        <script src="/scripts/playermain.js"></script>
+        <script src="/scripts/playlist.js"></script>
+        <script src="/scripts/sidebar.js"></script>
 
  <?php
 
@@ -481,12 +485,8 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch?v=',
             ?> 
             </div>
             </div>
-        <title><?php echo $title; ?> · Liberatube</title>
-
-        <script src="/scripts/-jquery-3.6.4.min.js"></script>
-        <script src="/scripts/playermain.js"></script>
-        <script src="/scripts/playlist.js"></script>
-        <script src="/scripts/sidebar.js"></script>
+        
+        
         
 </div> 
 </div>

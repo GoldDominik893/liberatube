@@ -57,13 +57,13 @@ $numrows = $result->num_rows;
 }
 if(strcmp($themerow, 'blue') == 0)
 {
-    echo '<link rel="stylesheet" href="../styles/playerblue.css">';
+    echo '<link rel="stylesheet" href="../styles/homeblue.css">';
 } elseif(strcmp($themerow, 'ultra-dark') == 0)
 {
-    echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
+    echo '<link rel="stylesheet" href="../styles/homeultra-dark.css">';
 } else 
 {
-    echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
+    echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
 } 
 ?>
     <body>
@@ -101,7 +101,9 @@ if(strcmp($themerow, 'blue') == 0)
     </div>
   </div>
   <script src="/scripts/sidebar.js"></script>
-
+  <div class="tenborder">
+  <div class="videos-data-container w3-animate-left" id="SearchResultsDiv">
+  <div style="text-align: center;">
 
 <?php
 if(isset($_SESSION['logged_in_user'])) {
@@ -115,29 +117,52 @@ if(isset($_SESSION['logged_in_user'])) {
   }
   
   // Retrieve playlists for the logged-in user
-  $query = "SELECT playlist_id, playlist_name FROM playlist WHERE username = ?";
+  $query = "SELECT playlist_id, playlist_name, video_ids FROM playlist WHERE username = ?";
   $stmt = $conn->prepare($query);
   $stmt->bind_param("s", $_SESSION['logged_in_user']);
   $stmt->execute();
   $result = $stmt->get_result();
-  
-  // Display the playlists with links
-  if ($result->num_rows > 0) {
-    echo "<h2>Your Playlists:</h2>";
-    echo "<ul>";
+
+if ($result->num_rows > 0) {
+    echo "<h3>Your Playlists</h3>";
 
     while ($row = $result->fetch_assoc()) {
         $playlistId = $row['playlist_id'];
         $playlistName = $row['playlist_name'];
+        
+        $playlistCont = json_decode($row['video_ids'], true);
 
-        // Display each playlist with a link to view its contents
-        echo "<li><a href='view_playlist.php?playlist_id={$playlistId}'>{$playlistName}</a></li>";
+        $vidsInPlaylist = count($playlistCont);
+        if ($vidsInPlaylist == 1) {
+          $vidsInPlaylistText = "1 Video";
+        } else {
+          $vidsInPlaylistText = $vidsInPlaylist." Videos";
+        }
+
+        if (!empty($playlistCont)) {
+            $firstVideo = $playlistCont[0];
+            $videoId = 'http://i.ytimg.com/vi/'.$firstVideo['id'].'/mqdefault.jpg'; 
+        } else {
+            $videoId = 'https://github.com/GoldDominik893/file-hosting/blob/main/images/empty-playlist.png?raw=true'; 
+        }
+    
+
+        echo <<<HTML
+                <a class="awhite" href='view_playlist.php?playlist_id={$playlistId}'>
+                    <div class="video-tile w3-animate-left">
+                        <div class="videoDiv">
+                            <img src='{$videoId}' height="144px">
+                        </div>
+                        <div class="videoInfo">
+                            <div class="videoTitle"><b>{$playlistName}</b> <div style="float: right;">{$vidsInPlaylistText}</div></div>
+                        </div>
+                    </div>
+                </a>
+HTML;
     }
-
-    echo "</ul>";
-  } else {
-    echo "<p>No playlists found for the logged-in user.</p>";
-  }
+} else {
+    echo "<p>No playlists.</p>";
+}
   
   // Close the statement
   $stmt->close();
@@ -166,6 +191,8 @@ echo '
 echo '<center><h4>You are not logged in.</h4></center>';
 }
 ?>
+
+</div></div>
 
 
 

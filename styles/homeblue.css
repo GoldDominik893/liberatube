@@ -9,22 +9,28 @@ body {
     color: white;
     background-color: #131b27;
 }
-.search-form-container {
-    background: #212836;
-    border: #212836 1px solid;
-    padding: 20px;
-    border-radius: 6px;
+
+a {
+    color: #929292;
+    transition: transform 0.2s;
 }
+a:hover, a:focus {
+    color: #ff4444;
+    text-decoration: none;
+}
+
 .input-field {
     width: 200px;
     border-radius: 3px;
     padding: 5px;
-    border: #202020 2px solid;
-    background: #080808;
+    border: #1f2235 2px solid;
+    background: #17202c;
 }
+
 .input-field:focus {
      color: white;
 }
+
 .btn-submit {
     padding: 10px 10px;
      border: #323947 1px solid;
@@ -35,15 +41,13 @@ body {
     border-radius: 2px;
     cursor:pointer;
 }
-.videos-data-container {
-
-}
 
 .video-tile {
     display: inline-block;
     border-radius: 8px;
     margin-top: 6px;
-    margin-right: 6px;
+    margin-right: 7px;
+    margin-right: 7px;
     text-align: left;
 }
 .videoDiv {
@@ -64,30 +68,12 @@ body {
 .videoInfo {
     width: 256px;
 }
-a {
-    color: #929292;
-    transition: transform 0.2s;
-}
-a:hover{
-color:#ff4444;
-text-decoration: none;
-transition: transform 0.2s;
-}
-a:focus {
-   color:#ff4444;
-text-decoration: none;
-transition: transform 0.2s;
-}
+
 
 .search-inline {
     display: inline-block;
 }
-.awhite {
-    color: white;
-}
-.awhite:hover {
-    color: DodgerBlue;
-}
+
 .tenborder {
     padding: 10px;
 }
@@ -105,16 +91,8 @@ transition: transform 0.2s;
 .topbarelements-center {
   float: center;
 }
-.button {
-display: inline-block;
-padding: 10px 20px;
-text-align: center;
-text-decoration: none;
-background-color: rgba(0, 0, 0, 0.9);
-border-radius: 6px;
-outline: none;
-color: white;
-}
+
+
 .material-symbols-outlined {
 font-variation-settings:
 'FILL' 0,
@@ -122,6 +100,7 @@ font-variation-settings:
 'GRAD' 0,
 'opsz' 48
 }
+
 .login-item {
     display: inline-block;
     padding: 1px 6px 1px 6px;
@@ -138,53 +117,31 @@ align-items: center;
 list-style-type: none;
 }
 
-.sidebarbtn-selected:hover {
-    background-color: #334158;
-}
 .sidebar {
-    background-color: #212836;
+    background-color: #1b202c;
     line-height: 0.5;
 }
-.sidebarbtn-selected {
+.sidebarbtn-selected, .sidebarbtn:hover, .sidebarbtn-selected:hover {
     background-color: #323947;
 }
-.sidebarbtn:hover {
-    background-color: #344052;
+
+.sidebarbtn, .sidebarbtn:hover, .sidebarbtn:focus {
+    color: white;
+    border-radius: 6px;
+    transition: transform 0.2s;
+    transition: 0.3s
 }
 
-a:hover {
-    color: #ff4444;
-    text-decoration: none;
-}
-a:focus {
-    color: #f44;
-    text-decoration: none;
-}
-.awhite {
-    color: white;
-}
-.awhite:hover {
-    color: DodgerBlue;
-}
 .tenborder {
     padding: 10px;
 }
-.awhitesidebar {
+.awhitesidebar, .awhite {
     color: white;
 }
-.awhitesidebar:hover {
-    color: lightgray;
-}
-
 .awhite:hover {
     color: DodgerBlue;
 }
-.awhitesidebar {
-    color: white;
-}
-.awhitesidebar:hover {
-    color: lightgray;
-}
+
 .hr {
 margin: 3px;
 margin-right: 5px;
@@ -194,6 +151,7 @@ color: #888888;
 background-color: #888888;
 border: none;
 }
+
 ::-webkit-scrollbar{width:8px; height: 8px;}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background: rgba(100,100,100,0.4); border-radius:5px;}
@@ -211,6 +169,7 @@ outline: none;
 transition: transform 0.2s;
 transition: 0.3s
 }
+
 .button:hover {
 cursor: pointer;
 color: #ff4444;
@@ -219,28 +178,9 @@ text-decoration: none;
 transition: transform 0.2s;
 transition: 0.3s
 }
-a:hover {
-    color: #ff4444;
-    text-decoration: none;
-}
-a:focus {
-    color: #f44;
-    text-decoration: none;
-}
-.sidebarbtn {
-     color: white;
-     border-radius: 6px;
-     transition: transform 0.2s;
-     transition: 0.3s
-}
-.sidebarbtn:hover {
-     transition: transform 0.2s;
-     transition: 0.3s
-}
-.sidebarbtn:focus {
-     transition: transform 0.2s;
-     transition: 0.3s
-}
+
+
+
 .footer {
     width: 100%;
     padding: 10px;
