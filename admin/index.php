@@ -81,50 +81,62 @@ if ($useSQL == true) {
 <?php
         if($_SESSION['logged_in_user'] == $adminuser)
             {
-                echo '<h1>Welcome to the admin panel!</h1>';
-$n=8;
-function getName($n) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $randomString = '';
- 
-    for ($i = 0; $i < $n; $i++) {
-        $index = rand(0, strlen($characters) - 1);
-        $randomString .= $characters[$index];
-    }
-    echo "randomstring: ";
-    return $randomString;
-}
- 
-echo getName($n);
+                echo '<h3>Welcome to the admin panel!</h3><br>';
+
+                        ?>
+                        <form method="post" action=".">
+                            <p>Update the Invidious instances used</p>
+                            <label for="InvCServer">InvCServer: </label>
+                            <input type="text" value="<?php echo $_POST['InvCServer'] ?? $InvCServer; ?>" name="InvCServer" id="InvCServer">
+                            <br><label for="InvVIServer">InvVIServer: </label>
+                            <input type="text" value="<?php echo $_POST['InvVIServer'] ?? $InvVIServer; ?>" name="InvVIServer" id="InvVIServer">
+                            <br><label for="InvTServer">InvTServer: </label>
+                            <input type="text" value="<?php echo $_POST['InvTServer'] ?? $InvTServer; ?>" name="InvTServer" id="InvTServer">
+                            <br><label for="InvSServer">InvSServer: </label>
+                            <input type="text" value="<?php echo $_POST['InvSServer'] ?? $InvSServer; ?>" name="InvSServer" id="InvSServer">
+                            <br><input type="submit">
+                        </form>
+                        <?php
+                    
 
 
-echo '<br><br>PHP_SELF: '.$_SERVER['PHP_SELF'].'<br>GATEWAY_INTERFACE: '.
-$_SERVER['GATEWAY_INTERFACE'].'<br>SERVER_ADDR: '.
-$_SERVER['SERVER_ADDR']	.'<br>SERVER_NAME: '.
-$_SERVER['SERVER_NAME'].'<br>SERVER_SOFTWARE: '.
-$_SERVER['SERVER_SOFTWARE']	.'<brSERVER_PROTOCOL: >'.
-$_SERVER['SERVER_PROTOCOL']	.'<brREQUEST_MOTHOD: >'.
-$_SERVER['REQUEST_METHOD'].'<brREQUEST_TIME: >'.
-$_SERVER['REQUEST_TIME'].'<brQUERY_STRING: >'.
-$_SERVER['QUERY_STRING'].'<brHTTP_ACCEPT: >'.
-$_SERVER['HTTP_ACCEPT']	.'<brHTTP_ACCEPT_CHARSET: >'.
-$_SERVER['HTTP_ACCEPT_CHARSET'].'<br>HTTP_HOST: '.
-$_SERVER['HTTP_HOST'].'<br>HTTP_REFERRER: '.
-$_SERVER['HTTP_REFERER'].'<br>HTTPS: '.
-$_SERVER['HTTPS'].'<br>REMOTE_ADDR: '.
-$_SERVER['REMOTE_ADDR']	.'<br>REMOTE_HOST: '.
-$_SERVER['REMOTE_HOST'].'<br>REMOTE_PORT: '.
-$_SERVER['REMOTE_PORT']	.'<br>SCRIPT_FILENAME: '.
-$_SERVER['SCRIPT_FILENAME']	.'<br>SERVER_ADMIN: '.
-$_SERVER['SERVER_ADMIN'].'<br>SERVER_PORT: '.
-$_SERVER['SERVER_PORT']	.'<br>SERVER_SIGNATURE: '.
-$_SERVER['SERVER_SIGNATURE'].'<br>PATH_TRANSLATED: '.
-$_SERVER['PATH_TRANSLATED']	.'<br>SCRIPT_NAME: '.
-$_SERVER['SCRIPT_NAME']	.'<br>SCRIPT_URI: '.
-$_SERVER['SCRIPT_URI'];
+                        $configFilePath = "../config.php";
+
+                        if(isset($_POST['InvCServer']) && isset($_POST['InvVIServer']) && isset($_POST['InvTServer']) && isset($_POST['InvSServer'])) {
+
+                            $newInvCServer = $_POST['InvCServer'];
+                            $newInvVIServer = $_POST['InvVIServer'];
+                            $newInvTServer = $_POST['InvTServer'];
+                            $newInvSServer = $_POST['InvSServer'];
+
+                            $configContent = file_get_contents($configFilePath);
+
+                            $patterns = array(
+                                '/\$InvCServer\s*=\s*".*?";/',
+                                '/\$InvVIServer\s*=\s*".*?";/',
+                                '/\$InvTServer\s*=\s*".*?";/',
+                                '/\$InvSServer\s*=\s*".*?";/'
+                            );
+
+                            $replacements = array(
+                                '$InvCServer = "' . $newInvCServer . '";',
+                                '$InvVIServer = "' . $newInvVIServer . '";',
+                                '$InvTServer = "' . $newInvTServer . '";',
+                                '$InvSServer = "' . $newInvSServer . '";'
+                            );
+
+                            $newConfigContent = preg_replace($patterns, $replacements, $configContent);
+
+                            file_put_contents($configFilePath, $newConfigContent);
+
+                        }
 
 
-echo '<br><br><br><a href="update.php">Launch Liberatube updater</a>';
+
+
+
+
+                echo '<br><br><a href="update.php">Launch Liberatube updater</a>';
 
             }
             else 
