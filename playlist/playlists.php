@@ -102,7 +102,7 @@ if(strcmp($themerow, 'blue') == 0)
   </div>
   <script src="/scripts/sidebar.js"></script>
   <div class="tenborder">
-  <div class="videos-data-container w3-animate-left" id="SearchResultsDiv">
+  <div class="videos-data-container" id="SearchResultsDiv">
   <div style="text-align: center;">
 
 <?php

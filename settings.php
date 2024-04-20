@@ -302,7 +302,7 @@ echo '<div class="tenborder">
   <a type="button" href="/account.php/?r=delete" class="btn btn-danger">Delete Your Account</a>
   </div>
   <br>
-  <div class="settingsdiv" style="background-color: transparent; text-align: right; padding-top: 0px; padding-right: 0px;">
+  <div class="settingsdiv" style="background-color: transparent; border: none; text-align: right; padding-top: 0px; padding-right: 0px;">
   <button type="" class="btn btn-success" id="submitButton">Save</button>
   </div>
 </form>

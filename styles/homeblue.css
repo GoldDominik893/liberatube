@@ -10,6 +10,11 @@ body {
     background-color: #131b27;
 }
 
+.w3-animate-left {
+    position: relative;
+    animation: none !important;
+}
+
 a {
     color: #929292;
     transition: transform 0.2s;

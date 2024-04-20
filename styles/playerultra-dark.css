@@ -6,8 +6,13 @@ body {
     font-family: 'Signika Negative', sans-serif;
     padding: 0px;
     color: white;
-    background-color: #000000;
+    background-color: #070707;
     color-scheme: dark;
+}
+
+.w3-animate-left {
+    position: relative;
+    animation: none !important;
 }
 
 a {
@@ -225,15 +230,17 @@ details {
   
   details[open] summary {
     margin-bottom: 10px;
-    background: #070707;
+    background: #0f0f0f;
   }
   details[open] {
-    background: #070707;
+    background: #0f0f0f;
+    border: 1px solid rgb(31, 31, 31);
   }
 
   .settingsdiv {
-    background: #070707;
+    background: #0f0f0f;
     width: 100%;
+    border: 1px solid rgb(31, 31, 31);
     max-width: 416px;
     border-radius: 4px;
     padding: 10px;

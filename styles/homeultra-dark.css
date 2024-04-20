@@ -7,7 +7,13 @@ body {
     font-family: 'Signika Negative', sans-serif;
     padding: 0px;
     color: white;
-    background-color: #000000;
+    background-color: #070707;
+    color-scheme: dark;
+}
+
+.w3-animate-left {
+    position: relative;
+    animation: none !important;
 }
 
 a {

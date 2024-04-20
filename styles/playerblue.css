@@ -10,6 +10,11 @@ body {
     color-scheme: dark;
 }
 
+.w3-animate-left {
+    position: relative;
+    animation: none !important;
+}
+
 a {
     color: #969696;
 }
