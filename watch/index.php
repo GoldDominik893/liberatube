@@ -232,9 +232,9 @@ if ($useSQL == true) {
             if(strcmp($playerrow, 'vjs') == 0) {
                 echo '<link rel="stylesheet" href="../styles/-video-js.css">
                       <script src="../scripts/-video.min.js"></script>';
-                $videosizingcss = 'style="max-width: 90vw"';
+                $videosizingcss = 'style="max-width: 98vw"';
             } else {
-                $videosizingcss = 'style="max-width: 90%; max-height: 90vh;"';
+                $videosizingcss = 'style="max-width: 98%; max-height: 90vh;"';
             }
             if ($params['listen'] == "true") {
                 
@@ -255,19 +255,24 @@ if ($useSQL == true) {
         ?>
 
     </center>
-        <br>
-        <center>
-        <div align="center" style="width: 92%; max-width: 300px; border-radius: 6px;">
 
-        <textarea hidden id="textbox" value="<?php echo $url; ?>"><?php echo $url; ?></textarea><br />
+        <center>
+        <div>
+
+        <textarea hidden id="textbox" value="<?php echo $url; ?>"><?php echo $url; ?></textarea>
         
-        
+       
+<h3 style="text-align: center;"> <?php echo $title; ?> <br></h3>
+<h4 style="text-align: center;"><?php echo $shared; ?> · <?php echo $views; ?> views · <?php echo $likes; ?> likes<?php echo $dislikes; ?></h4>
+
+
 </div><a class="popup button" onclick="myFunction(), copyText()">
-          <span class="popuptext" id="myPopup">URL Copied.</span>Share</a>
+<span class="popuptext" id="myPopup">URL Copied.</span>Share</a>
 
 <a class="button" onclick="Alert.render('ok')">Download</a>
 <a class="button" onclick="Alert_pl.render('ok')">Add to playlist</a>
-
+<a class="button" href="/channel/?id=<?php echo $authorId; ?>"><?php echo $author; ?> · <?php echo $autsubs; ?></a>
+</center>
 
 <div id="popUpBox_pl" style="display: none;">
 <div id="box_pl">
@@ -290,8 +295,7 @@ if ($useSQL == true) {
 </div>
 </div>
 
-<a class="button" href="/channel/?id=<?php echo $authorId; ?>"><?php echo $author; ?> · <?php echo $autsubs; ?></a>
-</center>
+
 
 <div id="popUpBox">
 <div id="box">
@@ -364,11 +368,11 @@ $cdesc = makeTimestamptoLinkSmaller($cdesc);
 
 $cdesc = str_replace('href="https://youtu.be/','href="/watch/?v=',$cdesc);
 $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v=',$cdesc);
-
 ?>
-<small>
- <h2 style="text-align: center;"> <?php echo $title; ?> <br></h2></small>
- <b><h4 style="text-align: center;"><?php echo $shared; ?> · <?php echo $views; ?> views · <?php echo $likes; ?> likes<?php echo $dislikes; ?></h4></b> <br> <details><summary><a class="button">Show/Hide Description</a></summary> <a style="margin-right: 3px;" class="button" href="//youtu.be/<?php echo $params['v']?>">Watch on YouTube</a><a style="margin-right: 3px;" class="button" href="//redirect.invidious.io/<?php echo $params['v']?>">Watch on Invidious</a><a href="https://liberatube-instances.epicsite.xyz/?v=<?php echo $params['v']?>" class="button">Switch Instance</a><hr style="margin-top: 8px; margin-bottom: 5px;" class="hr"><?php echo $cdesc; ?> </details><br>
+
+ 
+ 
+ <details><summary><a class="button">Show/Hide Description</a></summary> <a style="margin-right: 3px;" class="button" href="//youtu.be/<?php echo $params['v']?>">Watch on YouTube</a><a style="margin-right: 3px;" class="button" href="//redirect.invidious.io/<?php echo $params['v']?>">Watch on Invidious</a><a href="https://liberatube-instances.epicsite.xyz/?v=<?php echo $params['v']?>" class="button">Switch Instance</a><hr style="margin-top: 8px; margin-bottom: 5px;" class="hr"><?php echo $cdesc; ?> </details><br>
 
         <title><?php echo $title; ?> · Liberatube</title>
         <script src="/scripts/-jquery-3.6.4.min.js"></script>
@@ -389,7 +393,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
     if(!empty($response)) { ?>
         <?php }?>
         <?php                        
-                $InvApiUrl = $InvCServer.'/api/v1/comments/'.$params['v'].'?region=GB&hl=en';
+                $InvApiUrl = $InvCServer.'/api/v1/comments/'.$params['v'].'?hl=en';
 
                 $ch = curl_init();
 
@@ -405,7 +409,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
                 $value = json_decode(json_encode($data), true);
                 $ccount = $value['commentCount'] ?? "";
                 
-                echo '<br><br><br><br><h2>'.number_format($ccount).' Comments</h2><br>';
+                echo '<br><br><br><br><h3>'.number_format($ccount).' Comments</h3><br>';
 
                 if ($ccount > 20) {
                 $ccountl = "20";

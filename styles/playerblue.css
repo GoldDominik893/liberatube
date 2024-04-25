@@ -115,19 +115,21 @@ border: none;
 ::-webkit-scrollbar-thumb{background: rgba(100,100,100,0.4); border-radius:5px;}
 ::-webkit-scrollbar-thumb:hover{background: rgba(70,70,70,0.4);}
 
-
-#box {
+#box, #box_pl {
     position: relative;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
     text-align: center;
     margin: 0;
     justify-content: center;
     align-items: center;
 }
 
-#popUpBox{
+#box_pl {
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#popUpBox, #popUpBox_pl {
 width: 100vw;
 height: 100vh;
 white-space: normal;
@@ -149,7 +151,7 @@ background: rgba(10, 10, 10, 0.5);
 }
 .button {
 display: inline-block;
-padding: 10px 20px;
+padding: 6px 12px;
 text-align: center;
 text-decoration: none;
 background-color: rgba(20,20,20,0.2);
@@ -229,6 +231,9 @@ details {
     border-radius: 4px;
     padding: 10px;
 }
+.settingsdiv h4, .settingsdiv h3 {
+    margin-top: 0px;
+  }
 
 .label  {
     background-color: #344052;
