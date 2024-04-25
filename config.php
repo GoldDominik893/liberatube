@@ -18,7 +18,7 @@
     $InvCServer = "https://invidious.fdn.fr";        // The Invidious instance that will be used to fetch comments
     $InvVIServer = "https://inv.tux.pizza";          // The Invidious instance that will be used to fetch video information
     $InvTServer = "https://onion.tube";              // The Invidious instance that will be used to fetch trending videos for the home page
-    $InvSServer = "https://onion.tube";              // The Invidious instance that will be used to search for content
+    $InvSServer = "https://inv.tux.pizza";              // The Invidious instance that will be used to search for content
 
     // Admin and Defaults
     $defaultRegion = "GB";                           // If the user is logged out or doesn't have a region set this will be the default, (put any 2 digit country code)

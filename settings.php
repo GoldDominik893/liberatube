@@ -297,11 +297,61 @@ echo '<div class="tenborder">
   </div>
   <br>
   <div class="settingsdiv"><h4>Account Preferences</h4>
-  <a type="button" class="btn btn-warning" style="margin-bottom: 5px; color: black;">Clear Watch History</a><br>
+  <a disabled type="button" class="btn btn-warning" style="margin-bottom: 5px; color: black;">Clear Watch History</a><br>
   <a type="button" href="/account.php/?r=password" class="btn btn-primary">Change Your Password</a>
   <a type="button" href="/account.php/?r=delete" class="btn btn-danger">Delete Your Account</a>
   </div>
-  <br>
+  
+  ';
+  if($_SESSION['logged_in_user'] == $adminuser)
+            {
+                        ?>
+                        <br>
+                        <div class="settingsdiv"><h4>Admin Preferences</h4>
+                            <p>Update the Invidious instances used</p>
+                            <label for="InvCServer">InvCServer: </label>
+                            <input type="text" value="<?php echo $_POST['InvCServer'] ?? $InvCServer; ?>" name="InvCServer" id="InvCServer">
+                            <br><label for="InvVIServer">InvVIServer: </label>
+                            <input type="text" value="<?php echo $_POST['InvVIServer'] ?? $InvVIServer; ?>" name="InvVIServer" id="InvVIServer">
+                            <br><label for="InvTServer">InvTServer: </label>
+                            <input type="text" value="<?php echo $_POST['InvTServer'] ?? $InvTServer; ?>" name="InvTServer" id="InvTServer">
+                            <br><label for="InvSServer">InvSServer: </label>
+                            <input type="text" value="<?php echo $_POST['InvSServer'] ?? $InvSServer; ?>" name="InvSServer" id="InvSServer">
+                            </div>
+                            
+                        <?php
+
+                        if(isset($_POST['InvCServer']) && isset($_POST['InvVIServer']) && isset($_POST['InvTServer']) && isset($_POST['InvSServer'])) {
+
+                            $newInvCServer = $_POST['InvCServer'];
+                            $newInvVIServer = $_POST['InvVIServer'];
+                            $newInvTServer = $_POST['InvTServer'];
+                            $newInvSServer = $_POST['InvSServer'];
+
+                            $configContent = file_get_contents("config.php");
+
+                            $patterns = array(
+                                '/\$InvCServer\s*=\s*".*?";/',
+                                '/\$InvVIServer\s*=\s*".*?";/',
+                                '/\$InvTServer\s*=\s*".*?";/',
+                                '/\$InvSServer\s*=\s*".*?";/'
+                            );
+
+                            $replacements = array(
+                                '$InvCServer = "' . $newInvCServer . '";',
+                                '$InvVIServer = "' . $newInvVIServer . '";',
+                                '$InvTServer = "' . $newInvTServer . '";',
+                                '$InvSServer = "' . $newInvSServer . '";'
+                            );
+
+                            $newConfigContent = preg_replace($patterns, $replacements, $configContent);
+
+                            file_put_contents("config.php", $newConfigContent);
+
+                        }
+            }
+    echo'
+    <br>
   <div class="settingsdiv" style="background-color: transparent; border: none; text-align: right; padding-top: 0px; padding-right: 0px;">
   <button type="" class="btn btn-success" id="submitButton">Save</button>
   </div>
