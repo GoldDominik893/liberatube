@@ -26,11 +26,13 @@
 
 | Home | Video |
 |---|---|
-| ![home page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.8screenshots/home.png?raw=true) | ![video page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.8screenshots/video.png?raw=true) |
+| ![home page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.9deltaScreenshots/home.jpg?raw=true) | ![video page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.9deltaScreenshots/video.png?raw=true) |
 
 | Channel | Comments | Settings |
 |---|---|---|
-| ![channel page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.8screenshots/channel.png?raw=true) | ![comments page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.8screenshots/comments.png?raw=true) | ![settings page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.8screenshots/settings.png?raw=true) |
+| ![channel page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.9deltaScreenshots/channel.jpg?raw=true) | ![comments page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.9deltaScreenshots/comments.png?raw=true) | ![settings page](https://github.com/GoldDominik893/file-hosting/blob/main/screenshots/1.9deltaScreenshots/settings.png?raw=true) |
+
+[View more Screenshots](https://github.com/GoldDominik893/file-hosting/tree/main/screenshots/1.9deltaScreenshots)
 
 ## Features
 
