@@ -456,7 +456,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
                             } }
                     ?>
                     <div style="width: 100%; max-width: 775px;">
-                    <h4><img style="margin-bottom: -25px;" src=<?php echo $aturl; ?>> <a href="/channel/?id=<?php echo $auid.'">'.$aname."</a>"; ?> · <?php echo $ptex; ?> · <?php echo number_format($alik)." likes"; ?>
+                    <h4><img style="margin-bottom: -25px; max-width: 48px;" src=<?php echo $aturl; ?>> <a href="/channel/?id=<?php echo $auid.'">'.$aname."</a>"; ?> · <?php echo $ptex; ?> · <?php echo number_format($alik)." likes"; ?>
                     </h4>
                     <br><h5 style="margin-left: 53px; margin-top: -25px;"><?php echo makeTimestamptoLinkSmaller(makeTimestamptoLink(makeUrltoLink($acon)));
                     
@@ -474,7 +474,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
                              ?>
 
                             <div style="width: 100%; max-width: 775px;">
-                            <h4><img style="margin-bottom: -25px;" src=<?php echo $aturl_reply; ?>> <a href="/channel/?id=<?php echo $auid.'">'.$aname_reply."</a>"; ?> · <?php echo $ptex_reply; ?> · <?php if($alik_reply > -1){echo number_format($alik_reply)." likes";} ?>
+                            <h4><img style="margin-bottom: -25px; max-width: 48px;" src=<?php echo $aturl_reply; ?>> <a href="/channel/?id=<?php echo $auid.'">'.$aname_reply."</a>"; ?> · <?php echo $ptex_reply; ?> · <?php if($alik_reply > -1){echo number_format($alik_reply)." likes";} ?>
                             </h4>
                             <br><h5 style="margin-left: 53px; margin-top: -25px;"><?php echo makeTimestamptoLinkSmaller(makeTimestamptoLink(makeUrltoLink($acon_reply))); ?></h5><br>
 
