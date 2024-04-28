@@ -55,15 +55,14 @@ while ($row = $result->fetch_assoc())
 }
 $numrows = $result->num_rows;
 }
-if(strcmp($themerow, 'blue') == 0)
-{
-    echo '<link rel="stylesheet" href="../styles/playerblue.css">';
-} elseif(strcmp($themerow, 'ultra-dark') == 0)
-{
-    echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
-} else 
-{
-    echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
+if(strcmp($themerow, 'blue') == 0) {
+  echo '<link rel="stylesheet" href="../styles/playerblue.css">';
+} elseif(strcmp($themerow, 'ultra-dark') == 0) {
+  echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
+} elseif ($themerow == "custom") {
+  echo '<link rel="stylesheet" href="'.$customthemeplayerrow.'">';
+} else {
+  echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
 } 
 ?>
 

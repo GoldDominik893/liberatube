@@ -44,16 +44,15 @@ while ($row = mysqli_fetch_assoc($query))
 $row = mysqli_fetch_assoc($query);
 $numrows = mysqli_num_rows($query);
 }
-            if(strcmp($themerow, 'blue') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerblue.css">';
-            } elseif(strcmp($themerow, 'ultra-dark') == 0)
-            {
-                echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
-            } else 
-            {
-                echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
-            } 
+if(strcmp($themerow, 'blue') == 0) {
+    echo '<link rel="stylesheet" href="../styles/playerblue.css">';
+} elseif(strcmp($themerow, 'ultra-dark') == 0) {
+    echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
+} elseif ($themerow == "custom") {
+    echo '<link rel="stylesheet" href="'.$customthemeplayerrow.'">';
+} else {
+    echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
+} 
                 ?>
 
     <body>

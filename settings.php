@@ -57,6 +57,8 @@ while ($row = $result->fetch_assoc())
     $playertyperow = $row['player'];
     $regionrow = $row['region'];
     $loadcommentsrow = $row['loadcomments'];
+    $customthemeplayerrow = $row['customtheme_player_url'];
+    $customthemehomerow = $row['customtheme_home_url'];
 }
 $numrows = $result->num_rows;
 }
@@ -148,7 +150,17 @@ echo '<div class="tenborder">
   <option class="formsel" disabled value="">----------</option>
     <option class="formsel" value="blue">Blue</option>
     <option class="formsel" value="ultra-dark">Ultra-Dark</option>
-  </select><a class="label" href="/liberatube-pluginstore/" for="theme">Custom</a><br>
+    <option class="formsel" value="custom">Custom</option>
+  </select><a class="label" href="https://liberatube-pluginstore.epicsite.xyz/" for="theme">Custom Themes</a><br>
+  ';
+  if ($themerow == "custom") {
+    echo '
+    <label for="customthemeplayerrow">Custom player css file:</label>
+    <input name="customthemeplayerrow" value="'.$customthemeplayerrow.'">
+    <label for="customthemehomerow">Custom home css file:</label>
+    <input name="customthemehomerow" value="'.$customthemehomerow.'">';
+  }
+  echo '
   <label for="vidshadow">Video Shadow: <i>(Soon)</i></label>
   <input type="checkbox" id="vidshadow" name="vidshadow" '.$checked1.'>
   </div>
@@ -370,7 +382,9 @@ $uregion = $_POST['region'] ?? "";
 $torfproxy = $_POST['proxy'] ?? "";
 $uplayertype = $_POST['player'] ?? "";
 $uvideoshadow = $_POST['vidshadow'] ?? "";
-$uloadcomments = $_POST['loadcomments'];
+$uloadcomments = $_POST['loadcomments'] ?? "";
+$customthemehomerow = $_GET['customthemehomerow'] ?? $_POST['customthemehomerow'] ?? $customthemehomerow;
+$customthemeplayerrow = $_GET['customthemeplayerrow'] ?? $_POST['customthemeplayerrow'] ?? $customthemeplayerrow;
 
 $dbsenduser = $_SESSION['logged_in_user'];
 if($theme != "")
@@ -385,14 +399,38 @@ $stmt->execute();
 $result = $stmt->get_result();
 if($result->num_rows) {
 }
-$stmt = $conn->prepare("UPDATE login SET theme = ?, lang = ?, region = ?, proxy = ?, player = ?, videoshadow = ?, loadcomments = ? WHERE username = ?");
-$stmt->bind_param("ssssssss", $theme, $lang, $uregion, $torfproxy, $uplayertype, $uvideoshadow, $uloadcomments, $dbsenduser);
+$stmt = $conn->prepare("UPDATE login SET customtheme_player_url = ?, customtheme_home_url = ?, theme = ?, lang = ?, region = ?, proxy = ?, player = ?, videoshadow = ?, loadcomments = ? WHERE username = ?");
+$stmt->bind_param("ssssssssss", $customthemeplayerrow, $customthemehomerow, $theme, $lang, $uregion, $torfproxy, $uplayertype, $uvideoshadow, $uloadcomments, $dbsenduser);
 if ($stmt->execute() === TRUE) {   
 } else {
   echo "Error: <br>" . $conn->error;
 }
 $conn->close();
+} 
+
+
+
+if($_GET['customthemeplayerrow']) {
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+  $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+  $stmt->bind_param("s", $_POST['name']);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  if($result->num_rows) {
+  }
+  $stmt = $conn->prepare("UPDATE login SET customtheme_player_url = ?, customtheme_home_url = ?WHERE username = ?");
+  $stmt->bind_param("sss", $customthemeplayerrow, $customthemehomerow, $dbsenduser);
+  if ($stmt->execute() === TRUE) {   
+  } else {
+    echo "Error: <br>" . $conn->error;
+  }
+  $conn->close();
 }
+
+
 ?>
 <?php
 $dbsenduser = $_SESSION['logged_in_user'];
@@ -417,14 +455,13 @@ while ($row = $result->fetch_assoc())
 }
 $numrows = $result->num_rows;
 }
-if(strcmp($themerow, 'blue') == 0)
-{
+if(strcmp($themerow, 'blue') == 0) {
     echo '<link rel="stylesheet" href="../styles/playerblue.css">';
-} elseif(strcmp($themerow, 'ultra-dark') == 0)
-{
+} elseif(strcmp($themerow, 'ultra-dark') == 0) {
     echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
-} else 
-{
+} elseif ($themerow == "custom") {
+    echo '<link rel="stylesheet" href="'.$customthemeplayerrow.'">';
+} else {
     echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
 } 
 ?>

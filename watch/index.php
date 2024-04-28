@@ -172,14 +172,13 @@ if ($useSQL == true) {
         $userproxysetting = $row['proxy'];
         $playerrow = $row['player'];
     }
-    if(strcmp($themerow, 'blue') == 0)
-    {
+    if(strcmp($themerow, 'blue') == 0) {
         echo '<link rel="stylesheet" href="../styles/playerblue.css">';
-    } elseif(strcmp($themerow, 'ultra-dark') == 0)
-    {
+    } elseif(strcmp($themerow, 'ultra-dark') == 0) {
         echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
-    } else 
-    {
+    } elseif ($themerow == "custom") {
+        echo '<link rel="stylesheet" href="'.$customthemeplayerrow.'">';
+    } else {
         echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
     } 
     } else {

@@ -55,14 +55,13 @@ while ($row = $result->fetch_assoc())
 }
 $numrows = $result->num_rows;
 }
-if(strcmp($themerow, 'blue') == 0)
-{
+if(strcmp($themerow, 'blue') == 0) {
     echo '<link rel="stylesheet" href="../styles/homeblue.css">';
-} elseif(strcmp($themerow, 'ultra-dark') == 0)
-{
+} elseif(strcmp($themerow, 'ultra-dark') == 0) {
     echo '<link rel="stylesheet" href="../styles/homeultra-dark.css">';
-} else 
-{
+} elseif ($themerow == "custom") {
+    echo '<link rel="stylesheet" href="'.$customthemehomerow.'">';
+} else {
     echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
 } 
 ?>
