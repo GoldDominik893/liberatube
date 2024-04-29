@@ -19,6 +19,7 @@ $numrows = mysqli_num_rows($query);
 while ($row = mysqli_fetch_assoc($query))
 {   
     $pwrow = $row['password'];
+    $customthemeplayerrow = $row['customtheme_player_url'];
 }
 if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {

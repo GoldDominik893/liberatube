@@ -14,6 +14,7 @@ if ($useSQL == true) {
     while ($row = $result->fetch_assoc())
     {   
         $pwrow = $row['password'];
+        $customthemeplayerrow = $row['customtheme_player_url'];
     }
     if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {

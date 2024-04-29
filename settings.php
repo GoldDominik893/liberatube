@@ -421,7 +421,7 @@ if($_GET['customthemeplayerrow']) {
   $result = $stmt->get_result();
   if($result->num_rows) {
   }
-  $stmt = $conn->prepare("UPDATE login SET customtheme_player_url = ?, customtheme_home_url = ?WHERE username = ?");
+  $stmt = $conn->prepare("UPDATE login SET customtheme_player_url = ?, customtheme_home_url = ? WHERE username = ?");
   $stmt->bind_param("sss", $customthemeplayerrow, $customthemehomerow, $dbsenduser);
   if ($stmt->execute() === TRUE) {   
   } else {
