@@ -63,10 +63,8 @@
 * [Liberatube Plugin Store](//github.com/golddominik893/liberatube-pluginstore) - The community driven plugin store for Liberatube.
 * [Liberatube Documentation](//github.com/golddominik893/liberatube-docs) - Documentation for Liberatube.
 * [Liberatube Redirector](//github.com/golddominik893/liberatube-redirector) - A Chrome extension that automatically redirects YouTube links to Liberatube.
-
 * [Liberatube Instances](//github.com/golddominik893/liberatube-instances) - Instance switcher website.
 
-  
 ## Instances
 
 Check the [Documentation](https://liberatube-docs.epicsite.xyz/general/2.instances/).
