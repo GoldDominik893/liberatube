@@ -21,6 +21,7 @@
 * [Documentation](#documentation)
 * [License](#license)
   * [Liability](#liability)
+  * [Licences from dependancies](#licences-from-dependancies)
 
 ## Screenshots
 
@@ -37,10 +38,10 @@
 ## Features
 
 * [x] Lightweight
-* [x] No ads
-* [x] No tracking
-* [x] Playlists.
+* [x] No ads and no tracking
+* [x] Playlists
 * [x] Blue/Ultra dark themes
+* [x] Community driven plugin store
 * [x] Audio-only mode
 * [x] Return YouTube Dislike
 * [x] Download videos
@@ -59,10 +60,12 @@
 ## Related Repositories
 
 * [Liberatube](//github.com/golddominik893/liberatube) - This Repository.
-* [Liberatube Redirector](//github.com/golddominik893/liberatube-redirector) - A Chrome extension that automatically redirects YouTube links to Liberatube.
-* [Liberatube Documentation](//github.com/golddominik893/liberatube-docs) - Documentation for Liberatube.
-* [Liberatube Instances](//github.com/golddominik893/liberatube-instances) - Instance switcher website.
 * [Liberatube Plugin Store](//github.com/golddominik893/liberatube-pluginstore) - The community driven plugin store for Liberatube.
+* [Liberatube Documentation](//github.com/golddominik893/liberatube-docs) - Documentation for Liberatube.
+* [Liberatube Redirector](//github.com/golddominik893/liberatube-redirector) - A Chrome extension that automatically redirects YouTube links to Liberatube.
+
+* [Liberatube Instances](//github.com/golddominik893/liberatube-instances) - Instance switcher website.
+
   
 ## Instances
 
@@ -118,3 +121,13 @@ DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD
 PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS),
 EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGES.
+
+### Licences from dependancies
+
+* Google fonts material icons - Apache License 2.0
+* Video.js - Apache License, Version 2.0.
+  * vtt.js - Apache License Version 2.0
+* jQuery v3.6.4 - MIT License
+* Bootstrap v3.3.7 - MIT License
+* Signika Negative font - Open Font License
+* w3.css - No license is necessary
