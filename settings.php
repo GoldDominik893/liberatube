@@ -297,8 +297,8 @@ echo '<div class="tenborder">
       <input type="radio" id="vjs" name="player" value="vjs" '.$checked3a.'></input><label class="label" for="vjs">VideoJS</label>
       <input type="radio" id="html" name="player" value="html" '.$checked3b.'></input><label class="label" for="html">HTML</label><br>
 
-      <label for="proxy">Use WebAMP for Audio only playback:</label>
-      <input name="proxy" type="checkbox" id="proxy"'.$checkedWebAmp.'></input><br>
+      <label for="webamp">Use WebAMP for Audio only playback:</label>
+      <input name="webamp" type="checkbox" id="webamp"'.$checkedWebAmp.'></input><br>
 
     <label for="proxy">Proxy Video:</label>
     <input name="proxy" type="checkbox" id="proxy"'.$checked2.'>'.$instanceProxyText.'</input><br>
