@@ -144,8 +144,8 @@ transition: 0.3s
     display: inline-block;
     border-radius: 8px;
     margin-top: 6px;
-    margin-right: 7px;
-    margin-right: 7px;
+    margin-right: 4px;
+    margin-left: 4px;
     text-align: left;
 }
 
@@ -246,4 +246,19 @@ font-variation-settings:
 }
 img {
     border-radius: 5px
+}
+
+.epicdiv {
+    background: #0f0f0f;
+    border: 1px solid rgb(31, 31, 31);
+    width: 256px;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: left;
+    display: flex;
+    margin: auto;
+  }
+
+  .epicdiv h4, .epicdiv h3 {
+    margin-top: 0px;
 }

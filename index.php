@@ -155,10 +155,6 @@ if ($useSQL == true) {
     {
         echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
     }
-    if($loggedinuser == $adminuser)
-            {
-                echo '<a style="margin-left: 5px;" class="button awhite login-item" href="/admin/"><span class="material-symbols-outlined login-item-icon">monitor_heart</span><h5 class="login-item-text">Admin Panel</h5></a>';
-            }
     ?>
     </div>
     <?php } ?>

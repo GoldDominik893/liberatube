@@ -176,13 +176,16 @@ echo '
 
 <script src="/scripts/-jquery-3.6.4.min.js"></script>
 <script src="/scripts/playlist.js"></script>
-<br>
+
+<br><br>
+<div class="epicdiv"><h4>Create a Playlist</h4>
 <form method="POST" action="create_playlist.php">
-    <label for="new_playlist_name">New Playlist Name:</label>
+    <label for="new_playlist_name">Name:</label>
     <input type="text" id="new_playlist_name" name="new_playlist_name" required>
     <br>
     <input type="submit" value="Create Playlist">
 </form>
+</div>
 
 
 <div id="result"></div>

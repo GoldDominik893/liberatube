@@ -8,6 +8,7 @@ body {
     padding: 0px;
     color: white;
     background-color: #131b27;
+    color-scheme: dark;
 }
 
 .w3-animate-left {
@@ -51,8 +52,8 @@ a:hover, a:focus {
     display: inline-block;
     border-radius: 8px;
     margin-top: 6px;
-    margin-right: 7px;
-    margin-right: 7px;
+    margin-right: 4px;
+    margin-left: 4px;
     text-align: left;
 }
 .videoDiv {
@@ -203,4 +204,18 @@ transition: 0.3s
 }
 img {
     border-radius: 4px
+}
+
+.epicdiv {
+    background: #212836;
+    width: 256px;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: left;
+    display: flex;
+    margin: auto;
+}
+
+.epicdiv h4, .epicdiv h3 {
+    margin-top: 0px;
 }
