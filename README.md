@@ -39,6 +39,7 @@
 
 * [x] Lightweight
 * [x] No ads and no tracking
+* [x] Native language support.
 * [x] Playlists
 * [x] Blue/Ultra dark themes
 * [x] Community driven plugin store
@@ -52,7 +53,6 @@
 
 * [ ] DASH/HLS video through VideoJS.
 * [ ] Autoplay for playlists.
-* [ ] Native language support.
 * [ ] Subscribing to channels.
 * [ ] Caching the trending page to reduce loading times significantly.
 * [ ] Annotations (clickable links on the video basically).
