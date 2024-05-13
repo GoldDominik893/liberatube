@@ -1,6 +1,8 @@
 <?php
 session_start();  
 include('../config.php');
+$langrow = $defaultLang;
+include('../lang.php');
 
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -15,6 +17,7 @@ if ($useSQL == true) {
     {   
         $pwrow = $row['password'];
         $customthemehomerow = $row['customtheme_home_url'];
+        $langrow = $row['lang'];
     }
     if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {
@@ -37,7 +40,7 @@ parse_str($url_components['query'], $params);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Liberatube · Playlist</title>
+        <title>Liberatube · <?php echo $translations[$langrow]['playlist']; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
@@ -104,7 +107,7 @@ if ($useSQL == true) {
     <div class="topbarelements topbarelements-center">
     <h3 class="title-top topbarelements">Liberatube</h3>
     <form class="input-row topbarelements" id="keywordForm" method="get" action="/search/">
-                    <input class="input-field" type="search" id="keyword" name="q" placeholder="Search YouTube..." value="<?php echo $keyword; ?>">
+                    <input class="input-field" type="search" id="keyword" name="q" placeholder="<?php echo $translations[$langrow]['search_yt']; ?>" value="<?php echo $keyword; ?>">
             </form>
     </div>
 
@@ -114,11 +117,11 @@ if ($useSQL == true) {
     $loggedinuser = $_SESSION['logged_in_user'] ?? "";?> 
     <?php if($loggedinuser != "")
     {
-        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">'.$translations[$langrow]['logout'].'</h5></a>';
     }
     else
     {
-        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">'.$translations[$langrow]['login-signup'].'</h5></a>';
     }
     ?>
     </div>
@@ -133,8 +136,9 @@ if ($useSQL == true) {
         <?php if(!empty($response)) { ?>
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
         <?php }?>
-        <?php                        
-                $InvApiUrl = $InvVIServer.'/api/v1/playlists/'.$params['id'].'?page=1';
+        <?php   
+                $pagenumber = $_GET['page'] ?? 1;                     
+                $InvApiUrl = $InvVIServer.'/api/v1/playlists/'.$params['id'].'?page='.$pagenumber;
 
                 $ch = curl_init();
 
@@ -159,14 +163,24 @@ if ($useSQL == true) {
 
                 echo '<div class="search-form-container w3-animate-left"><h4>
                     '.$pltitle.'<br>          
-                    '.$videoCount.' Videos · Created by '.$plauthor.' · '.$plviews.' Views</h4>
+                    '.$videoCount.' '.$translations[$langrow]['videos'].' · '.$translations[$langrow]['created_by'].' '.$plauthor.' · '.$plviews.' '.$translations[$langrow]['views'].'</h4>
                 </div>';
             
             ?>
 
             <br>
             <div class="videos-data-container w3-animate-left" id="SearchResultsDiv">
-            
+            <?php
+            if ($videoCount > 200) {
+                if ($pagenumber == 1) {
+                    echo '<a href="?id='.$_GET['id'].'&page='.($pagenumber + 1).'">'.$translations[$langrow]['next_page'].'</a>';
+                } else {
+                    echo '<a href="?id='.$_GET['id'].'&page='.($pagenumber - 1).'">'.$translations[$langrow]['previous_page'].'</a> · ';
+                    echo '<a href="?id='.$_GET['id'].'&page='.($pagenumber + 1).'">'.$translations[$langrow]['next_page'].'</a>';
+                }
+            }
+                
+            ?>
 <div style="text-align: center;">
             <?php
             

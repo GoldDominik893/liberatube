@@ -1,6 +1,8 @@
 <?php
 session_start();  
 include('config.php');
+$langrow = $defaultLang;
+include('lang.php');
 
 if ($useSQL) {
 
@@ -38,6 +40,7 @@ if ($useSQL == true) {
     {   
         $pwrow = $row['password'];
         $customthemehomerow = $row['customtheme_home_url'];
+        $langrow = $row['lang'];
     }
     if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {
@@ -61,7 +64,7 @@ parse_str($url_components['query'], $params);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Liberatube · Home</title>
+        <title>Liberatube · <?php echo $translations[$langrow]['home']; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -139,7 +142,7 @@ if ($useSQL == true) {
     <div class="topbarelements topbarelements-center">
     <h3 class="title-top topbarelements">Liberatube</h3>
     <form class="input-row topbarelements" id="keywordForm" method="get" action="/search/">
-                    <input class="input-field" type="search" id="keyword" name="q" placeholder="Search YouTube..." value="<?php echo $keyword; ?>">
+                    <input class="input-field" type="search" id="keyword" name="q" placeholder="<?php echo $translations[$langrow]['search_yt']; ?>" value="<?php echo $keyword; ?>">
             </form>
     </div>
 
@@ -149,11 +152,11 @@ if ($useSQL == true) {
     $loggedinuser = $_SESSION['logged_in_user'] ?? "";?> 
     <?php if($loggedinuser != "")
     {
-        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">'.$translations[$langrow]['logout'].'</h5></a>';
     }
     else
     {
-        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">'.$translations[$langrow]['login-signup'].'</h5></a>';
     }
     ?>
     </div>
@@ -168,24 +171,24 @@ if ($useSQL == true) {
 if ($testinstance == true) {
 if ($params['disclaimer'] == "accept") {
     $_SESSION['disclaimer'] = "accept";
-    echo '<a href="/?disclaimer=show">Disclaimer</a>';
+    echo '<a href="/?disclaimer=show">'.$translations[$langrow]['disclaimer'].'</a>';
 } 
 elseif ($params['disclaimer'] == "show") {
     $_SESSION['disclaimer'] = "";
     echo '<div class="w3-panel" style="max-width: 800px; border-radius: 8px; background-color: #1e81b066">
-        <h3 style="text-decoration: underline;">Disclaimer!</h3>
-        <p>Using this Liberatube instance is not recommended for average users as there are some new and untested features and the database which stores user data is sometimes reset.</p>
-        <a class="button" href="/?disclaimer=accept">I understand</a><br><br>
+        <h3 style="text-decoration: underline;">'.$translations[$langrow]['disclaimer'].'!</h3>
+        <p>'.$translations[$langrow]['disclaimer_text'].'</p>
+        <a class="button" href="/?disclaimer=accept">'.$translations[$langrow]['i-understand'].'</a><br><br>
       </div>';
 } 
 else {
     if ($_SESSION['disclaimer'] == "accept") {
-        echo '<a href="/?disclaimer=show">Disclaimer</a>';
+        echo '<a href="/?disclaimer=show">'.$translations[$langrow]['disclaimer'].'</a>';
     } else {
         echo '<div class="w3-panel" style="max-width: 800px; border-radius: 8px; background-color: #1e81b066;">
-        <h3 style="text-decoration: underline;">Disclaimer!</h3>
-        <p>Using this Liberatube instance is not recommended for average users as there are some new and untested features and the database which stores user data is sometimes reset.</p>
-        <a class="button" href="/?disclaimer=accept">I understand</a><br><br>
+        <h3 style="text-decoration: underline;">'.$translations[$langrow]['disclaimer'].'!</h3>
+        <p>'.$translations[$langrow]['disclaimer_text'].'</p>
+        <a class="button" href="/?disclaimer=accept">'.$translations[$langrow]['i-understand'].'</a><br><br>
       </div>';
     }
 }
@@ -200,8 +203,6 @@ else {
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
         <?php }?>
         <?php                        
-              if (1 == 1)
-              { 
                 if (($params['region'] ?? "") == "") {
                     $params['region'] = $regionrow;
                     if (($regionrow ?? "") == "") {
@@ -210,15 +211,15 @@ else {
                 }
                 
                 if ($params['region'] == "GB") {
-                    $responsetren = "<h3>Trending Content For Great Britain</h3>";
+                    $responsetren = '<h3>'.$translations[$langrow]['trendingcontent_gb'].'</h3>';
                 }
                 elseif ($params['region'] == "US") {
-                    $responsetren = "<h3>Trending Content For The United States of America</h3>";
+                    $responsetren = '<h3>'.$translations[$langrow]['trendingcontent_usa'].'</h3>';
                 }
                 else {
-                    $responsetren = "<h3>Trending Content For Country With Country Code '".$params['region']."'</h3>";
+                    $responsetren = '<h3>'.$translations[$langrow]['trendingcontent_code'].' "'.$params['region'].'"</h3>';
                 }
-                $InvApiUrl = $InvTServer.'/api/v1/trending?pretty=1&region='.$params['region'].'&hl=en&type='.$params['type'];
+                $InvApiUrl = $InvTServer.'/api/v1/trending?pretty=1&region='.$params['region'].'&hl='.$langrow.'&type='.$params['type'];
 
                 $ch = curl_init();
 
@@ -249,34 +250,34 @@ else {
             if ($params['type'] == "General" or $params['type'] == "") 
                 {
                 echo '<div align="left" style="margin-top:-50px">
-                      > <a href="#">General</a><br>
-                      <a href="/?type=Music">Music</a><br>
-                      <a href="/?type=Gaming">Gaming</a><br>
-                      <a href="/?type=Movies">Movies</a><br>
+                      > <a href="#">'.$translations[$langrow]['general'].'</a><br>
+                      <a href="/?type=Music">'.$translations[$langrow]['music'].'</a><br>
+                      <a href="/?type=Gaming">'.$translations[$langrow]['gaming'].'</a><br>
+                      <a href="/?type=Movies">'.$translations[$langrow]['movies'].'</a><br>
                       </div>'; }
             elseif ($params['type'] == "Music") 
                 {
                 echo '<div align="left" style="margin-top:-50px">
-                      <a href="/?type=">General</a><br>
-                      > <a href="#">Music</a><br>
-                      <a href="/?type=Gaming">Gaming</a><br>
-                      <a href="/?type=Movies">Movies</a><br>
+                      <a href="/?type=">'.$translations[$langrow]['general'].'</a><br>
+                      > <a href="#">'.$translations[$langrow]['music'].'</a><br>
+                      <a href="/?type=Gaming">'.$translations[$langrow]['gaming'].'</a><br>
+                      <a href="/?type=Movies">'.$translations[$langrow]['movies'].'</a><br>
                       </div>'; }
             elseif ($params['type'] == "Gaming") 
                 {
                 echo '<div align="left" style="margin-top:-50px">
-                      <a href="/?type=">General</a><br>
-                      <a href="/?type=Music">Music</a><br>
-                      > <a href="#">Gaming</a><br>
-                      <a href="/?type=Movies">Movies</a><br>
+                      <a href="/?type=">'.$translations[$langrow]['general'].'</a><br>
+                      <a href="/?type=Music">'.$translations[$langrow]['music'].'</a><br>
+                      > <a href="#">'.$translations[$langrow]['gaming'].'</a><br>
+                      <a href="/?type=Movies">'.$translations[$langrow]['movies'].'</a><br>
                       </div>'; }
             elseif ($params['type'] == "Movies") 
                 {
                 echo '<div align="left" style="margin-top:-50px">
-                      <a href="/?type=">General</a><br>
-                      <a href="/?type=Music">Music</a><br>
-                      <a href="/?type=Gaming">Gaming</a><br>
-                      > <a href="#">Movies</a><br>
+                      <a href="/?type=">'.$translations[$langrow]['general'].'</a><br>
+                      <a href="/?type=Music">'.$translations[$langrow]['music'].'</a><br>
+                      <a href="/?type=Gaming">'.$translations[$langrow]['gaming'].'</a><br>
+                      > <a href="#">'.$translations[$langrow]['movies'].'</a><br>
                       </div>'; }
 
                 for ($i = 0; $i < $rsults; $i++) {
@@ -314,14 +315,11 @@ else {
                         
            <?php 
                     }
-           
-            }
             ?> 
             </div>
         </div>
         <br><div class="videos-data-container footer w3-animate-left">
-            Liberatube Version 1.9 delta · Licensed under AGPLv3 on GitHub · Credits: Dominic Wajda (GoldDominik893).<br>
-            This website is optimised for mobile users and does not collect any user data apart from<br> watch history which doesn't exist yet and you will be able to turn it off when logged in.
+            Liberatube Version 1.9 delta · Licensed under AGPLv3 on GitHub · Credits: Dominic Wajda (GoldDominik893).
             <br><a href="https://matrix.to/#/#libreratube:matrix.org">Join the Matrix</a> <a href="https://discord.gg/z4cCk5c5Zj">or discord</a> · <a href="https://invidious.io">Invidious</a> · <a href="https://github.com/GoldDominik893/liberatube">GitHub</a> · <a href="https://epicsite.xyz#donate">Donate to the Liberatube project</a> · <a href="https://liberatube-docs.epicsite.xyz/general/4.privacy/">Privacy Policy</a><br>
             Have you noticed a bug or want to see a new feature? <a href="https://github.com/GoldDominik893/liberatube/issues">Open an issue on GitHub</a>
             </div>

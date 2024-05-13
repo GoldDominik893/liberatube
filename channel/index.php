@@ -1,6 +1,8 @@
 <?php
 session_start();  
 include('../config.php');
+$langrow = $defaultLang;
+include('../lang.php');
 
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -15,6 +17,7 @@ if ($useSQL == true) {
     {   
         $pwrow = $row['password'];
         $customthemehomerow = $row['customtheme_home_url'];
+        $langrow = $row['lang'];
     }
     if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {
@@ -37,7 +40,7 @@ parse_str($url_components['query'], $params);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Liberatube · Channel</title>
+        <title>Liberatube · <?php echo $translations[$langrow]['channel']; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
@@ -104,7 +107,7 @@ if ($useSQL == true) {
     <div class="topbarelements topbarelements-center">
     <h3 class="title-top topbarelements">Liberatube</h3>
     <form class="input-row topbarelements" id="keywordForm" method="get" action="/search/">
-                    <input class="input-field" type="search" id="keyword" name="q" placeholder="Search YouTube..." value="<?php echo $keyword; ?>">
+                    <input class="input-field" type="search" id="keyword" name="q" placeholder="<?php echo $translations[$langrow]['search_yt']; ?>" value="<?php echo $keyword; ?>">
             </form>
     </div>
 
@@ -114,11 +117,11 @@ if ($useSQL == true) {
     $loggedinuser = $_SESSION['logged_in_user'] ?? "";?> 
     <?php if($loggedinuser != "")
     {
-        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">'.$translations[$langrow]['logout'].'</h5></a>';
     }
     else
     {
-        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">'.$translations[$langrow]['login-signup'].'</h5></a>';
     }
     ?>
     </div>
@@ -134,7 +137,7 @@ if ($useSQL == true) {
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
         <?php }?>
         <?php    
-                $InvApiUrl = $InvVIServer.'/api/v1/channels/'.$params['id'].'?hl=en&sort_by='.$_GET['sort_by'];    
+                $InvApiUrl = $InvVIServer.'/api/v1/channels/'.$params['id'].'?hl='.$langrow.'&sort_by='.$_GET['sort_by'];    
                 
                 $ch = curl_init();
 
@@ -157,7 +160,7 @@ if ($useSQL == true) {
                 $channelPfpUrl = $value['authorThumbnails'][1]['url'] ?? "";
 
                 if($params['q']){
-                $InvApiUrl = $InvVIServer.'/api/v1/channels/search/'.$params['id'].'?hl=en&q='.$params['q'];
+                $InvApiUrl = $InvVIServer.'/api/v1/channels/search/'.$params['id'].'?hl='.$langrow.'&q='.$params['q'];
                 $ch = curl_init();
 
                 curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -176,7 +179,7 @@ if ($useSQL == true) {
 
                 
 
-                $pl = file_get_contents($InvVIServer.'/api/v1/channels/'.$params['id'].'/playlists/?hl=en');
+                $pl = file_get_contents($InvVIServer.'/api/v1/channels/'.$params['id'].'/playlists/?hl='.$langrow);
                 $plitemsint = substr_count($pl,"playlistThumbnail");
 
 
@@ -187,32 +190,32 @@ if ($useSQL == true) {
                 <img style="margin-bottom: -25px; width: 100px;" src="'.$channelPfpUrl.'"><br><br>
                     
                 <div style="margin-left: 105px; margin-top: -105px;">
-                    <h4>'.$authorc.': '.$subcount.' Subscribers</h4>
+                    <h4>'.$authorc.': '.$subcount.' '.$translations[$langrow]['subscribers'].'</h4>
                 </div>
                 <div style="margin-left: 105px; margin-top: -7px;">
-                    > <a href="#">Videos</a>';
+                    > <a href="#">'.$translations[$langrow]['videos'].'</a>';
                     if ($params['sort_by'] == "latest" or $params['sort_by'] == "") {
                         echo '
-                            > <a href="#">Latest</a> <
-                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=popular">Popular</a>
-                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=oldest">Oldest</a>';
+                            > <a href="#">'.$translations[$langrow]['latest'].'</a> <
+                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=popular">'.$translations[$langrow]['popular'].'</a>
+                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=oldest">'.$translations[$langrow]['oldest'].'</a>';
                     } elseif ($params['sort_by'] == "popular") {
                         echo '
-                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=latest">Latest</a>
-                            > <a href="#">Popular</a> <
-                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=oldest">Oldest</a>';
+                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=latest">'.$translations[$langrow]['latest'].'</a>
+                            > <a href="#">'.$translations[$langrow]['popular'].'</a> <
+                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=oldest">'.$translations[$langrow]['oldest'].'</a>';
                     } elseif ($params['sort_by'] == "oldest") {
                         echo '
-                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=latest">Latest</a>
-                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=popular">Popular</a>
-                            > <a href="#">Oldest</a> <';
+                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=latest">'.$translations[$langrow]['latest'].'</a>
+                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=popular">'.$translations[$langrow]['latest'].'</a>
+                            > <a href="#">'.$translations[$langrow]['oldest'].'</a> <';
                     }
                 echo '    
-                    <br><a href="/channel/?id='.$params['id'].'&type=playlists">Playlists</a><br>
+                    <br><a href="/channel/?id='.$params['id'].'&type=playlists">'.$translations[$langrow]['playlists'].'</a><br>
                 </div>
                         <form class="input-row topbarelements" id="keywordForm" method="get" action="/channel/">
                             <div class="input-row topbarelements topbarelements-right">
-                                <input style="margin-left: 105px; margin-top: -2px;" class="input-field" type="search" id="keyword" name="q" placeholder="Search this channel..." value="'.$params['q'].'">
+                                <input style="margin-left: 105px; margin-top: -2px;" class="input-field" type="search" id="keyword" name="q" placeholder="'.$translations[$langrow]['search_this_channel'].'" value="'.$params['q'].'">
                                 <input type="hidden" id="id" name="id" value="'.$params['id'].'">
                             </div>
                         </form>
@@ -225,11 +228,11 @@ if ($useSQL == true) {
                 <img style="margin-bottom: -25px; width: 100px;" src="'.$channelPfpUrl.'"><br><br>
                     
                 <div style="margin-left: 105px; margin-top: -105px;">
-                    <h4>'.$authorc.': '.$subcount.' Subscribers</h4>
+                    <h4>'.$authorc.': '.$subcount.' '.$translations[$langrow]['subscribers'].'</h4>
                 </div>
                 <div style="margin-left: 105px; margin-top: -7px;">
-                    <a href="/channel/?id='.$params['id'].'&type=videos">Videos</a><br>
-                    > <a href="#">Playlists</a><br>
+                    <a href="/channel/?id='.$params['id'].'&type=videos">'.$translations[$langrow]['videos'].'</a><br>
+                    > <a href="#">'.$translations[$langrow]['playlists'].'</a><br>
                 </div><br><br>'; }
                 ?>
 

@@ -1,6 +1,8 @@
 <?php
 session_start();  
 include('../config.php');
+$langrow = $defaultLang;
+include('../lang.php');
 
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -15,6 +17,7 @@ if ($useSQL == true) {
     {   
         $pwrow = $row['password'];
         $customthemehomerow = $row['customtheme_home_url'];
+        $langrow = $row['lang'];
     }
     if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {
@@ -39,7 +42,7 @@ $keyword = $params['q'];
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Liberatube · Search Results</title>
+        <title>Liberatube · <?php echo $translations[$langrow]['search_results']; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
@@ -109,7 +112,7 @@ if ($useSQL == true) {
     <div class="topbarelements topbarelements-center">
     <h3 class="title-top topbarelements">Liberatube</h3>
     <form class="input-row topbarelements" id="keywordForm" method="get" action="/search/">
-                    <input class="input-field" type="search" id="keyword" name="q" placeholder="Search YouTube..." value="<?php echo $keyword; ?>">
+                    <input class="input-field" type="search" id="keyword" name="q" placeholder="<?php echo $translations[$langrow]['search_yt']; ?>" value="<?php echo $keyword; ?>">
             </form>
     </div>
 
@@ -119,11 +122,11 @@ if ($useSQL == true) {
     $loggedinuser = $_SESSION['logged_in_user'] ?? "";?> 
     <?php if($loggedinuser != "")
     {
-        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">'.$translations[$langrow]['logout'].'</h5></a>';
     }
     else
     {
-        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">'.$translations[$langrow]['login-signup'].'</h5></a>';
     }
     ?>
     </div>
@@ -148,7 +151,7 @@ if ($useSQL == true) {
               if (!empty($params['q']))
               {
                 $pagenumber = $_GET['page'] ?? 1;
-                $googleApiUrl = $InvSServer.'/api/v1/search?q=' . $params['q'] . '&hl=en&page='.$pagenumber;
+                $googleApiUrl = $InvSServer.'/api/v1/search?q=' . $params['q'] . '&hl='.$langrow.'&page='.$pagenumber;
 
                 $ch = curl_init();
 
@@ -169,10 +172,10 @@ if ($useSQL == true) {
             <div class="videos-data-container w3-animate-left" id="SearchResultsDiv">
                 <?php
                 if ($pagenumber == 1) {
-                    echo '<a href="?q='.$_GET['q'].'&page='.($pagenumber + 1).'">Next Page</a>';
+                    echo '<a href="?q='.$_GET['q'].'&page='.($pagenumber + 1).'">'.$translations[$langrow]['next_page'].'</a>';
                 } else {
-                    echo '<a href="?q='.$_GET['q'].'&page='.($pagenumber - 1).'">Previous Page</a> · ';
-                    echo '<a href="?q='.$_GET['q'].'&page='.($pagenumber + 1).'">Next Page</a>';
+                    echo '<a href="?q='.$_GET['q'].'&page='.($pagenumber - 1).'">'.$translations[$langrow]['previous_page'].'</a> · ';
+                    echo '<a href="?q='.$_GET['q'].'&page='.($pagenumber + 1).'">'.$translations[$langrow]['next_page'].'</a>';
                 }
                 ?>
                 
@@ -251,7 +254,7 @@ if ($useSQL == true) {
 
                             </div>
                             <div class="videoInfo">
-                            <div class="videoTitle"><b><?php echo $title; ?></b><br><?php echo $channel; ?> <div style="float: right;"><?php echo $plVideoCount; ?> videos</div></div>
+                            <div class="videoTitle"><b><?php echo $title; ?></b><br><?php echo $channel; ?> <div style="float: right;"><?php echo $plVideoCount; ?> <?php echo $translations[$langrow]['videos']; ?></div></div>
                             </div>
                             </div>
                             </a>

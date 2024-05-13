@@ -1,6 +1,8 @@
 <?php
 session_start();  
 include('config.php');
+$langrow = $defaultLang;
+include('lang.php');
 
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -15,6 +17,7 @@ if ($useSQL == true) {
     {   
         $pwrow = $row['password'];
         $customthemeplayerrow = $row['customtheme_player_url'];
+        $langrow = $row['lang'];
     }
     if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {
@@ -27,7 +30,7 @@ if ($useSQL == true) {
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Liberatube · Watch History</title>
+        <title>Liberatube · <?php echo $translations[$langrow]['watch_history']; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
@@ -83,17 +86,17 @@ if(strcmp($themerow, 'blue') == 0) {
   <div class="w3-container">
     <div class="topbar">
     <div class="topbarelements topbarelements-center">
-    <h3 class="title-top topbarelements">Watch History</h3>
+    <h3 class="title-top topbarelements"><?php echo $translations[$langrow]['watch_history']; ?></h3>
     </div>
     <div class="topbarelements topbarelements-right">
     <h4> <?php echo $_SESSION['logged_in_user']; ?>
     <?php if(isset($_SESSION['logged_in_user']))
     {
-        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">'.$translations[$langrow]['logout'].'</h5></a>';
     }
     else
     {
-        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">'.$translations[$langrow]['login-signup'].'</h5></a>';
     }
     ?>
     </div>
@@ -105,7 +108,7 @@ if(strcmp($themerow, 'blue') == 0) {
 <?php
 
 if(isset($_SESSION['logged_in_user'])) {
-echo '<center><h4>This is still in development.</h4></center>';
+echo '<center><h4>'.$translations[$langrow]['this_is_dev'].'</h4></center>';
 } else {
 echo '<center><h4>You are not logged in.</h4></center>';
 }

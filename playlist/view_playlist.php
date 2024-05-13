@@ -1,6 +1,8 @@
 <?php
 session_start();  
 include('../config.php');
+$langrow = $defaultLang;
+include('../lang.php');
 
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -15,6 +17,7 @@ if ($useSQL == true) {
     {   
         $pwrow = $row['password'];
         $customthemehomerow = $row['customtheme_home_url'];
+        $langrow = $row['lang'];
     }
     if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {
@@ -27,7 +30,7 @@ if ($useSQL == true) {
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Liberatube · Playlist</title>
+        <title>Liberatube · <?php echo $translations[$langrow]['playlist']; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
@@ -82,17 +85,17 @@ if(strcmp($themerow, 'blue') == 0) {
   <div class="w3-container">
     <div class="topbar">
     <div class="topbarelements topbarelements-center">
-    <h3 class="title-top topbarelements">Playlist</h3>
+    <h3 class="title-top topbarelements"><?php echo $translations[$langrow]['playlist']; ?></h3>
     </div>
     <div class="topbarelements topbarelements-right">
     <h4> <?php echo $_SESSION['logged_in_user']; ?>
     <?php if(isset($_SESSION['logged_in_user']))
     {
-        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">'.$translations[$langrow]['logout'].'</h5></a>';
     }
     else
     {
-        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">'.$translations[$langrow]['login-signup'].'</h5></a>';
     }
     ?>
 
@@ -122,10 +125,10 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $playlistName = $row['playlist_name'];
-    $username = $row['username'];
+    $plusername = $row['username'];
     $videoInfoArray = json_decode($row['video_ids'], true);
 
-    echo "<h2>$playlistName</h2><h4>author: $username</h4>";
+    echo "<h2>$playlistName</h2><h4>".$translations[$langrow]['author'].": $plusername</h4>";
     echo "<div class='video-container'>";
 
     foreach ($videoInfoArray as $videoInfo) {

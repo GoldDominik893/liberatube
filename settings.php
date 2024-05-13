@@ -1,6 +1,8 @@
 <?php
 session_start();  
 include('config.php');
+$langrow = $defaultLang;
+include('lang.php');
 
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -23,20 +25,14 @@ if ($useSQL == true) {
     session_destroy();
 }
 
-$nothing = ""
-?>
-<title>Liberatube · Settings</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/styles/-w3.css">
-<link rel="stylesheet" href="/styles/-bootstrap.min.css">
-<link rel="stylesheet" href="/styles/-googlesymbols.css">
+$nothing = "";
 
-<?php
 $dbsenduser = $_SESSION['logged_in_user'];
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+
 if (isset($_SESSION['logged_in_user']))
 {
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -64,6 +60,14 @@ $numrows = $result->num_rows;
 }
 ?>
 
+<title>Liberatube · <?php echo $translations[$langrow]['settings']; ?></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/styles/-w3.css">
+<link rel="stylesheet" href="/styles/-bootstrap.min.css">
+<link rel="stylesheet" href="/styles/-googlesymbols.css">
+
+
+
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
   <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span></a>
@@ -79,17 +83,17 @@ $numrows = $result->num_rows;
   <div class="w3-container">
   <div class="topbar">
     <div class="topbarelements topbarelements-center">
-    <h3 class="title-top topbarelements">Settings</h3>
+    <h3 class="title-top topbarelements"><?php echo $translations[$langrow]['settings']; ?></h3>
     </div>
     <div class="topbarelements topbarelements-right">
     <h4> <?php echo $_SESSION['logged_in_user']; ?>
     <?php if(isset($_SESSION['logged_in_user']))
     {
-        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">'.$translations[$langrow]['logout'].'</h5></a>';
     }
     else
     {
-        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">'.$translations[$langrow]['login-signup'].'</h5></a>';
     }
     ?>
     </div>
@@ -136,22 +140,22 @@ if(isset($_SESSION['logged_in_user'])) {
   if ($allowProxy == "true") {
 
   } elseif ($allowProxy == "false" or $allowProxy == "downloads"){
-    $instanceProxyText = ' <label style="color: red;">Disabled by instance</label>';
+    $instanceProxyText = ' <label style="color: red;">'.$translations[$langrow]['disabled_by_instance'].'</label>';
     if ($allowProxy == "downloads") {
-      $instanceProxyText .= ' <label style="color: orange;">Downloads allowed</label>';
+      $instanceProxyText .= ' <label style="color: orange;">'.$translations[$langrow]['downloads_allowed'].'</label>';
     }
   }
 echo '<div class="tenborder">
 <form action="" method="post" id="form" formtarget="_blank">
-  <div class="settingsdiv"><h4>Visual Preferences</h4>
-  <label for="theme">Theme:</label>
+  <div class="settingsdiv"><h4>'.$translations[$langrow]['visual_prefs'].'</h4>
+  <label for="theme">'.$translations[$langrow]['theme'].':</label>
   <select class="formsel" style="border-radius: 6px;" id="theme" name="theme" value="--Please Select--">
-  <option class="formsel" value="'.$themerow.'">Selected: '.$themerow.'</option>
+  <option class="formsel" value="'.$themerow.'">'.$translations[$langrow]['selected'].': '.$themerow.'</option>
   <option class="formsel" disabled value="">----------</option>
     <option class="formsel" value="blue">Blue</option>
     <option class="formsel" value="ultra-dark">Ultra-Dark</option>
     <option class="formsel" value="custom">Custom</option>
-  </select><a class="label" href="https://liberatube-pluginstore.epicsite.xyz/" for="theme">Custom Themes</a><br>
+  </select><a class="label" href="https://liberatube-pluginstore.epicsite.xyz/" for="theme">'.$translations[$langrow]['custom_themes'].'</a><br>
   ';
   if ($themerow == "custom") {
     echo '
@@ -161,25 +165,27 @@ echo '<div class="tenborder">
     <input name="customthemehomerow" value="'.$customthemehomerow.'">';
   }
   echo '
-  <label for="vidshadow">Video Shadow: <i>(Soon)</i></label>
+  <label for="vidshadow">'.$translations[$langrow]['video_shadow'].':</label>
   <input type="checkbox" id="vidshadow" name="vidshadow" '.$checked1.'>
   </div>
   <br>
-  <div class="settingsdiv"><h4>Regional Preferences</h4>
-  <label for="lang">Language: <i>(soon)</i></label>
+  <div class="settingsdiv"><h4>'.$translations[$langrow]['regional_prefs'].'</h4>
+  <label for="lang">'.$translations[$langrow]['language'].':</label>
   <select class="formsel" style="border-radius: 6px;" id="lang" name="lang" value="--Please Select--">
-  <option class="formsel" value="'.$langrow.'">Selected: '.$langrow.'</option>
+  <option class="formsel" value="'.$langrow.'">'.$translations[$langrow]['selected'].': '.$langrow.'</option>
   <option class="formsel" disabled value="">----------</option>
-    <option class="formsel" value="en">English</option>
-    <option class="formsel" value="fr">Français</option>
-    <option class="formsel" value="es">Español</option>
-    <option class="formsel" value="pl">Polski</option>
+      <option class="formsel" value="en">English</option>
+      <option class="formsel" value="es">Español</option>
+      <option class="formsel" value="pl">Polski</option>
+      <option class="formsel" value="de">Deutsch</option>
+      <option class="formsel" value="fi">Suomi</option>
+      <option class="formsel" value="fr">Français</option>
   </select>
 
   <br>
-  <label for="region">Region:</label>
+  <label for="region">'.$translations[$langrow]['region'].':</label>
   <select class="formsel" style="border-radius: 6px;" id="region" name="region" value="--Please Select--">
-  <option class="formsel" value="'.$regionrow.'">Selected: '.$regionrow.'</option>
+  <option class="formsel" value="'.$regionrow.'">'.$translations[$langrow]['selected'].': '.$regionrow.'</option>
   <option class="formsel" disabled value="">----------</option>
                         <option value="AE">AE</option>
                         <option value="AR">AR</option>                    
@@ -291,30 +297,27 @@ echo '<div class="tenborder">
                 </select>
   </div>
   <br>
-  <div class="settingsdiv"><h4>Player Preferences</h4>
-<label for="player">Player Type:</label>
+  <div class="settingsdiv"><h4>'.$translations[$langrow]['player_prefs'].'</h4>
+<label for="player">'.$translations[$langrow]['player_type'].':</label>
 
       <input type="radio" id="vjs" name="player" value="vjs" '.$checked3a.'></input><label class="label" for="vjs">VideoJS</label>
       <input type="radio" id="html" name="player" value="html" '.$checked3b.'></input><label class="label" for="html">HTML</label><br>
 
-      <label for="webamp">Use WebAMP for Audio only playback:</label>
-      <input name="webamp" type="checkbox" id="webamp"'.$checkedWebAmp.'></input><br>
-
-    <label for="proxy">Proxy Video:</label>
+    <label for="proxy">'.$translations[$langrow]['proxy_video'].':</label>
     <input name="proxy" type="checkbox" id="proxy"'.$checked2.'>'.$instanceProxyText.'</input><br>
 
 
-    <label for="loadcomments">Comments:</label><br>
-    <input type="radio" id="showall" name="loadcomments" value="showall" '.$checked4a.'></input><label class="label" for="showall">Load comments and replies (Slowest)</label><br>
-    <input type="radio" id="noreplies" name="loadcomments" value="noreplies" '.$checked4b.'></input><label class="label" for="noreplies">Do not load replies (Fast)</label><br>
-    <input type="radio" id="nothing" name="loadcomments" value="nothing" '.$checked4c.'></input><label class="label" for="nothing">Do not load anything (Fastest)</label>
+    <label for="loadcomments">'.$translations[$langrow]['comments'].':</label><br>
+    <input type="radio" id="showall" name="loadcomments" value="showall" '.$checked4a.'></input><label class="label" for="showall">'.$translations[$langrow]['comments_showall'].'</label><br>
+    <input type="radio" id="noreplies" name="loadcomments" value="noreplies" '.$checked4b.'></input><label class="label" for="noreplies">'.$translations[$langrow]['comments_noreplies'].'</label><br>
+    <input type="radio" id="nothing" name="loadcomments" value="nothing" '.$checked4c.'></input><label class="label" for="nothing">'.$translations[$langrow]['comments_nothing'].'</label>
 
   </div>
   <br>
-  <div class="settingsdiv"><h4>Account Preferences</h4>
-  <a disabled type="button" class="btn btn-warning" style="margin-bottom: 5px; color: black;">Clear Watch History</a><br>
-  <a type="button" href="/account.php/?r=password" class="btn btn-primary">Change Your Password</a>
-  <a type="button" href="/account.php/?r=delete" class="btn btn-danger">Delete Your Account</a>
+  <div class="settingsdiv"><h4>'.$translations[$langrow]['account_prefs'].'</h4>
+  <a disabled type="button" class="btn btn-warning" style="margin-bottom: 5px; color: black;">'.$translations[$langrow]['clear_watch_history'].'</a><br>
+  <a type="button" href="/account.php/?r=password" class="btn btn-primary">'.$translations[$langrow]['change_your_password'].'</a>
+  <a type="button" href="/account.php/?r=delete" class="btn btn-danger">'.$translations[$langrow]['delete_your_account'].'</a>
   </div>
   
   ';
@@ -322,8 +325,8 @@ echo '<div class="tenborder">
             {
                         ?>
                         <br>
-                        <div class="settingsdiv"><h4>Admin Preferences</h4>
-                            <p>Update the Invidious instances used</p>
+                        <div class="settingsdiv"><h4><?php echo $translations[$langrow]['admin_prefs']; ?></h4>
+                            <p><?php echo $translations[$langrow]['update_inv_used']; ?></p>
                             <label for="InvCServer">InvCServer: </label>
                             <input type="text" value="<?php echo $_POST['InvCServer'] ?? $InvCServer; ?>" name="InvCServer" id="InvCServer">
                             <br><label for="InvVIServer">InvVIServer: </label>
@@ -368,7 +371,7 @@ echo '<div class="tenborder">
     echo'
     <br>
   <div class="settingsdiv" style="background-color: transparent; border: none; text-align: right; padding-top: 0px; padding-right: 0px;">
-  <button type="" class="btn btn-success" id="submitButton">Save</button>
+  <button type="" class="btn btn-success" id="submitButton">'.$translations[$langrow]['save'].'</button>
   </div>
 </form>
 <script src="/scripts/formxhr.js"></script>

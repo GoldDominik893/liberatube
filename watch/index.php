@@ -1,6 +1,8 @@
 <?php
 session_start();  
 include('../config.php');
+$langrow = $defaultLang;
+include('../lang.php');
 
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -15,6 +17,7 @@ if ($useSQL == true) {
     {   
         $pwrow = $row['password'];
         $customthemeplayerrow = $row['customtheme_player_url'];
+        $langrow = $row['lang'];
     }
     if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {
@@ -39,7 +42,7 @@ parse_str($url_components['query'], $params);
 
 
 <?php
-                $InvApiUrl = $InvVIServer.'/api/v1/videos/' . $params['v'] . '?hl=en';
+                $InvApiUrl = $InvVIServer.'/api/v1/videos/' . $params['v'] . '?hl='.$langrow;
 
                 $ch = curl_init();
 
@@ -122,7 +125,7 @@ $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId='.$params['v
                 $value = json_decode(json_encode($data), true);
                 
                     $dislikes = number_format($value['dislikes']);
-                    $dislikes = " · ".$dislikes." estimated dislikes"; }
+                    $dislikes = " · ".$dislikes.' '.$translations[$langrow]['estimated_dislikes']; }
                     ?> 
 
         <meta charset="utf-8">
@@ -134,7 +137,7 @@ $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId='.$params['v
         <meta name="theme-color" content="#303EE1">
         <meta name="author" content="<?php echo $title; ?>">
         <meta name="keywords" content="badyt.cf, liberatube, EpicFaucet, two.epicfaucet.gq, yewtu.be, online videos, alternative youtube frontend, Liberatube">
-        <meta property="og:locale" content="en_US">
+        <meta property="og:locale" content="en_GB">
         <meta property="og:description" content="<?php echo $description; ?>">
         <meta property="description" content="<?php echo $description; ?>">
 
@@ -263,14 +266,14 @@ if ($useSQL == true) {
         
        
 <h3 style="text-align: center;"> <?php echo $title; ?> <br></h3>
-<h4 style="text-align: center;"><?php echo $shared; ?> · <?php echo $views; ?> views · <?php echo $likes; ?> likes<?php echo $dislikes; ?></h4>
+<h4 style="text-align: center;"><?php echo $shared; ?> · <?php echo $views; ?> <?php echo $translations[$langrow]['views']; ?> · <?php echo $likes; ?> <?php echo $translations[$langrow]['likes']; ?><?php echo $dislikes; ?></h4>
 
 
 </div><a class="popup button" onclick="myFunction(), copyText()">
-<span class="popuptext" id="myPopup">URL Copied.</span>Share</a>
+<span class="popuptext" id="myPopup"><?php echo $translations[$langrow]['url_copied']; ?></span><?php echo $translations[$langrow]['share']; ?></a>
 
-<a class="button" onclick="Alert.render('ok')">Download</a>
-<a class="button" onclick="Alert_pl.render('ok')">Add to playlist</a>
+<a class="button" onclick="Alert.render('ok')"><?php echo $translations[$langrow]['download']; ?></a>
+<a class="button" onclick="Alert_pl.render('ok')"><?php echo $translations[$langrow]['add_to_playlist']; ?></a>
 <a class="button" href="/channel/?id=<?php echo $authorId; ?>"><?php echo $author; ?> · <?php echo $autsubs; ?></a>
 </center>
 
@@ -278,14 +281,14 @@ if ($useSQL == true) {
 <div id="box_pl">
 
 <?php if ($_SESSION['logged_in_user']) { ?>
-<h3>Add this video to a Playlist</h3>
+<h3><?php echo $translations[$langrow]['add_vid_to_playlist']; ?></h3>
 <form id="addToPlaylistForm">
     <input type="hidden" id="videoId" name="videoId" value="<?php echo $_GET['v']; ?>">
     <input type="hidden" id="videoTitle" name="videoTitle" value="<?php echo $title; ?>">
     <input type="hidden" id="videoAuthor" name="videoAuthor" value="<?php echo $author; ?>">
     <select id="playlistSelect" name="playlistSelect" required>
     </select>
-    <input type="button" value="Add to Playlist" onclick="addToPlaylist()">
+    <input type="button" value="<?php echo $translations[$langrow]['add_to_playlist']; ?>" onclick="addToPlaylist()">
 </form>
 <div id="result"></div>
 <?php } else { ?>
@@ -307,12 +310,12 @@ if ($allowProxy == "true" or $allowProxy == "downloads") {
     $isProxyDisabledMessage = "Proxying is disabled by this instance.";
 }
 ?>
-<h3>Download this video</h3>
+<h3><?php echo $translations[$langrow]['download_this_video']; ?></h3>
 <table>
 <?php
 echo $isProxyDisabledMessage;
 ?>
-<tr><td><h4>Non HLS options:</h4></td></tr>
+<tr><td><h4><?php echo $translations[$langrow]['non-hls_options']; ?></h4></td></tr>
 <?php
 if (isset($nonHlsItag) && is_array($nonHlsItag) && !empty($nonHlsItag)) {
     for ($i = 0; $i < count($nonHlsItag); $i++) {
@@ -322,11 +325,11 @@ if (isset($nonHlsItag) && is_array($nonHlsItag) && !empty($nonHlsItag)) {
         $type = $nonHlsType[$i];
         $size = $nonHlsSize[$i];
 
-        echo '<tr><td>'.$quality.'('.$itag.') - '.$type.'</td><td><a class="button-in-table" href="'.$url.'">Direct</a><a download="'.$params['v'].'.'.$type.'" class="button-in-table" href="/videodata/non-hls.php?id='.$params['v'].'&dl=dl&itag='.$itag.'">Proxy</a></td></tr>';
+        echo '<tr><td>'.$quality.'('.$itag.') - '.$type.'</td><td><a class="button-in-table" href="'.$url.'">'.$translations[$langrow]['direct'].'</a><a download="'.$params['v'].'.'.$type.'" class="button-in-table" href="/videodata/non-hls.php?id='.$params['v'].'&dl=dl&itag='.$itag.'">'.$translations[$langrow]['proxy'].'</a></td></tr>';
     }
 }
 ?>
-<tr><td><h4>HLS options:</h4></td></tr>
+<tr><td><h4><?php echo $translations[$langrow]['hls_options']; ?></h4></td></tr>
 <?php
 if (isset($HlsItag) && is_array($HlsItag) && !empty($HlsItag)) {
     for ($i = 0; $i < count($HlsItag); $i++) {
@@ -336,7 +339,7 @@ if (isset($HlsItag) && is_array($HlsItag) && !empty($HlsItag)) {
         $type = $HlsType[$i];
         $size = $HlsSize[$i];
 
-        echo '<tr><td>'.$quality.'('.$itag.') - '.$type.'</td><td><a class="button-in-table" href="'.$url.'">Direct</a><a download="'.$params['v'].'.'.$type.'" class="button-in-table" href="/videodata/hls.php?id='.$params['v'].'&dl=dl&itag='.$itag.'">Proxy</a></td></tr>';
+        echo '<tr><td>'.$quality.'('.$itag.') - '.$type.'</td><td><a class="button-in-table" href="'.$url.'">'.$translations[$langrow]['direct'].'</a><a download="'.$params['v'].'.'.$type.'" class="button-in-table" href="/videodata/hls.php?id='.$params['v'].'&dl=dl&itag='.$itag.'">'.$translations[$langrow]['proxy'].'</a></td></tr>';
     }
 }
 ?>
@@ -372,7 +375,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
 
  
  
- <details><summary><a class="button">Show/Hide Description</a></summary> <a style="margin-right: 3px;" class="button" href="//youtu.be/<?php echo $params['v']?>">Watch on YouTube</a><a style="margin-right: 3px;" class="button" href="//redirect.invidious.io/<?php echo $params['v']?>">Watch on Invidious</a><a href="https://liberatube-instances.epicsite.xyz/?v=<?php echo $params['v']?>" class="button">Switch Instance</a><hr style="margin-top: 8px; margin-bottom: 5px;" class="hr"><?php echo $cdesc; ?> </details><br>
+ <details><summary><a class="button"><?php echo $translations[$langrow]['show-hide-desc']; ?></a></summary> <a style="margin-right: 3px;" class="button" href="//youtu.be/<?php echo $params['v']?>"><?php echo $translations[$langrow]['watch_on_yt']; ?></a><a style="margin-right: 3px;" class="button" href="//redirect.invidious.io/<?php echo $params['v']?>"><?php echo $translations[$langrow]['watch_on_inv']; ?></a><a href="https://liberatube-instances.epicsite.xyz/?v=<?php echo $params['v']?>" class="button"><?php echo $translations[$langrow]['switch_instance']; ?></a><hr style="margin-top: 8px; margin-bottom: 5px;" class="hr"><?php echo $cdesc; ?> </details><br>
 
         <title><?php echo $title; ?> · Liberatube</title>
         <script src="/scripts/-jquery-3.6.4.min.js"></script>
@@ -393,7 +396,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
     if(!empty($response)) { ?>
         <?php }?>
         <?php                        
-                $InvApiUrl = $InvCServer.'/api/v1/comments/'.$params['v'].'?hl=en';
+                $InvApiUrl = $InvCServer.'/api/v1/comments/'.$params['v'].'?hl='.$langrow;
 
                 $ch = curl_init();
 
@@ -409,7 +412,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
                 $value = json_decode(json_encode($data), true);
                 $ccount = $value['commentCount'] ?? "";
                 
-                echo '<br><br><br><br><h3>'.number_format($ccount).' Comments</h3><br>';
+                echo '<br><br><br><br><h3>'.number_format($ccount).' '.$translations[$langrow]['comments'].'</h3><br>';
 
                 if ($ccount > 20) {
                 $ccountl = "20";
@@ -432,7 +435,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
 
                     $nextpagestr = $value['continuation'] ?? "";
 
-                        $InvApiUrl = $InvCServer.'/api/v1/comments/'.$params['v'].'?region=GB&hl=en&continuation='.$commentreplycontinuation;
+                        $InvApiUrl = $InvCServer.'/api/v1/comments/'.$params['v'].'?hl='.$langrow.'&continuation='.$commentreplycontinuation;
 
                         $ch = curl_init();
         
@@ -456,13 +459,13 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
                             } }
                     ?>
                     <div style="width: 100%; max-width: 775px;">
-                    <h4><img style="margin-bottom: -25px; max-width: 48px;" src=<?php echo $aturl; ?>> <a href="/channel/?id=<?php echo $auid.'">'.$aname."</a>"; ?> · <?php echo $ptex; ?> · <?php echo number_format($alik)." likes"; ?>
+                    <h4><img style="margin-bottom: -25px; max-width: 48px;" src=<?php echo $aturl; ?>> <a href="/channel/?id=<?php echo $auid.'">'.$aname."</a>"; ?> · <?php echo $ptex; ?> · <?php echo number_format($alik)." ".$translations[$langrow]['likes']; ?>
                     </h4>
                     <br><h5 style="margin-left: 53px; margin-top: -25px;"><?php echo makeTimestamptoLinkSmaller(makeTimestamptoLink(makeUrltoLink($acon)));
                     
                         if ($commentreplyamount != "") {?>
 
-                        <details><summary>show <?php echo $commentreplyamount; ?> replies</summary><?php
+                        <details><summary><?php echo $translations[$langrow]['show']; ?> <?php echo $commentreplyamount; ?> <?php echo $translations[$langrow]['replies']; ?></summary><?php
 
                             for ($ii = 0; $ii < $ccountl_reply; $ii++) {
                                 $aname_reply = $value_reply['comments'][$ii]['author'] ?? "";
@@ -474,17 +477,17 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
                              ?>
 
                             <div style="width: 100%; max-width: 775px;">
-                            <h4><img style="margin-bottom: -25px; max-width: 48px;" src=<?php echo $aturl_reply; ?>> <a href="/channel/?id=<?php echo $auid.'">'.$aname_reply."</a>"; ?> · <?php echo $ptex_reply; ?> · <?php if($alik_reply > -1){echo number_format($alik_reply)." likes";} ?>
+                            <h4><img style="margin-bottom: -25px; max-width: 48px;" src=<?php echo $aturl_reply; ?>> <a href="/channel/?id=<?php echo $auid.'">'.$aname_reply."</a>"; ?> · <?php echo $ptex_reply; ?> · <?php if($alik_reply > -1){echo number_format($alik_reply)." ".$translations[$langrow]['likes'];} ?>
                             </h4>
                             <br><h5 style="margin-left: 53px; margin-top: -25px;"><?php echo makeTimestamptoLinkSmaller(makeTimestamptoLink(makeUrltoLink($acon_reply))); ?></h5><br>
 
                        <?php } }?></details></h5>
-                    <br><br>
+                    <br>
                 </div>  
            <?php 
                     }
                 } else {
-                    echo '<a class="button" href="?v='.$params['v'].'&comments=noreplies">Load Comments</a>';
+                    echo '<a class="button" href="?v='.$params['v'].'&comments=noreplies">'.$translations[$langrow]['load_comments'].'</a>';
                 }
             ?> 
             </div>

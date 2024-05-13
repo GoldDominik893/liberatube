@@ -1,6 +1,8 @@
 <?php
 session_start();  
 include('../config.php');
+$langrow = $defaultLang;
+include('../lang.php');
 
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -15,6 +17,7 @@ if ($useSQL == true) {
     {   
         $pwrow = $row['password'];
         $customthemehomerow = $row['customtheme_home_url'];
+        $langrow = $row['lang'];
     }
     if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {
@@ -27,7 +30,7 @@ if ($useSQL == true) {
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Liberatube · Playlists</title>
+        <title>Liberatube · <?php echo $translations[$langrow]['playlists']; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
@@ -82,17 +85,17 @@ if(strcmp($themerow, 'blue') == 0) {
   <div class="w3-container">
     <div class="topbar">
     <div class="topbarelements topbarelements-center">
-    <h3 class="title-top topbarelements">Playlists</h3>
+    <h3 class="title-top topbarelements"><?php echo $translations[$langrow]['playlists']; ?></h3>
     </div>
     <div class="topbarelements topbarelements-right">
     <h4> <?php echo $_SESSION['logged_in_user']; ?>
     <?php if(isset($_SESSION['logged_in_user']))
     {
-        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">Logout</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/logout.php"><span class="material-symbols-outlined login-item-icon">logout</span><h5 class="login-item-text">'.$translations[$langrow]['logout'].'</h5></a>';
     }
     else
     {
-        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">Login/Signup</h5></a>';
+        echo '<a class="button awhite login-item" href="/auth/login.html"><span class="material-symbols-outlined login-item-icon">login</span><h5 class="login-item-text">'.$translations[$langrow]['login-signup'].'</h5></a>';
     }
     ?>
 
@@ -124,7 +127,7 @@ if(isset($_SESSION['logged_in_user'])) {
   $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    echo "<h3>Your Playlists</h3>";
+    echo '<h3>'.$translations[$langrow]['your_playlists'].'</h3>';
 
     while ($row = $result->fetch_assoc()) {
         $playlistId = $row['playlist_id'];
@@ -134,9 +137,9 @@ if ($result->num_rows > 0) {
 
         $vidsInPlaylist = count($playlistCont);
         if ($vidsInPlaylist == 1) {
-          $vidsInPlaylistText = "1 Video";
+          $vidsInPlaylistText = "1 ".$translations[$langrow]['video'];
         } else {
-          $vidsInPlaylistText = $vidsInPlaylist." Videos";
+          $vidsInPlaylistText = $vidsInPlaylist." ".$translations[$langrow]['videos'];
         }
 
         if (!empty($playlistCont)) {
@@ -161,15 +164,11 @@ if ($result->num_rows > 0) {
 HTML;
     }
 } else {
-    echo "<p>No playlists.</p>";
+    echo "<p>0 ".$translations[$langrow]['playlists'].".</p>";
 }
-  
-  // Close the statement
-  $stmt->close();
-  
-  // Close the database connection
-  $conn->close();
 
+  $stmt->close();
+  $conn->close();
 
 
 echo '
@@ -178,12 +177,12 @@ echo '
 <script src="/scripts/playlist.js"></script>
 
 <br><br>
-<div class="epicdiv"><h4>Create a Playlist</h4>
+<div class="epicdiv"><h4>'.$translations[$langrow]['create_a_playlist'].'</h4>
 <form method="POST" action="create_playlist.php">
-    <label for="new_playlist_name">Name:</label>
+    <label for="new_playlist_name">'.$translations[$langrow]['name'].':</label>
     <input type="text" id="new_playlist_name" name="new_playlist_name" required>
     <br>
-    <input type="submit" value="Create Playlist">
+    <input type="submit" value="'.$translations[$langrow]['create_playlist'].'">
 </form>
 </div>
 
