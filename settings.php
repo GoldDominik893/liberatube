@@ -174,12 +174,13 @@ echo '<div class="tenborder">
   <select class="formsel" style="border-radius: 6px;" id="lang" name="lang" value="--Please Select--">
   <option class="formsel" value="'.$langrow.'">'.$translations[$langrow]['selected'].': '.$langrow.'</option>
   <option class="formsel" disabled value="">----------</option>
-      <option class="formsel" value="en">English</option>
-      <option class="formsel" value="es">Español</option>
-      <option class="formsel" value="pl">Polski</option>
-      <option class="formsel" value="de">Deutsch</option>
-      <option class="formsel" value="fi">Suomi</option>
-      <option class="formsel" value="fr">Français</option>
+      <option class="formsel" value="en">English (en)</option>
+      <option class="formsel" value="es">Español (es)</option>
+      <option class="formsel" value="pl">Polski (pl)</option>
+      <option class="formsel" value="de">Deutsch (de)</option>
+      <option class="formsel" value="zh-CN">简体中文 (zh-CN)</option>
+      <option class="formsel" value="fi">Suomi (fi)</option>
+      <option class="formsel" value="fr">Français (fr)</option>
   </select>
 
   <br>
