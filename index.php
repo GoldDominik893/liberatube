@@ -64,6 +64,7 @@ parse_str($url_components['query'], $params);
 <!DOCTYPE html>
 <html>
     <head>
+
         <title>Liberatube · <?php echo $translations[$langrow]['home']; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -73,7 +74,24 @@ parse_str($url_components['query'], $params);
 
 
 
-        <link rel="stylesheet" href="/styles/-w3.css">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta property="og:title" content="Home Page">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="/">
+        <meta name="theme-color" content="#303EE1">
+        <meta name="keywords" content="libretube, badyt.cf, liberatube, EpicFaucet, two.epicfaucet.gq, yewtu.be, alternative youtube frontend, Liberatube, invidious">
+        <meta property="og:locale" content="en_GB">
+        <meta property="og:description" content="Liberatube is a Privacy, Feature Rich alternative front end to YouTube.">
+        <meta property="description" content="Liberatube is a Privacy, Feature Rich alternative front end to YouTube.">
+        <meta name="og:image" content="https://github.com/GoldDominik893/file-hosting/blob/main/images/favicon.png?raw=true"/>
+
+        <span><meta property="og:site_name" content="Liberatube">
+        <link itemprop="name" content="Liberatube"></span></head>
+
+
+
+<link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
 <link rel="stylesheet" href="/styles/-googlesymbols.css">
 
