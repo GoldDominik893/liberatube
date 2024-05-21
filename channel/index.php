@@ -157,7 +157,8 @@ if ($useSQL == true) {
                 $bannerUrl = $value['authorBanners'][1]['url'] ?? "";
                 $subcount = number_format($value['subCount']) ?? "";
                 $joined = $value['joined'] ?? "";
-                $channelPfpUrl = $value['authorThumbnails'][1]['url'] ?? "";
+                $channelDescription = $value['description'];
+                $channelPfpUrl = $value['authorThumbnails'][5]['url'] ?? "";
 
                 if($params['q']){
                 $InvApiUrl = $InvVIServer.'/api/v1/channels/search/'.$params['id'].'?hl='.$langrow.'&q='.$params['q'];
@@ -175,9 +176,23 @@ if ($useSQL == true) {
                 $data = json_decode($response);
                 $value_search = json_decode(json_encode($data), true);
                 }   
-                
+                ?>
 
-                
+                    <meta charset="utf-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta property="og:title" content="<?php echo $authorc; ?>">
+                    <meta property="og:type" content="website">
+                    <meta name="theme-color" content="#303EE1">
+                    <meta name="keywords" content="libretube, badyt.cf, liberatube, EpicFaucet, two.epicfaucet.gq, yewtu.be, alternative youtube frontend, Liberatube, invidious">
+                    <meta property="og:locale" content="en_GB">
+                    <meta property="og:description" content="<?php echo $channelDescription; ?>">
+                    <meta property="description" content="<?php echo $channelDescription; ?>">
+                    <meta name="og:image" content="<?php echo $channelPfpUrl; ?>"/>
+
+                    <span><meta property="og:site_name" content="Liberatube">
+                    <link itemprop="name" content="Liberatube"></span></head>
+
+                <?php
 
                 $pl = file_get_contents($InvVIServer.'/api/v1/channels/'.$params['id'].'/playlists/?hl='.$langrow);
                 $plitemsint = substr_count($pl,"playlistThumbnail");
@@ -234,6 +249,10 @@ if ($useSQL == true) {
                     <a href="/channel/?id='.$params['id'].'&type=videos">'.$translations[$langrow]['videos'].'</a><br>
                     > <a href="#">'.$translations[$langrow]['playlists'].'</a><br>
                 </div><br><br>'; }
+                echo '<div class="epicdiv" style="display: block; width: 100%;"><h4>'.$translations[$langrow]['description'].'</h4>
+                    <p style="margin: 0;">'.$channelDescription.'</p>
+                </div>';
+                
                 ?>
 
             <br>

@@ -87,6 +87,7 @@ $translations = array(
         'add_vid_to_playlist' => 'Add this video to a playlist',
         'load_comments' => 'Load comments',
         'video' => 'Video',
+        'description' => 'Description',
     ),
     'pl' => array (
         'home' => 'Strona główna',
@@ -174,6 +175,7 @@ $translations = array(
         'add_vid_to_playlist' => 'Dodaj to wideo do listy odtwarzania',
         'load_comments' => 'Wczytaj komentarze',
         'video' => 'Wideo',
+        'description' => 'Opis',
     ),
     'fr' => array (
         'home' => "Accueil",
@@ -261,6 +263,7 @@ $translations = array(
         'add_vid_to_playlist' => 'Ajouter cette vidéo à une liste de lecture',
         'load_comments' => 'Charger les commentaires',
         'video' => 'Vidéo',
+        'description' => 'Description',
     ),
     'es' => array (
         'home' => 'Inicio',
@@ -348,6 +351,7 @@ $translations = array(
         'add_vid_to_playlist' => 'Agregar este video a una lista de reproducción',
         'load_comments' => 'Cargar comentarios',
         'video' => 'Vídeo',
+        'description' => 'Descripción',
     ),
     'de' => array (
         'home' => 'Startseite',
@@ -435,6 +439,7 @@ $translations = array(
         'add_vid_to_playlist' => 'Dieses Video zu einer Wiedergabeliste hinzufügen',
         'load_comments' => 'Kommentare laden',
         'video' => 'Video',
+        'description' => 'Beschreibung',
     ),
     'fi' => array(
         'home' => 'Koti',
@@ -522,6 +527,7 @@ $translations = array(
         'add_vid_to_playlist' => 'Lisää tämä video soittolistalle',
         'load_comments' => 'Lataa kommentit',
         'video' => 'Video',
+        'description' => 'Kuvaus',
     ),
     'zh-CN' => array(
         'home' => '首页',
@@ -608,6 +614,7 @@ $translations = array(
         'channel' => '频道',
         'add_vid_to_playlist' => '将此视频添加到播放列表',
         'load_comments' => '加载评论',
-        'video' => '视频'    
+        'video' => '视频',
+        'description' => '描述',
     ),    
 );
