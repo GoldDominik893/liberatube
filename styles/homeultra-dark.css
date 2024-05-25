@@ -7,7 +7,7 @@ body {
     font-family: 'Signika Negative', sans-serif;
     padding: 0px;
     color: white;
-    background-color: #070707;
+    background-color: rgb(14,14,14);
     color-scheme: dark;
 }
 
@@ -19,6 +19,7 @@ body {
 a {
     color: #777;
 }
+
 a:hover, a:focus {
     color: #ff4444;
     text-decoration: none;
@@ -27,22 +28,24 @@ a:hover, a:focus {
 .awhite {
     color: white;
 }
+
 .awhite:hover {
     color: DodgerBlue;
 }
+
 .tenborder {
     padding: 10px;
 }
+
+
 .sidebar {
-    background-color: #020202;
+    background-color: rgb(10, 10, 10);
     line-height: 0.5;
 }
-.sidebarbtn-selected {
-    background-color: #050505;
+.sidebarbtn-selected, .sidebarbtn:hover {
+    background-color: rgb(15, 15, 15);
 }
-.sidebarbtn:hover {
-    background-color: #030303;
-}
+
 .awhitesidebar {
     color: white;
 }
@@ -50,17 +53,9 @@ a:hover, a:focus {
     color: lightgray;
 }
 .sidebarbtn-selected:hover {
-    background-color: #070707;
+    background-color: rgb(19, 19, 19);
 }
-.awhite {
-    color: white;
-}
-.awhite:hover {
-    color: DodgerBlue;
-}
-.tenborder {
-    padding: 10px;
-}
+
 
 
 
@@ -123,8 +118,8 @@ transition: 0.3s
     width: 200px;
     border-radius: 3px;
     padding: 5px;
-    border: #202020 2px solid;
-    background: #080808;
+    border: #252525 1px solid;
+    background: #0e0e0e;
 }
 .input-field:focus {
     color: white;
@@ -191,16 +186,18 @@ transition: 0.3s
 .topbarelements-center {
   float: center;
 }
+
 .button {
 display: inline-block;
 padding: 6px 12px;
 text-align: center;
 text-decoration: none;
-background-color: rgba(0, 0, 0, 0.9);
+background-color: rgba(20, 20, 20, 0.9);
 border-radius: 6px;
 outline: none;
 color: white;
 }
+
 .material-symbols-outlined {
 font-variation-settings:
 'FILL' 0,
@@ -208,6 +205,7 @@ font-variation-settings:
 'GRAD' 0,
 'opsz' 48
 }
+
 .login-item {
     display: inline-block;
     padding: 1px 6px 1px 6px;
@@ -249,7 +247,7 @@ img {
 }
 
 .epicdiv {
-    background: #0f0f0f;
+    background: #141414;
     border: 1px solid rgb(31, 31, 31);
     width: 256px;
     border-radius: 4px;

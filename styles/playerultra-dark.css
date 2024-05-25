@@ -2,11 +2,12 @@
     font-family: 'Signika Negative';
     src: url('/styles/-signikanegative400.ttf') format('truetype');
 }
+
 body {
     font-family: 'Signika Negative', sans-serif;
     padding: 0px;
     color: white;
-    background-color: #070707;
+    background-color: rgb(14,14,14);
     color-scheme: dark;
 }
 
@@ -36,17 +37,15 @@ a:hover, a:focus {
     padding: 10px;
 }
 
+
 .sidebar {
-    background-color: #020202;
+    background-color: rgb(10, 10, 10);
     line-height: 0.5;
 }
+.sidebarbtn-selected, .sidebarbtn:hover {
+    background-color: rgb(15, 15, 15);
+}
 
-.sidebarbtn-selected {
-    background-color: #050505;
-}
-.sidebarbtn:hover {
-    background-color: #030303;
-}
 .awhitesidebar {
     color: white;
 }
@@ -54,8 +53,16 @@ a:hover, a:focus {
     color: lightgray;
 }
 .sidebarbtn-selected:hover {
-    background-color: #070707;
+    background-color: rgb(19, 19, 19);
 }
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+    }
 
 .popup {
 position: relative;
@@ -106,10 +113,6 @@ to {opacity: 1;}
 @keyframes fadeIn {
 from {opacity: 0;}
 to {opacity: 1;}
-}
-
-.awhite:hover {
-    color: DodgerBlue;
 }
 
 .tenborder {
@@ -170,13 +173,14 @@ background: rgba(10, 10, 10, 0.5);
     padding: 6px 12px;
     text-align: center;
     text-decoration: none;
-    background-color: rgba(20,20,20,0.2);
+    background-color: rgba(20, 20, 20, 0.9);
     color: white;
     border-radius: 6px;
     border: 2px solid rgb(27, 27, 27);
     transition: transform 0.2s;
     transition: 0.3s
     }
+
 .button:hover {
 cursor: pointer;
 color: #ff4444;
@@ -240,8 +244,8 @@ details {
   }
 
   .settingsdiv {
-    background: #0f0f0f;
     width: 100%;
+    background: #141414;
     border: 1px solid rgb(31, 31, 31);
     max-width: 416px;
     border-radius: 4px;
