@@ -27,6 +27,7 @@ a:hover, a:focus {
 .sidebar {
     background-color: #1b202c;
     line-height: 0.5;
+    overflow: visible;
 }
 .sidebarbtn-selected, .sidebarbtn:hover, .sidebarbtn-selected:hover {
     background-color: #323947;
@@ -46,6 +47,29 @@ a:hover, a:focus {
 .tenborder {
     padding: 10px;
 }
+
+
+
+.sidebarbtn .tooltiptext {
+    visibility: hidden;
+
+    background-color: rgb(33, 35, 53);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    margin-left: 42px;
+    margin-top: -26px;
+    position: absolute;
+    
+}
+
+.sidebarbtn:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+
 
 .popup {
 position: relative;

@@ -55,6 +55,7 @@ a:hover, a:focus {
     margin-right: 4px;
     margin-left: 4px;
     text-align: left;
+    vertical-align: top;
 }
 .videoDiv {
     width: 256px;
@@ -107,6 +108,27 @@ font-variation-settings:
 'opsz' 48
 }
 
+
+.sidebarbtn .tooltiptext {
+    visibility: hidden;
+
+    background-color: rgb(33, 35, 53);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    margin-left: 42px;
+    margin-top: -26px;
+    position: absolute;
+    
+}
+
+.sidebarbtn:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+
 .login-item {
     display: inline-block;
     padding: 1px 6px 1px 6px;
@@ -126,6 +148,7 @@ list-style-type: none;
 .sidebar {
     background-color: #1b202c;
     line-height: 0.5;
+    overflow: visible;
 }
 .sidebarbtn-selected, .sidebarbtn:hover, .sidebarbtn-selected:hover {
     background-color: #323947;
@@ -218,4 +241,17 @@ img {
 
 .epicdiv h4, .epicdiv h3 {
     margin-top: 0px;
+}
+
+.trending-cat-btn {
+    background-color: rgb(45, 50, 68);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 8px;
+}
+
+.trending-cat-btn-selected, .trending-cat-btn-selected:hover {
+    background-color: rgb(203, 203, 255);
+    color: #000000;
 }

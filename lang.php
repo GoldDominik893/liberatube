@@ -88,6 +88,9 @@ $translations = array(
         'load_comments' => 'Load comments',
         'video' => 'Video',
         'description' => 'Description',
+        'account' => 'Account',
+        'audio' => 'Audio',
+        'search' => 'Search',
     ),
     'pl' => array (
         'home' => 'Strona główna',
@@ -176,6 +179,9 @@ $translations = array(
         'load_comments' => 'Wczytaj komentarze',
         'video' => 'Wideo',
         'description' => 'Opis',
+        'account' => 'Konto',
+        'audio' => 'Audio',
+        'search' => 'Szukaj',
     ),
     'fr' => array (
         'home' => "Accueil",
@@ -264,6 +270,9 @@ $translations = array(
         'load_comments' => 'Charger les commentaires',
         'video' => 'Vidéo',
         'description' => 'Description',
+        'account' => 'Compte',
+        'audio' => 'Audio',
+        'search' => 'Rechercher',
     ),
     'es' => array (
         'home' => 'Inicio',
@@ -352,6 +361,9 @@ $translations = array(
         'load_comments' => 'Cargar comentarios',
         'video' => 'Vídeo',
         'description' => 'Descripción',
+        'account' => 'Cuenta',
+        'audio' => 'Audio',
+        'search' => 'Buscar',
     ),
     'de' => array (
         'home' => 'Startseite',
@@ -440,6 +452,9 @@ $translations = array(
         'load_comments' => 'Kommentare laden',
         'video' => 'Video',
         'description' => 'Beschreibung',
+        'account' => 'Konto',
+        'audio' => 'Audio',
+        'search' => 'Suche',
     ),
     'fi' => array(
         'home' => 'Koti',
@@ -528,6 +543,9 @@ $translations = array(
         'load_comments' => 'Lataa kommentit',
         'video' => 'Video',
         'description' => 'Kuvaus',
+        'account' => 'Tili',
+        'audio' => 'Ääni',
+        'search' => 'Haku',
     ),
     'zh-CN' => array(
         'home' => '首页',
@@ -616,5 +634,8 @@ $translations = array(
         'load_comments' => '加载评论',
         'video' => '视频',
         'description' => '描述',
+        'account' => '帐户',
+        'audio' => '音频',
+        'search' => '搜索',
     ),    
 );

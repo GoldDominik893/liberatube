@@ -87,16 +87,18 @@ if ($useSQL == true) {
 }
 ?>
     <body>
-<div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
+    <div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
-  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">home</span></a>
+  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span><span class="tooltiptext"><?php echo $translations[$langrow]['home']; ?></span></a>
   <?php
   if ($useSQL == true) { ?>
-  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span></a>
-  <a href="/playlist/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span></a>
-  <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span></a>
-  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span></a>
+  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span><span class="tooltiptext"><?php echo $translations[$langrow]['watch_history']; ?></span></a>
+  <a href="/playlist/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span><span class="tooltiptext"><?php echo $translations[$langrow]['playlists']; ?></span></a>
+  <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span><span class="tooltiptext"><?php echo $translations[$langrow]['subscriptions']; ?></span></a>
+  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span><span class="tooltiptext"><?php echo $translations[$langrow]['settings']; ?></span></a>
   <?php } ?>
+  <hr class="hr">
+  <a href="#" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">person</span><span class="tooltiptext"><?php echo $translations[$langrow]['channel']; ?></span></a>
 </div>
 
 <div class="w3-main" style="margin-left:55px">
@@ -201,57 +203,60 @@ if ($useSQL == true) {
                 if ($params['type'] == "videos" or $params['type'] == "")
                 {
                 echo '<div class="search-form-container">
-                <img src="'.$bannerUrl.'" style="max-width: 100%"><br><br>
-                <img style="margin-bottom: -25px; width: 100px;" src="'.$channelPfpUrl.'"><br><br>
-                    
-                <div style="margin-left: 105px; margin-top: -105px;">
-                    <h4>'.$authorc.': '.$subcount.' '.$translations[$langrow]['subscribers'].'</h4>
+
+                <img src="'.$bannerUrl.'" style="max-width: 100%; margin-bottom: 10px;">
+                <div style="display: flex;">
+                <img style="width: 100px; margin-bottom: 10px; height: 100px;" src="'.$channelPfpUrl.'">
+                <div style="margin-left: 5px;">
+                    <h4 style="margin-top: 2px;">'.$authorc.': '.$subcount.' '.$translations[$langrow]['subscribers'].'</h4>
+                    <p>'.$channelDescription.'</p>
                 </div>
-                <div style="margin-left: 105px; margin-top: -7px;">
-                    > <a href="#">'.$translations[$langrow]['videos'].'</a>';
+                </div>
+                
+
+
+                    <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['videos'].'</a>';
                     if ($params['sort_by'] == "latest" or $params['sort_by'] == "") {
                         echo '
-                            > <a href="#">'.$translations[$langrow]['latest'].'</a> <
-                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=popular">'.$translations[$langrow]['popular'].'</a>
-                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=oldest">'.$translations[$langrow]['oldest'].'</a>';
+                            <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['latest'].'</a>
+                            <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos&sort_by=popular">'.$translations[$langrow]['popular'].'</a>
+                            <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos&sort_by=oldest">'.$translations[$langrow]['oldest'].'</a>';
                     } elseif ($params['sort_by'] == "popular") {
                         echo '
-                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=latest">'.$translations[$langrow]['latest'].'</a>
-                            > <a href="#">'.$translations[$langrow]['popular'].'</a> <
-                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=oldest">'.$translations[$langrow]['oldest'].'</a>';
+                            <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos&sort_by=latest">'.$translations[$langrow]['latest'].'</a>
+                            <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['popular'].'</a>
+                            <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos&sort_by=oldest">'.$translations[$langrow]['oldest'].'</a>';
                     } elseif ($params['sort_by'] == "oldest") {
                         echo '
-                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=latest">'.$translations[$langrow]['latest'].'</a>
-                            <a href="/channel/?id='.$params['id'].'&type=videos&sort_by=popular">'.$translations[$langrow]['latest'].'</a>
-                            > <a href="#">'.$translations[$langrow]['oldest'].'</a> <';
+                            <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos&sort_by=latest">'.$translations[$langrow]['latest'].'</a>
+                            <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos&sort_by=popular">'.$translations[$langrow]['popular'].'</a>
+                            <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['oldest'].'</a>';
                     }
                 echo '    
-                    <br><a href="/channel/?id='.$params['id'].'&type=playlists">'.$translations[$langrow]['playlists'].'</a><br>
-                </div>
                         <form class="input-row topbarelements" id="keywordForm" method="get" action="/channel/">
-                            <div class="input-row topbarelements topbarelements-right">
-                                <input style="margin-left: 105px; margin-top: -2px;" class="input-field" type="search" id="keyword" name="q" placeholder="'.$translations[$langrow]['search_this_channel'].'" value="'.$params['q'].'">
+                            <div class="input-row">
+                                <input style="margin-bottom: -32px; background-color: rgb(27, 27, 27); border: none; border-radius: 6px; height: 27px;" class="input-field" type="search" id="keyword" name="q" placeholder="'.$translations[$langrow]['search_this_channel'].'" value="'.$params['q'].'">
                                 <input type="hidden" id="id" name="id" value="'.$params['id'].'">
                             </div>
                         </form>
-                </div>';
+                
+                
+                <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=playlists">'.$translations[$langrow]['playlists'].'</a><br>';
             }
                 elseif ($params['type'] == "playlists") 
                 {
                 echo '<div class="search-form-container">
-                <img src="'.$bannerUrl.'" style="max-width: 100%"><br><br>
-                <img style="margin-bottom: -25px; width: 100px;" src="'.$channelPfpUrl.'"><br><br>
-                    
-                <div style="margin-left: 105px; margin-top: -105px;">
-                    <h4>'.$authorc.': '.$subcount.' '.$translations[$langrow]['subscribers'].'</h4>
+                <img src="'.$bannerUrl.'" style="max-width: 100%; margin-bottom: 10px;">
+                <div style="display: flex;">
+                <img style="width: 100px; margin-bottom: 10px; height: 100px;" src="'.$channelPfpUrl.'">
+                <div style="margin-left: 5px;">
+                    <h4 style="margin-top: 2px;">'.$authorc.': '.$subcount.' '.$translations[$langrow]['subscribers'].'</h4>
+                    <p>'.$channelDescription.'</p>
                 </div>
-                <div style="margin-left: 105px; margin-top: -7px;">
-                    <a href="/channel/?id='.$params['id'].'&type=videos">'.$translations[$langrow]['videos'].'</a><br>
-                    > <a href="#">'.$translations[$langrow]['playlists'].'</a><br>
-                </div><br><br>'; }
-                echo '<div class="epicdiv" style="display: block; width: 100%;"><h4>'.$translations[$langrow]['description'].'</h4>
-                    <p style="margin: 0;">'.$channelDescription.'</p>
-                </div>';
+                </div>
+
+                    <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos">'.$translations[$langrow]['videos'].'</a>
+                    <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['playlists'].'</a><br>'; }
                 
                 ?>
 

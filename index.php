@@ -142,13 +142,13 @@ if ($useSQL == true) {
 
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
-  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">home</span></a>
+  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">home</span><span class="tooltiptext"><?php echo $translations[$langrow]['home']; ?></span></a>
   <?php
   if ($useSQL == true) { ?>
-  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span></a>
-  <a href="/playlist/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span></a>
-  <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span></a>
-  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span></a>
+  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span><span class="tooltiptext"><?php echo $translations[$langrow]['watch_history']; ?></span></a>
+  <a href="/playlist/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span><span class="tooltiptext"><?php echo $translations[$langrow]['playlists']; ?></span></a>
+  <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span><span class="tooltiptext"><?php echo $translations[$langrow]['subscriptions']; ?></span></a>
+  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span><span class="tooltiptext"><?php echo $translations[$langrow]['settings']; ?></span></a>
   <?php } ?>
 </div>
 
@@ -267,35 +267,35 @@ else {
             
             if ($params['type'] == "General" or $params['type'] == "") 
                 {
-                echo '<div align="left" style="margin-top:-50px">
-                      > <a href="#">'.$translations[$langrow]['general'].'</a><br>
-                      <a href="/?type=Music">'.$translations[$langrow]['music'].'</a><br>
-                      <a href="/?type=Gaming">'.$translations[$langrow]['gaming'].'</a><br>
-                      <a href="/?type=Movies">'.$translations[$langrow]['movies'].'</a><br>
+                echo '<div align="left" style="margin-top:10px">
+                      <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['general'].'</a>
+                      <a class="trending-cat-btn" href="/?type=Music">'.$translations[$langrow]['music'].'</a>
+                      <a class="trending-cat-btn" href="/?type=Gaming">'.$translations[$langrow]['gaming'].'</a>
+                      <a class="trending-cat-btn" href="/?type=Movies">'.$translations[$langrow]['movies'].'</a><br><br>
                       </div>'; }
             elseif ($params['type'] == "Music") 
                 {
-                echo '<div align="left" style="margin-top:-50px">
-                      <a href="/?type=">'.$translations[$langrow]['general'].'</a><br>
-                      > <a href="#">'.$translations[$langrow]['music'].'</a><br>
-                      <a href="/?type=Gaming">'.$translations[$langrow]['gaming'].'</a><br>
-                      <a href="/?type=Movies">'.$translations[$langrow]['movies'].'</a><br>
+                echo '<div align="left" style="margin-top:10px">
+                      <a class="trending-cat-btn" href="/?type=">'.$translations[$langrow]['general'].'</a>
+                      <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['music'].'</a>
+                      <a class="trending-cat-btn" href="/?type=Gaming">'.$translations[$langrow]['gaming'].'</a>
+                      <a class="trending-cat-btn" href="/?type=Movies">'.$translations[$langrow]['movies'].'</a><br><br>
                       </div>'; }
             elseif ($params['type'] == "Gaming") 
                 {
-                echo '<div align="left" style="margin-top:-50px">
-                      <a href="/?type=">'.$translations[$langrow]['general'].'</a><br>
-                      <a href="/?type=Music">'.$translations[$langrow]['music'].'</a><br>
-                      > <a href="#">'.$translations[$langrow]['gaming'].'</a><br>
-                      <a href="/?type=Movies">'.$translations[$langrow]['movies'].'</a><br>
+                echo '<div align="left" style="margin-top:10px">
+                      <a class="trending-cat-btn" href="/?type=">'.$translations[$langrow]['general'].'</a>
+                      <a class="trending-cat-btn" href="/?type=Music">'.$translations[$langrow]['music'].'</a>
+                      <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['gaming'].'</a>
+                      <a class="trending-cat-btn" href="/?type=Movies">'.$translations[$langrow]['movies'].'</a><br><br>
                       </div>'; }
             elseif ($params['type'] == "Movies") 
                 {
-                echo '<div align="left" style="margin-top:-50px">
-                      <a href="/?type=">'.$translations[$langrow]['general'].'</a><br>
-                      <a href="/?type=Music">'.$translations[$langrow]['music'].'</a><br>
-                      <a href="/?type=Gaming">'.$translations[$langrow]['gaming'].'</a><br>
-                      > <a href="#">'.$translations[$langrow]['movies'].'</a><br>
+                echo '<div align="left" style="margin-top:10px">
+                      <a class="trending-cat-btn" href="/?type=">'.$translations[$langrow]['general'].'</a>
+                      <a class="trending-cat-btn" href="/?type=Music">'.$translations[$langrow]['music'].'</a>
+                      <a class="trending-cat-btn" href="/?type=Gaming">'.$translations[$langrow]['gaming'].'</a>
+                      <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['movies'].'</a><br><br>
                       </div>'; }
 
                 for ($i = 0; $i < $rsults; $i++) {

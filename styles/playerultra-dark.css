@@ -41,6 +41,7 @@ a:hover, a:focus {
 .sidebar {
     background-color: rgb(10, 10, 10);
     line-height: 0.5;
+    overflow: visible;
 }
 .sidebarbtn-selected, .sidebarbtn:hover {
     background-color: rgb(15, 15, 15);
@@ -62,6 +63,24 @@ a:hover, a:focus {
     'wght' 400,
     'GRAD' 0,
     'opsz' 48
+    }
+
+    .sidebarbtn .tooltiptext {
+        visibility: hidden;
+
+        background-color: rgb(27, 27, 27);
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 10px;
+        margin-left: 42px;
+        margin-top: -26px;
+        position: absolute;
+        
+    }
+    
+    .sidebarbtn:hover .tooltiptext {
+        visibility: visible;
     }
 
 .popup {
