@@ -131,6 +131,10 @@ $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId='.$params['v
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="apple-mobile-web-app-title" content="Liberatube">
+        <link rel="apple-touch-icon" href="favicon.ico">
         <meta property="og:title" content="<?php echo $title; ?>">
         <meta property="og:type" content="website">
         <meta property="og:url" content="/?v=<?php echo $params['v']; ?>">

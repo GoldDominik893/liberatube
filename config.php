@@ -16,7 +16,7 @@
 
     // Invidious
     $InvCServer = "https://invidious.protokolla.fi";  // The Invidious instance that will be used to fetch comments
-    $InvVIServer = "https://invidious.protokolla.fi"; // The Invidious instance that will be used to fetch video information
+    $InvVIServer = "https://yt.artemislena.eu"; // The Invidious instance that will be used to fetch video information
     $InvTServer = "https://invidious.protokolla.fi";  // The Invidious instance that will be used to fetch trending videos for the home page
     $InvSServer = "https://invidious.protokolla.fi";  // The Invidious instance that will be used to search for content
 
