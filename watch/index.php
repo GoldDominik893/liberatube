@@ -242,7 +242,7 @@ if ($useSQL == true) {
                       <script src="../scripts/-video.min.js"></script>';
                 $videosizingcss = 'style="max-width: 98vw"';
             } else {
-                $videosizingcss = 'style="max-width: 98%; max-height: 90vh;"';
+                $videosizingcss = 'style="max-width: 100%; max-height: 90vh;"';
             }
             if ($params['listen'] == "true") {
                 
@@ -254,12 +254,39 @@ if ($useSQL == true) {
             }
             else {
 
-                    echo '<video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
-                    <source src="/videodata/non-hls.php?id='.$params['v'].$dlsetting.'" type="video/mp4">
-                    '.$captionshtml.'Your Browser Sucks! Can not play the video.
-                    </video>';
+
+                    $baseUrl = '/videodata/hls.php?id={{videoId}}&itag={{itag}}';
+
+                    foreach ($HlsItag as $index => $itag) {
+                        $quality = $HlsQuality[$index];
+                        if ($HlsQuality[$index] === null AND $HlsType[$index] !== null) {
+                            // For audio, store the URL in $audioUrl
+                            $audioUrl = str_replace(['{{videoId}}', '{{itag}}'], [$_GET['v'], $itag], $baseUrl);
+                        } else {
+                            $videoUrls[] = [
+                                'url' => str_replace(['{{videoId}}', '{{itag}}'], [$_GET['v'], $itag], $baseUrl),
+                                'quality' => $quality
+                            ];
+                            
+                        }
+                    }
+                    $videoUrls = array_reverse($videoUrls);
+                    echo '<video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay>';
+                    foreach ($videoUrls as $video) {
+                        echo '<source src="'.$video['url'].$dlsetting.'" type="video/mp4" label="HLS '.$video['quality'].'">';
+                    }
+                    echo '<source src="/videodata/non-hls.php?id='.$params['v'].$dlsetting.'" type="video/mp4" label="360/720p">'
+                    .$captionshtml.'Your Browser Sucks! Can not play the video.</video>
+
+                    <audio id="audio" preload="auto">
+                    <source src="'.$audioUrl.$dlsetting.'" type="audio/mp4">
+                    </audio>
+                    
+                    <select id="qualitySelector"></select>';
 
             }
+
+            
         ?>
 
     </center>

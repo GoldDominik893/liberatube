@@ -62,7 +62,7 @@ $url_components = parse_url($url);
 parse_str($url_components['query'], $params);
 ?>
 <!DOCTYPE html>
-<html>
+<head>
     <head>
 
         <title>Liberatube · <?php echo $translations[$langrow]['home']; ?></title>
@@ -87,7 +87,7 @@ parse_str($url_components['query'], $params);
         <meta name="og:image" content="https://github.com/GoldDominik893/file-hosting/blob/main/images/favicon.png?raw=true"/>
 
         <span><meta property="og:site_name" content="Liberatube">
-        <link itemprop="name" content="Liberatube"></span></head>
+        <link itemprop="name" content="Liberatube"></span>
 
 
 
@@ -135,6 +135,8 @@ if ($useSQL == true) {
     }
 }
 ?>
+
+</head>
     <body>
 
 

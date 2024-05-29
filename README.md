@@ -39,7 +39,8 @@
 
 * [x] Lightweight
 * [x] No ads and no tracking
-* [x] Native language support.
+* [x] Native language support
+* [x] DASH/HLS video support
 * [x] Playlists
 * [x] Blue/Ultra dark themes
 * [x] Community driven plugin store
@@ -51,11 +52,10 @@
 
 ## To do
 
-* [ ] DASH/HLS video through VideoJS.
-* [ ] Autoplay for playlists.
-* [ ] Subscribing to channels.
-* [ ] Caching the trending page to reduce loading times significantly.
-* [ ] Annotations (clickable links on the video basically).
+* [ ] Autoplay for playlists
+* [ ] Subscribing to channels
+* [ ] Caching the trending page to reduce loading times significantly
+* [ ] Annotations (clickable links on the video basically)
 
 ## Related Repositories
 
@@ -108,7 +108,7 @@ This tool is provided to you in the spirit of free, open source software.
 
 You may view the LICENSE in which this software is provided to you [here](./LICENSE).
 
->   16. Limitation of Liability.
+> 16. Limitation of Liability.
 >
 > IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
 WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS
