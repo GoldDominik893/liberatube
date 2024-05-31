@@ -62,7 +62,7 @@ function seekToTime(timestamp) {
 
 
 
-  document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     const video = document.getElementById('video');
     const audio = document.getElementById('audio');
     const qualitySelector = document.getElementById('qualitySelector');
@@ -143,7 +143,9 @@ function seekToTime(timestamp) {
     // Add event listener for quality change
     qualitySelector.addEventListener('change', function () {
         const selectedQuality = this.options[this.selectedIndex].textContent;
+        const currentTime = video.currentTime;
         video.src = this.value;
+        video.currentTime = currentTime;
         video.play();
         if (selectedQuality === '360/720p') {
             disableSync = true;
