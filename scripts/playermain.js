@@ -67,8 +67,10 @@ function seekToTime(timestamp) {
     const qualitySelector = document.getElementById('qualitySelector');
 
     let shouldUpdateTime = true;
+    let disableSync = false;
 
     function syncPlayPause(event) {
+        if (disableSync) return;
         if (event.target === audio && video.paused !== audio.paused) {
             if (audio.paused) video.pause();
             else video.play();
@@ -84,6 +86,7 @@ function seekToTime(timestamp) {
     audio.addEventListener('pause', syncPlayPause);
 
     function checkSync() {
+        if (disableSync) return;
         if (shouldUpdateTime && Math.abs(video.currentTime - audio.currentTime) > 0.3) {
             audio.currentTime = video.currentTime;
         }
@@ -92,6 +95,7 @@ function seekToTime(timestamp) {
     setInterval(checkSync, 100);
 
     document.addEventListener('visibilitychange', function () {
+        if (disableSync) return;
         if (document.visibilityState === 'hidden') {
             shouldUpdateTime = false;
         } else if (document.visibilityState === 'visible') {
@@ -101,6 +105,7 @@ function seekToTime(timestamp) {
     });
 
     function keepPlaying() {
+        if (disableSync) return;
         if (document.visibilityState === 'hidden') {
             if (!audio.paused) {
                 audio.play().catch(error => console.log('Audio play error:', error));
@@ -119,6 +124,7 @@ function seekToTime(timestamp) {
     requestAnimationFrame(keepPlaying);
 
     video.addEventListener('seeked', () => {
+        if (disableSync) return;
         if (shouldUpdateTime) {
             audio.currentTime = video.currentTime;
         }
@@ -135,7 +141,14 @@ function seekToTime(timestamp) {
 
     // Add event listener for quality change
     qualitySelector.addEventListener('change', function () {
+        const selectedQuality = this.options[this.selectedIndex].textContent;
         video.src = this.value;
         video.play();
+        if (selectedQuality === '360/720p') {
+            disableSync = true;
+            audio.pause(); // Stop the audio
+        } else {
+            disableSync = false;
+        }
     });
 });
