@@ -239,9 +239,9 @@ if ($useSQL == true) {
             if(strcmp($playerrow, 'vjs') == 0) {
                 echo '<link rel="stylesheet" href="../styles/-video-js.css">
                       <script src="../scripts/-video.min.js"></script>';
-                $videosizingcss = 'style="max-width: 98vw"';
+                $videosizingcss = 'style="width: 98vw"';
             } else {
-                $videosizingcss = 'style="max-width: 100%; max-height: 90vh;"';
+                $videosizingcss = 'style="width: 100%; max-height: 90vh;"';
             }
             if ($params['listen'] == "true") {
                 
@@ -259,7 +259,6 @@ if ($useSQL == true) {
                     foreach ($HlsItag as $index => $itag) {
                         $quality = $HlsQuality[$index];
                         if ($HlsQuality[$index] === null AND $HlsType[$index] !== null) {
-                            // For audio, store the URL in $audioUrl
                             $audioUrl = str_replace(['{{videoId}}', '{{itag}}'], [$_GET['v'], $itag], $baseUrl);
                         } else {
                             $videoUrls[] = [
