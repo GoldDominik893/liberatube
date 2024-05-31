@@ -310,3 +310,8 @@ text-decoration: none;
 transition: transform 0.2s;
 transition: 0.3s
 }
+
+select.button option {
+    background-color: #141414;
+    color: white;
+}

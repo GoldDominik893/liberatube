@@ -229,7 +229,6 @@ if ($useSQL == true) {
 
 
 <div class="tenborder">
-<br>
 <center>
             <?php
             if ($userproxysetting == "on" and $allowProxy = "true") {
@@ -282,17 +281,12 @@ if ($useSQL == true) {
                     <source src="'.$audioUrl.$dlsetting.'" type="audio/mp4">
                     </audio>
                     
-                    <select id="qualitySelector"></select>';
+                    ';
 
             }
 
             
         ?>
-
-    </center>
-
-        <center>
-        <div>
 
         <textarea hidden id="textbox" value="<?php echo $url; ?>"><?php echo $url; ?></textarea>
         
@@ -300,8 +294,11 @@ if ($useSQL == true) {
 <h3 style="text-align: center;"> <?php echo $title; ?> <br></h3>
 <h4 style="text-align: center;"><?php echo $shared; ?> · <?php echo $views; ?> <?php echo $translations[$langrow]['views']; ?> · <?php echo $likes; ?> <?php echo $translations[$langrow]['likes']; ?><?php echo $dislikes; ?></h4>
 
+<?php if ($params['listen'] != "true") { ?>
+    <select class="button" id="qualitySelector"></select>
+<?php } ?>
 
-</div><a class="popup button" onclick="myFunction(), copyText()">
+<a class="popup button" onclick="myFunction(), copyText()">
 <span class="popuptext" id="myPopup"><?php echo $translations[$langrow]['url_copied']; ?></span><?php echo $translations[$langrow]['share']; ?></a>
 
 <a class="button" onclick="Alert.render('ok')"><?php echo $translations[$langrow]['download']; ?></a>

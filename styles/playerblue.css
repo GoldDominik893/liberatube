@@ -70,7 +70,6 @@ a:hover, a:focus {
 
 
 
-
 .popup {
 position: relative;
 display: inline-block;
@@ -295,4 +294,10 @@ background-color: rgba(30,30,30,0.2);
 text-decoration: none;
 transition: transform 0.2s;
 transition: 0.3s
+}
+
+select.button, select.button option {
+    color: white;
+    border: none;
+    background-color: rgb(21, 28, 37);
 }
