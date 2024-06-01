@@ -41,7 +41,7 @@
                     if ($_GET['itag']) {
                         $preferredItags = [$_GET['itag']];
                     } else {
-                        $preferredItags = ['139', '140', '249', '250', '251'];
+                        $preferredItags = ['140', '249', '250', '251', '139'];
                     }
                     
 

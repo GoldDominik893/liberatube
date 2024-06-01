@@ -1,16 +1,16 @@
 ::-webkit-media-controls-enclosure {
     border-radius: 0px;
     display: revert;
-      transition: transform 0.2s;
-  transition: 1.8s;
-  -webkit-text-stroke: 1px white;
+    transition: transform 0.2s;
+    transition: 1.8s;
+    -webkit-text-stroke: 1px white;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
 ::-webkit-media-controls-enclosure:hover {
     border-radius: 0px;
-  display: revert;
-      background-color: rgb(31, 31, 31);
-      transition: transform 0.2s;
-  transition: 0.3s;
+    display: revert;
+    background-color: rgb(31, 31, 31);
+    transition: transform 0.2s;
+    transition: 0.3s;
 }

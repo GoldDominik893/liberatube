@@ -240,7 +240,7 @@ if ($useSQL == true) {
 
 
 <div class="tenborder">
-<center>
+
             <?php
             if ($userproxysetting == "on" and $allowProxy = "true") {
                 $dlsetting = "&dl=true";
@@ -255,12 +255,13 @@ if ($useSQL == true) {
                 $videosizingcss = 'style="width: 100%; max-height: 90vh;"';
             }
             if ($params['listen'] == "true") {
-                
+
                 echo '<link rel="stylesheet" href="../styles/audioplayer.css">
-                    <video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="https://i.ytimg.com/vi/'.$params['v'].'/maxresdefault.jpg" autoplay controls>
-                    <source src="/videodata/hls.php?id='.$params['v'].$dlsetting.'" type="audio/webm">
+                    <center><img style="max-height: 60vh; max-width: 100%;" src="https://i.ytimg.com/vi/'.$params['v'].'/maxresdefault.jpg"></center>
+                    <audio preload="auto" '.$videosizingcss.' autoplay controls>
+                    <source src="/videodata/hls.php?id='.$params['v'].$dlsetting.'" type="audio/mp4">
                     Your Browser Sucks! Can not play the audio.
-                    </video>';
+                    </audio>';
             }
             else {
 
@@ -269,7 +270,7 @@ if ($useSQL == true) {
 
                     foreach ($HlsItag as $index => $itag) {
                         $quality = $HlsQuality[$index];
-                        if ($HlsQuality[$index] === null AND $HlsType[$index] !== null) {
+                        if ($HlsQuality[$index] === null AND $HlsType[$index] !== null AND $HlsType[$index] !== 'webm') {
                             $audioUrl = str_replace(['{{videoId}}', '{{itag}}'], [$_GET['v'], $itag], $baseUrl);
                         } else {
                             $videoUrls[] = [
@@ -301,8 +302,8 @@ if ($useSQL == true) {
         <textarea hidden id="textbox" value="<?php echo $url; ?>"><?php echo $url; ?></textarea>
         
        
-<h3 style="text-align: center;"> <?php echo $title; ?> <br></h3>
-<h4 style="text-align: center;"><?php echo $shared; ?> · <?php echo $views; ?> <?php echo $translations[$langrow]['views']; ?> · <?php echo $likes; ?> <?php echo $translations[$langrow]['likes']; ?><?php echo $dislikes; ?></h4>
+<h3><?php echo $title; ?></h3>
+<h4><?php echo $shared; ?> · <?php echo $views; ?> <?php echo $translations[$langrow]['views']; ?> · <?php echo $likes; ?> <?php echo $translations[$langrow]['likes']; ?><?php echo $dislikes; ?></h4>
 
 <?php if ($params['listen'] != "true") { ?>
     <select class="button" id="qualitySelector"></select>
@@ -314,7 +315,7 @@ if ($useSQL == true) {
 <a class="button" onclick="Alert.render('ok')"><?php echo $translations[$langrow]['download']; ?></a>
 <a class="button" onclick="Alert_pl.render('ok')"><?php echo $translations[$langrow]['add_to_playlist']; ?></a>
 <a class="button" href="/channel/?id=<?php echo $authorId; ?>"><?php echo $author; ?> · <?php echo $autsubs; ?></a>
-</center>
+
 
 <div id="popUpBox_pl" style="display: none;">
 <div id="box_pl">
