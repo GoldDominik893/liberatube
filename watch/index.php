@@ -4,6 +4,9 @@ include('../config.php');
 $langrow = $defaultLang;
 include('../lang.php');
 
+
+
+
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
@@ -36,27 +39,35 @@ if ($useSQL == true) {
 $url = $link;
 $url_components = parse_url($url);
 parse_str($url_components['query'], $params);
+
+
+$cacheFile = 'cache/'.$langrow . '_' . $params['v'] . '.json';
+$cacheTime = 14400;
+$dislikeCacheFile = 'cache/dislikes_' . $params['v'] . '.json';
+if (!is_dir('cache/')) {
+    mkdir('cache/', 0755, true);
+}
+
 ?>
 <html>
 <head>
 
 
 <?php
-                $InvApiUrl = $InvVIServer.'/api/v1/videos/' . $params['v'] . '?hl='.$langrow;
-
-                $ch = curl_init();
-
-                curl_setopt($ch, CURLOPT_HEADER, 0);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_URL, $InvApiUrl);
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-                curl_setopt($ch, CURLOPT_VERBOSE, 0);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                $response = curl_exec($ch);
-
-                curl_close($ch);
-                $data = json_decode($response);
-                $value = json_decode(json_encode($data), true);
+                if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTime)) {
+                    $value = json_decode(file_get_contents($cacheFile), true);
+                } else {
+                    $InvApiUrl = $InvVIServer . '/api/v1/videos/' . $params['v'] . '?hl=' . $langrow;
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $InvApiUrl);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    $response = curl_exec($ch);
+                    curl_close($ch);
+                    $value = json_decode($response, true);
+                    file_put_contents($cacheFile, json_encode($value));
+                }
+                
                 
                     $title = $value['title'];
                     $description = $value['description'];
@@ -107,25 +118,25 @@ parse_str($url_components['query'], $params);
                         }
                     }
 
-if ($useReturnYTDislike == true) {
-$dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId='.$params['v'];
-
-                $ch = curl_init();
-
-                curl_setopt($ch, CURLOPT_HEADER, 0);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_URL, $dislikeapiurl);
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-                curl_setopt($ch, CURLOPT_VERBOSE, 0);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                $response = curl_exec($ch);
-
-                curl_close($ch);
-                $data = json_decode($response);
-                $value = json_decode(json_encode($data), true);
-                
-                    $dislikes = number_format($value['dislikes']);
-                    $dislikes = " · ".$dislikes.' '.$translations[$langrow]['estimated_dislikes']; }
+                    if ($useReturnYTDislike == true) {
+                        if (file_exists($dislikeCacheFile) && (time() - filemtime($dislikeCacheFile) < $cacheTime)) {
+                            $dislikeData = json_decode(file_get_contents($dislikeCacheFile), true);
+                        } else {
+                            $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId=' . $params['v'];
+                            $ch = curl_init();
+                            curl_setopt($ch, CURLOPT_URL, $dislikeapiurl);
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                            $response = curl_exec($ch);
+                            curl_close($ch);
+                            $dislikeData = json_decode($response, true);
+                            file_put_contents($dislikeCacheFile, json_encode($dislikeData));
+                        }
+                        $dislikes = " · " . number_format($dislikeData['dislikes']) . ' ' . $translations[$langrow]['estimated_dislikes'];
+                    } else {
+                        $dislikes = '';
+                    }
+                    
                     ?> 
 
         <meta charset="utf-8">
@@ -246,9 +257,9 @@ if ($useSQL == true) {
             if ($params['listen'] == "true") {
                 
                 echo '<link rel="stylesheet" href="../styles/audioplayer.css">
-                    <video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay controls>
+                    <video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="https://i.ytimg.com/vi/'.$params['v'].'/maxresdefault.jpg" autoplay controls>
                     <source src="/videodata/hls.php?id='.$params['v'].$dlsetting.'" type="audio/webm">
-                    '.$captionshtml.'Your Browser Sucks! Can not play the audio.
+                    Your Browser Sucks! Can not play the audio.
                     </video>';
             }
             else {
@@ -269,7 +280,7 @@ if ($useSQL == true) {
                         }
                     }
                     $videoUrls = array_reverse($videoUrls);
-                    echo '<video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="/videodata/poster.php?id='.$params['v'].'" autoplay>';
+                    echo '<video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="https://i.ytimg.com/vi/'.$params['v'].'/maxresdefault.jpg" autoplay>';
                     foreach ($videoUrls as $video) {
                         echo '<source src="'.$video['url'].$dlsetting.'" type="video/mp4" label="HLS '.$video['quality'].'">';
                     }
