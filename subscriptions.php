@@ -38,7 +38,6 @@ if ($useSQL == true) {
 <link rel="apple-touch-icon" href="favicon.ico">
 <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
-<link rel="stylesheet" href="/styles/-googlesymbols.css">
 <?php
 $dbsenduser = $_SESSION['logged_in_user'];
 $conn = new mysqli($servername, $username, $password, $dbname);

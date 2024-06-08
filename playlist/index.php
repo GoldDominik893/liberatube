@@ -48,8 +48,6 @@ parse_str($url_components['query'], $params);
 <link rel="apple-touch-icon" href="favicon.ico">
 <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
-<link rel="stylesheet" href="/styles/-googlesymbols.css">
-
 
 <?php
 if ($useSQL == true) {
