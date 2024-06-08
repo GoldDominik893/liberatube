@@ -50,7 +50,6 @@ while ($row = $result->fetch_assoc())
     $langrow = $row['lang'];
     $vidshadowrow = $row['videoshadow'];
     $proxyrow = $row['proxy'];
-    $playertyperow = $row['player'];
     $regionrow = $row['region'];
     $loadcommentsrow = $row['loadcomments'];
     $customthemeplayerrow = $row['customtheme_player_url'];
@@ -68,7 +67,6 @@ $numrows = $result->num_rows;
 <link rel="apple-touch-icon" href="favicon.ico">
 <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
-<link rel="stylesheet" href="/styles/-googlesymbols.css">
 
 
 
@@ -303,10 +301,6 @@ echo '<div class="tenborder">
   </div>
   <br>
   <div class="settingsdiv"><h4>'.$translations[$langrow]['player_prefs'].'</h4>
-<label for="player">'.$translations[$langrow]['player_type'].':</label>
-
-      <input type="radio" id="vjs" name="player" value="vjs" '.$checked3a.'></input><label class="label" for="vjs">VideoJS</label>
-      <input type="radio" id="html" name="player" value="html" '.$checked3b.'></input><label class="label" for="html">HTML</label><br>
 
     <label for="proxy">'.$translations[$langrow]['proxy_video'].':</label>
     <input name="proxy" type="checkbox" id="proxy"'.$checked2.'>'.$instanceProxyText.'</input><br>
@@ -407,8 +401,8 @@ $stmt->execute();
 $result = $stmt->get_result();
 if($result->num_rows) {
 }
-$stmt = $conn->prepare("UPDATE login SET customtheme_player_url = ?, customtheme_home_url = ?, theme = ?, lang = ?, region = ?, proxy = ?, player = ?, videoshadow = ?, loadcomments = ? WHERE username = ?");
-$stmt->bind_param("ssssssssss", $customthemeplayerrow, $customthemehomerow, $theme, $lang, $uregion, $torfproxy, $uplayertype, $uvideoshadow, $uloadcomments, $dbsenduser);
+$stmt = $conn->prepare("UPDATE login SET customtheme_player_url = ?, customtheme_home_url = ?, theme = ?, lang = ?, region = ?, proxy = ?, videoshadow = ?, loadcomments = ? WHERE username = ?");
+$stmt->bind_param("ssssssssss", $customthemeplayerrow, $customthemehomerow, $theme, $lang, $uregion, $torfproxy, $uvideoshadow, $uloadcomments, $dbsenduser);
 if ($stmt->execute() === TRUE) {   
 } else {
   echo "Error: <br>" . $conn->error;

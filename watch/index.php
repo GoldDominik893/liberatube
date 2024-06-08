@@ -54,8 +54,9 @@ if (!is_dir('cache/')) {
 
 
 <?php
-                if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTime)) {
+                if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTime))  {
                     $value = json_decode(file_get_contents($cacheFile), true);
+
                 } else {
                     $InvApiUrl = $InvVIServer . '/api/v1/videos/' . $params['v'] . '?hl=' . $langrow;
                     $ch = curl_init();
@@ -65,7 +66,11 @@ if (!is_dir('cache/')) {
                     $response = curl_exec($ch);
                     curl_close($ch);
                     $value = json_decode($response, true);
-                    file_put_contents($cacheFile, json_encode($value));
+                    $apiError = $value['error'];
+                    if (!$value['error']) {
+                        file_put_contents($cacheFile, json_encode($value));
+                    }
+                    
                 }
                 
                 
@@ -164,7 +169,6 @@ if (!is_dir('cache/')) {
 
 <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
-<link rel="stylesheet" href="/styles/-googlesymbols.css">
 
 <?php
 if ($useSQL == true) {
@@ -242,23 +246,19 @@ if ($useSQL == true) {
 <div class="tenborder">
 
             <?php
+            if ($apiError) {
+                echo "<h3>API Error: ".$apiError."</h3>";
+            }
             if ($userproxysetting == "on" and $allowProxy = "true") {
                 $dlsetting = "&dl=true";
             } else {
                 $dlsetting = "&dl=false";
             }
-            if(strcmp($playerrow, 'vjs') == 0) {
-                echo '<link rel="stylesheet" href="../styles/-video-js.css">
-                      <script src="../scripts/-video.min.js"></script>';
-                $videosizingcss = 'style="width: 98vw"';
-            } else {
-                $videosizingcss = 'style="width: 100%; max-height: 90vh;"';
-            }
             if ($params['listen'] == "true") {
 
                 echo '<link rel="stylesheet" href="../styles/audioplayer.css">
                     <center><img style="max-height: 60vh; max-width: 100%;" src="https://i.ytimg.com/vi/'.$params['v'].'/maxresdefault.jpg"></center>
-                    <audio preload="auto" '.$videosizingcss.' autoplay controls>
+                    <audio preload="auto" style="width: 100%; max-height: 90vh; background-color: rgb(0,0,0);" autoplay controls>
                     <source src="/videodata/hls.php?id='.$params['v'].$dlsetting.'" type="audio/mp4">
                     Your Browser Sucks! Can not play the audio.
                     </audio>';
@@ -281,7 +281,7 @@ if ($useSQL == true) {
                         }
                     }
                     $videoUrls = array_reverse($videoUrls);
-                    echo '<video id="video" class="video-js video" controls preload="auto" data-setup="{}" '.$videosizingcss.' poster="https://i.ytimg.com/vi/'.$params['v'].'/maxresdefault.jpg" autoplay>';
+                    echo '<video id="video" class="video" controls preload="auto" data-setup="{}" style="width: 100%; max-height: 90vh; background-color: rgb(0,0,0);" poster="https://i.ytimg.com/vi/'.$params['v'].'/maxresdefault.jpg" autoplay>';
                     foreach ($videoUrls as $video) {
                         echo '<source src="'.$video['url'].$dlsetting.'" type="video/mp4" label="HLS '.$video['quality'].'">';
                     }

@@ -16,7 +16,6 @@ CREATE TABLE `login` (
   `lang` varchar(30) DEFAULT NULL,
   `region` varchar(4) DEFAULT NULL,
   `proxy` varchar(8) DEFAULT NULL,
-  `player` varchar(15) DEFAULT NULL,
   `videoshadow` varchar(8) DEFAULT NULL,
   `loadcomments` varchar(12) DEFAULT NULL,
   PRIMARY KEY (`username`)
