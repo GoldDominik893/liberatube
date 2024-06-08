@@ -123,8 +123,6 @@ SUCH DAMAGES.
 ### Licences from dependancies
 
 * Google fonts material icons - Apache License 2.0
-* Video.js - Apache License, Version 2.0.
-  * vtt.js - Apache License Version 2.0
 * jQuery v3.6.4 - MIT License
 * Bootstrap v3.3.7 - MIT License
 * Signika Negative font - Open Font License
