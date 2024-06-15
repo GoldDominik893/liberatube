@@ -116,14 +116,6 @@ if(isset($_SESSION['logged_in_user'])) {
   } else {
     $checked2 = "";
   }
-  
-  if($playertyperow == "html") {
-    $checked3a = "";
-    $checked3b = "checked";
-  } elseif($playertyperow == "vjs") {
-    $checked3a = "checked";
-    $checked3b = "";
-  }
 
   if ($loadcommentsrow == "showall") {
     $checked4a = "checked";
@@ -148,7 +140,7 @@ if(isset($_SESSION['logged_in_user'])) {
     }
   }
 echo '<div class="tenborder">
-<form action="" method="post" id="form" formtarget="_blank">
+<form action="" method="post" id="form">
   <div class="settingsdiv"><h4>'.$translations[$langrow]['visual_prefs'].'</h4>
   <label for="theme">'.$translations[$langrow]['theme'].':</label>
   <select class="formsel" style="border-radius: 6px;" id="theme" name="theme" value="--Please Select--">
@@ -215,8 +207,8 @@ echo '<div class="tenborder">
                         <option value="DO">DO</option>                
                         <option value="DZ">DZ</option>                
                         <option value="EC">EC</option>                
-                        <option value="EE">EE</option>                 
-                        <option value="EG">EG</option>                 
+                        <option value="EE">EE</option>
+                        <option value="EG">EG</option>
                         <option value="ES">ES</option>                 
                         <option value="FI">FI</option>                
                         <option value="FR">FR</option>           

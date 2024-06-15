@@ -294,10 +294,47 @@ if ($useSQL == true) {
                     
                     ';
 
-            }
+            } ?>
 
-            
-        ?>
+    <div class="relatedVideos" style="float: right;">
+    <h3>Related videos</h3>
+    <?php
+    for ($i = 0; $i < 9; $i++) {
+        $suggestedvideoId = $value['recommendedVideos'][$i]['videoId'] ?? "";
+        $suggestedtitle = $value['recommendedVideos'][$i]['title'] ?? "";
+        $suggesteddescription = $value['recommendedVideos'][$i]['descriptionHtml'] ?? "";
+        $suggestedchannel = $value['recommendedVideos'][$i]['author'] ?? "";
+        $suggestedsharedat = $value['recommendedVideos'][$i]['publishedText'] ?? "";
+        $suggestedauthorId = $value['recommendedVideos'][$i]['authorId'] ?? "";
+
+        $lengthseconds = $value['recommendedVideos'][$i]['lengthSeconds'] ?? "";
+        $vidhours = floor($lengthseconds / 3600) ?? "";
+        $vidmins = floor($lengthseconds / 60 % 60) ?? "";
+        $vidsecs = floor($lengthseconds % 60) ?? "";
+        if ($vidhours == "0") {
+            $timestamp = $vidmins . ':' . $vidsecs ?? "";
+        } else {
+            $timestamp = $vidhours . ':' . $vidmins . ':' . $vidsecs ?? "";
+        }
+    ?>
+
+        <a class="awhite" href="/watch/?v=<?php echo $suggestedvideoId; ?>">
+            <div class="video-tile w3-animate-left">
+                <div class="videoDiv">
+                    <img src="http://i.ytimg.com/vi/<?php echo $suggestedvideoId; ?>/mqdefault.jpg" height="144px">
+                    <div class="timestamp"><?php echo $timestamp; ?></div>
+                </div>
+                <div class="videoInfo">
+                    <div class="videoTitle"><b><?php echo $suggestedtitle; ?></b><br><?php echo $suggestedchannel; ?> <div style="float: right;"><?php echo $suggestedsharedat; ?></div></div>
+                </div>
+            </div>
+        </a>
+
+    <?php 
+    }
+    ?> 
+</div>
+
 
         <textarea hidden id="textbox" value="<?php echo $url; ?>"><?php echo $url; ?></textarea>
         
@@ -413,7 +450,7 @@ $cdesc = str_replace('href="https://youtu.be/','href="/watch/?v=',$cdesc);
 $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v=',$cdesc);
 ?>
 
- 
+
  
  <details><summary><a class="button"><?php echo $translations[$langrow]['show-hide-desc']; ?></a></summary> <a style="margin-right: 3px;" class="button" href="//youtu.be/<?php echo $params['v']?>"><?php echo $translations[$langrow]['watch_on_yt']; ?></a><a style="margin-right: 3px;" class="button" href="//redirect.invidious.io/<?php echo $params['v']?>"><?php echo $translations[$langrow]['watch_on_inv']; ?></a><a href="https://liberatube-instances.epicsite.xyz/?v=<?php echo $params['v']?>" class="button"><?php echo $translations[$langrow]['switch_instance']; ?></a><hr style="margin-top: 8px; margin-bottom: 5px;" class="hr"><?php echo $cdesc; ?> </details><br>
 
@@ -422,7 +459,44 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
         <script src="/scripts/playermain.js"></script>
         <script src="/scripts/playlist.js"></script>
         <script src="/scripts/sidebar.js"></script>
+<div class="relatedVideosMob">
+    <h3>Related videos</h3>
+    <?php
+    for ($i = 0; $i < 9; $i++) {
+        $suggestedvideoId = $value['recommendedVideos'][$i]['videoId'] ?? "";
+        $suggestedtitle = $value['recommendedVideos'][$i]['title'] ?? "";
+        $suggesteddescription = $value['recommendedVideos'][$i]['descriptionHtml'] ?? "";
+        $suggestedchannel = $value['recommendedVideos'][$i]['author'] ?? "";
+        $suggestedsharedat = $value['recommendedVideos'][$i]['publishedText'] ?? "";
+        $suggestedauthorId = $value['recommendedVideos'][$i]['authorId'] ?? "";
 
+        $lengthseconds = $value['recommendedVideos'][$i]['lengthSeconds'] ?? "";
+        $vidhours = floor($lengthseconds / 3600) ?? "";
+        $vidmins = floor($lengthseconds / 60 % 60) ?? "";
+        $vidsecs = floor($lengthseconds % 60) ?? "";
+        if ($vidhours == "0") {
+            $timestamp = $vidmins . ':' . $vidsecs ?? "";
+        } else {
+            $timestamp = $vidhours . ':' . $vidmins . ':' . $vidsecs ?? "";
+        }
+    ?>
+
+        <a class="awhite" href="/watch/?v=<?php echo $suggestedvideoId; ?>">
+            <div class="video-tile w3-animate-left">
+                <div class="videoDiv">
+                    <img src="http://i.ytimg.com/vi/<?php echo $suggestedvideoId; ?>/mqdefault.jpg" height="144px">
+                    <div class="timestamp"><?php echo $timestamp; ?></div>
+                </div>
+                <div class="videoInfo">
+                    <div class="videoTitle"><b><?php echo $suggestedtitle; ?></b><br><?php echo $suggestedchannel; ?> <div style="float: right;"><?php echo $suggestedsharedat; ?></div></div>
+                </div>
+            </div>
+        </a>
+
+    <?php 
+    }
+    ?> 
+</div>
  <?php
 
     if ($_GET['comments']) {
