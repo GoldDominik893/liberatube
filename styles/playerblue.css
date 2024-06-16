@@ -90,7 +90,6 @@ a:hover, a:focus {
 
 .sidebarbtn .tooltiptext {
     visibility: hidden;
-
     background-color: rgb(33, 35, 53);
     color: #fff;
     text-align: center;
@@ -317,7 +316,9 @@ list-style-type: none;
 
 details {
     padding: 10px;
-  }
+    padding-top: 10px;
+    max-width: fit-content;
+}
   
   details summary {
     cursor: pointer;

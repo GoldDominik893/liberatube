@@ -74,14 +74,16 @@ a:hover, a:focus {
     .video-tile {
         display: inline-block;
     }
+    .video-tile {
+        margin-top: 6px;
+        margin-right: 4px;
+        margin-left: 4px;
+    }
 }
 
 .video-tile {
     width: 256px;
     border-radius: 8px;
-    margin-top: 6px;
-    margin-right: 4px;
-    margin-left: 4px;
     text-align: left;
 }
 
@@ -143,7 +145,6 @@ a:hover, a:focus {
 
     .sidebarbtn .tooltiptext {
         visibility: hidden;
-
         background-color: rgb(27, 27, 27);
         color: #fff;
         text-align: center;
@@ -320,7 +321,8 @@ list-style-type: none;
 details {
     padding: 10px;
     padding-top: 10px;
-  }
+    max-width: fit-content;
+}
   
   details summary {
     cursor: pointer;
