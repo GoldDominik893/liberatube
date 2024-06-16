@@ -394,7 +394,7 @@ $result = $stmt->get_result();
 if($result->num_rows) {
 }
 $stmt = $conn->prepare("UPDATE login SET customtheme_player_url = ?, customtheme_home_url = ?, theme = ?, lang = ?, region = ?, proxy = ?, videoshadow = ?, loadcomments = ? WHERE username = ?");
-$stmt->bind_param("ssssssssss", $customthemeplayerrow, $customthemehomerow, $theme, $lang, $uregion, $torfproxy, $uvideoshadow, $uloadcomments, $dbsenduser);
+$stmt->bind_param("sssssssss", $customthemeplayerrow, $customthemehomerow, $theme, $lang, $uregion, $torfproxy, $uvideoshadow, $uloadcomments, $dbsenduser);
 if ($stmt->execute() === TRUE) {   
 } else {
   echo "Error: <br>" . $conn->error;
@@ -424,9 +424,6 @@ if($_GET['customthemeplayerrow']) {
   $conn->close();
 }
 
-
-?>
-<?php
 $dbsenduser = $_SESSION['logged_in_user'];
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
