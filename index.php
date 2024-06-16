@@ -49,17 +49,6 @@ if ($useSQL == true) {
 } else {
     session_destroy();
 }
-
-$keyword = $_POST['keyword'] ?? "";
-if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-$link = "https";
-else $link = "http";
-$link .= "://";
-$link .= $_SERVER['HTTP_HOST'];
-$link .= $_SERVER['REQUEST_URI'];
-$url = $link;
-$url_components = parse_url($url);
-parse_str($url_components['query'], $params);
 ?>
 <!DOCTYPE html>
 <head>
@@ -188,11 +177,11 @@ if ($useSQL == true) {
 <div class="tenborder">
 <?php
 if ($testinstance == true) {
-if ($params['disclaimer'] == "accept") {
+if ($_GET['disclaimer'] == "accept") {
     $_SESSION['disclaimer'] = "accept";
     echo '<a href="/?disclaimer=show">'.$translations[$langrow]['disclaimer'].'</a>';
 } 
-elseif ($params['disclaimer'] == "show") {
+elseif ($_GET['disclaimer'] == "show") {
     $_SESSION['disclaimer'] = "";
     echo '<div class="w3-panel" style="max-width: 800px; border-radius: 8px; background-color: #1e81b066">
         <h3 style="text-decoration: underline;">'.$translations[$langrow]['disclaimer'].'!</h3>
@@ -222,23 +211,23 @@ else {
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
         <?php }?>
         <?php                        
-                if (($params['region'] ?? "") == "") {
-                    $params['region'] = $regionrow;
+                if (($_GET['region'] ?? "") == "") {
+                    $_GET['region'] = $regionrow;
                     if (($regionrow ?? "") == "") {
-                        $params['region'] = $defaultRegion;
+                        $_GET['region'] = $defaultRegion;
                 }
                 }
                 
-                if ($params['region'] == "GB") {
+                if ($_GET['region'] == "GB") {
                     $responsetren = '<h3>'.$translations[$langrow]['trendingcontent_gb'].'</h3>';
                 }
-                elseif ($params['region'] == "US") {
+                elseif ($_GET['region'] == "US") {
                     $responsetren = '<h3>'.$translations[$langrow]['trendingcontent_usa'].'</h3>';
                 }
                 else {
-                    $responsetren = '<h3>'.$translations[$langrow]['trendingcontent_code'].' "'.$params['region'].'"</h3>';
+                    $responsetren = '<h3>'.$translations[$langrow]['trendingcontent_code'].' "'.$_GET['region'].'"</h3>';
                 }
-                $InvApiUrl = $InvTServer.'/api/v1/trending?pretty=1&region='.$params['region'].'&hl='.$langrow.'&type='.$params['type'];
+                $InvApiUrl = $InvTServer.'/api/v1/trending?pretty=1&region='.$_GET['region'].'&hl='.$langrow.'&type='.$_GET['type'];
 
                 $ch = curl_init();
 
@@ -266,7 +255,7 @@ else {
 <h2><?php echo $responsetren; ?></h2>
             <?php
             
-            if ($params['type'] == "General" or $params['type'] == "") 
+            if ($_GET['type'] == "General" or $_GET['type'] == "") 
                 {
                 echo '<div align="left" style="margin-top:10px">
                       <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['general'].'</a>
@@ -274,7 +263,7 @@ else {
                       <a class="trending-cat-btn" href="/?type=Gaming">'.$translations[$langrow]['gaming'].'</a>
                       <a class="trending-cat-btn" href="/?type=Movies">'.$translations[$langrow]['movies'].'</a><br><br>
                       </div>'; }
-            elseif ($params['type'] == "Music") 
+            elseif ($_GET['type'] == "Music") 
                 {
                 echo '<div align="left" style="margin-top:10px">
                       <a class="trending-cat-btn" href="/?type=">'.$translations[$langrow]['general'].'</a>
@@ -282,7 +271,7 @@ else {
                       <a class="trending-cat-btn" href="/?type=Gaming">'.$translations[$langrow]['gaming'].'</a>
                       <a class="trending-cat-btn" href="/?type=Movies">'.$translations[$langrow]['movies'].'</a><br><br>
                       </div>'; }
-            elseif ($params['type'] == "Gaming") 
+            elseif ($_GET['type'] == "Gaming") 
                 {
                 echo '<div align="left" style="margin-top:10px">
                       <a class="trending-cat-btn" href="/?type=">'.$translations[$langrow]['general'].'</a>
@@ -290,7 +279,7 @@ else {
                       <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['gaming'].'</a>
                       <a class="trending-cat-btn" href="/?type=Movies">'.$translations[$langrow]['movies'].'</a><br><br>
                       </div>'; }
-            elseif ($params['type'] == "Movies") 
+            elseif ($_GET['type'] == "Movies") 
                 {
                 echo '<div align="left" style="margin-top:10px">
                       <a class="trending-cat-btn" href="/?type=">'.$translations[$langrow]['general'].'</a>

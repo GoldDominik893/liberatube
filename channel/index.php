@@ -27,15 +27,6 @@ if ($useSQL == true) {
     session_destroy();
 }
 
-if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-$link = "https";
-else $link = "http";
-$link .= "://";
-$link .= $_SERVER['HTTP_HOST'];
-$link .= $_SERVER['REQUEST_URI'];
-$url = $link;
-$url_components = parse_url($url);
-parse_str($url_components['query'], $params);
 ?>
 <!DOCTYPE html>
 <html>
@@ -141,7 +132,7 @@ if ($useSQL == true) {
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
         <?php }?>
         <?php    
-                $InvApiUrl = $InvVIServer.'/api/v1/channels/'.$params['id'].'?hl='.$langrow.'&sort_by='.$_GET['sort_by'];    
+                $InvApiUrl = $InvVIServer.'/api/v1/channels/'.$_GET['id'].'?hl='.$langrow.'&sort_by='.$_GET['sort_by'];    
                 
                 $ch = curl_init();
 
@@ -164,8 +155,8 @@ if ($useSQL == true) {
                 $channelDescription = $value['description'];
                 $channelPfpUrl = $value['authorThumbnails'][5]['url'] ?? "";
 
-                if($params['q']){
-                $InvApiUrl = $InvVIServer.'/api/v1/channels/search/'.$params['id'].'?hl='.$langrow.'&q='.$params['q'];
+                if($_GET['q']){
+                $InvApiUrl = $InvVIServer.'/api/v1/channels/search/'.$_GET['id'].'?hl='.$langrow.'&q='.$_GET['q'];
                 $ch = curl_init();
 
                 curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -198,11 +189,11 @@ if ($useSQL == true) {
 
                 <?php
 
-                $pl = file_get_contents($InvVIServer.'/api/v1/channels/'.$params['id'].'/playlists/?hl='.$langrow);
+                $pl = file_get_contents($InvVIServer.'/api/v1/channels/'.$_GET['id'].'/playlists/?hl='.$langrow);
                 $plitemsint = substr_count($pl,"playlistThumbnail");
 
 
-                if ($params['type'] == "videos" or $params['type'] == "")
+                if ($_GET['type'] == "videos" or $_GET['type'] == "")
                 {
                 echo '<div class="search-form-container">
 
@@ -218,34 +209,34 @@ if ($useSQL == true) {
 
 
                     <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['videos'].'</a>';
-                    if ($params['sort_by'] == "latest" or $params['sort_by'] == "") {
+                    if ($_GET['sort_by'] == "latest" or $_GET['sort_by'] == "") {
                         echo '
                             <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['latest'].'</a>
-                            <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos&sort_by=popular">'.$translations[$langrow]['popular'].'</a>
-                            <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos&sort_by=oldest">'.$translations[$langrow]['oldest'].'</a>';
-                    } elseif ($params['sort_by'] == "popular") {
+                            <a class="trending-cat-btn" href="/channel/?id='.$_GET['id'].'&type=videos&sort_by=popular">'.$translations[$langrow]['popular'].'</a>
+                            <a class="trending-cat-btn" href="/channel/?id='.$_GET['id'].'&type=videos&sort_by=oldest">'.$translations[$langrow]['oldest'].'</a>';
+                    } elseif ($_GET['sort_by'] == "popular") {
                         echo '
-                            <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos&sort_by=latest">'.$translations[$langrow]['latest'].'</a>
+                            <a class="trending-cat-btn" href="/channel/?id='.$_GET['id'].'&type=videos&sort_by=latest">'.$translations[$langrow]['latest'].'</a>
                             <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['popular'].'</a>
-                            <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos&sort_by=oldest">'.$translations[$langrow]['oldest'].'</a>';
-                    } elseif ($params['sort_by'] == "oldest") {
+                            <a class="trending-cat-btn" href="/channel/?id='.$_GET['id'].'&type=videos&sort_by=oldest">'.$translations[$langrow]['oldest'].'</a>';
+                    } elseif ($_GET['sort_by'] == "oldest") {
                         echo '
-                            <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos&sort_by=latest">'.$translations[$langrow]['latest'].'</a>
-                            <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos&sort_by=popular">'.$translations[$langrow]['popular'].'</a>
+                            <a class="trending-cat-btn" href="/channel/?id='.$_GET['id'].'&type=videos&sort_by=latest">'.$translations[$langrow]['latest'].'</a>
+                            <a class="trending-cat-btn" href="/channel/?id='.$_GET['id'].'&type=videos&sort_by=popular">'.$translations[$langrow]['popular'].'</a>
                             <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['oldest'].'</a>';
                     }
                 echo '    
                         <form class="input-row topbarelements" id="keywordForm" method="get" action="/channel/">
                             <div class="input-row">
-                                <input style="margin-bottom: -32px; background-color: rgb(27, 27, 27); border: none; border-radius: 6px; height: 27px;" class="input-field" type="search" id="keyword" name="q" placeholder="'.$translations[$langrow]['search_this_channel'].'" value="'.$params['q'].'">
-                                <input type="hidden" id="id" name="id" value="'.$params['id'].'">
+                                <input style="margin-bottom: -32px; background-color: rgb(27, 27, 27); border: none; border-radius: 6px; height: 27px;" class="input-field" type="search" id="keyword" name="q" placeholder="'.$translations[$langrow]['search_this_channel'].'" value="'.$_GET['q'].'">
+                                <input type="hidden" id="id" name="id" value="'.$_GET['id'].'">
                             </div>
                         </form>
                 
                 
-                <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=playlists">'.$translations[$langrow]['playlists'].'</a><br>';
+                <a class="trending-cat-btn" href="/channel/?id='.$_GET['id'].'&type=playlists">'.$translations[$langrow]['playlists'].'</a><br>';
             }
-                elseif ($params['type'] == "playlists") 
+                elseif ($_GET['type'] == "playlists") 
                 {
                 echo '<div class="search-form-container">
                 <img src="'.$bannerUrl.'" style="max-width: 100%; margin-bottom: 10px;">
@@ -257,7 +248,7 @@ if ($useSQL == true) {
                 </div>
                 </div>
 
-                    <a class="trending-cat-btn" href="/channel/?id='.$params['id'].'&type=videos">'.$translations[$langrow]['videos'].'</a>
+                    <a class="trending-cat-btn" href="/channel/?id='.$_GET['id'].'&type=videos">'.$translations[$langrow]['videos'].'</a>
                     <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['playlists'].'</a><br>'; }
                 
                 ?>
@@ -269,7 +260,7 @@ if ($useSQL == true) {
             <?php
             $vidcount = substr_count($response,"videoThumbnails");
 
-            if ($params['type'] == "videos" or $params['type'] == "") 
+            if ($_GET['type'] == "videos" or $_GET['type'] == "") 
             {
                 for ($i = 0; $i < $vidcount; $i++) {
                     if ($_GET['q'] == False) {
@@ -320,8 +311,8 @@ if ($useSQL == true) {
                         </a>
            <?php 
                     }
-                } elseif ($params['type'] == "playlists") {
-                    $InvApiUrl = $InvVIServer.'/api/v1/channels/'.$params['id'].'/playlists?hl=en';
+                } elseif ($_GET['type'] == "playlists") {
+                    $InvApiUrl = $InvVIServer.'/api/v1/channels/'.$_GET['id'].'/playlists?hl=en';
 
                     $ch = curl_init();
     

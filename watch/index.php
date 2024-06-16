@@ -30,20 +30,10 @@ if ($useSQL == true) {
     session_destroy();
 }
 
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-        $link = "https";
-    else $link = "http";
-    $link .= "://";
-    $link .= $_SERVER['HTTP_HOST'];
-    $link .= $_SERVER['REQUEST_URI'];
-$url = $link;
-$url_components = parse_url($url);
-parse_str($url_components['query'], $params);
 
-
-$cacheFile = 'cache/'.$langrow . '_' . $params['v'] . '.json';
+$cacheFile = 'cache/'.$langrow . '_' . $_GET['v'] . '.json';
 $cacheTime = 14400;
-$dislikeCacheFile = 'cache/dislikes_' . $params['v'] . '.json';
+$dislikeCacheFile = 'cache/dislikes_' . $_GET['v'] . '.json';
 if (!is_dir('cache/')) {
     mkdir('cache/', 0755, true);
 }
@@ -58,7 +48,7 @@ if (!is_dir('cache/')) {
                     $value = json_decode(file_get_contents($cacheFile), true);
 
                 } else {
-                    $InvApiUrl = $InvVIServer . '/api/v1/videos/' . $params['v'] . '?hl=' . $langrow;
+                    $InvApiUrl = $InvVIServer . '/api/v1/videos/' . $_GET['v'] . '?hl=' . $langrow;
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $InvApiUrl);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -89,16 +79,6 @@ if (!is_dir('cache/')) {
                         $captionshtml .= '<track kind="captions" label="' . htmlspecialchars($caption['label']) . '" srclang="' . htmlspecialchars($caption['languageCode']) . '" src="/videodata/captions.php/?c_ext=' . htmlspecialchars($caption['url']) . '" default>';
                     }
 
-                    $nonHlsUrls = [];
-                    $nonHlsItag = [];
-                    $nonHlsQuality = [];
-                    $nonHlsType = [];
-                    $nonHlsSize = [];
-                    $HlsUrls = [];
-                    $HlsItag = [];
-                    $HlsQuality = [];
-                    $HlsType = [];
-                    $HlsSize = [];
 
                     if (isset($value['formatStreams']) && is_array($value['formatStreams'])) {
                         foreach ($value['formatStreams'] as $formatStream) {
@@ -127,7 +107,7 @@ if (!is_dir('cache/')) {
                         if (file_exists($dislikeCacheFile) && (time() - filemtime($dislikeCacheFile) < $cacheTime)) {
                             $dislikeData = json_decode(file_get_contents($dislikeCacheFile), true);
                         } else {
-                            $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId=' . $params['v'];
+                            $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId=' . $_GET['v'];
                             $ch = curl_init();
                             curl_setopt($ch, CURLOPT_URL, $dislikeapiurl);
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -153,7 +133,7 @@ if (!is_dir('cache/')) {
         <link rel="apple-touch-icon" href="favicon.ico">
         <meta property="og:title" content="<?php echo $title; ?>">
         <meta property="og:type" content="website">
-        <meta property="og:url" content="/?v=<?php echo $params['v']; ?>">
+        <meta property="og:url" content="/?v=<?php echo $_GET['v']; ?>">
         <meta name="theme-color" content="#303EE1">
         <meta name="author" content="<?php echo $title; ?>">
         <meta name="keywords" content="badyt.cf, liberatube, EpicFaucet, two.epicfaucet.gq, yewtu.be, online videos, alternative youtube frontend, Liberatube">
@@ -161,7 +141,7 @@ if (!is_dir('cache/')) {
         <meta property="og:description" content="<?php echo $description; ?>">
         <meta property="description" content="<?php echo $description; ?>">
 
-<meta name="og:image" content="<?php echo $InvVIServer ?>/vi/<?php echo $params['v']; ?>/maxres.jpg"/>
+<meta name="og:image" content="<?php echo $InvVIServer ?>/vi/<?php echo $_GET['v']; ?>/maxres.jpg"/>
 <meta name="twitter:card" content="summary_large_image">
 
 <span><meta property="og:site_name" content="Liberatube">
@@ -223,13 +203,13 @@ if ($useSQL == true) {
 
   <hr class="hr">
   <?php
-            if ($params['listen'] == "true") {
-                echo '<a href="?v='.$params['v'].'&listen=false" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">live_tv</span><span class="tooltiptext">'.$translations[$langrow]['video'].'</span></a>
+            if ($_GET['listen'] == "true") {
+                echo '<a href="?v='.$_GET['v'].'&listen=false" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">live_tv</span><span class="tooltiptext">'.$translations[$langrow]['video'].'</span></a>
                       <a href="#" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">headphones</span><span class="tooltiptext">'.$translations[$langrow]['audio'].'</span></a>';
             }
             else {
                 echo '<a href="#" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">live_tv</span><span class="tooltiptext">'.$translations[$langrow]['video'].'</span></a>
-                      <a href="?v='.$params['v'].'&listen=true" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">headphones</span><span class="tooltiptext">'.$translations[$langrow]['audio'].'</span></a>';
+                      <a href="?v='.$_GET['v'].'&listen=true" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">headphones</span><span class="tooltiptext">'.$translations[$langrow]['audio'].'</span></a>';
             }
         ?>
   </div>
@@ -254,12 +234,12 @@ if ($useSQL == true) {
             } else {
                 $dlsetting = "&dl=false";
             }
-            if ($params['listen'] == "true") {
+            if ($_GET['listen'] == "true") {
 
                 echo '<link rel="stylesheet" href="../styles/audioplayer.css">
-                    <center><img style="max-height: 60vh; max-width: 100%;" src="https://i.ytimg.com/vi/'.$params['v'].'/maxresdefault.jpg"></center>
+                    <center><img style="max-height: 60vh; max-width: 100%;" src="https://i.ytimg.com/vi/'.$_GET['v'].'/maxresdefault.jpg"></center>
                     <audio preload="auto" style="width: 100%; max-height: 90vh; background-color: rgb(0,0,0);" autoplay controls>
-                    <source src="/videodata/hls.php?id='.$params['v'].$dlsetting.'" type="audio/mp4">
+                    <source src="/videodata/hls.php?id='.$_GET['v'].$dlsetting.'" type="audio/mp4">
                     Your Browser Sucks! Can not play the audio.
                     </audio>';
             }
@@ -281,11 +261,11 @@ if ($useSQL == true) {
                         }
                     }
                     $videoUrls = array_reverse($videoUrls);
-                    echo '<video id="video" class="video" controls preload="auto" data-setup="{}" style="width: 100%; max-height: 90vh; background-color: rgb(0,0,0);" poster="https://i.ytimg.com/vi/'.$params['v'].'/maxresdefault.jpg" autoplay>';
+                    echo '<video id="video" class="video" controls preload="auto" data-setup="{}" style="width: 100%; max-height: 90vh; background-color: rgb(0,0,0);" poster="https://i.ytimg.com/vi/'.$_GET['v'].'/maxresdefault.jpg" autoplay>';
                     foreach ($videoUrls as $video) {
                         echo '<source src="'.$video['url'].$dlsetting.'" type="video/mp4" label="HLS '.$video['quality'].'">';
                     }
-                    echo '<source src="/videodata/non-hls.php?id='.$params['v'].$dlsetting.'" type="video/mp4" label="360/720p">'
+                    echo '<source src="/videodata/non-hls.php?id='.$_GET['v'].$dlsetting.'" type="video/mp4" label="360/720p">'
                     .$captionshtml.'Your Browser Sucks! Can not play the video.</video>
 
                     <audio id="audio" preload="auto">
@@ -342,7 +322,7 @@ if ($useSQL == true) {
 <h3><?php echo $title; ?></h3>
 <h4><?php echo $shared; ?> · <?php echo $views; ?> <?php echo $translations[$langrow]['views']; ?> · <?php echo $likes; ?> <?php echo $translations[$langrow]['likes']; ?><?php echo $dislikes; ?></h4>
 
-<?php if ($params['listen'] != "true") { ?>
+<?php if ($_GET['listen'] != "true") { ?>
     <select class="button" id="qualitySelector"></select>
 <?php } ?>
 
@@ -402,7 +382,7 @@ if (isset($nonHlsItag) && is_array($nonHlsItag) && !empty($nonHlsItag)) {
         $type = $nonHlsType[$i];
         $size = $nonHlsSize[$i];
 
-        echo '<tr><td>'.$quality.'('.$itag.') - '.$type.'</td><td><a class="button-in-table" href="'.$url.'">'.$translations[$langrow]['direct'].'</a><a download="'.$params['v'].'.'.$type.'" class="button-in-table" href="/videodata/non-hls.php?id='.$params['v'].'&dl=dl&itag='.$itag.'">'.$translations[$langrow]['proxy'].'</a></td></tr>';
+        echo '<tr><td>'.$quality.'('.$itag.') - '.$type.'</td><td><a class="button-in-table" href="'.$url.'">'.$translations[$langrow]['direct'].'</a><a download="'.$_GET['v'].'.'.$type.'" class="button-in-table" href="/videodata/non-hls.php?id='.$_GET['v'].'&dl=dl&itag='.$itag.'">'.$translations[$langrow]['proxy'].'</a></td></tr>';
     }
 }
 ?>
@@ -416,7 +396,7 @@ if (isset($HlsItag) && is_array($HlsItag) && !empty($HlsItag)) {
         $type = $HlsType[$i];
         $size = $HlsSize[$i];
 
-        echo '<tr><td>'.$quality.'('.$itag.') - '.$type.'</td><td><a class="button-in-table" href="'.$url.'">'.$translations[$langrow]['direct'].'</a><a download="'.$params['v'].'.'.$type.'" class="button-in-table" href="/videodata/hls.php?id='.$params['v'].'&dl=dl&itag='.$itag.'">'.$translations[$langrow]['proxy'].'</a></td></tr>';
+        echo '<tr><td>'.$quality.'('.$itag.') - '.$type.'</td><td><a class="button-in-table" href="'.$url.'">'.$translations[$langrow]['direct'].'</a><a download="'.$_GET['v'].'.'.$type.'" class="button-in-table" href="/videodata/hls.php?id='.$_GET['v'].'&dl=dl&itag='.$itag.'">'.$translations[$langrow]['proxy'].'</a></td></tr>';
     }
 }
 ?>
@@ -452,7 +432,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
 
 
  
- <details><summary><a class="button"><?php echo $translations[$langrow]['show-hide-desc']; ?></a></summary> <a style="margin-right: 3px;" class="button" href="//youtu.be/<?php echo $params['v']?>"><?php echo $translations[$langrow]['watch_on_yt']; ?></a><a style="margin-right: 3px;" class="button" href="//redirect.invidious.io/<?php echo $params['v']?>"><?php echo $translations[$langrow]['watch_on_inv']; ?></a><a href="https://liberatube-instances.epicsite.xyz/?v=<?php echo $params['v']?>" class="button"><?php echo $translations[$langrow]['switch_instance']; ?></a><hr style="margin-top: 8px; margin-bottom: 5px;" class="hr"><?php echo $cdesc; ?> </details><br>
+ <details><summary><a class="button"><?php echo $translations[$langrow]['show-hide-desc']; ?></a></summary> <a style="margin-right: 3px;" class="button" href="//youtu.be/<?php echo $_GET['v']?>"><?php echo $translations[$langrow]['watch_on_yt']; ?></a><a style="margin-right: 3px;" class="button" href="//redirect.invidious.io/<?php echo $_GET['v']?>"><?php echo $translations[$langrow]['watch_on_inv']; ?></a><a href="https://liberatube-instances.epicsite.xyz/?v=<?php echo $_GET['v']?>" class="button"><?php echo $translations[$langrow]['switch_instance']; ?></a><hr style="margin-top: 8px; margin-bottom: 5px;" class="hr"><?php echo $cdesc; ?> </details><br>
 
         <title><?php echo $title; ?> · Liberatube</title>
         <script src="/scripts/-jquery-3.6.4.min.js"></script>
@@ -510,7 +490,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
     if(!empty($response)) { ?>
         <?php }?>
         <?php                        
-                $InvApiUrl = $InvCServer.'/api/v1/comments/'.$params['v'].'?hl='.$langrow;
+                $InvApiUrl = $InvCServer.'/api/v1/comments/'.$_GET['v'].'?hl='.$langrow;
 
                 $ch = curl_init();
 
@@ -549,7 +529,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
 
                     $nextpagestr = $value['continuation'] ?? "";
 
-                        $InvApiUrl = $InvCServer.'/api/v1/comments/'.$params['v'].'?hl='.$langrow.'&continuation='.$commentreplycontinuation;
+                        $InvApiUrl = $InvCServer.'/api/v1/comments/'.$_GET['v'].'?hl='.$langrow.'&continuation='.$commentreplycontinuation;
 
                         $ch = curl_init();
         
@@ -601,7 +581,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
            <?php 
                     }
                 } else {
-                    echo '<a class="button" href="?v='.$params['v'].'&comments=noreplies">'.$translations[$langrow]['load_comments'].'</a>';
+                    echo '<a class="button" href="?v='.$_GET['v'].'&comments=noreplies">'.$translations[$langrow]['load_comments'].'</a>';
                 }
             ?> 
             </div>

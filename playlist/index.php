@@ -26,16 +26,6 @@ if ($useSQL == true) {
 } else {
     session_destroy();
 }
-
-if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-$link = "https";
-else $link = "http";
-$link .= "://";
-$link .= $_SERVER['HTTP_HOST'];
-$link .= $_SERVER['REQUEST_URI'];
-$url = $link;
-$url_components = parse_url($url);
-parse_str($url_components['query'], $params);
 ?>
 <!DOCTYPE html>
 <html>
@@ -140,7 +130,7 @@ if ($useSQL == true) {
         <?php }?>
         <?php   
                 $pagenumber = $_GET['page'] ?? 1;                     
-                $InvApiUrl = $InvVIServer.'/api/v1/playlists/'.$params['id'].'?page='.$pagenumber;
+                $InvApiUrl = $InvVIServer.'/api/v1/playlists/'.$_GET['id'].'?page='.$pagenumber;
 
                 $ch = curl_init();
 

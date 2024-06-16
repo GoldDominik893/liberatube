@@ -27,17 +27,7 @@ if ($useSQL == true) {
     session_destroy();
 }
 
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-        $link = "https";
-    else $link = "http";
-    $link .= "://";
-    $link .= $_SERVER['HTTP_HOST'];
-    $link .= $_SERVER['REQUEST_URI'];
-$url = $link;
-$url_components = parse_url($url);
-parse_str($url_components['query'], $params);
-
-$keyword = $params['q']; 
+$keyword = $_GET['q']; 
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -142,8 +132,8 @@ if ($useSQL == true) {
 <div class="tenborder">
         
         <?php 
-    $searchqk = $params['q'];
-    $params['q'] = str_replace(' ','+',$params['q']);
+    $searchqk = $_GET['q'];
+    $_GET['q'] = str_replace(' ','+',$_GET['q']);
     ?>
         
     
@@ -151,10 +141,10 @@ if ($useSQL == true) {
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
         <?php }?>
         <?php                        
-              if (!empty($params['q']))
+              if (!empty($_GET['q']))
               {
                 $pagenumber = $_GET['page'] ?? 1;
-                $googleApiUrl = $InvSServer.'/api/v1/search?q=' . $params['q'] . '&hl='.$langrow.'&page='.$pagenumber;
+                $googleApiUrl = $InvSServer.'/api/v1/search?q=' . $_GET['q'] . '&hl='.$langrow.'&page='.$pagenumber;
 
                 $ch = curl_init();
 
