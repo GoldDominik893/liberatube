@@ -1,8 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
 session_start();  
 include('config.php');
 $langrow = $defaultLang;
 include('lang.php');
+
+
 
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -102,8 +106,40 @@ $numrows = $result->num_rows;
     </div>
   </div>
 <script src="/scripts/sidebar.js"></script>
-
+<div class="tenborder">
 <?php
+$dbsenduser = $_SESSION['logged_in_user'];
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+if (isset($_SESSION['logged_in_user']))
+{
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+$stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+$stmt->bind_param("s", $_SESSION['logged_in_user']);
+$stmt->execute();
+$result = $stmt->get_result();
+$numrows = $result->num_rows;
+while ($row = $result->fetch_assoc())
+{
+    $themerow = $row['theme'];
+}
+$numrows = $result->num_rows;
+}
+if(strcmp($themerow, 'blue') == 0) {
+    echo '<link rel="stylesheet" href="../styles/playerblue.css">';
+} elseif(strcmp($themerow, 'ultra-dark') == 0) {
+    echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
+} elseif ($themerow == "custom") {
+    echo '<link rel="stylesheet" href="'.$customthemeplayerrow.'">';
+} else {
+    echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
+} 
+
 if(isset($_SESSION['logged_in_user'])) {
   if($vidshadowrow == "on") {
     $checked1 = "checked";
@@ -131,15 +167,70 @@ if(isset($_SESSION['logged_in_user'])) {
     $checked4c = "checked";
   }
 
-  if ($allowProxy == "true") {
+  $theme = $_POST['theme'] ?? "";
+$lang = $_POST['lang'] ?? "";
+$uregion = $_POST['region'] ?? "";
+$torfproxy = $_POST['proxy'] ?? "";
+$uplayertype = $_POST['player'] ?? "";
+$uvideoshadow = $_POST['vidshadow'] ?? "";
+$uloadcomments = $_POST['loadcomments'] ?? "";
+$customthemehomerow = $_GET['customthemehomerow'] ?? $_POST['customthemehomerow'] ?? $customthemehomerow;
+$customthemeplayerrow = $_GET['customthemeplayerrow'] ?? $_POST['customthemeplayerrow'] ?? $customthemeplayerrow;
 
-  } elseif ($allowProxy == "false" or $allowProxy == "downloads"){
+$dbsenduser = $_SESSION['logged_in_user'];
+if($theme != "")
+{
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+$stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+$stmt->bind_param("s", $_POST['name']);
+$stmt->execute();
+$result = $stmt->get_result();
+if($result->num_rows) {
+}
+$stmt = $conn->prepare("UPDATE login SET customtheme_player_url = ?, customtheme_home_url = ?, theme = ?, lang = ?, region = ?, proxy = ?, videoshadow = ?, loadcomments = ? WHERE username = ?");
+$stmt->bind_param("sssssssss", $customthemeplayerrow, $customthemehomerow, $theme, $lang, $uregion, $torfproxy, $uvideoshadow, $uloadcomments, $dbsenduser);
+if ($stmt->execute() === TRUE) {   
+} else {
+  echo "Error: <br>" . $conn->error;
+}
+$conn->close();
+} 
+
+
+
+if($_GET['customthemeplayerrow']) {
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+  $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+  $stmt->bind_param("s", $_POST['name']);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  if($result->num_rows) {
+  }
+  $stmt = $conn->prepare("UPDATE login SET customtheme_player_url = ?, customtheme_home_url = ? WHERE username = ?");
+  $stmt->bind_param("sss", $customthemeplayerrow, $customthemehomerow, $dbsenduser);
+  if ($stmt->execute() === TRUE) {   
+  } else {
+    echo "Error: <br>" . $conn->error;
+  }
+  $conn->close();
+}
+
+
+
+  if ($allowProxy == "true") {} 
+  elseif ($allowProxy == "false" or $allowProxy == "downloads"){
     $instanceProxyText = ' <label style="color: red;">'.$translations[$langrow]['disabled_by_instance'].'</label>';
     if ($allowProxy == "downloads") {
       $instanceProxyText .= ' <label style="color: orange;">'.$translations[$langrow]['downloads_allowed'].'</label>';
     }
   }
-echo '<div class="tenborder">
+echo '
 <form action="" method="post" id="form">
   <div class="settingsdiv"><h4>'.$translations[$langrow]['visual_prefs'].'</h4>
   <label for="theme">'.$translations[$langrow]['theme'].':</label>
@@ -298,7 +389,7 @@ echo '<div class="tenborder">
     <input name="proxy" type="checkbox" id="proxy"'.$checked2.'>'.$instanceProxyText.'</input><br>
 
 
-    <label for="loadcomments">'.$translations[$langrow]['comments'].':</label><br>
+    <label>'.$translations[$langrow]['comments'].':</label><br>
     <input type="radio" id="showall" name="loadcomments" value="showall" '.$checked4a.'></input><label class="label" for="showall">'.$translations[$langrow]['comments_showall'].'</label><br>
     <input type="radio" id="noreplies" name="loadcomments" value="noreplies" '.$checked4b.'></input><label class="label" for="noreplies">'.$translations[$langrow]['comments_noreplies'].'</label><br>
     <input type="radio" id="nothing" name="loadcomments" value="nothing" '.$checked4c.'></input><label class="label" for="nothing">'.$translations[$langrow]['comments_nothing'].'</label>
@@ -312,8 +403,7 @@ echo '<div class="tenborder">
   </div>
   
   ';
-  if($_SESSION['logged_in_user'] == $adminuser)
-            {
+if ($_SESSION['logged_in_user'] == $adminuser) {
                         ?>
                         <br>
                         <div class="settingsdiv"><h4><?php echo $translations[$langrow]['admin_prefs']; ?></h4>
@@ -358,7 +448,7 @@ echo '<div class="tenborder">
                             file_put_contents("config.php", $newConfigContent);
 
                         }
-            }
+          }
     echo'
     <br>
   <div class="settingsdiv" style="background-color: transparent; border: none; text-align: right; padding-top: 0px; padding-right: 0px;">
@@ -370,89 +460,6 @@ echo '<div class="tenborder">
 } else {
 echo '<h4 style="text-align: center;">You are not logged in.</h4>';
 }
-$theme = $_POST['theme'] ?? "";
-$lang = $_POST['lang'] ?? "";
-$uregion = $_POST['region'] ?? "";
-$torfproxy = $_POST['proxy'] ?? "";
-$uplayertype = $_POST['player'] ?? "";
-$uvideoshadow = $_POST['vidshadow'] ?? "";
-$uloadcomments = $_POST['loadcomments'] ?? "";
-$customthemehomerow = $_GET['customthemehomerow'] ?? $_POST['customthemehomerow'] ?? $customthemehomerow;
-$customthemeplayerrow = $_GET['customthemeplayerrow'] ?? $_POST['customthemeplayerrow'] ?? $customthemeplayerrow;
 
-$dbsenduser = $_SESSION['logged_in_user'];
-if($theme != "")
-{
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
-$stmt->bind_param("s", $_POST['name']);
-$stmt->execute();
-$result = $stmt->get_result();
-if($result->num_rows) {
-}
-$stmt = $conn->prepare("UPDATE login SET customtheme_player_url = ?, customtheme_home_url = ?, theme = ?, lang = ?, region = ?, proxy = ?, videoshadow = ?, loadcomments = ? WHERE username = ?");
-$stmt->bind_param("sssssssss", $customthemeplayerrow, $customthemehomerow, $theme, $lang, $uregion, $torfproxy, $uvideoshadow, $uloadcomments, $dbsenduser);
-if ($stmt->execute() === TRUE) {   
-} else {
-  echo "Error: <br>" . $conn->error;
-}
-$conn->close();
-} 
-
-
-
-if($_GET['customthemeplayerrow']) {
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
-  $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
-  $stmt->bind_param("s", $_POST['name']);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  if($result->num_rows) {
-  }
-  $stmt = $conn->prepare("UPDATE login SET customtheme_player_url = ?, customtheme_home_url = ? WHERE username = ?");
-  $stmt->bind_param("sss", $customthemeplayerrow, $customthemehomerow, $dbsenduser);
-  if ($stmt->execute() === TRUE) {   
-  } else {
-    echo "Error: <br>" . $conn->error;
-  }
-  $conn->close();
-}
-
-$dbsenduser = $_SESSION['logged_in_user'];
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-if (isset($_SESSION['logged_in_user']))
-{
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-$stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
-$stmt->bind_param("s", $_SESSION['logged_in_user']);
-$stmt->execute();
-$result = $stmt->get_result();
-$numrows = $result->num_rows;
-while ($row = $result->fetch_assoc())
-{
-    $themerow = $row['theme'];
-}
-$numrows = $result->num_rows;
-}
-if(strcmp($themerow, 'blue') == 0) {
-    echo '<link rel="stylesheet" href="../styles/playerblue.css">';
-} elseif(strcmp($themerow, 'ultra-dark') == 0) {
-    echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
-} elseif ($themerow == "custom") {
-    echo '<link rel="stylesheet" href="'.$customthemeplayerrow.'">';
-} else {
-    echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
-} 
 ?>
+</html>

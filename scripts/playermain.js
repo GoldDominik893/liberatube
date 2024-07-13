@@ -15,8 +15,8 @@ var Alert_pl = new CustomAlert_pl();
 function CustomAlert(){
     this.render = function(){
         let popUpBox = document.getElementById('popUpBox');
-        popUpBox.style.display = "block";
-        document.getElementById('closeModal').innerHTML = '<a class="button" onclick="Alert.ok()">Close</a>';
+        popUpBox.style.display = "flex";
+        
     }
     this.ok = function(){
     document.getElementById('popUpBox').style.display = "none";
@@ -27,8 +27,8 @@ function CustomAlert(){
 function CustomAlert_pl(){
     this.render = function(){
         let popUpBox = document.getElementById('popUpBox_pl');
-        popUpBox.style.display = "block";
-        document.getElementById('closeModal_pl').innerHTML = '<a class="button" onclick="Alert_pl.ok()">Close</a>';
+        popUpBox.style.display = "flex";
+        
     }
     this.ok = function(){
     document.getElementById('popUpBox_pl').style.display = "none";

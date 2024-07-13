@@ -111,7 +111,7 @@ if(strcmp($themerow, 'blue') == 0) {
   </div>
 <script src="/scripts/sidebar.js"></script>
 
-
+<div class="tenborder">
 <?php
 
 if(isset($_SESSION['logged_in_user'])) {
@@ -121,6 +121,7 @@ echo '<center><h4>You are not logged in.</h4></center>';
 }
 
 ?>
+    </div>
     </div>
     </div>
   </div>

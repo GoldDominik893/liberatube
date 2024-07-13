@@ -351,13 +351,13 @@ if ($useSQL == true) {
 <?php } else { ?>
 <h3>You are not logged in. <a href="/auth/login.html">Login</a></h3>
 <?php } ?>
-<div id="closeModal_pl"></div>
+<div id="closeModal_pl"><a class="button" onclick="Alert_pl.ok()">Close</a></div>
 </div>
 </div>
 
 
 
-<div id="popUpBox">
+<div id="popUpBox"  style="display: none;">
 <div id="box">
 <?php
 if ($allowProxy == "true" or $allowProxy == "downloads") {
@@ -401,7 +401,7 @@ if (isset($HlsItag) && is_array($HlsItag) && !empty($HlsItag)) {
 }
 ?>
 </table>
-<div id="closeModal"></div>
+<div id="closeModal"><a class="button" onclick="Alert.ok()">Close</a></div>
 </div>
 </div>
 <h6></h6>
@@ -421,7 +421,7 @@ function makeTimestamptoLinkSmaller($string) {
     return preg_replace($reg_pattern, '<a onclick="seekToTime(\'$0\')">$0</a>', $string);
 }
 
-$str = ($description);
+$str = $description;
 $cdesc = nl2br($convertedStr = makeUrltoLink($str));
 $cdesc = makeTimestamptoLink($cdesc);
 $cdesc = makeTimestamptoLinkSmaller($cdesc);
@@ -587,9 +587,44 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
             </div>
             </div>
         
-        
-        
 </div> 
 </div>
 </body>
 </html>
+
+<?php
+$newItem = [
+    'video_id' => $_GET['v'],
+    'title' => $title,
+    'author' => $author,
+    'timestamp' => (new \DateTime())->format('Y-m-d H:i:s'),
+];
+
+if ($useSQL == true) {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+    $stmt->bind_param("s", $_SESSION['logged_in_user']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        $watchHistory = json_decode($row['watch_history'], true);
+    }
+
+
+    $watchHistory[] = $newItem;
+    $updatedWatchHistory = json_encode($watchHistory);
+
+    $updateStmt = $conn->prepare("UPDATE login SET watch_history = ? WHERE username = ?");
+    $updateStmt->bind_param("ss", $updatedWatchHistory, $_SESSION['logged_in_user']);
+    $updateStmt->execute();
+
+
+    $stmt->close();
+    $conn->close();
+}
+?>

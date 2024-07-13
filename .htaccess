@@ -2,4 +2,4 @@ php_value display_errors off
 php_flag log_errors off
 php_value display_warning off
 php_value mbstring.http_input auto
-php_value date.timezone America/New_York
+php_value date.timezone Europe/London

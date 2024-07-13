@@ -228,40 +228,40 @@ border: none;
 ::-webkit-scrollbar-thumb{background: rgba(100,100,100,0.4); border-radius:5px;}
 ::-webkit-scrollbar-thumb:hover{background: rgba(70,70,70,0.4);}
 
-#box, #box_pl {
-    position: relative;
-    text-align: center;
-    margin: 0;
+/* Pop-up box styling */
+#popUpBox, #popUpBox_pl {
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
     justify-content: center;
     align-items: center;
+    z-index: 9998;
+    display: flex;
 }
 
-#box_pl {
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+/* Content box styling */
+#box, #box_pl {
+    max-width: 98%;
+    max-height: 98%;
+    overflow-y: auto;
+    background: #0f0f0f;
+    box-shadow: 0 0 20px black;
+    border-radius: 10px;
+    position: relative;
+    padding: 15px;
+    padding-top: 0;
+    text-align: center;
+    border: 1px solid #212121;
+    z-index: 9999;
+    margin: 0;
+    display: block;
 }
 
-#popUpBox, #popUpBox_pl {
-width: 100vw;
-height: 100vh;
-white-space: normal;
-overflow: auto;
-background: #999;
-box-shadow: 0 0 20px black;
-border-radius: 10px;
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-z-index: 9999;
-padding: 10px;
-text-align: center;
-display: none;
--webkit-backdrop-filter: blur(10px);
-backdrop-filter: blur(10px); 
-background: rgba(10, 10, 10, 0.5);
-}
 .button {
     display: inline-block;
     padding: 6px 12px;
@@ -273,7 +273,7 @@ background: rgba(10, 10, 10, 0.5);
     border: 2px solid rgb(27, 27, 27);
     transition: transform 0.2s;
     transition: 0.3s
-    }
+}
 
 .button:hover {
 cursor: pointer;

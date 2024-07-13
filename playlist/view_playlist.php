@@ -124,7 +124,6 @@ $stmt->bind_param("s", $playlistId);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Display playlist information
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $playlistName = $row['playlist_name'];

@@ -18,8 +18,9 @@ CREATE TABLE `login` (
   `proxy` varchar(8) DEFAULT NULL,
   `videoshadow` varchar(8) DEFAULT NULL,
   `loadcomments` varchar(12) DEFAULT NULL,
+  `watch_history` json DEFAULT NULL,
   PRIMARY KEY (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- Table structure for table `playlist`
 CREATE TABLE `playlist` (

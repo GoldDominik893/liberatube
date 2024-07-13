@@ -97,9 +97,7 @@ border: none;
 ::-webkit-scrollbar-thumb{background: rgba(100,100,100,0.4); border-radius:5px;}
 ::-webkit-scrollbar-thumb:hover{background: rgba(70,70,70,0.4);}
 
-.awhite:hover {
-    color: DodgerBlue;
-}
+
 .tenborder {
     padding: 10px;
 }

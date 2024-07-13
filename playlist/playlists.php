@@ -192,8 +192,9 @@ echo '
 
 <div id="result"></div>
 ';
-} else {
-echo '<center><h4>You are not logged in.</h4></center>';
+} else { ?>
+<h4 style="text-align: center;">You are not logged in.</h4>
+<?php
 }
 ?>
 

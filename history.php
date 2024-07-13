@@ -16,7 +16,7 @@ if ($useSQL == true) {
     while ($row = $result->fetch_assoc())
     {   
         $pwrow = $row['password'];
-        $customthemeplayerrow = $row['customtheme_player_url'];
+        $customthemehomerow = $row['customtheme_home_url'];
         $langrow = $row['lang'];
     }
     if ($_SESSION['hashed_pass'] == $pwrow) {
@@ -63,13 +63,13 @@ while ($row = $result->fetch_assoc())
 $numrows = $result->num_rows;
 }
 if(strcmp($themerow, 'blue') == 0) {
-  echo '<link rel="stylesheet" href="../styles/playerblue.css">';
+  echo '<link rel="stylesheet" href="../styles/homeblue.css">';
 } elseif(strcmp($themerow, 'ultra-dark') == 0) {
-  echo '<link rel="stylesheet" href="../styles/playerultra-dark.css">';
+  echo '<link rel="stylesheet" href="../styles/homeultra-dark.css">';
 } elseif ($themerow == "custom") {
-  echo '<link rel="stylesheet" href="'.$customthemeplayerrow.'">';
+  echo '<link rel="stylesheet" href="'.$customthemehomerow.'">';
 } else {
-  echo '<link rel="stylesheet" href="../styles/player'.$defaultTheme.'.css">';
+  echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
 } 
 ?>
 
@@ -77,10 +77,10 @@ if(strcmp($themerow, 'blue') == 0) {
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
   <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span><span class="tooltiptext"><?php echo $translations[$langrow]['home']; ?></span></a>
-  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span><span class="tooltiptext"><?php echo $translations[$langrow]['watch_history']; ?></span></a>
+  <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">history</span><span class="tooltiptext"><?php echo $translations[$langrow]['watch_history']; ?></span></a>
   <a href="/playlist/playlists.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">list_alt</span><span class="tooltiptext"><?php echo $translations[$langrow]['playlists']; ?></span></a>
   <a href="/subscriptions.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">subscriptions</span><span class="tooltiptext"><?php echo $translations[$langrow]['subscriptions']; ?></span></a>
-  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">settings</span><span class="tooltiptext"><?php echo $translations[$langrow]['settings']; ?></span></a>
+  <a href="/settings.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">settings</span><span class="tooltiptext"><?php echo $translations[$langrow]['settings']; ?></span></a>
 </div>
 
 <div class="w3-main" style="margin-left:55px">
@@ -107,17 +107,85 @@ if(strcmp($themerow, 'blue') == 0) {
   </div>
   <script src="/scripts/sidebar.js"></script>
 
-
+  <div class="tenborder">
 <?php
 
-if(isset($_SESSION['logged_in_user'])) {
-echo '<center><h4>'.$translations[$langrow]['this_is_dev'].'</h4></center>';
-} else {
-echo '<center><h4>You are not logged in.</h4></center>';
+if(isset($_SESSION['logged_in_user'])) { ?>
+
+<div style="text-align: center;">
+
+<?php
+if ($useSQL == true) {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $stmt = $conn->prepare("SELECT watch_history FROM login WHERE username = ?");
+    $stmt->bind_param("s", $_SESSION['logged_in_user']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $watchHistory = [];
+    while ($row = $result->fetch_assoc()) {
+        $watchHistory = json_decode($row['watch_history'], true);
+    }
+
+    $stmt->close();
+    $conn->close();
+
+    if (!is_array($watchHistory)) {
+        $watchHistory = [];
+    } else {
+        $watchHistory = array_reverse($watchHistory);
+    }
+
+    $groupedWatchHistory = [];
+    foreach ($watchHistory as $item) {
+    $date = (new DateTime($item['timestamp']))->format('d M Y');
+    $time = (new DateTime($item['timestamp']))->format('H:i:s');
+    $item['time'] = $time;
+    if (!isset($groupedWatchHistory[$date])) {
+        $groupedWatchHistory[$date] = [];
+    }
+    $groupedWatchHistory[$date][] = $item;
 }
 
+}
+
+
+                    
+
+if (count($groupedWatchHistory) > 0) {
+  foreach ($groupedWatchHistory as $date => $videos) { ?>
+      <h3><?php echo htmlspecialchars($date); ?></h3>
+          <?php foreach ($videos as $item) {
+              $title = htmlspecialchars($item['title']);
+              $author = htmlspecialchars($item['author']);
+              $videoId = htmlspecialchars($item['video_id']);
+              $time = htmlspecialchars($item['time']);
+              echo <<<HTML
+              <a class="awhite" href="/watch/?v={$videoId}">
+                  <div class="video-tile w3-animate-left">
+                      <div class="videoDiv">
+                          <img src="http://i.ytimg.com/vi/{$videoId}/mqdefault.jpg" height="144px">
+                      </div>
+                      <div class="videoInfo">
+                          <div class="videoTitle"><b>{$title}</b><br>{$author} <div style="float: right;">{$time}</div></div>
+                      </div>
+                  </div>
+              </a>
+              HTML;
+          } ?>
+  <?php } } ?>
+
+<?php } else { ?>
+<h4 style="text-align: center;">You are not logged in.</h4>
+<?php
+}
 ?>
-    </div>
+</div>
+</div>
     </div>
   </div>
 </div>
