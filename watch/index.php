@@ -192,7 +192,7 @@ if ($useSQL == true) {
 
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
-  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar sidebarbtn-selected"><span class="material-symbols-outlined">home</span><span class="tooltiptext"><?php echo $translations[$langrow]['home']; ?></span></a>
+  <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span><span class="tooltiptext"><?php echo $translations[$langrow]['home']; ?></span></a>
   <?php
   if ($useSQL == true) { ?>
   <a href="/history.php" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">history</span><span class="tooltiptext"><?php echo $translations[$langrow]['watch_history']; ?></span></a>
@@ -255,7 +255,8 @@ if ($useSQL == true) {
                         } else {
                             $videoUrls[] = [
                                 'url' => str_replace(['{{videoId}}', '{{itag}}'], [$_GET['v'], $itag], $baseUrl),
-                                'quality' => $quality
+                                'quality' => $quality,
+                                'type' => $HlsType[$index]
                             ];
                             
                         }
@@ -263,9 +264,9 @@ if ($useSQL == true) {
                     $videoUrls = array_reverse($videoUrls);
                     echo '<video id="video" class="video" controls preload="auto" data-setup="{}" style="width: 100%; max-height: 90vh; background-color: rgb(0,0,0);" poster="https://i.ytimg.com/vi/'.$_GET['v'].'/maxresdefault.jpg" autoplay>';
                     foreach ($videoUrls as $video) {
-                        echo '<source src="'.$video['url'].$dlsetting.'" type="video/mp4" label="HLS '.$video['quality'].'">';
+                        echo '<source src="'.$video['url'].$dlsetting.'" type="video/mp4" label="HLS '.$video['quality'].' '.$video['type'].'">';
                     }
-                    echo '<source src="/videodata/non-hls.php?id='.$_GET['v'].$dlsetting.'" type="video/mp4" label="360/720p">'
+                    echo '<source src="/videodata/non-hls.php?id='.$_GET['v'].$dlsetting.'" type="video/mp4" label="360p">'
                     .$captionshtml.'Your Browser Sucks! Can not play the video.</video>
 
                     <audio id="audio" preload="auto">

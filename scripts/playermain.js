@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
         video.src = this.value;
         video.currentTime = currentTime;
         video.play();
-        if (selectedQuality === '360/720p') {
+        if (selectedQuality === '360p') {
             disableSync = true;
             audio.pause(); // Stop the audio
         } else {
