@@ -18,6 +18,6 @@ jobs:
 
       - name: Build and push Docker image to Docker Hub
         run: |
-          docker-compose build
+          docker compose build
           docker tag liberatube:latest docker.io/golddominik893/liberatube:latest
           docker push docker.io/golddominik893/liberatube:latest
