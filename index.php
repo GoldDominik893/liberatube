@@ -18,7 +18,7 @@ $flagFilePath = "database.sql.executed";
 
         if ($conn->multi_query($sqlCommands)) {
             file_put_contents($flagFilePath, "");
-            echo "<h1>To Admin: Database and tables created successfully.</h1>";
+            
         } else {
             echo "<h1>To Admin: Error executing SQL file: " . $conn->error . "<br>Are you using a online hosting provider? Check the documentation for installation on a hosting provider.</h1>";
         }
@@ -183,20 +183,20 @@ if ($_GET['disclaimer'] == "accept") {
 } 
 elseif ($_GET['disclaimer'] == "show") {
     $_SESSION['disclaimer'] = "";
-    echo '<div class="w3-panel" style="max-width: 800px; border-radius: 8px; background-color: #1e81b066">
-        <h3 style="text-decoration: underline;">'.$translations[$langrow]['disclaimer'].'!</h3>
+    echo '<div class="epicdiv-noflex" style="max-width: 800px; border-radius: 8px;">
+        <h3>'.$translations[$langrow]['disclaimer'].'!</h3>
         <p>'.$translations[$langrow]['disclaimer_text'].'</p>
-        <a class="button" href="/?disclaimer=accept">'.$translations[$langrow]['i-understand'].'</a><br><br>
+        <a class="button" href="/?disclaimer=accept">'.$translations[$langrow]['i-understand'].'</a>
       </div>';
 } 
 else {
     if ($_SESSION['disclaimer'] == "accept") {
         echo '<a href="/?disclaimer=show">'.$translations[$langrow]['disclaimer'].'</a>';
     } else {
-        echo '<div class="w3-panel" style="max-width: 800px; border-radius: 8px; background-color: #1e81b066;">
-        <h3 style="text-decoration: underline;">'.$translations[$langrow]['disclaimer'].'!</h3>
+        echo '<div class="epicdiv-noflex" style="max-width: 800px; border-radius: 8px;">
+        <h3>'.$translations[$langrow]['disclaimer'].'!</h3>
         <p>'.$translations[$langrow]['disclaimer_text'].'</p>
-        <a class="button" href="/?disclaimer=accept">'.$translations[$langrow]['i-understand'].'</a><br><br>
+        <a class="button" href="/?disclaimer=accept">'.$translations[$langrow]['i-understand'].'</a>
       </div>';
     }
 }
@@ -327,7 +327,7 @@ else {
             </div>
         </div>
         <br><div class="videos-data-container footer w3-animate-left">
-            Liberatube Version 1.9 delta · Licensed under AGPLv3 on GitHub · Credits: Dominic Wajda (GoldDominik893).
+            Liberatube Version 1.9 epsilon · Licensed under AGPLv3 on GitHub · Credits: Dominic Wajda (GoldDominik893).
             <br><a href="https://matrix.to/#/#libreratube:matrix.org">Join the Matrix</a> <a href="https://discord.gg/z4cCk5c5Zj">or discord</a> · <a href="https://invidious.io">Invidious</a> · <a href="https://github.com/GoldDominik893/liberatube">GitHub</a> · <a href="https://epicsite.xyz#donate">Donate to the Liberatube project</a> · <a href="https://liberatube-docs.epicsite.xyz/general/4.privacy/">Privacy Policy</a><br>
             Have you noticed a bug or want to see a new feature? <a href="https://github.com/GoldDominik893/liberatube/issues">Open an issue on GitHub</a>
             </div>
