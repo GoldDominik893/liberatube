@@ -121,6 +121,46 @@ if ($useSQL == true) {
         die("Connection failed: " . $conn->connect_error);
     }
 
+
+    if ($_POST['remove-vid'] && $_POST['timestamp']) {
+      $videoIdToRemove = $_POST['remove-vid'];
+      $timestampToRemove = $_POST['timestamp'];
+  
+      $conn = new mysqli($servername, $username, $password, $dbname);
+      if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+      }
+  
+      $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
+      $stmt->bind_param("s", $_SESSION['logged_in_user']);
+      $stmt->execute();
+      $result = $stmt->get_result();
+  
+      while ($row = $result->fetch_assoc()) {
+          $watchHistory = json_decode($row['watch_history'], true);
+  
+          // Filter out the video with matching video_id and timestamp
+          $watchHistory = array_filter($watchHistory, function($item) use ($videoIdToRemove, $timestampToRemove) {
+              return $item['video_id'] !== $videoIdToRemove || $item['timestamp'] !== $timestampToRemove;
+          });
+  
+          // Reindex array
+          $watchHistory = array_values($watchHistory);
+  
+          $updatedWatchHistory = json_encode($watchHistory);
+  
+          $updateStmt = $conn->prepare("UPDATE login SET watch_history = ? WHERE username = ?");
+          $updateStmt->bind_param("ss", $updatedWatchHistory, $_SESSION['logged_in_user']);
+          $updateStmt->execute();
+  
+          $updateStmt->close();
+      }
+  
+
+  }
+  
+
+
     $stmt = $conn->prepare("SELECT watch_history FROM login WHERE username = ?");
     $stmt->bind_param("s", $_SESSION['logged_in_user']);
     $stmt->execute();
@@ -157,27 +197,40 @@ if ($useSQL == true) {
                     
 
 if (count($groupedWatchHistory) > 0) {
-  foreach ($groupedWatchHistory as $date => $videos) { ?>
-      <h3><?php echo htmlspecialchars($date); ?></h3>
-          <?php foreach ($videos as $item) {
-              $title = htmlspecialchars($item['title']);
-              $author = htmlspecialchars($item['author']);
-              $videoId = htmlspecialchars($item['video_id']);
-              $time = htmlspecialchars($item['time']);
-              echo <<<HTML
-              <a class="awhite" href="/watch/?v={$videoId}">
-                  <div class="video-tile w3-animate-left">
-                      <div class="videoDiv">
-                          <img src="http://i.ytimg.com/vi/{$videoId}/mqdefault.jpg" height="144px">
-                      </div>
-                      <div class="videoInfo">
-                          <div class="videoTitle"><b>{$title}</b><br>{$author} <div style="float: right;">{$time}</div></div>
-                      </div>
-                  </div>
-              </a>
-              HTML;
-          } ?>
-  <?php } } ?>
+    foreach ($groupedWatchHistory as $date => $videos) { ?>
+        <h3><?php echo htmlspecialchars($date); ?></h3>
+        <?php foreach ($videos as $item) {
+            $title = htmlspecialchars($item['title']);
+            $author = htmlspecialchars($item['author']);
+            $videoId = htmlspecialchars($item['video_id']);
+            $time = htmlspecialchars($item['time']);
+            $timestamp = htmlspecialchars($item['timestamp']); // Assume 'timestamp' exists in the watch history
+            echo <<<HTML
+            <a class="awhite" href="/watch/?v={$videoId}">
+                <div class="video-tile w3-animate-left">
+                    <div class="videoDiv">
+                        <img src="http://i.ytimg.com/vi/{$videoId}/mqdefault.jpg" height="144px">
+                        <div class="button-on-vid">
+                          <form method="POST" action="" style="display:inline;">
+                <input type="hidden" name="remove-vid" value="{$videoId}">
+                <input type="hidden" name="timestamp" value="{$timestamp}">
+                <button type="submit" class="remove-button"><span class="material-symbols-outlined">delete</span></button>
+            </form></div>
+                    </div>
+                    <div class="videoInfo">
+                        <div class="videoTitle">
+                            <b>{$title}</b><br>{$author} <div style="float: right;">{$time}</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+            HTML;
+        } ?>
+    <?php }
+} ?>
+
+
 
 <?php } else { ?>
 <h4 style="text-align: center;">You are not logged in.</h4>

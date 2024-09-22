@@ -273,9 +273,13 @@ font-variation-settings:
 .footer {
     width: 100%;
     padding: 10px;
-    background: linear-gradient(135deg, #FFA50033, #80008033);
+    background: linear-gradient(135deg, #ffa5000a, #8000800a);
     border-radius: 8px;
+    border: 2px dashed transparent;
+    border-image: linear-gradient(135deg, #FFA50033, #80008033) 1;
 }
+
+
 .timestamp {
     position: absolute;
     margin-top: -23px;
@@ -285,6 +289,32 @@ font-variation-settings:
     padding-right: 4px;
     border-radius: 3px;
 }
+
+.button-on-vid {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+}
+
+.remove-button {
+    color: white; 
+    padding: 2px; 
+    padding-bottom: 0;
+    height: 28px;
+    background-color: rgb(252, 55, 55);
+    transition: transform 0.2s;
+    transition: 0.3s;
+    margin-left: 3px;
+    border: none;
+    border-radius: 5px;
+}
+  
+.remove-button:hover {
+    background-color: rgb(247, 129, 129);
+    transition: transform 0.2s;
+    transition: 0.3s;
+}
+
 img {
     border-radius: 5px
 }
@@ -298,7 +328,20 @@ img {
     text-align: left;
     display: flex;
     margin: auto;
-  }
+}
+
+.epicdiv-noflex {
+    width: 100%;
+    background: #141414;
+    border: 1px solid rgb(31, 31, 31);
+    max-width: 416px;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.epicdiv-noflex h3 {
+    margin-top: 0px;
+}
 
   .epicdiv h4, .epicdiv h3 {
     margin-top: 0px;
@@ -315,4 +358,12 @@ img {
 .trending-cat-btn-selected, .trending-cat-btn-selected:hover {
     background-color: rgb(226, 226, 226);
     color: #000000;
+}
+
+input[type=search].input-field {
+    margin-bottom: -32px;
+    background-color: rgb(27, 27, 27);
+    border: none;
+    border-radius: 6px;
+    height: 34px;
 }

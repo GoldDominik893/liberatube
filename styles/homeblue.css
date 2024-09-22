@@ -248,6 +248,32 @@ transition: 0.3s
     padding-right: 4px;
     border-radius: 3px;
 }
+
+.button-on-vid {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+}
+
+.remove-button {
+    color: white; 
+    padding: 2px; 
+    padding-bottom: 0;
+    height: 28px;
+    background-color: rgb(252, 55, 55);
+    transition: transform 0.2s;
+    transition: 0.3s;
+    margin-left: 3px;
+    border: none;
+    border-radius: 5px;
+}
+  
+.remove-button:hover {
+    background-color: rgb(247, 129, 129);
+    transition: transform 0.2s;
+    transition: 0.3s;
+}
+
 img {
     border-radius: 4px
 }
