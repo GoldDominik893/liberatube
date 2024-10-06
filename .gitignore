@@ -1,3 +1,4 @@
 legacy/
 database.sql.executed
 /watch/cache
+config.php
