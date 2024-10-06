@@ -32,3 +32,13 @@ CREATE TABLE `playlist` (
   PRIMARY KEY (`playlist_id`),
   FOREIGN KEY (`username`) REFERENCES `login` (`username`) ON DELETE CASCADE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- Table structure for table `cache`
+CREATE TABLE `cache` (
+  `video_id` VARCHAR(191),
+  `lang` VARCHAR(10) NOT NULL,
+  `type` VARCHAR(50) NOT NULL,
+  `data` JSON NOT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`video_id`, `lang`, `type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

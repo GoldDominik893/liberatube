@@ -4,9 +4,6 @@ include('../config.php');
 $langrow = $defaultLang;
 include('../lang.php');
 
-
-
-
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
@@ -30,38 +27,51 @@ if ($useSQL == true) {
     session_destroy();
 }
 
-
-$cacheFile = 'cache/'.$langrow . '_' . $_GET['v'] . '.json';
-$cacheTime = 14400;
-$dislikeCacheFile = 'cache/dislikes_' . $_GET['v'] . '.json';
-if (!is_dir('cache/')) {
-    mkdir('cache/', 0755, true);
-}
-
 ?>
 <html>
 <head>
-
-
 <?php
-                if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTime))  {
-                    $value = json_decode(file_get_contents($cacheFile), true);
 
-                } else {
-                    $InvApiUrl = $InvVIServer . '/api/v1/videos/' . $_GET['v'] . '?hl=' . $langrow;
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, $InvApiUrl);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                    $response = curl_exec($ch);
-                    curl_close($ch);
-                    $value = json_decode($response, true);
-                    $apiError = $value['error'];
-                    if (!$value['error']) {
-                        file_put_contents($cacheFile, json_encode($value));
-                    }
-                    
-                }
+$dsn = "mysql:host=$servername;dbname=$dbname;charset=utf8mb4";
+
+try {
+    $pdo = new PDO($dsn, $username, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
+$cacheTime = 14400;
+$lang = $langrow;
+$videoId = $_GET['v'];
+
+$query = "SELECT data, created_at FROM cache WHERE video_id = ? AND lang = ? AND type = ?";
+$stmt = $pdo->prepare($query);
+
+$stmt->execute([$videoId, $lang, 'video']);
+
+$cacheData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if ($cacheData && (time() - strtotime($cacheData['created_at']) < $cacheTime)) {
+    $value = json_decode($cacheData['data'], true);
+} else {
+    $InvApiUrl = $InvVIServer . '/api/v1/videos/' . $videoId . '?hl=' . $lang;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $InvApiUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    
+    $value = json_decode($response, true);
+    $apiError = $value['error'] ?? null;
+
+    if (!$apiError) {
+        $dataToCache = json_encode($value);
+        $query = "REPLACE INTO cache (video_id, lang, type, data, created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([$videoId, $lang, 'video', $dataToCache]);
+    }
+}
                 
                 
                     $title = $value['title'];
@@ -103,24 +113,44 @@ if (!is_dir('cache/')) {
                         }
                     }
 
-                    if ($useReturnYTDislike == true) {
-                        if (file_exists($dislikeCacheFile) && (time() - filemtime($dislikeCacheFile) < $cacheTime)) {
-                            $dislikeData = json_decode(file_get_contents($dislikeCacheFile), true);
-                        } else {
-                            $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId=' . $_GET['v'];
-                            $ch = curl_init();
-                            curl_setopt($ch, CURLOPT_URL, $dislikeapiurl);
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                            $response = curl_exec($ch);
-                            curl_close($ch);
-                            $dislikeData = json_decode($response, true);
-                            file_put_contents($dislikeCacheFile, json_encode($dislikeData));
-                        }
-                        $dislikes = " · " . number_format($dislikeData['dislikes']) . ' ' . $translations[$langrow]['estimated_dislikes'];
-                    } else {
-                        $dislikes = '';
-                    }
+$dsn = "mysql:host=$servername;dbname=$dbname;charset=utf8mb4";
+
+try {
+    $pdo = new PDO($dsn, $username, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
+if ($useReturnYTDislike == true) {
+    $query = "SELECT data, created_at FROM cache WHERE video_id = ? AND lang = ? AND type = 'dislike'";
+    $stmt = $pdo->prepare($query);
+    
+    $stmt->execute([$videoId, $lang]);
+
+    $cacheData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($cacheData && (time() - strtotime($cacheData['created_at']) < $cacheTime)) {
+        $dislikeData = json_decode($cacheData['data'], true);
+        $dislikes = " · " . number_format($dislikeData['dislikes']) . ' ' . $translations[$langrow]['estimated_dislikes'];
+    } else {
+        $dislikeapiurl = 'https://returnyoutubedislikeapi.com/votes?videoId=' . $videoId;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $dislikeapiurl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $dislikeData = json_decode($response, true);
+        $dataToCache = json_encode($dislikeData);
+        $query = "REPLACE INTO cache (video_id, lang, type, data, created_at) VALUES (?, ?, 'dislike', ?, CURRENT_TIMESTAMP)";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([$videoId, $lang, $dataToCache]);
+        $dislikes = " · " . number_format($dislikeData['dislikes'] ?? 0) . ' ' . $translations[$langrow]['estimated_dislikes'];
+    }
+} else {
+    $dislikes = '';
+}
                     
                     ?> 
 

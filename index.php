@@ -210,43 +210,73 @@ else {
         <?php if(!empty($response)) { ?>
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
         <?php }?>
-        <?php                        
-                if (($_GET['region'] ?? "") == "") {
-                    $_GET['region'] = $regionrow;
-                    if (($regionrow ?? "") == "") {
-                        $_GET['region'] = $defaultRegion;
-                }
-                }
-                
-                if ($_GET['region'] == "GB") {
-                    $responsetren = '<h3>'.$translations[$langrow]['trendingcontent_gb'].'</h3>';
-                }
-                elseif ($_GET['region'] == "US") {
-                    $responsetren = '<h3>'.$translations[$langrow]['trendingcontent_usa'].'</h3>';
-                }
-                else {
-                    $responsetren = '<h3>'.$translations[$langrow]['trendingcontent_code'].' "'.$_GET['region'].'"</h3>';
-                }
-                $InvApiUrl = $InvTServer.'/api/v1/trending?pretty=1&region='.$_GET['region'].'&hl='.$langrow.'&type='.$_GET['type'];
+</div>
+<?php
+$dsn = "mysql:host=$servername;dbname=$dbname;charset=utf8mb4";
 
-                $ch = curl_init();
+try {
+    $pdo = new PDO($dsn, $username, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
 
-                curl_setopt($ch, CURLOPT_HEADER, 0);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_URL, $InvApiUrl);
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-                curl_setopt($ch, CURLOPT_VERBOSE, 0);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                $response = curl_exec($ch);
+$cacheTime = 14400;
+$lang = $langrow;
+$region = $_GET['region'] ?? $regionrow;
+if (empty($region)) {
+    $region = $defaultRegion;
+}
 
-                curl_close($ch);
-                $data = json_decode($response);
-                $value = json_decode(json_encode($data), true);
+$type = $_GET['type'] ?? '';
+$typeWithRegion = 'trending_' . $region . '_' . $type; // Format: trending_LANGUAGECODE_TYPE
 
-                $rsults = substr_count($response,"descriptionHtml");
+$query = "SELECT data, created_at FROM cache WHERE lang = ? AND type = ?";
+$stmt = $pdo->prepare($query);
+$stmt->execute([$lang, $typeWithRegion]);
+$cacheData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                
-            ?>
+if ($cacheData && (time() - strtotime($cacheData['created_at']) < $cacheTime)) {
+    $value = json_decode($cacheData['data'], true);
+} else {
+    $InvApiUrl = $InvTServer . '/api/v1/trending?region=' . $region . '&hl=' . $lang . '&type=' . $type;
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $InvApiUrl);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_VERBOSE, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    
+    $data = json_decode($response, true);
+    
+    if (!isset($data['error'])) {
+        $dataToCache = json_encode($data);
+        
+        $query = "REPLACE INTO cache (video_id, lang, type, data, created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        $stmt = $pdo->prepare($query);
+        
+        // Store in the format trending_LANGUAGECODE_TYPE
+        $stmt->execute(['trending', $lang, $typeWithRegion, $dataToCache]);
+        
+        $value = $data;
+    } else {
+        $value = [];
+    }
+}
+
+if ($region == "GB") {
+    $responsetren = '<h3>' . $translations[$langrow]['trendingcontent_gb'] . '</h3>';
+} elseif ($region == "US") {
+    $responsetren = '<h3>' . $translations[$langrow]['trendingcontent_usa'] . '</h3>';
+} else {
+    $responsetren = '<h3>' . $translations[$langrow]['trendingcontent_code'] . ' "' . $region . '"</h3>';
+}
+
+$rsults = substr_count(json_encode($value), "descriptionHtml");
+?>
 
             <br>
             <div class="videos-data-container w3-animate-left" id="SearchResultsDiv">
