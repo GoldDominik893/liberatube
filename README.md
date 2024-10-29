@@ -46,6 +46,7 @@
 * [x] Community driven plugin store
 * [x] Audio-only mode
 * [x] Return YouTube Dislike
+* [x] Caches certain pages to speed up loading times.
 * [x] Download videos
 * [x] Does not use official YouTube API's
 * [x] Docker compose file
@@ -54,7 +55,6 @@
 
 * [ ] Autoplay for playlists
 * [ ] Subscribing to channels
-* [ ] Caching the trending page to reduce loading times significantly
 * [ ] Annotations (clickable links on the video basically)
 
 ## Related Repositories
