@@ -3,7 +3,7 @@
 $translations = array(
     'en' => array (
         'home' => 'Home',
-        'login-signup' => 'Login/Signup',
+        'login-signup' => 'Login',
         'logout' => 'Logout',
         'disclaimer' => 'Disclaimer',
         'disclaimer_text' => 'Using this Liberatube instance is not recommended for average users as there are some new and untested features and the database which stores user data is sometimes reset.',
