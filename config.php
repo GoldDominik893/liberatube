@@ -16,7 +16,7 @@ $dbname = "users";                                // The database name, by defau
 
 // Invidious
 $InvCServer = "https://invidious.perennialte.ch";  // The Invidious instance that will be used to fetch comments
-$InvVIServer = "https://invi.susurrando.com";      // The Invidious instance that will be used to fetch video information
+$InvVIServer = "https://invidious.catspeed.cc";      // The Invidious instance that will be used to fetch video information
 $InvTServer = "https://invidious.perennialte.ch";       // The Invidious instance that will be used to fetch trending videos for the home page
 $InvSServer = "https://invidious.perennialte.ch";  // The Invidious instance that will be used to search for content
 
