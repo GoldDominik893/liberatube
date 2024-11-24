@@ -209,7 +209,7 @@ if (count($groupedWatchHistory) > 0) {
             <a class="awhite" href="/watch/?v={$videoId}">
                 <div class="video-tile w3-animate-left">
                     <div class="videoDiv">
-                        <img src="http://i.ytimg.com/vi/{$videoId}/mqdefault.jpg" height="144px">
+                        <img src="http://i.ytimg.com/vi/{$videoId}/mqdefault.jpg" width="256px">
                         <div class="button-on-vid">
                           <form method="POST" action="" style="display:inline;">
                 <input type="hidden" name="remove-vid" value="{$videoId}">

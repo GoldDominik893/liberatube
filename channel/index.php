@@ -301,7 +301,7 @@ if ($useSQL == true) {
                     <a class="awhite" href="/watch/?v=<?php echo $videoId; ?>">
                        <div class="video-tile w3-animate-left">
                         <div class="videoDiv">
-                        <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" height="144px">
+                        <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" width="256px">
                         <div class="timestamp"><?php echo $timestamp; ?></div>
                         </div>
                         <div class="videoInfo">
@@ -338,7 +338,7 @@ if ($useSQL == true) {
                            <div class="video-tile w3-animate-left">
                             <div class="videoDiv">
                             
-                            <img src="<?php echo $plThumb; ?>" height="144px">
+                            <img src="<?php echo $plThumb; ?>" width="256px">
                             
                             <div><?php echo $timestamp; ?></div>
                             </div>

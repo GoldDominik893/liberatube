@@ -157,7 +157,7 @@ if ($result->num_rows > 0) {
                 <a class="awhite" href='view_playlist.php?playlist_id={$playlistId}'>
                     <div class="video-tile w3-animate-left">
                         <div class="videoDiv">
-                            <img src='{$videoId}' height="144px">
+                            <img src='{$videoId}' width="256px">
                         </div>
                         <div class="videoInfo">
                             <div class="videoTitle"><b>{$playlistName}</b> <div style="float: right;">{$vidsInPlaylistText}</div></div>

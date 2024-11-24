@@ -332,7 +332,7 @@ if ($useSQL == true) {
         <a class="awhite" href="/watch/?v=<?php echo $suggestedvideoId; ?>">
             <div class="video-tile w3-animate-left">
                 <div class="videoDiv">
-                    <img src="http://i.ytimg.com/vi/<?php echo $suggestedvideoId; ?>/mqdefault.jpg" height="144px">
+                    <img src="http://i.ytimg.com/vi/<?php echo $suggestedvideoId; ?>/mqdefault.jpg" width="256px">
                     <div class="timestamp"><?php echo $timestamp; ?></div>
                 </div>
                 <div class="videoInfo">
@@ -495,7 +495,7 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
         <a class="awhite" href="/watch/?v=<?php echo $suggestedvideoId; ?>">
             <div class="video-tile w3-animate-left">
                 <div class="videoDiv">
-                    <img src="http://i.ytimg.com/vi/<?php echo $suggestedvideoId; ?>/mqdefault.jpg" height="144px">
+                    <img src="http://i.ytimg.com/vi/<?php echo $suggestedvideoId; ?>/mqdefault.jpg" width="256px">
                     <div class="timestamp"><?php echo $timestamp; ?></div>
                 </div>
                 <div class="videoInfo">

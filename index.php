@@ -171,8 +171,9 @@ if ($useSQL == true) {
     <?php } ?>
 
     </div>
-        </div>
-</div>
+    </div>
+    </div>
+
 <script src="/scripts/sidebar.js"></script>
 <div class="tenborder">
 <?php
@@ -210,7 +211,7 @@ else {
         <?php if(!empty($response)) { ?>
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
         <?php }?>
-</div>
+
 <?php
 $dsn = "mysql:host=$servername;dbname=$dbname;charset=utf8mb4";
 
@@ -228,7 +229,7 @@ if (empty($region)) {
 }
 
 $type = $_GET['type'] ?? '';
-$typeWithRegion = 'trending_' . $region . '_' . $type; // Format: trending_LANGUAGECODE_TYPE
+$typeWithRegion = 'trending_' . $region . '_' . $type; 
 
 $query = "SELECT data, created_at FROM cache WHERE lang = ? AND type = ?";
 $stmt = $pdo->prepare($query);
@@ -257,8 +258,7 @@ if ($cacheData && (time() - strtotime($cacheData['created_at']) < $cacheTime)) {
         
         $query = "REPLACE INTO cache (video_id, lang, type, data, created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
         $stmt = $pdo->prepare($query);
-        
-        // Store in the format trending_LANGUAGECODE_TYPE
+
         $stmt->execute(['trending', $lang, $typeWithRegion, $dataToCache]);
         
         $value = $data;
@@ -280,11 +280,8 @@ $rsults = substr_count(json_encode($value), "descriptionHtml");
 
             <br>
             <div class="videos-data-container w3-animate-left" id="SearchResultsDiv">
-            
 <div style="text-align: center;">
-<h2><?php echo $responsetren; ?></h2>
             <?php
-            
             if ($_GET['type'] == "General" or $_GET['type'] == "") 
                 {
                 echo '<div align="left" style="margin-top:10px">
@@ -316,7 +313,10 @@ $rsults = substr_count(json_encode($value), "descriptionHtml");
                       <a class="trending-cat-btn" href="/?type=Music">'.$translations[$langrow]['music'].'</a>
                       <a class="trending-cat-btn" href="/?type=Gaming">'.$translations[$langrow]['gaming'].'</a>
                       <a class="trending-cat-btn trending-cat-btn-selected" href="#">'.$translations[$langrow]['movies'].'</a><br><br>
-                      </div>'; }
+                      </div>'; } ?>
+
+            <h2><?php echo $responsetren; ?></h2>
+            <?php
 
                 for ($i = 0; $i < $rsults; $i++) {
                     $videoId = $value[$i]['videoId'] ?? "";
@@ -337,11 +337,10 @@ $rsults = substr_count(json_encode($value), "descriptionHtml");
                     }
                     ?>
 
-
                     <a class="awhite" href="/watch/?v=<?php echo $videoId; ?>">
                        <div class="video-tile w3-animate-left">
                         <div class="videoDiv">
-                        <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" height="144px">
+                        <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" width="256px">
                         <div class="timestamp"><?php echo $timestamp; ?></div>
                         </div>
                         <div class="videoInfo">

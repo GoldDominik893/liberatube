@@ -367,3 +367,40 @@ input[type=search].input-field {
     border-radius: 6px;
     height: 34px;
 }
+
+@media screen and (max-width: 440px) {
+    .video-tile, .videoDiv, .video-tile, .videoDiv img, .videoTitle, .videoInfo {
+        width: 100%;
+        position: relative;
+    }
+    .videoDiv {
+        height: unset;
+    }
+    a.awhite {
+        margin-left: -4px;
+    }
+    .s-profilepic {
+        width: 144px !important; 
+        height: 144px;
+    }
+}
+
+@media screen and (max-width: 554px) and (min-width: 440px) {
+    .video-tile, .videoDiv img, .videoTitle, .videoInfo, .videoDiv {
+        width: 100%;
+        position: relative;
+    }
+    .video-tile {
+        width: 45%;
+    }
+    .videoDiv {
+        height: unset;
+    }
+    a.awhite {
+        margin-left: -4px;
+    }
+    .s-profilepic {
+        width: 144px !important; 
+        height: 144px;
+    }
+}

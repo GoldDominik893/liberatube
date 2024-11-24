@@ -219,7 +219,7 @@ if ($useSQL == true) {
                             
                         <?php 
                         if ($type == "video") { ?>
-                            <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" height="144px">
+                            <img src="http://i.ytimg.com/vi/<?php echo $videoId; ?>/mqdefault.jpg" width="256px">
 
                             <div class="timestamp"><?php echo $timestamp; ?></div>
                             </div>
@@ -232,7 +232,7 @@ if ($useSQL == true) {
 
                         <?php }
                         elseif ($type == "channel") { ?>
-                            <img style="margin-left: 56px; margin-right: 56px;" src="<?php echo $profpic ?>" height="144px">
+                            <img style="margin-left: 56px; margin-right: 56px;" src="<?php echo $profpic ?>" height="144px" width="144px" class="s-profilepic">
 
                             </div>
                             <div class="videoInfo">
@@ -243,7 +243,7 @@ if ($useSQL == true) {
 
 
                         <?php } elseif ($type == "playlist") { ?>
-                            <img src="<?php echo $plImage ?>" height="144px">
+                            <img src="<?php echo $plImage ?>" width="256px">
 
                             </div>
                             <div class="videoInfo">

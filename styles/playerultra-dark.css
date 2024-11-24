@@ -391,3 +391,16 @@ select.button option {
     background-color: #141414;
     color: white;
 }
+
+@media screen and (max-width: 440px) {
+    .video-tile, .videoDiv, .video-tile, .videoDiv img, .videoTitle, .videoInfo {
+        width: 100%;
+        position: relative;
+    }
+    .videoDiv {
+        height: unset;
+    }
+    a.awhite {
+        margin-left: -4px;
+    }
+}
