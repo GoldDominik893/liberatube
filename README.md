@@ -96,7 +96,7 @@ If you need help regarding this software please check the [Documentation](http:/
 
 Liberatube is licensed under the GNU Affero General Public License v3.0
 
-Copyright © 2024 Dominic Wajda
+Copyright © 2025 Dominic Wajda
 
 ### Liability
 
