@@ -4,6 +4,15 @@ include('../config.php');
 $langrow = $defaultLang;
 include('../lang.php');
 
+$currentUrl = "http";
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+    $currentUrl .= "s";
+}
+$currentUrl .= "://";
+$currentUrl .= $_SERVER['HTTP_HOST'];
+$currentUrl .= $_SERVER['REQUEST_URI'];
+
+
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
@@ -18,6 +27,8 @@ if ($useSQL == true) {
         $pwrow = $row['password'];
         $customthemeplayerrow = $row['customtheme_player_url'];
         $langrow = $row['lang'];
+        $librebook_urlrow = $row['librebook_url'];
+        $librebook_keyrow = $row['librebook_key'];
     }
     if ($_SESSION['hashed_pass'] == $pwrow) {
     } else {
@@ -41,13 +52,14 @@ try {
 }
 
 $cacheTime = 14400;
+
 $lang = $langrow;
 $videoId = $_GET['v'];
 
-$query = "SELECT data, created_at FROM cache WHERE video_id = ? AND lang = ? AND type = ?";
+$query = "SELECT data, created_at FROM cache_video WHERE video_id = ? AND lang = ?";
 $stmt = $pdo->prepare($query);
 
-$stmt->execute([$videoId, $lang, 'video']);
+$stmt->execute([$videoId, $lang]);
 
 $cacheData = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -64,12 +76,15 @@ if ($cacheData && (time() - strtotime($cacheData['created_at']) < $cacheTime)) {
     
     $value = json_decode($response, true);
     $apiError = $value['error'] ?? null;
+    if ($value == null) {
+        $apiError = "API returned null";
+    }
 
     if (!$apiError) {
         $dataToCache = json_encode($value);
-        $query = "REPLACE INTO cache (video_id, lang, type, data, created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        $query = "REPLACE INTO cache_video (video_id, lang, data, created_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
         $stmt = $pdo->prepare($query);
-        $stmt->execute([$videoId, $lang, 'video', $dataToCache]);
+        $stmt->execute([$videoId, $lang, $dataToCache]);
     }
 }
                 
@@ -122,10 +137,10 @@ try {
 }
 
 if ($useReturnYTDislike == true) {
-    $query = "SELECT data, created_at FROM cache WHERE video_id = ? AND lang = ? AND type = 'dislike'";
+    $query = "SELECT data, created_at FROM cache_dislike WHERE video_id = ?";
     $stmt = $pdo->prepare($query);
     
-    $stmt->execute([$videoId, $lang]);
+    $stmt->execute([$videoId]);
 
     $cacheData = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -143,9 +158,9 @@ if ($useReturnYTDislike == true) {
 
         $dislikeData = json_decode($response, true);
         $dataToCache = json_encode($dislikeData);
-        $query = "REPLACE INTO cache (video_id, lang, type, data, created_at) VALUES (?, ?, 'dislike', ?, CURRENT_TIMESTAMP)";
+        $query = "REPLACE INTO cache_dislike (video_id, data, created_at) VALUES (?, ?, CURRENT_TIMESTAMP)";
         $stmt = $pdo->prepare($query);
-        $stmt->execute([$videoId, $lang, $dataToCache]);
+        $stmt->execute([$videoId, $dataToCache]);
         $dislikes = " · " . number_format($dislikeData['dislikes'] ?? 0) . ' ' . $translations[$langrow]['estimated_dislikes'];
     }
 } else {
@@ -347,7 +362,7 @@ if ($useSQL == true) {
 </div>
 
 
-        <textarea hidden id="textbox" value="<?php echo $url; ?>"><?php echo $url; ?></textarea>
+
         
        
 <h3><?php echo $title; ?></h3>
@@ -357,17 +372,128 @@ if ($useSQL == true) {
     <select class="button" id="qualitySelector"></select>
 <?php } ?>
 
-<a class="popup button" onclick="myFunction(), copyText()">
-<span class="popuptext" id="myPopup"><?php echo $translations[$langrow]['url_copied']; ?></span><?php echo $translations[$langrow]['share']; ?></a>
-
+<a class="button" onclick="Alert_share.render('ok')"><?php echo $translations[$langrow]['share_librebook']; ?>Share</a>
 <a class="button" onclick="Alert.render('ok')"><?php echo $translations[$langrow]['download']; ?></a>
 <a class="button" onclick="Alert_pl.render('ok')"><?php echo $translations[$langrow]['add_to_playlist']; ?></a>
 <a class="button" href="/channel/?id=<?php echo $authorId; ?>"><?php echo $author; ?> · <?php echo $autsubs; ?></a>
 
 
+<div id="popUpBox_share" style="display: none;">
+<div id="box_share" style="max-width: 1200px;">
+
+
+<h3>Share this video</h3>
+<h4 style="text-align: left;">Share this video with a Librebook friend</h4>
+
+<?php 
+if ($_SESSION['logged_in_user']) { ?>
+
+<?php
+if ($librebook_keyrow and $librebook_urlrow) {
+    $librebook_request = $librebook_urlrow.'/api.php?apikey='.$librebook_keyrow.'&function=people_you_follow';
+    $librebook_friends_c = file_get_contents($librebook_request);
+
+    $librebook_friends = array_map('trim', explode(',', $librebook_friends_c));
+    $librebook_user = $librebook_friends[0];
+    array_shift($librebook_friends);
+
+    $_SESSION['librebook_instance'] = $librebook_urlrow;
+    $_SESSION['librebook_apikey'] = $librebook_keyrow;
+
+    if ($librebook_friends[0] == "No users found.") {
+        echo "No friends found.";
+    } else {
+
+    ?>
+    <form>
+    <input type="hidden" id="videoUrl" name="videoUrl" value="<?php echo $currentUrl; ?>">
+    <input type="hidden" id="videoTitle" name="videoTitle" value="<?php echo $title; ?>">
+    <input type="hidden" id="videoAuthor" name="videoAuthor" value="<?php echo $author; ?>">
+
+    <div id="friendSelect">
+        <?php
+        foreach ($librebook_friends as $index => $friend) {
+            echo '<input type="radio" id="friend'.$index.'" name="friendSelect" value="'.$friend.'" required>';
+            echo '<label for="friend'.$index.'">'.$friend.'</label>';
+        }
+        ?>
+    </div>
+    
+    <!-- Message box illustration -->
+    <div style="max-width: 250px; text-align: left;">
+        <br>
+        <p><b><?php echo $librebook_user ?> --> You</b><br>Check out this video!<br><?php echo $title.' - '.$author.' - '.$currentUrl ?></p>
+    </div>
+
+    <input type="button" value="Share" onclick="shareWithFriend()">
+    </form>
+    <div id="result"></div>
+    <style>
+        input[type="radio"] {
+            display: none;
+        }
+        label {
+            display: block;
+            width: 100%;
+            padding: 5px;
+            padding-left: 15px;
+            margin-bottom: 1px;
+            text-align: left;
+            background-color:rgb(32, 32, 32);
+            color: white;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.1s ease;
+        }
+        label:hover {
+            background-color:rgb(37, 37, 37);
+        }
+        input[type="radio"]:checked + label {
+            background-color:rgb(44, 44, 44);
+        }
+        input[type="button"] {
+            width: 100%;
+            padding: 4px;
+            background-color:rgb(32, 32, 32);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.1s ease;
+        }
+        input[type="button"]:hover {
+            background-color:rgb(37, 37, 37);
+        }
+</style>
+<?php
+    }
+
+} else {
+    echo "Librebook API key or URL not set or misconfigured in settings.";
+}
+
+
+
+} else {
+    echo 'You are not logged in. <a href="/auth/login.html">Login</a>';
+} ?>
+
+<h4 style="text-align: left;">Share this video with a link</h4>
+<textarea hidden id="textbox" value="<?php echo $currentUrl; ?>"><?php echo $currentUrl; ?></textarea>
+<a class="popup button" onclick="myFunction(), copyText()">
+<span class="popuptext" id="myPopup"><?php echo $translations[$langrow]['url_copied']; ?></span><?php echo $translations[$langrow]['share']; ?></a>
+
+<div id="closeModal_share"><a class="button" onclick="Alert_share.ok()">Close</a></div>
+</div>
+</div>
+
+
 <div id="popUpBox_pl" style="display: none;">
 <div id="box_pl">
-
 <?php if ($_SESSION['logged_in_user']) { ?>
 <h3><?php echo $translations[$langrow]['add_vid_to_playlist']; ?></h3>
 <form id="addToPlaylistForm">

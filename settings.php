@@ -58,6 +58,8 @@ while ($row = $result->fetch_assoc())
     $loadcommentsrow = $row['loadcomments'];
     $customthemeplayerrow = $row['customtheme_player_url'];
     $customthemehomerow = $row['customtheme_home_url'];
+    $librebook_key_row = $row['librebook_key'];
+    $librebook_url_row = $row['librebook_url'];
 }
 $numrows = $result->num_rows;
 }
@@ -174,6 +176,8 @@ $torfproxy = $_POST['proxy'] ?? "";
 $uplayertype = $_POST['player'] ?? "";
 $uvideoshadow = $_POST['vidshadow'] ?? "";
 $uloadcomments = $_POST['loadcomments'] ?? "";
+$librebook_key = $_POST['librebook_key'] ?? "";
+$librebook_url = $_POST['librebook_url'] ?? "";
 $customthemehomerow = $_GET['customthemehomerow'] ?? $_POST['customthemehomerow'] ?? $customthemehomerow;
 $customthemeplayerrow = $_GET['customthemeplayerrow'] ?? $_POST['customthemeplayerrow'] ?? $customthemeplayerrow;
 
@@ -190,8 +194,8 @@ $stmt->execute();
 $result = $stmt->get_result();
 if($result->num_rows) {
 }
-$stmt = $conn->prepare("UPDATE login SET customtheme_player_url = ?, customtheme_home_url = ?, theme = ?, lang = ?, region = ?, proxy = ?, videoshadow = ?, loadcomments = ? WHERE username = ?");
-$stmt->bind_param("sssssssss", $customthemeplayerrow, $customthemehomerow, $theme, $lang, $uregion, $torfproxy, $uvideoshadow, $uloadcomments, $dbsenduser);
+$stmt = $conn->prepare("UPDATE login SET librebook_url = ?, librebook_key = ?, customtheme_player_url = ?, customtheme_home_url = ?, theme = ?, lang = ?, region = ?, proxy = ?, videoshadow = ?, loadcomments = ? WHERE username = ?");
+$stmt->bind_param("sssssssssss", $librebook_url, $librebook_key, $customthemeplayerrow, $customthemehomerow, $theme, $lang, $uregion, $torfproxy, $uvideoshadow, $uloadcomments, $dbsenduser);
 if ($stmt->execute() === TRUE) {   
 } else {
   echo "Error: <br>" . $conn->error;
@@ -397,6 +401,15 @@ echo '
   </div>
   <br>
   <div class="settingsdiv"><h4>'.$translations[$langrow]['account_prefs'].'</h4>
+
+  <h5>'.$translations[$langrow]['link_librebook'].'</h5>
+  <label for="librebook_url">'.$translations[$langrow]['librebook_url'].':</label>
+  <input value="'.$librebook_url_row.'" type="url" id="librebook_url" name="librebook_url" placeholder="'.$translations[$langrow]['instance_url'].'">
+  <br>
+  <label for="librebook_key">'.$translations[$langrow]['librebook_key'].':</label>
+  <input value="'.$librebook_key_row.'" autocomplete="off" minlength="64" maxlength="64" pattern=".{64,64}" id="librebook_key" name="librebook_key" placeholder="'.$translations[$langrow]['api_key'].'">
+  <br><br>
+
   <a disabled type="button" class="btn btn-warning" style="margin-bottom: 5px; color: black;">'.$translations[$langrow]['clear_watch_history'].'</a><br>
   <a type="button" href="/account.php/?r=password" class="btn btn-primary">'.$translations[$langrow]['change_your_password'].'</a>
   <a type="button" href="/account.php/?r=delete" class="btn btn-danger">'.$translations[$langrow]['delete_your_account'].'</a>

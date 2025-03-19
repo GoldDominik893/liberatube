@@ -9,14 +9,16 @@ function myFunction() {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
     }
+
+    
 var Alert = new CustomAlert();
 var Alert_pl = new CustomAlert_pl();
+var Alert_share = new CustomAlert_share();
 
 function CustomAlert(){
     this.render = function(){
         let popUpBox = document.getElementById('popUpBox');
         popUpBox.style.display = "flex";
-        
     }
     this.ok = function(){
     document.getElementById('popUpBox').style.display = "none";
@@ -27,14 +29,24 @@ function CustomAlert(){
 function CustomAlert_pl(){
     this.render = function(){
         let popUpBox = document.getElementById('popUpBox_pl');
-        popUpBox.style.display = "flex";
-        
+        popUpBox.style.display = "flex";  
     }
     this.ok = function(){
     document.getElementById('popUpBox_pl').style.display = "none";
     document.getElementById('popUpOverlay').style.display = "none";
     }
 }	
+
+function CustomAlert_share(){
+    this.render = function(){
+        let popUpBox = document.getElementById('popUpBox_share');
+        popUpBox.style.display = "flex";  
+    }
+    this.ok = function(){
+    document.getElementById('popUpBox_share').style.display = "none";
+    document.getElementById('popUpOverlay').style.display = "none";
+    }
+}
 
 const urlParams = new URLSearchParams(window.location.search);
 const t = urlParams.get('t');
@@ -155,3 +167,44 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
+// LIBREBOOK STUFF
+
+function shareWithFriend() {
+    // Get the selected friend's name
+    var friend = document.querySelector('input[name="friendSelect"]:checked');
+    
+    if (!friend) {
+        document.getElementById('result').innerHTML = 'Please select a friend to share the video with.';
+        return;
+    }
+
+    // Get the video data
+    var videoUrl = document.getElementById('videoUrl').value;
+    var videoTitle = document.getElementById('videoTitle').value;
+    var videoAuthor = document.getElementById('videoAuthor').value;
+
+    // Create a new XHR request
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "librebook_share.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    // Prepare data to be sent to the server
+    var data = "videoUrl=" + encodeURIComponent(videoUrl) +
+               "&videoTitle=" + encodeURIComponent(videoTitle) +
+               "&videoAuthor=" + encodeURIComponent(videoAuthor) +
+               "&friend=" + encodeURIComponent(friend.value);
+
+    // Set up the response handler
+    xhr.onload = function() {
+        if (xhr.status == 200) {
+            document.getElementById('result').innerHTML = xhr.responseText;
+        } else {
+            document.getElementById('result').innerHTML = 'An error occurred while sharing the video.';
+        }
+    };
+
+    // Send the request with the data
+    xhr.send(data);
+}

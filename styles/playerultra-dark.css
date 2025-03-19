@@ -18,6 +18,7 @@
     word-wrap: normal;
     direction: ltr;
     -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
 }
   
@@ -229,7 +230,7 @@ border: none;
 ::-webkit-scrollbar-thumb:hover{background: rgba(70,70,70,0.4);}
 
 /* Pop-up box styling */
-#popUpBox, #popUpBox_pl {
+#popUpBox, #popUpBox_pl, #popUpBox_share {
     position: fixed;
     overflow: hidden;
     top: 0;
@@ -245,7 +246,7 @@ border: none;
 }
 
 /* Content box styling */
-#box, #box_pl {
+#box, #box_pl, #box_share {
     max-width: 98%;
     max-height: 98%;
     overflow-y: auto;

@@ -18,6 +18,7 @@
     word-wrap: normal;
     direction: ltr;
     -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
 }
 
@@ -175,7 +176,7 @@ border: none;
 ::-webkit-scrollbar-thumb{background: rgba(100,100,100,0.4); border-radius:5px;}
 ::-webkit-scrollbar-thumb:hover{background: rgba(70,70,70,0.4);}
 
-#box, #box_pl {
+#box, #box_pl, #box_share {
     position: relative;
     text-align: center;
     margin: 0;
@@ -189,7 +190,7 @@ border: none;
     transform: translateY(-50%);
 }
 
-#popUpBox, #popUpBox_pl {
+#popUpBox, #popUpBox_pl, #popUpBox_share {
 width: 100vw;
 height: 100vh;
 white-space: normal;
