@@ -222,6 +222,7 @@ try {
 }
 
 $cacheTime = 14400;
+
 $lang = $langrow;
 $region = $_GET['region'] ?? $regionrow;
 if (empty($region)) {
@@ -229,11 +230,10 @@ if (empty($region)) {
 }
 
 $type = $_GET['type'] ?? '';
-$typeWithRegion = 'trending_' . $region . '_' . $type; 
 
-$query = "SELECT data, created_at FROM cache WHERE lang = ? AND type = ?";
+$query = "SELECT data, created_at FROM cache_trending WHERE region = ? AND lang = ? AND type = ?";
 $stmt = $pdo->prepare($query);
-$stmt->execute([$lang, $typeWithRegion]);
+$stmt->execute([$region, $lang, $type]);
 $cacheData = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($cacheData && (time() - strtotime($cacheData['created_at']) < $cacheTime)) {
@@ -256,10 +256,10 @@ if ($cacheData && (time() - strtotime($cacheData['created_at']) < $cacheTime)) {
     if (!isset($data['error'])) {
         $dataToCache = json_encode($data);
         
-        $query = "REPLACE INTO cache (video_id, lang, type, data, created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        $query = "REPLACE INTO cache_trending (region, lang, type, data, created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
         $stmt = $pdo->prepare($query);
 
-        $stmt->execute(['trending', $lang, $typeWithRegion, $dataToCache]);
+        $stmt->execute([$region, $lang, $type, $dataToCache]);
         
         $value = $data;
     } else {
