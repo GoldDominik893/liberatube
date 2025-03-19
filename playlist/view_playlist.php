@@ -133,6 +133,8 @@ if ($result->num_rows > 0) {
     echo "<h2>$playlistName</h2><h4>".$translations[$langrow]['author'].": $plusername</h4>";
     echo "<div class='video-container'>";
 
+
+    $videoIndex = 1;
     foreach ($videoInfoArray as $videoInfo) {
         if (is_array($videoInfo)) {
             $videoId = $videoInfo['id'];
@@ -140,7 +142,7 @@ if ($result->num_rows > 0) {
             $author = $videoInfo['author'];
 
             echo <<<HTML
-                <a class="awhite" href="/watch/?v={$videoId}">
+                <a class="awhite" href="/watch/?v={$videoId}&list={$playlistId}&index={$videoIndex}">
                     <div class="video-tile w3-animate-left">
                         <div class="videoDiv">
                                 <img src="http://i.ytimg.com/vi/{$videoId}/mqdefault.jpg" width="256px">
@@ -151,7 +153,8 @@ if ($result->num_rows > 0) {
                         </div>
                     </div>
                 </a>
-HTML;
+            HTML;
+        $videoIndex++; 
         } else {
             echo "<p>Invalid video information</p>";
         }
@@ -162,24 +165,12 @@ HTML;
     echo "<p>Playlist not found or empty.</p>";
 }
 
-// Close the statement
 $stmt->close();
 
-// Close the database connection
 $conn->close();
 ?>
 
-
-
-
-
 </div></div>
-
-
-
-
-
-
 
     </div>
     </div>

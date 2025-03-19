@@ -15,10 +15,10 @@ $dbname = "users";                                // The database name, by defau
 // $dbname = "users";
 
 // Invidious
-$InvCServer = "https://invidious.perennialte.ch";  // The Invidious instance that will be used to fetch comments
-$InvVIServer = "https://invidious.catspeed.cc";      // The Invidious instance that will be used to fetch video information
-$InvTServer = "https://invidious.perennialte.ch";       // The Invidious instance that will be used to fetch trending videos for the home page
-$InvSServer = "https://invidious.perennialte.ch";  // The Invidious instance that will be used to search for content
+$InvCServer = "https://oci-invidious.epicsite.xyz";  // The Invidious instance that will be used to fetch comments
+$InvVIServer = "https://lekker.gay";                 // The Invidious instance that will be used to fetch video information
+$InvTServer = "https://oci-invidious.epicsite.xyz";  // The Invidious instance that will be used to fetch trending videos for the home page
+$InvSServer = "https://oci-invidious.epicsite.xyz";  // The Invidious instance that will be used to search for content
 
 // Admin and Defaults
 $defaultRegion = "GB";                             // If the user is logged out or doesn't have a region set this will be the default, (put any 2 digit country code)
