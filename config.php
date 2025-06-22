@@ -15,12 +15,28 @@ $dbname = "users";                                // The database name, by defau
 // $dbname = "users";
 
 // Invidious
-$InvCServer = "https://oci-invidious.epicsite.xyz";  // The Invidious instance that will be used to fetch comments
-$InvVIServer = "https://lekker.gay";                 // The Invidious instance that will be used to fetch video information
-$InvTServer = "https://oci-invidious.epicsite.xyz";  // The Invidious instance that will be used to fetch trending videos for the home page
-$InvSServer = "https://oci-invidious.epicsite.xyz";  // The Invidious instance that will be used to search for content
+$InvVIServer = "https://invidious.tail5b365.ts.net";  // Only used temporarily by media fetch, replaced soon.
+$InvVIServerArray = [                                 // Include multiple instances for failover.
+                    "https://nyc1.iv.ggtyler.dev",
+                    "https://lekker.gay",
+                    "https://invidious.tail5b365.ts.net",
+                    "https://invidious.schenkel.eti.br",
+                    "https://id.420129.xyz",
+                    "https://inv.nadeko.net",
+                    "https://iv.duti.dev",
+                    "https://invidious.adminforge.de",
+                    "https://invidious.kavin.rocks",
+                    "https://invidious.snopyta.org",
+                    "https://invidious.f5.si",
+                    "https://invidious.osi.kr",
+                ];
+$InvSServer = "https://oci-invidious.epicsite.xyz";  // Instance used for: Search, Channels, Playlists, Captions.
+$InvCServer = "https://oci-invidious.epicsite.xyz";  // Instance used for: Video Comments.
+$InvTServer = "https://oci-invidious.epicsite.xyz";  // Instance used for: Trending page (homepage).
+
 
 // Admin and Defaults
+$cacheTime = 20000;                                // Time in seconds that the cache will be valid for (integer)
 $defaultRegion = "GB";                             // If the user is logged out or doesn't have a region set this will be the default, (put any 2 digit country code)
 $defaultTheme = "ultra-dark";                      // If the user is logged out or doesn't have a theme set this will be the default, (blue / ultra-dark)
 $defaultLang = "en";                               // If the user is logged out or doesn't have a language set this will be the default

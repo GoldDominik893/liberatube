@@ -1,75 +1,111 @@
 <?php
-    include('../config.php');
-    header('Content-type: video/mp4');
+include('../config.php');
+header('Content-Type: video/mp4');
 
-    $InvApiUrl = $InvVIServer.'/api/v1/videos/' . $_GET['id'] . '?hl=en';
+// ── BEGIN multi‑instance fail‑over ──
+$value = null;
+$errors = [];
 
-                $ch = curl_init();
+foreach ($InvVIServerArray as $idx => $instance) {
+    $pos = $idx + 1;
+    $url = rtrim($instance, '/') . '/api/v1/videos/' . $_GET['id'] . '?hl=en';
 
-                curl_setopt($ch, CURLOPT_HEADER, 0);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_URL, $InvApiUrl);
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-                curl_setopt($ch, CURLOPT_VERBOSE, 0);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                $response = curl_exec($ch);
+    $ch = curl_init();
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_TIMEOUT => 5,
+    ]);
+    $resp = curl_exec($ch);
+    $err = curl_error($ch);
+    curl_close($ch);
 
-                curl_close($ch);
-                $data = json_decode($response);
-                $value = json_decode(json_encode($data), true);
+    if ($err) {
+        $errors[$pos] = $err;
+        continue;
+    }
 
-                    $nonHlsUrls = [];
-                    $nonHlsItag = [];
-                    $nonHlsQuality = [];
-                    $nonHlsType = [];
-                    $nonHlsSize = [];
+    $data = json_decode($resp, true);
+    if (!isset($data['formatStreams']) || isset($data['error']) || $data === null) {
+        $errors[$pos] = $data['error'] ?? 'API returned null or missing formatStreams';
+        continue;
+    }
 
-                    if (isset($value['formatStreams']) && is_array($value['formatStreams'])) {
-                        foreach ($value['formatStreams'] as $formatStream) {
-                            if (isset($formatStream['url'])) {
-                                $nonHlsUrls[] = $formatStream['url'];
-                                $nonHlsItag[] = $formatStream['itag'];
-                                $nonHlsQuality[] = $formatStream['quality'];
-                                $nonHlsType[] = $formatStream['type'];
-                                $nonHlsSize[] = $formatStream['size'];
-                            }
-                        }
-                    }
+    // Check for googlevideo link
+    $hasGV = false;
+    foreach ($data['formatStreams'] as $fmt) {
+        if (!empty($fmt['url']) && strpos($fmt['url'], 'googlevideo.com') !== false) {
+            $hasGV = true;
+            break;
+        }
+    }
+    if (!$hasGV) {
+        $errors[$pos] = 'no googlevideo link';
+        continue;
+    }
 
-                    // itag hierarchy best to worst: 22(720p) 18(360p)
+    // Success!
+    header('X-Invidious-Instance: ' . $pos);
+    $value = $data;
+    break;
+}
 
-                    $selectedNonHlsUrl = '';
-                    if ($_GET['itag']) {
-                        $preferredItags = [$_GET['itag']];
-                    } else {
-                       $preferredItags = [end($nonHlsItag)]; 
-                    }
-                    
-
-
-                    if (isset($value['formatStreams']) && is_array($value['formatStreams'])) {
-                        foreach ($value['formatStreams'] as $formatStream) {
-                            if (isset($formatStream['url']) && isset($formatStream['itag'])) {
-                                $url = $formatStream['url'];
-                                $itag = $formatStream['itag'];
-
-                                if (in_array($itag, $preferredItags)) {
-                                    $selectedNonHlsUrl = $url;
-                                    break;
-                                }
-                            }
-                        }
-                    }
+if (!$value) {
+    header($_SERVER['SERVER_PROTOCOL'] . ' 503 Service Unavailable');
+    header('Content-Type: text/plain; charset=utf-8');
+    foreach ($errors as $pos => $msg) {
+        echo "Instance #{$pos}: {$msg}\n";
+    }
+    exit;
+}
+// ── END multi‑instance fail‑over ──
 
 
-if ($_GET['dl'] == "dl" and ($allowProxy == "true" or $allowProxy == "downloads")) {
+// Extract stream data
+$nonHlsUrls = [];
+$nonHlsItag = [];
+$nonHlsQuality = [];
+$nonHlsType = [];
+$nonHlsSize = [];
+
+foreach ($value['formatStreams'] as $formatStream) {
+    if (isset($formatStream['url'])) {
+        $nonHlsUrls[] = $formatStream['url'];
+        $nonHlsItag[] = $formatStream['itag'];
+        $nonHlsQuality[] = $formatStream['quality'];
+        $nonHlsType[] = $formatStream['type'];
+        $nonHlsSize[] = $formatStream['size'];
+    }
+}
+
+// Preferred itags
+$selectedNonHlsUrl = '';
+if ($_GET['itag']) {
+    $preferredItags = [$_GET['itag']];
+} else {
+    $preferredItags = [end($nonHlsItag)];
+}
+
+// Select URL
+foreach ($value['formatStreams'] as $formatStream) {
+    if (isset($formatStream['url'], $formatStream['itag'])) {
+        if (in_array($formatStream['itag'], $preferredItags)) {
+            $selectedNonHlsUrl = $formatStream['url'];
+            break;
+        }
+    }
+}
+
+// Redirect or proxy
+if ($_GET['dl'] == "dl" && ($allowProxy == "true" || $allowProxy == "downloads")) {
     readfile($selectedNonHlsUrl);
     exit();
-} elseif ($_GET['dl'] == "true" and $allowProxy == "true") {
+} elseif ($_GET['dl'] == "true" && $allowProxy == "true") {
     readfile($selectedNonHlsUrl);
     exit();
+} else {
+    header('Location: ' . $selectedNonHlsUrl);
+    exit();
 }
-else {
-    header('Location: '.$selectedNonHlsUrl);
-}
-exit;

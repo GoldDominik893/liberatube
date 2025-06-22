@@ -51,8 +51,6 @@ try {
     die("Database connection failed: " . $e->getMessage());
 }
 
-$cacheTime = 14400;
-
 $lang = $langrow;
 $videoId = $_GET['v'];
 
@@ -66,26 +64,48 @@ $cacheData = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($cacheData && (time() - strtotime($cacheData['created_at']) < $cacheTime)) {
     $value = json_decode($cacheData['data'], true);
 } else {
-    $InvApiUrl = $InvVIServer . '/api/v1/videos/' . $videoId . '?hl=' . $lang;
+    foreach ($InvVIServerArray as $idx => $instance) {
+    $position = $idx + 1; 
+    $url      = rtrim($instance, '/') . '/api/v1/videos/' . $videoId . '?hl=' . $lang;
+
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $InvApiUrl);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    $response = curl_exec($ch);
+    curl_setopt_array($ch, [
+        CURLOPT_URL            => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_TIMEOUT        => 5,
+    ]);
+    $resp = curl_exec($ch);
+    $err  = curl_error($ch);
     curl_close($ch);
-    
-    $value = json_decode($response, true);
-    $apiError = $value['error'] ?? null;
-    if ($value == null) {
-        $apiError = "API returned null";
+
+    if ($err) {
+        $errors[$position] = $err;
+        continue;
     }
 
-    if (!$apiError) {
-        $dataToCache = json_encode($value);
-        $query = "REPLACE INTO cache_video (video_id, lang, data, created_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute([$videoId, $lang, $dataToCache]);
+    $data = json_decode($resp, true);
+    if (isset($data['error']) || $data === null) {
+        $errors[$position] = $data['error'] ?? 'API returned null';
+        continue;
     }
+
+    // add to cache if we have valid data
+    $value    = $data;
+    $cacheSql = "REPLACE INTO cache_video (video_id, lang, data, created_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
+    $stmt     = $pdo->prepare($cacheSql);
+    $stmt->execute([$videoId, $lang, json_encode($value)]);
+    break;
+}
+
+// ERROR HANDLING
+if (!$value) {
+    $parts = [];
+    foreach ($errors as $pos => $msg) {
+        $parts[] = "<br>Instance #{$pos}: {$msg}";
+    }
+    $apiError = implode("; ", $parts);
+}
 }
                 
                 
@@ -186,7 +206,7 @@ if ($useReturnYTDislike == true) {
         <meta property="og:description" content="<?php echo $description; ?>">
         <meta property="description" content="<?php echo $description; ?>">
 
-<meta name="og:image" content="<?php echo $InvVIServer ?>/vi/<?php echo $_GET['v']; ?>/maxres.jpg"/>
+<meta name="og:image" content="<?php echo $InvSServer ?>/vi/<?php echo $_GET['v']; ?>/maxres.jpg"/>
 <meta name="twitter:card" content="summary_large_image">
 
 <span><meta property="og:site_name" content="Liberatube">
