@@ -22,7 +22,7 @@ CREATE TABLE `login` (
   `loadcomments` varchar(12) DEFAULT NULL,
   `watch_history` json DEFAULT NULL,
   PRIMARY KEY (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table structure for table `playlist`
 CREATE TABLE `playlist` (
@@ -33,7 +33,7 @@ CREATE TABLE `playlist` (
   `video_ids` json NOT NULL,
   PRIMARY KEY (`playlist_id`),
   FOREIGN KEY (`username`) REFERENCES `login` (`username`) ON DELETE CASCADE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table structure for table `cache`
 CREATE TABLE `cache_video` (
