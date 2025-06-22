@@ -165,14 +165,14 @@ if ($useSQL == true) {
             <div class="videos-data-container w3-animate-left" id="SearchResultsDiv">
                 <?php
                 if ($pagenumber == 1) {
-                    echo '<a href="?q='.$_GET['q'].'&page='.($pagenumber + 1).'">'.$translations[$langrow]['next_page'].'</a>';
+                    echo '<a class="trending-cat-btn" href="?q='.$_GET['q'].'&page='.($pagenumber + 1).'">'.$translations[$langrow]['next_page'].'</a>';
                 } else {
-                    echo '<a href="?q='.$_GET['q'].'&page='.($pagenumber - 1).'">'.$translations[$langrow]['previous_page'].'</a> · ';
-                    echo '<a href="?q='.$_GET['q'].'&page='.($pagenumber + 1).'">'.$translations[$langrow]['next_page'].'</a>';
+                    echo '<a class="trending-cat-btn" href="?q='.$_GET['q'].'&page='.($pagenumber - 1).'">'.$translations[$langrow]['previous_page'].'</a>  ';
+                    echo '<a class="trending-cat-btn" href="?q='.$_GET['q'].'&page='.($pagenumber + 1).'">'.$translations[$langrow]['next_page'].'</a>';
                 }
                 ?>
                 
-<div style="text-align: center;">
+<div style="text-align: center;"><br>
             <?php
                 for ($i = 0; $i < 20; $i++) {
                     $channel = $value[$i]['author'] ?? "";
