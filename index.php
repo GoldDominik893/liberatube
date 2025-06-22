@@ -357,7 +357,7 @@ $rsults = substr_count(json_encode($value), "descriptionHtml");
         </div>
         <br><div class="videos-data-container footer w3-animate-left">
             Liberatube Version 1.9 zeta · Licensed under AGPLv3 on GitHub · Credits: Dominic Wajda (GoldDominik893).
-            <br><a href="https://matrix.to/#/#libreratube:matrix.org">Join the Matrix</a> <a href="https://discord.gg/z4cCk5c5Zj">or discord</a> · <a href="https://invidious.io">Invidious</a> · <a href="https://github.com/GoldDominik893/liberatube">GitHub</a> · <a href="https://epicsite.xyz#donate">Donate to the Liberatube project</a> · <a href="https://liberatube-docs.epicsite.xyz/general/4.privacy/">Privacy Policy</a><br>
+            <br><a href="https://matrix.to/#/#libreratube:matrix.org">Join the Matrix</a> <a href="https://discord.gg/z4cCk5c5Zj">or discord</a> · <a href="https://invidious.io">Invidious</a> · <a href="https://github.com/GoldDominik893/liberatube">GitHub</a> · <a href="https://epicsite.xyz#donate">Donate to the Liberatube project</a> · <a href="https://liberatube-docs.epicsite.xyz/general/4.privacy/">Privacy Policy</a> · <a href="https://liberatube-docs.epicsite.xyz/general/7.dmca/">DMCA</a><br>
             Have you noticed a bug or want to see a new feature? <a href="https://github.com/GoldDominik893/liberatube/issues">Open an issue on GitHub</a>
             </div>
         </div>
