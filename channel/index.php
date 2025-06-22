@@ -132,7 +132,7 @@ if ($useSQL == true) {
                 <div class="response <?php echo $response["type"]; ?>"> <?php echo $response["message"]; ?> </div>
         <?php }?>
         <?php    
-                $InvApiUrl = $InvVIServer.'/api/v1/channels/'.$_GET['id'].'?hl='.$langrow.'&sort_by='.$_GET['sort_by'];    
+                $InvApiUrl = $InvSServer.'/api/v1/channels/'.$_GET['id'].'?hl='.$langrow.'&sort_by='.$_GET['sort_by'];    
                 
                 $ch = curl_init();
 
@@ -156,7 +156,7 @@ if ($useSQL == true) {
                 $channelPfpUrl = $value['authorThumbnails'][5]['url'] ?? "";
 
                 if($_GET['q']){
-                $InvApiUrl = $InvVIServer.'/api/v1/channels/search/'.$_GET['id'].'?hl='.$langrow.'&q='.$_GET['q'];
+                $InvApiUrl = $InvSServer.'/api/v1/channels/search/'.$_GET['id'].'?hl='.$langrow.'&q='.$_GET['q'];
                 $ch = curl_init();
 
                 curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -189,7 +189,7 @@ if ($useSQL == true) {
 
                 <?php
 
-                $pl = file_get_contents($InvVIServer.'/api/v1/channels/'.$_GET['id'].'/playlists/?hl='.$langrow);
+                $pl = file_get_contents($InvSServer.'/api/v1/channels/'.$_GET['id'].'/playlists/?hl='.$langrow);
                 $plitemsint = substr_count($pl,"playlistThumbnail");
 
 
@@ -312,7 +312,7 @@ if ($useSQL == true) {
            <?php 
                     }
                 } elseif ($_GET['type'] == "playlists") {
-                    $InvApiUrl = $InvVIServer.'/api/v1/channels/'.$_GET['id'].'/playlists?hl=en';
+                    $InvApiUrl = $InvSServer.'/api/v1/channels/'.$_GET['id'].'/playlists?hl=en';
 
                     $ch = curl_init();
     

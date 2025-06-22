@@ -130,7 +130,7 @@ if ($useSQL == true) {
         <?php }?>
         <?php   
                 $pagenumber = $_GET['page'] ?? 1;                     
-                $InvApiUrl = $InvVIServer.'/api/v1/playlists/'.$_GET['id'].'?page='.$pagenumber;
+                $InvApiUrl = $InvSServer.'/api/v1/playlists/'.$_GET['id'].'?page='.$pagenumber;
 
                 $ch = curl_init();
 
