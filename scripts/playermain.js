@@ -1,3 +1,4 @@
+// ###################################################################
 // TEXT COPY FUNCTION FOR SHARE BUTTON
 
 function copyText() {
@@ -5,7 +6,10 @@ function copyText() {
   navigator.clipboard.writeText(input.value);
 }
 
-// POPUP BOXES - uesd in player
+
+
+// ###################################################################
+// POPUP BOXES - used in player
     
 var Alert = new CustomAlert();
 var Alert_pl = new CustomAlert_pl();
@@ -65,9 +69,8 @@ function seekToTime(timestamp) {
 
 
 
+// ###################################################################
 // HLS STUFF 
-
-
 
 document.addEventListener('DOMContentLoaded', function () {
     const video = document.getElementById('video');
@@ -164,6 +167,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
+// ###################################################################
+// LIBREBOOK STUFF
+
 function shareWithFriend() {
     // Get the selected friend's name
     var friend = document.querySelector('input[name="friendSelect"]:checked');
@@ -192,15 +199,14 @@ function shareWithFriend() {
     // Set up the response handler
     xhr.onload = function() {
         if (xhr.status === 200) {
-            // Expecting format: "success, Message here" or "error, Message here"
             const [status, ...msgParts] = xhr.responseText.split(',');
-            const message = msgParts.join(',').trim(); // handles commas in message
-            const toastType = status.trim().toLowerCase(); // 'success' or 'error'
+            const message = msgParts.join(',').trim();
+            const toastType = status.trim().toLowerCase();
 
             if (toastType === "success" || toastType === "error" || toastType === "info") {
                 toast(toastType, message, 4000);
             } else {
-                toast("info", xhr.responseText, 4000); // fallback if unexpected format
+                toast("info", xhr.responseText, 4000); // fallback
             }
         } else {
             toast("error", "An error occurred while sharing the video.", 4000);
