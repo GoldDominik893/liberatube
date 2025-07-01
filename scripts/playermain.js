@@ -1,15 +1,11 @@
-function copyText() {
-    var Text = document.getElementById("textbox");
-    Text.select();
-    navigator.clipboard.writeText(Text.value);
-    document.getElementById("clipboard")
-        .innerHTML = Text.value;
-    }
-function myFunction() {
-    var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
-    }
+// TEXT COPY FUNCTION FOR SHARE BUTTON
 
+function copyText() {
+  const input = document.getElementById("textbox");
+  navigator.clipboard.writeText(input.value);
+}
+
+// POPUP BOXES - uesd in player
     
 var Alert = new CustomAlert();
 var Alert_pl = new CustomAlert_pl();
@@ -25,7 +21,6 @@ function CustomAlert(){
     document.getElementById('popUpOverlay').style.display = "none";
     }
 }	
-
 function CustomAlert_pl(){
     this.render = function(){
         let popUpBox = document.getElementById('popUpBox_pl');
@@ -36,7 +31,6 @@ function CustomAlert_pl(){
     document.getElementById('popUpOverlay').style.display = "none";
     }
 }	
-
 function CustomAlert_share(){
     this.render = function(){
         let popUpBox = document.getElementById('popUpBox_share');
@@ -47,6 +41,7 @@ function CustomAlert_share(){
     document.getElementById('popUpOverlay').style.display = "none";
     }
 }
+
 
 const urlParams = new URLSearchParams(window.location.search);
 const t = urlParams.get('t');
@@ -169,14 +164,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// LIBREBOOK STUFF
-
 function shareWithFriend() {
     // Get the selected friend's name
     var friend = document.querySelector('input[name="friendSelect"]:checked');
-    
+
     if (!friend) {
-        document.getElementById('result').innerHTML = 'Please select a friend to share the video with.';
+        toast("error", "Please select a friend to share the video with.", 4000);
         return;
     }
 
@@ -198,13 +191,21 @@ function shareWithFriend() {
 
     // Set up the response handler
     xhr.onload = function() {
-        if (xhr.status == 200) {
-            document.getElementById('result').innerHTML = xhr.responseText;
+        if (xhr.status === 200) {
+            // Expecting format: "success, Message here" or "error, Message here"
+            const [status, ...msgParts] = xhr.responseText.split(',');
+            const message = msgParts.join(',').trim(); // handles commas in message
+            const toastType = status.trim().toLowerCase(); // 'success' or 'error'
+
+            if (toastType === "success" || toastType === "error" || toastType === "info") {
+                toast(toastType, message, 4000);
+            } else {
+                toast("info", xhr.responseText, 4000); // fallback if unexpected format
+            }
         } else {
-            document.getElementById('result').innerHTML = 'An error occurred while sharing the video.';
+            toast("error", "An error occurred while sharing the video.", 4000);
         }
     };
 
-    // Send the request with the data
     xhr.send(data);
 }
