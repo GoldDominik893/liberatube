@@ -17,11 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $response_array = array_map('trim', explode(',', $response));
 
     if ($response_array[1] == 'Message sent successfully!') {
-        echo "Video shared with $friend!<br>";
+        echo "success, Video shared with $friend!";
     } else {
-        echo "Error sharing video with $friend!<br>";
+        echo "error, Error sharing video with $friend!";
     }
-    
     }
-    
 }
