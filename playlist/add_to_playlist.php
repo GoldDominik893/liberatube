@@ -2,55 +2,79 @@
 include('../config.php');
 session_start();
 
-// Create a database connection
+// Ensure the user is logged in
+if (!isset($_SESSION['logged_in_user'])) {
+    http_response_code(403);
+    echo "Not logged in.";
+    exit;
+}
+
+// Validate request method
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    http_response_code(405);
+    echo "Invalid request method.";
+    exit;
+}
+
+// Validate required POST fields
+if (!isset($_POST["videoId"], $_POST["playlistId"], $_POST["videoTitle"], $_POST["videoAuthor"])) {
+    http_response_code(400);
+    echo "Missing required parameters.";
+    exit;
+}
+
+// Create DB connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check the connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    http_response_code(500);
+    echo "Database connection failed.";
+    exit;
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $videoId = $_POST["videoId"];
-    $playlistId = $_POST["playlistId"];
+$videoId = $_POST["videoId"];
+$playlistId = $_POST["playlistId"];
+$videoTitle = $_POST["videoTitle"];
+$videoAuthor = $_POST["videoAuthor"];
+$username = $_SESSION['logged_in_user'];
 
-    // Validate and sanitize user inputs as needed
+// Fetch playlist
+$query = "SELECT video_ids, playlist_name FROM playlist WHERE playlist_id = ? AND username = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("ss", $playlistId, $username);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    // Check if the video ID and playlist ID exist
-    $query = "SELECT video_ids, playlist_name FROM playlist WHERE playlist_id = ? AND username = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $playlistId, $_SESSION['logged_in_user']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $videoInfoArray = json_decode($row['video_ids'], true);
-        $playlistName = $row['playlist_name'];
-
-        // Add new video information to the array
-        $newVideoInfo = array(
-            "id" => $videoId,
-            "title" => $_POST["videoTitle"],
-            "author" => $_POST["videoAuthor"]
-        );
-
-        $videoInfoArray[] = $newVideoInfo;
-
-        // Update the playlists table with the modified video information
-        $updateQuery = "UPDATE playlist SET video_ids = ? WHERE playlist_id = ? AND username = ?";
-        $updateStmt = $conn->prepare($updateQuery);
-        $updateStmt->bind_param("sss", json_encode($videoInfoArray), $playlistId, $_SESSION['logged_in_user']);
-
-        if ($updateStmt->execute()) {
-            echo 'Video added to the "'.$playlistName.'" playlist.';
-        } else {
-            echo "Error adding video to playlist.";
-        }
-        $updateStmt->close();
-    } else {
-        echo "Playlist not found.";
-    }
+if ($result->num_rows === 0) {
+    echo "Playlist not found.";
     $stmt->close();
+    $conn->close();
+    exit;
 }
+
+$row = $result->fetch_assoc();
+$playlistName = $row['playlist_name'];
+$videoInfoArray = json_decode($row['video_ids'], true) ?: [];
+
+// Append new video
+$videoInfoArray[] = [
+    "id" => $videoId,
+    "title" => $videoTitle,
+    "author" => $videoAuthor
+];
+
+// Update playlist
+$updateQuery = "UPDATE playlist SET video_ids = ? WHERE playlist_id = ? AND username = ?";
+$updateStmt = $conn->prepare($updateQuery);
+$updatedJson = json_encode($videoInfoArray);
+$updateStmt->bind_param("sss", $updatedJson, $playlistId, $username);
+
+if ($updateStmt->execute()) {
+    echo 'Video added to the "' . htmlspecialchars($playlistName) . '" playlist.';
+} else {
+    http_response_code(500);
+    echo "Error updating playlist.";
+}
+
+$updateStmt->close();
+$stmt->close();
 $conn->close();
