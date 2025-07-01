@@ -90,7 +90,7 @@ if ($cacheData && (time() - strtotime($cacheData['created_at']) < $cacheTime)) {
         continue;
     }
 
-    // add to cache if we have valid data
+    // add to cache
     $value    = $data;
     $cacheSql = "REPLACE INTO cache_video (video_id, lang, data, created_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
     $stmt     = $pdo->prepare($cacheSql);
@@ -106,9 +106,7 @@ if (!$value) {
     }
     $apiError = implode("; ", $parts);
 }
-}
-                
-                
+}  
                     $title = $value['title'];
                     $description = $value['description'];
                     $views = number_format($value['viewCount']);
@@ -118,12 +116,9 @@ if (!$value) {
                     $autsubs = $value['subCountText'];
                     $shared = $value['publishedText'];
 
-                    
-
                     foreach ($value['captions'] as $caption) {
                         $captionshtml .= '<track kind="captions" label="' . htmlspecialchars($caption['label']) . '" srclang="' . htmlspecialchars($caption['languageCode']) . '" src="/videodata/captions.php/?c_ext=' . htmlspecialchars($caption['url']) . '" default>';
                     }
-
 
                     if (isset($value['formatStreams']) && is_array($value['formatStreams'])) {
                         foreach ($value['formatStreams'] as $formatStream) {
@@ -186,8 +181,7 @@ if ($useReturnYTDislike == true) {
 } else {
     $dislikes = '';
 }
-                    
-                    ?> 
+?>
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -210,7 +204,10 @@ if ($useReturnYTDislike == true) {
 <meta name="twitter:card" content="summary_large_image">
 
 <span><meta property="og:site_name" content="Liberatube">
-<link itemprop="name" content="Liberatube"></span></head>
+<link itemprop="name" content="Liberatube"></span>
+
+</head>
+<body>
 
 <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
@@ -287,7 +284,6 @@ if ($useSQL == true) {
   </div>
 </div>
 
-
 <div class="tenborder">
 
             <?php
@@ -309,7 +305,6 @@ if ($useSQL == true) {
                     </audio>';
             }
             else {
-
 
                     $baseUrl = '/videodata/hls.php?id={{videoId}}&itag={{itag}}';
 
@@ -337,9 +332,7 @@ if ($useSQL == true) {
                     <audio id="audio" preload="auto">
                     <source src="'.$audioUrl.$dlsetting.'" type="audio/mp4">
                     </audio>
-                    
                     ';
-
             } ?>
 
     <div class="relatedVideos" style="float: right;">
@@ -379,11 +372,7 @@ if ($useSQL == true) {
     <?php 
     }
     ?> 
-</div>
-
-
-
-        
+</div>  
        
 <h3><?php echo $title; ?></h3>
 <h4><?php echo $shared; ?> · <?php echo $views; ?> <?php echo $translations[$langrow]['views']; ?> · <?php echo $likes; ?> <?php echo $translations[$langrow]['likes']; ?><?php echo $dislikes; ?></h4>
@@ -397,13 +386,19 @@ if ($useSQL == true) {
 <a class="button" onclick="Alert_pl.render('ok')"><?php echo $translations[$langrow]['add_to_playlist']; ?></a>
 <a class="button" href="/channel/?id=<?php echo $authorId; ?>"><?php echo $author; ?> · <?php echo $autsubs; ?></a>
 
-
 <div id="popUpBox_share" style="display: none;">
 <div id="box_share" style="max-width: 1200px;">
 
+<h3 style="margin-bottom: 17px;">Share this video</h3>
 
-<h3>Share this video</h3>
-<h4 style="text-align: left;">Share this video with a Librebook friend</h4>
+<h4 style="text-align: left;">Share this video with a link</h4>
+
+<div style="display: flex; align-items: flex-start;">
+  <input id="textbox" style="background-color: #2a2a2a; border: none; border-top-left-radius: 8px; border-bottom-left-radius: 8px; padding: 12px; width: 300px; height: 150px; resize: none; outline: none; overflow-x: auto; overflow-y: hidden; text-overflow: ellipsis; white-space: nowrap; height: 34px;" value="<?php echo $currentUrl; ?>">
+  <button onclick="copyText(), toast('success', 'URL Copied', 4000);" style="background-color:rgb(44, 68, 0); border: none; padding: 5px 6px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; cursor: pointer;"><span class="material-symbols-outlined">content_copy</span></button>
+</div>
+
+<br><h4 style="text-align: left;">Share this video with a Librebook friend</h4>
 
 <?php 
 if ($_SESSION['logged_in_user']) { ?>
@@ -438,8 +433,7 @@ if ($librebook_keyrow and $librebook_urlrow) {
         }
         ?>
     </div>
-    
-    <!-- Message box illustration -->
+
     <div style="max-width: 250px; text-align: left;">
         <br>
         <p><b><?php echo $librebook_user ?> --> You</b><br>Check out this video!<br><?php echo $title.' - '.$author.' - '.$currentUrl ?></p>
@@ -496,21 +490,13 @@ if ($librebook_keyrow and $librebook_urlrow) {
     echo "Librebook API key or URL not set or misconfigured in settings.";
 }
 
-
-
 } else {
     echo 'You are not logged in. <a href="/auth/login.html">Login</a>';
 } ?>
 
-<h4 style="text-align: left;">Share this video with a link</h4>
-<textarea hidden id="textbox" value="<?php echo $currentUrl; ?>"><?php echo $currentUrl; ?></textarea>
-<a class="popup button" onclick="myFunction(), copyText()">
-<span class="popuptext" id="myPopup"><?php echo $translations[$langrow]['url_copied']; ?></span><?php echo $translations[$langrow]['share']; ?></a>
-
-<div id="closeModal_share"><a class="button" onclick="Alert_share.ok()">Close</a></div>
+<div id="closeModal_share"><br><a class="button" onclick="Alert_share.ok()">Close</a></div>
 </div>
 </div>
-
 
 <div id="popUpBox_pl" style="display: none;">
 <div id="box_pl">
@@ -526,13 +512,12 @@ if ($librebook_keyrow and $librebook_urlrow) {
 </form>
 <div id="result"></div>
 <?php } else { ?>
-<h3>You are not logged in. <a href="/auth/login.html">Login</a></h3>
+<h3><?php echo $translations[$langrow]['add_vid_to_playlist']; ?></h3>
+You are not logged in. <a href="/auth/login.html">Login</a><br><br>
 <?php } ?>
 <div id="closeModal_pl"><a class="button" onclick="Alert_pl.ok()">Close</a></div>
 </div>
 </div>
-
-
 
 <div id="popUpBox"  style="display: none;">
 <div id="box">
@@ -616,6 +601,8 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
         <script src="/scripts/playermain.js"></script>
         <script src="/scripts/playlist.js"></script>
         <script src="/scripts/sidebar.js"></script>
+        <script src="/scripts/toast.js"></script>
+
 <div class="relatedVideosMob">
     <h3>Related videos</h3>
     <?php
@@ -769,29 +756,24 @@ $cdesc = str_replace('href="https://www.youtube.com/watch?v=','href="/watch/?v='
 </body>
 </html>
 
-<?php
-$newItem = [
+<?php // THIS PART ADDS THIS VIDEO TO THE WATCH HISTORY
+if ($useSQL == true) {
+    $newItem = [
     'video_id' => $_GET['v'],
     'title' => $title,
     'author' => $author,
     'timestamp' => (new \DateTime())->format('Y-m-d H:i:s'),
-];
+    ];
 
-if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error); }
 
     $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
     $stmt->bind_param("s", $_SESSION['logged_in_user']);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    while ($row = $result->fetch_assoc()) {
-        $watchHistory = json_decode($row['watch_history'], true);
-    }
-
+    while ($row = $result->fetch_assoc()) { $watchHistory = json_decode($row['watch_history'], true); }
 
     $watchHistory[] = $newItem;
     $updatedWatchHistory = json_encode($watchHistory);
@@ -800,8 +782,6 @@ if ($useSQL == true) {
     $updateStmt->bind_param("ss", $updatedWatchHistory, $_SESSION['logged_in_user']);
     $updateStmt->execute();
 
-
     $stmt->close();
     $conn->close();
-}
-?>
+} ?>
