@@ -9,7 +9,7 @@ function copyText() {
 
 
 // ###################################################################
-// POPUP BOXES - used in player
+// POPUP BOXES
     
 var Alert = new CustomAlert();
 var Alert_pl = new CustomAlert_pl();
@@ -47,6 +47,10 @@ function CustomAlert_share(){
 }
 
 
+
+// ###################################################################
+// SEEK TO TIME FUNCTION
+
 const urlParams = new URLSearchParams(window.location.search);
 const t = urlParams.get('t');
 if (t !== null && !isNaN(t)) {
@@ -65,7 +69,7 @@ function seekToTime(timestamp) {
     }
 
     video.currentTime = totalSeconds;
-  }
+}
 
 
 

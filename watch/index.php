@@ -441,7 +441,6 @@ if ($librebook_keyrow and $librebook_urlrow) {
 
     <input type="button" value="Share" onclick="shareWithFriend()">
     </form>
-    <div id="result"></div>
     <style>
         input[type="radio"] {
             display: none;
@@ -485,16 +484,14 @@ if ($librebook_keyrow and $librebook_urlrow) {
 </style>
 <?php
     }
-
 } else {
     echo "Librebook API key or URL not set or misconfigured in settings.";
 }
-
 } else {
     echo 'You are not logged in. <a href="/auth/login.html">Login</a>';
 } ?>
 
-<div id="closeModal_share"><br><a class="button" onclick="Alert_share.ok()">Close</a></div>
+<div id="closeModal_share"><a class="button" onclick="Alert_share.ok()">Close</a></div>
 </div>
 </div>
 
@@ -510,7 +507,6 @@ if ($librebook_keyrow and $librebook_urlrow) {
     </select>
     <input type="button" value="<?php echo $translations[$langrow]['add_to_playlist']; ?>" onclick="addToPlaylist()">
 </form>
-<div id="result"></div>
 <?php } else { ?>
 <h3><?php echo $translations[$langrow]['add_vid_to_playlist']; ?></h3>
 You are not logged in. <a href="/auth/login.html">Login</a><br><br>
@@ -519,7 +515,7 @@ You are not logged in. <a href="/auth/login.html">Login</a><br><br>
 </div>
 </div>
 
-<div id="popUpBox"  style="display: none;">
+<div id="popUpBox" style="display: none;">
 <div id="box">
 <?php
 if ($allowProxy == "true" or $allowProxy == "downloads") {
