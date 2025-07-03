@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 session_start();  
 include('config.php');
 $langrow = $defaultLang;
 include('lang.php');
-
-
 
 if ($useSQL == true) {
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -65,17 +61,20 @@ $numrows = $result->num_rows;
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <title>Liberatube · <?php echo $translations[$langrow]['settings']; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Liberatube">
 <link rel="apple-touch-icon" href="favicon.ico">
 <link rel="stylesheet" href="/styles/-w3.css">
 <link rel="stylesheet" href="/styles/-bootstrap.min.css">
+</head>
 
 
-
+<body>
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
   <a href="/" class="w3-bar-item sidebarbtn awhitesidebar"><span class="material-symbols-outlined">home</span><span class="tooltiptext"><?php echo $translations[$langrow]['home']; ?></span></a>
@@ -196,14 +195,12 @@ if($result->num_rows) {
 }
 $stmt = $conn->prepare("UPDATE login SET librebook_url = ?, librebook_key = ?, customtheme_player_url = ?, customtheme_home_url = ?, theme = ?, lang = ?, region = ?, proxy = ?, videoshadow = ?, loadcomments = ? WHERE username = ?");
 $stmt->bind_param("sssssssssss", $librebook_url, $librebook_key, $customthemeplayerrow, $customthemehomerow, $theme, $lang, $uregion, $torfproxy, $uvideoshadow, $uloadcomments, $dbsenduser);
-if ($stmt->execute() === TRUE) {   
+if ($stmt->execute() === TRUE) {
 } else {
   echo "Error: <br>" . $conn->error;
 }
 $conn->close();
-} 
-
-
+}
 
 if($_GET['customthemeplayerrow']) {
   $conn = new mysqli($servername, $username, $password, $dbname);
@@ -469,10 +466,12 @@ if ($_SESSION['logged_in_user'] == $adminuser) {
   </div>
 </form>
 <script src="/scripts/formxhr.js"></script>
+<script src="/scripts/toast.js"></script>
 </div>';
 } else {
 echo '<h4 style="text-align: center;">You are not logged in.</h4>';
 }
 
 ?>
+</body>
 </html>
