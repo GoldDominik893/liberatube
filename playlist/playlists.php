@@ -72,6 +72,7 @@ if(strcmp($themerow, 'blue') == 0) {
   echo '<link rel="stylesheet" href="../styles/home'.$defaultTheme.'.css">';
 } 
 ?>
+</head>
     <body>
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card sidebar" style="width:55px;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">&times;</button>
@@ -165,6 +166,7 @@ if ($result->num_rows > 0) {
                     </div>
                 </a>
 HTML;
+
     }
 } else {
     echo "<p>0 ".$translations[$langrow]['playlists'].".</p>";
@@ -199,12 +201,13 @@ echo '
 ?>
 
 </div></div>
-
-
-
     </div>
     </div>
   </div>
 </div>
   </div>
 </div>
+
+
+</body>
+</html>
