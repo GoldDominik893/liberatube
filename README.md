@@ -23,7 +23,7 @@
   * [Liability](#liability)
   * [Licences from dependancies](#licences-from-dependancies)
 
-## Screenshots
+## Screenshots (outdated)
 
 | Home | Video |
 |---|---|
