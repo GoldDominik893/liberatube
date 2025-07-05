@@ -43,7 +43,7 @@ a {
     color: #777;
 }
 
-a:hover, a:focus {
+a:hover, button:hover, a:focus, button:focus {
     color: #ff4444;
     text-decoration: none;
 }
@@ -353,6 +353,13 @@ img {
     text-align: center;
     border-radius: 6px;
     padding: 5px 8px;
+    max-height: 30px;
+    border: none;
+}
+
+button.trending-cat-btn {
+    padding-bottom: 3px;
+    padding-top: 4px;
 }
 
 .trending-cat-btn-selected, .trending-cat-btn-selected:hover {
