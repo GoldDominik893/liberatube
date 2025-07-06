@@ -27,6 +27,35 @@ if ($useSQL == true) {
     session_destroy();
 }
 
+// Handle video removal from playlist
+if (isset($_POST['remove_video_index'])) {
+    $videoIndexToRemove = (int)$_POST['remove_video_index'];
+    $playlistId = $_GET['playlist_id'];
+    
+    // Get current playlist data
+    $stmt = $conn->prepare("SELECT video_ids FROM playlist WHERE playlist_id = ?");
+    $stmt->bind_param("s", $playlistId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $videoInfoArray = json_decode($row['video_ids'], true);
+    
+    // Remove the video by index
+    if (isset($videoInfoArray[$videoIndexToRemove])) {
+        array_splice($videoInfoArray, $videoIndexToRemove, 1);
+        
+        // Update the playlist
+        $stmt = $conn->prepare("UPDATE playlist SET video_ids = ? WHERE playlist_id = ?");
+        $newVideoJson = json_encode(array_values($videoInfoArray));
+        $stmt->bind_param("ss", $newVideoJson, $playlistId);
+        $stmt->execute();
+    }
+    
+    // Refresh the page
+    header("Location: view_playlist.php?playlist_id=".$playlistId);
+    exit;
+}
+
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $playlistId = $_GET['playlist_id'];
@@ -165,75 +194,104 @@ if ($result->num_rows > 0) {
 $videoCount = is_array($videoInfoArray) ? count($videoInfoArray) : 0;
 
 if ($editMode && $isOwner) {
-    echo '<form method="post" action="view_playlist.php?playlist_id='.$playlistId.'">';
-    echo '<div class="search-form-container w3-animate-left">';
-    echo '<input type="text" name="new_title" value="'.htmlspecialchars($playlistName).'" style="width:100%; max-width: 460px; margin-bottom:10px;" required>';
-    
-    echo '<div >';
-    echo '<label class="w3-checkbox">';
-    echo '<input type="checkbox" name="is_public" '.($isPublic ? 'checked' : '').'>';
-    echo ' '.$translations[$langrow]['public_playlist'];
-    echo '</label>';
-    echo '</div>';
-    
-    echo '<div>';
-    echo '<button class="trending-cat-btn" type="submit" name="save_playlist">';
-    echo $translations[$langrow]['save'];
-    echo '</button>';
-    
-    echo ' <a class="trending-cat-btn" href="view_playlist.php?playlist_id='.$playlistId.'">';
-    echo $translations[$langrow]['cancel'];
-    echo '</a>';
-    
-    echo ' <button class="trending-cat-btn" type="submit" name="delete_playlist"';
-    echo 'onclick="return confirm(\''.$translations[$langrow]['confirm_delete_playlist'].'\')">';
-    echo $translations[$langrow]['delete'];
-    echo '</button>';
-    echo '</div>';
-    echo '</div>';
-    echo '</form>';
+    $checked = $isPublic ? 'checked' : '';
+    $escapedPlaylistName = htmlspecialchars($playlistName);
+    echo <<<HTML
+        <form method="post" action="view_playlist.php?playlist_id={$playlistId}">
+            <div class="search-form-container w3-animate-left">
+                <input type="text" name="new_title" value="{$escapedPlaylistName}" style="width:100%; max-width: 460px; margin-bottom:10px;" required>
+                
+                <div>
+                    <label class="w3-checkbox">
+                        <input type="checkbox" name="is_public" {$checked}>
+                        {$translations[$langrow]['public_playlist']}
+                    </label>
+                </div>
+                
+                <div>
+                    <button class="trending-cat-btn" type="submit" name="save_playlist">
+                        {$translations[$langrow]['save']}
+                    </button>
+                    
+                    <a class="trending-cat-btn" href="view_playlist.php?playlist_id={$playlistId}">
+                        {$translations[$langrow]['cancel']}
+                    </a>
+                    
+                    <button class="trending-cat-btn" type="submit" name="delete_playlist" onclick="return confirm('{$translations[$langrow]['confirm_delete_playlist']}')">
+                        {$translations[$langrow]['delete']}
+                    </button>
+                </div>
+            </div>
+        </form>
+    HTML;
 } else {
-    echo '<div class="search-form-container w3-animate-left"><h4>';
-    echo htmlspecialchars($playlistName).'<br>';          
-    echo $videoCount.' '.$translations[$langrow]['videos'].' · ';
-    echo ($isPublic ? $translations[$langrow]['public'] : $translations[$langrow]['private']).' · ';
-    echo $translations[$langrow]['created_by'].' '.htmlspecialchars($plusername);
-    echo '</h4></div>';
+    $visibility = $isPublic ? $translations[$langrow]['public'] : $translations[$langrow]['private'];
+    $escapedPlaylistName = htmlspecialchars($playlistName);
+    $escapedUsername = htmlspecialchars($plusername);
+    echo <<<HTML
+        <div class="search-form-container w3-animate-left">
+            <h4>
+                {$escapedPlaylistName}<br>
+                {$videoCount} {$translations[$langrow]['videos']} · 
+                {$visibility} · 
+                {$translations[$langrow]['created_by']} {$escapedUsername}
+            </h4>
+        </div>
+    HTML;
     
     // Show edit button if owner
     if ($isOwner) {
-        echo '<a class="trending-cat-btn" href="view_playlist.php?playlist_id='.$playlistId.'&edit=1">';
-        echo $translations[$langrow]['edit_playlist'];
-        echo '</a>';
+        echo <<<HTML
+            <a class="trending-cat-btn" href="view_playlist.php?playlist_id={$playlistId}&edit=1">
+                {$translations[$langrow]['edit_playlist']}
+            </a>
+        HTML;
     }
 }
 
     // Check visibility (only show if public or owner)
     if ($isPublic || $isOwner) {
         echo '<div class="video-container">
-              <div style="text-align: center;">';
+              <div style="text-align: center;"><br>';
 
         $videoIndex = 1;
-        foreach ($videoInfoArray as $videoInfo) {
+        foreach ($videoInfoArray as $index => $videoInfo) {
             if (is_array($videoInfo)) {
                 $videoId = $videoInfo['id'];
                 $title = $videoInfo['title'];
                 $author = $videoInfo['author'];
+                $displayIndex = $index + 1; // Display position starts at 1
 
                 echo <<<HTML
-                    <a class="awhite" href="/watch/?v={$videoId}&list={$playlistId}&index={$videoIndex}">
-                        <div class="video-tile w3-animate-left">
-                            <div class="videoDiv">
-                                    <img src="http://i.ytimg.com/vi/{$videoId}/mqdefault.jpg" width="256px">
-                                <div style="position: absolute; margin-top: -23px; right: 10px; background: rgba(0,0,0,0.7); padding-left: 4px; padding-right: 4px; border-radius: 3px;">{$timestamp}</div>
-                            </div>
-                            <div class="videoInfo">
-                                <div class="videoTitle">{$title}<br><b>{$author}</b></div>
-                            </div>
-                        </div>
-                    </a>
+                        <a class="awhite" href="/watch/?v={$videoId}&list={$playlistId}&index={$displayIndex}">
+                            <div class="video-tile w3-animate-left">
+                                <div class="videoDiv">
+                                        <img src="http://i.ytimg.com/vi/{$videoId}/mqdefault.jpg" width="256px">
                 HTML;
-                $videoIndex++; 
+
+                // Add delete button if in edit mode and owner
+                if ($isOwner) {
+                    echo <<<HTML
+                        <div class="button-on-vid">
+                            <form method="POST" action="" style="display:inline;">
+                                <input type="hidden" name="remove_video_index" value="{$index}">
+                                <button type="submit" class="remove-button">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </form>
+                        </div>
+                    HTML;
+                }
+
+                echo <<<HTML
+                                    </div>
+                                    <div class="videoInfo">
+                                        <div class="videoTitle">{$title}<br><b>{$author}</b></div>
+                                    </div>
+                                </div>
+                            </a>
+                            
+                HTML;
             }
         }
         echo "</div>";

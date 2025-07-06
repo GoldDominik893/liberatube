@@ -313,6 +313,7 @@ font-variation-settings:
     background-color: rgb(247, 129, 129);
     transition: transform 0.2s;
     transition: 0.3s;
+    color: white;
 }
 
 img {
