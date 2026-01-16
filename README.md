@@ -47,7 +47,6 @@
 * [x] Caches certain pages to speed up loading times.
 * [x] Download videos
 * [x] Does not use official YouTube API's
-* [x] Docker compose file
 
 ## To do
 
@@ -81,7 +80,7 @@ If you need help regarding this software please check the [Documentation](http:/
 
 Liberatube is licensed under the GNU Affero General Public License v3.0
 
-Copyright © 2025 Dominic Wajda
+Copyright © 2026 Dominic Wajda
 
 ### Liability
 
